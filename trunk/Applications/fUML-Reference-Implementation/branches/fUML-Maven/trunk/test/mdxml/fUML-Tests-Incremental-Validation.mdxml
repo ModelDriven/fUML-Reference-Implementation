@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xmi:XMI xmi:version='2.1' xmlns:uml='http://schema.omg.org/spec/UML/2.1.2' xmlns:xmi='http://schema.omg.org/spec/XMI/2.1' xmlns:DSL_Customization='http://www.magicdraw.com/schemas/DSL_Customization.xmi' xmlns:Validation_Profile='http://www.magicdraw.com/schemas/Validation_Profile.xmi' xmlns:UML_Standard_Profile='http://www.magicdraw.com/schemas/UML_Standard_Profile.xmi' xmlns:MagicDraw_Profile='http://www.magicdraw.com/schemas/MagicDraw_Profile.xmi'>
+	<xmi:Documentation exporter='MagicDraw UML' exporterVersion='15.5'/>
+	<xmi:Extension extender='MagicDraw UML 15.5' extenderID='MagicDraw UML 15.5'>
+		<shareTable/>
+		<mountTable>
+			<module resource='file:/C:/Program%20Files/MagicDraw%2015.5/profiles/UML_Standard_Profile.xml' autoloadType='ALWAYS_LOAD' readOnly='true' loadIndex='false' requiredVersion='-1'>
+				<mount mountPoint='magicdraw_uml_standard_profile_v_0001' mountedOn='eee_1045467100313_135436_1'/>
+			</module>
+		</mountTable>
+	</xmi:Extension>
+	<uml:Model xmi:id='eee_1045467100313_135436_1' name='Data' visibility='public' viewpoint=''>
+		<xmi:Extension extender='MagicDraw UML 15.5' extenderID='MagicDraw UML 15.5'>
+			<moduleExtension ignoredInModule='true'/>
+		</xmi:Extension>
+		<ownedComment xmi:type='uml:Comment' xmi:id='_12_1_f00036a_1173877897794_142091_98' body='Author:Ed Seidewitz.&#10;Created:10/31/08 6:46 PM.&#10;Title:.&#10;Comment:.&#10;'>
+			<annotatedElement xmi:idref='eee_1045467100313_135436_1'/>
+		</ownedComment>
+		<packagedElement xmi:type='uml:Activity' xmi:id='_15_5_1_1a900482_1225493265234_644298_826' name='Copier' foo='bar' visibility='public' isLeaf='false' isAbstract='false' isActive='false' isReentrant='false' isReadOnly='false' isSingleExecution='false'>
+			<ownedParameter xmi:type='uml:Parameter' xmi:id='_15_5_1_1a900482_1225493292468_627695_848' name='input' visibility='public' isOrdered='false' isUnique='true' direction='in' isException='false' isStream='false'>
+				<type xmi:type='uml:PrimitiveType' href='http://schema.omg.org/spec/UML/2.0/uml.xml#Integer'>
+					<xmi:Extension extender='MagicDraw UML 15.5' extenderID='MagicDraw UML 15.5'>
+						<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::AuxiliaryConstructs::PrimitiveTypes::Integer' referentType='PrimitiveType'/>
+					</xmi:Extension>
+				</type>
+				<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_15_5_1_1a900482_1225571463609_929364_1595' name='' visibility='public' value='1'/>
+				<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_15_5_1_1a900482_1225571463609_274230_1594' name='' visibility='public' value='1'/>
+			</ownedParameter>
+			<ownedParameter xmi:type='uml:Parameter' xmi:id='_15_5_1_1a900482_1225493328640_866903_865' name='output' visibility='public' isOrdered='false' isUnique='true' direction='out' isException='false' isStream='false'>
+				<type xmi:type='uml:PrimitiveType' href='http://schema.omg.org/spec/UML/2.0/uml.xml#Integer'>
+					<xmi:Extension extender='MagicDraw UML 15.5' extenderID='MagicDraw UML 15.5'>
+						<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::AuxiliaryConstructs::PrimitiveTypes::Integer' referentType='PrimitiveType'/>
+					</xmi:Extension>
+				</type>
+				<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_15_5_1_1a900482_1225571467046_306964_1605' name='' visibility='public' value='1'/>
+				<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_15_5_1_1a900482_1225571467046_71335_1604' name='' visibility='public' value='1'/>
+			</ownedParameter>
+			<node xmi:type='uml:ActivityParameterNode' xmi:id='_15_5_1_1a900482_1225493290093_135104_846' name='Parameter(input)' visibility='public' isLeaf='false' ordering='FIFO' isControlType='false' parameter='_15_5_1_1a900482_1225493292468_627695_848'>
+				<type xmi:type='uml:PrimitiveType' href='http://schema.omg.org/spec/UML/2.0/uml.xml#Integer'>
+					<xmi:Extension extender='MagicDraw UML 15.5' extenderID='MagicDraw UML 15.5'>
+						<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::AuxiliaryConstructs::PrimitiveTypes::Integer' referentType='PrimitiveType'/>
+					</xmi:Extension>
+				</type>
+				<outgoing xmi:idref='_15_5_1_1a900482_1225493385296_549879_882'/>
+			</node>
+			<node xmi:type='uml:ActivityParameterNode' xmi:id='_15_5_1_1a900482_1225493325593_468467_863' name='Parameter(output)' visibility='public' isLeaf='false' ordering='FIFO' isControlType='false' parameter='_15_5_1_1a900482_1225493328640_866903_865'>
+				<type xmi:type='uml:PrimitiveType' href='http://schema.omg.org/spec/UML/2.0/uml.xml#Integer'>
+					<xmi:Extension extender='MagicDraw UML 15.5' extenderID='MagicDraw UML 15.5'>
+						<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::AuxiliaryConstructs::PrimitiveTypes::Integer' referentType='PrimitiveType'/>
+					</xmi:Extension>
+				</type>
+				<incoming xmi:idref='_15_5_1_1a900482_1225493385296_549879_882'/>
+			</node>
+			<yoGabbaGabba/>
+			<edge xmi:type='uml:ActivityEdge' xmi:id='_15_5_1_1a900482_1225493385296_549879_882' name='' visibility='public' isLeaf='false' isMulticast='false' isMultireceive='false' source='_15_5_1_1a900482_1225493290093_135104_846' target='_15_5_1_1a900482_1225493325593_468467_863'>
+				<weight xmi:type='uml:LiteralInteger' xmi:id='_15_5_1_1a900482_1225493385296_216053_883' name='' visibility='public' value='1'/>
+			</edge>
+		</packagedElement>
+		<packagedElement xmi:type='uml:Activity' xmi:id='_15_5_1_1a900482_1225497525562_682640_935' name='CopierCaller' visibility='public' isLeaf='false' isAbstract='false' isActive='false' isReentrant='false' isReadOnly='false' isSingleExecution='false'>
+			<ownedParameter xmi:type='uml:Parameter' xmi:id='_15_5_1_1a900482_1225497627500_124535_999' name='output' visibility='public' isOrdered='false' isUnique='true' direction='out' isException='false' isStream='false'>
+				<type xmi:type='uml:PrimitiveType' href='http://schema.omg.org/spec/UML/2.0/uml.xml#Integer'>
+					<xmi:Extension extender='MagicDraw UML 15.5' extenderID='MagicDraw UML 15.5'>
+						<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::AuxiliaryConstructs::PrimitiveTypes::Integer' referentType='PrimitiveType'/>
+					</xmi:Extension>
+				</type>
+				<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_15_5_1_1a900482_1225571487875_27229_1615' name='' visibility='public' value='1'/>
+				<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_15_5_1_1a900482_1225571487875_653390_1614' name='' visibility='public' value='1'/>
+			</ownedParameter>
+			<node xmi:type='uml:CallBehaviorAction' xmi:id='_15_5_1_1a900482_1225497607390_797217_958' name='Call(Copier)' visibility='public' isLeaf='false' isSynchronous='true' behavior='_15_5_1_1a900482_1225493265234_644298_826'>
+				<argument xmi:type='uml:InputPin' xmi:id='_15_5_1_1a900482_1225497607406_458324_968' name='Copier.input' visibility='public' isLeaf='false' ordering='FIFO' isControlType='false' isOrdered='false' isUnique='true' isControl='false'>
+					<xmi:Extension extender='MagicDraw UML 15.5' extenderID='MagicDraw UML 15.5'>
+						<modelExtension parameter='_15_5_1_1a900482_1225493292468_627695_848'/>
+					</xmi:Extension>
+					<type xmi:type='uml:PrimitiveType' href='http://schema.omg.org/spec/UML/2.0/uml.xml#Integer'>
+						<xmi:Extension extender='MagicDraw UML 15.5' extenderID='MagicDraw UML 15.5'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::AuxiliaryConstructs::PrimitiveTypes::Integer' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<incoming xmi:idref='_15_5_1_1a900482_1225497801781_532769_1067'/>
+					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_15_5_1_1a900482_1225672747609_617137_2785' name='' visibility='public' value='1'/>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_15_5_1_1a900482_1225672747609_246112_2784' name='' visibility='public' value='1'/>
+				</argument>
+				<result xmi:type='uml:OutputPin' xmi:id='_15_5_1_1a900482_1225497607406_402328_969' name='Copier.output' visibility='public' isLeaf='false' ordering='FIFO' isControlType='false' isOrdered='false' isUnique='true' isControl='false'>
+					<xmi:Extension extender='MagicDraw UML 15.5' extenderID='MagicDraw UML 15.5'>
+						<modelExtension parameter='_15_5_1_1a900482_1225493328640_866903_865'/>
+					</xmi:Extension>
+					<type xmi:type='uml:PrimitiveType' href='http://schema.omg.org/spec/UML/2.0/uml.xml#Integer'>
+						<xmi:Extension extender='MagicDraw UML 15.5' extenderID='MagicDraw UML 15.5'>
+							<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::AuxiliaryConstructs::PrimitiveTypes::Integer' referentType='PrimitiveType'/>
+						</xmi:Extension>
+					</type>
+					<outgoing xmi:idref='_15_5_1_1a900482_1225497726859_905410_1015'/>
+					<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_15_5_1_1a900482_1225672756125_395752_2787' name='' visibility='public' value='1'/>
+					<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_15_5_1_1a900482_1225672756125_482955_2786' name='' visibility='public' value='1'/>
+				</result>
+			</node>
+			<node xmi:type='uml:ActivityParameterNode' xmi:id='_15_5_1_1a900482_1225497625968_952243_997' name='Parameter(output)' visibility='public' isLeaf='false' ordering='FIFO' isControlType='false' parameter='_15_5_1_1a900482_1225497627500_124535_999'>
+				<type xmi:type='uml:PrimitiveType' href='http://schema.omg.org/spec/UML/2.0/uml.xml#Integer'>
+					<xmi:Extension extender='MagicDraw UML 15.5' extenderID='MagicDraw UML 15.5'>
+						<referenceExtension referentPath='UML Standard Profile::UML2 Metamodel::AuxiliaryConstructs::PrimitiveTypes::Integer' referentType='PrimitiveType'/>
+					</xmi:Extension>
+				</type>
+				<incoming xmi:idref='_15_5_1_1a900482_1225497726859_905410_1015'/>
+			</node>
+			<node xmi:type='uml:ValueSpecificationAction' xmi:id='_15_5_1_1a900482_1225497758812_16621_1038' name='Value(0)' visibility='public' isLeaf='false'>
+				<value xmi:type='uml:OpaqueExpression' xmi:id='_15_5_1_1a900482_1225497786609_516632_1051' name='' visibility='public' body='0' language='English'/>
+				<result xmi:type='uml:OutputPin' xmi:id='_15_5_1_1a900482_1225497794546_746009_1053' name='Value(0).result' visibility='public' isLeaf='false' ordering='FIFO' isControlType='false' isOrdered='false' isUnique='true' isControl='false'>
+					<outgoing xmi:idref='_15_5_1_1a900482_1225497801781_532769_1067'/>
+				</result>
+			</node>
+			<edge xmi:type='uml:ObjectFlow' xmi:id='_15_5_1_1a900482_1225497726859_905410_1015' name='' visibility='public' isLeaf='false' isMulticast='false' isMultireceive='false' source='_15_5_1_1a900482_1225497607406_402328_969' target='_15_5_1_1a900482_1225497625968_952243_997'>
+				<weight xmi:type='uml:LiteralInteger' xmi:id='_15_5_1_1a900482_1225497726859_118921_1016' name='' visibility='public' value='1'/>
+			</edge>
+			<edge xmi:type='uml:ObjectFlow' xmi:id='_15_5_1_1a900482_1225497801781_532769_1067' name='' visibility='public' isLeaf='false' isMulticast='false' isMultireceive='false' source='_15_5_1_1a900482_1225497794546_746009_1053' target='_15_5_1_1a900482_1225497607406_458324_968'>
+				<weight xmi:type='uml:LiteralInteger' xmi:id='_15_5_1_1a900482_1225497801781_247698_1068' name='' visibility='public' value='1'/>
+			</edge>
+		</packagedElement>
+    </uml:Model>
+</xmi:XMI>

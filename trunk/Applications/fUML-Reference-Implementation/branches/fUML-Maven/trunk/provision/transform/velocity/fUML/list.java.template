@@ -1,0 +1,37 @@
+#**
+*Impl.java template for uml project
+*projectPath /src/${qualifiedName.replace("::","/").replace("UMLPrimitiveTypes/Integer","UMLPrimitiveTypes/int")}List.java 
+@projectPath /src/${object.owner.qualifiedName.replace("::","/")}/#basicName(${object})List.java
+@artifactContext ClassifierList 
+*#
+#parse( "uml.fragment" )
+${copyrightBoilerPlate}
+${packageDeclaration}
+import java.util.ArrayList;
+
+public class #basicName(${object})List extends ArrayList<#listable(${object})>
+{
+  public #basicName(${object})List(){
+    super();
+  }
+
+  public #basicName(${object}) getValue(int i){
+    return (#basicName(${object}))get(i);
+  }
+
+  public void addValue(#basicName(${object}) v){
+    add(v);
+  }
+
+  public void addValue(int i, #basicName(${object}) v){
+    add(i, v);
+  }
+
+  public void setValue(int i, #basicName(${object}) v){
+    set(i, v);
+  }
+
+  public void removeValue(int i){
+    remove(i);
+  }
+} //#basicName(${object})List

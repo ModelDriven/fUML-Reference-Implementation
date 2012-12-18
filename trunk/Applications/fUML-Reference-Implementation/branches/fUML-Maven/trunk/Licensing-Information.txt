@@ -1,0 +1,53 @@
+Foundational UML Reference Implementation
+Licensing Information
+
+This software entitled the Foundational UML Reference Implementation (the
+"Software") was originally written on behalf of the Lockheed Martin Corporation
+("LMC") by Model Driven Solutions, a division of Data Access Technologies, Inc.,
+and LMC is the copyright owner of all source code in the initial release of the
+Software and hereby licenses such Software to you under the Academic Free
+License version 3.0 (http://www.opensource.org/licenses/afl-3.0.php), except
+that the copyright rights in the software programs that are listed below and
+that are used as part of the Software are owned by others and these listed
+software programs are licensed to you under either:
+
+Common Development and Distribution License (CDDL) version 1.0 license
+(https://glassfish.dev.java.net/public/CDDL+GPL.html),
+
+Common Public License (CPL) version 1.0
+(http://www.opensource.org/licenses/cpl1.0.php), or
+
+Apache License (AL) version 2.0 (http://www.apache.org/licenses/LICENSE-2.0),
+
+as specified below.
+
+A copy of the Common Public License version 1.0 is attached hereto in the file
+entitled Common-Public-License-1.0.txt. A copy of the Apache License version 2.0
+is attached hereto in the file entitled Apache-License-2.0.txt.
+
+These other software programs, the location where their source and object code
+may be obtained, and their licenses are:
+
+Sun Java Streaming XML Parser (SJSXP), https://sjsxp.dev.java.net/, CDDL v1.0
+Sun JAXB Reference Implementation, https://jaxb.dev.java.net/, CDDL v1.0
+JUnit, www.junit.org, CPL v1.0
+Apache log4j, http://logging.apache.org/, AL v2.0
+Apache commons logging, http://commons.apache.org/logging/, AL v2.0
+Apache Xerces, http://xerces.apache.org/, AL v2.0
+
+The official baseline for the Software is maintained by ModelDriven.org, a
+division of Data Access Technologies, Inc. The copyright owner of all
+modifications to the Software in releases after the initial release is Data
+Access Technologies, Inc. Such subsequent releases are also licensed to you
+under the Academic Free License version 3.0, except for the software programs
+listed above.
+
+Note to anyone further modifying or adding software to a release of the
+Reference Implementation: do not include any software that is licensed under
+either the GPL v 2.0 or GPL v 3.0 licenses since these can sometimes cause
+license incompatibility problems when used together in a package with programs
+licensed under other licenses.  It is strongly recommended that any
+modifications or additions to a release of this Software be licensed under one
+of the four licenses specified above.  If you add a new software program (or
+parts of a new software program) to the initial release, you must add the name
+of that program to the list above and specify its license type.

@@ -1,0 +1,39 @@
+<templateBinding xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	<xsl:param name="target.project.name"/>
+
+	<provisioningContexts>
+		<provisioningContext name="umlGen" select=".">
+		<!-- 
+			<xsl:variable name="allGenTypes" select="//uml:packagedElement"/>
+			<xsl:variable name="allGenTypes" select="//uml:ownedType[not(uml:owner/@instance.of.Profile)]"/>
+			<xsl:variable name="allGenTypes" select="//uml:ownedType[not(uml:owner instance of Profile]"/>
+			-->
+			<xsl:variable name="allGenTypes" select="//uml:ownedType[not(uml:owner/@instance.of.Profile)]"/>
+			<xsl:variable name="allGenClasses" select="$allGenTypes[
+				(@instance.of.Class and not(@instance.of.Collaboration or @instance.of.Interaction or @instance.of.Stereotype or uml:owner/@instance.of.Classifier))
+				or @instance.of.Signal
+				]"/>
+			<xsl:variable name="allEnumerations" select="$allGenTypes[@instance.of.Enumeration]"/>
+			<xsl:variable name="allListClassifiers" select="(
+				$allGenClasses/uml:ownedAttribute[@upper!=1]/uml:type,
+				$allGenClasses/uml:ownedOperation/uml:ownedParameter[@upper!=1]/uml:type
+				)/."/>
+			<xsl:variable name="allActiveClasses" select="$allGenClasses[@isActive=true()]"/>
+			<xsl:variable name="allSyntaxClasses" select="/.."/>
+				<!-- select="$allGenClasses[uml:owner/uml:owner/uml:owner/@name='Syntax']"/> -->
+			<projectRef folder="fUML"/>							
+		</provisioningContext>
+	</provisioningContexts>
+	
+	<projects>
+		<project folder="fUML" name="$target.project.name" select="."/>
+	</projects>
+	
+	<artifactContexts>
+		<artifactContext name="ClassifierList" select="$allListClassifiers"/>
+		<artifactContext name="GenClass" select="$allGenClasses"/>
+		<artifactContext name="Enumeration" select="$allEnumerations"/>
+		<artifactContext name="ActiveClass" select="$allActiveClasses"/>
+		<artifactContext name="SyntaxClass" select="$allSyntaxClasses"/>
+	</artifactContexts>
+</templateBinding>		 	

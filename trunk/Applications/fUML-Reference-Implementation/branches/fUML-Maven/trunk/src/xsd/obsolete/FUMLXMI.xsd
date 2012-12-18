@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.modeldriven.org/fuml/xmi/1.0" 
+  xmlns:fuml="http://www.modeldriven.org/fuml/xmi/1.0"
+  xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" 
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://schema.omg.org/spec/XMI/2.1" schemaLocation="XMI-2.1.1.xsd" />
+
+	<xsd:complexType name="XmiBindingObject">
+		<xsd:choice maxOccurs="unbounded" minOccurs="0">
+			<xsd:element ref="xmi:Extension" />
+		</xsd:choice>
+		<xsd:attribute ref="xmi:id" />
+		<xsd:attributeGroup ref="xmi:ObjectAttribs" />
+	</xsd:complexType>
+	<xsd:element name="XmiBindingObject" type="fuml:XmiBindingObject" />
+	
+</xsd:schema>

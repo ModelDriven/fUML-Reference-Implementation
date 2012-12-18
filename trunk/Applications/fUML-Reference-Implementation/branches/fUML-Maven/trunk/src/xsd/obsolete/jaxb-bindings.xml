@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jxb:bindings version="1.0"
+               xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <jxb:globalBindings
+         fixedAttributeAsConstantProperty="false"
+         collectionType="java.util.ArrayList"
+         choiceContentProperty="true"
+         typesafeEnumMemberName="generateError"
+         enableFailFastCheck="false"   
+         generateIsSetMethod="false"
+         underscoreBinding="asCharInWord">
+         <xjc:superClass name="org.modeldriven.fuml.xmi.XmiBindingNode"/>
+    </jxb:globalBindings>
+ 
+	<jxb:bindings schemaLocation="FUMLXMI.xsd" node="/xsd:schema">
+	    <jxb:schemaBindings>
+	        <jxb:package name="org.modeldriven.fuml.xmi">
+	            <jxb:javadoc><![CDATA[<body>Package level documentation for generated package org.modeldriven.fuml.xmi.</body>]]></jxb:javadoc>
+            </jxb:package>
+            <jxb:nameXmlTransform>
+                <jxb:elementName suffix="Element"/>
+                <jxb:typeName suffix="Type"/>
+                <jxb:modelGroupName suffix="ModelGroup"/>
+                <jxb:anonymousTypeName suffix="AnonymousType"/>
+            </jxb:nameXmlTransform>            
+	    </jxb:schemaBindings>
+	</jxb:bindings>
+	<jxb:bindings schemaLocation="ecore.xsd" node="/xsd:schema">
+
+	    <jxb:schemaBindings>
+
+	        <jxb:package name="org.modeldriven.fuml.xmi.ecore">
+	            <jxb:javadoc><![CDATA[<body>Package level documentation for generated package org.modeldriven.fuml.xmi.ecore.</body>]]></jxb:javadoc>
+            </jxb:package>
+            <jxb:nameXmlTransform>
+                <jxb:elementName suffix="Element"/>
+                <jxb:typeName suffix="Type"/>
+                <jxb:modelGroupName suffix="ModelGroup"/>
+                <jxb:anonymousTypeName suffix="AnonymousType"/>
+            </jxb:nameXmlTransform>            
+	    </jxb:schemaBindings>
+	    
+		<jxb:bindings node=".//xsd:attribute[@name='eType']">
+			<jxb:property name="ETypeAttribute" />
+		</jxb:bindings>
+		<jxb:bindings node=".//xsd:attribute[@name='eOpposite']">
+			<jxb:property name="EOppositeAttribute" />
+		</jxb:bindings>
+		<!-- 
+		<jxb:bindings node=".//xsd:complexType[@name='EContentsObject']">
+			<jxb:bindings node=".//xsd:attribute[@name='type']">
+				<jxb:property name="eContentsObjectTypeAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node=".//xsd:complexType[@name='EContentsObject']">
+			<jxb:bindings node=".//xsd:attribute[@name='name']">
+				<jxb:property name="eContentsObjectNameAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node=".//xsd:complexType[@name='EExtension']">
+			<jxb:bindings node=".//xsd:attribute[@name='type']">
+				<jxb:property name="eExtensionTypeAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		-->
+		
+	</jxb:bindings>
+	<jxb:bindings schemaLocation="MagicDrawXMI.xsd" node="/xsd:schema">
+
+	    <jxb:schemaBindings>
+	        <jxb:package name="org.modeldriven.fuml.xmi.magicdraw">
+	            <jxb:javadoc><![CDATA[<body>Package level documentation for generated package org.modeldriven.fuml.xmi.magicdraw.</body>]]></jxb:javadoc>
+            </jxb:package>
+            <jxb:nameXmlTransform>
+                <jxb:elementName suffix="Element"/>
+                <jxb:typeName suffix="Type"/>
+                <jxb:modelGroupName suffix="ModelGroup"/>
+                <jxb:anonymousTypeName suffix="AnonymousType"/>
+            </jxb:nameXmlTransform>            
+	    </jxb:schemaBindings>
+	</jxb:bindings>
+	<jxb:bindings schemaLocation="XMI-2.1.1.xsd" node="/xsd:schema">
+	    <jxb:schemaBindings>
+	        <jxb:package name="org.modeldriven.fuml.xmi">
+	            <jxb:javadoc><![CDATA[<body>Package level documentation for generated package org.modeldriven.fuml.xmi.</body>]]></jxb:javadoc>
+            </jxb:package>
+            <jxb:nameXmlTransform>
+                <jxb:elementName suffix="Element"/>
+                <jxb:typeName suffix="Type"/>
+                <jxb:modelGroupName suffix="ModelGroup"/>
+                <jxb:anonymousTypeName suffix="AnonymousType"/>
+            </jxb:nameXmlTransform>            
+	    </jxb:schemaBindings>
+		<jxb:bindings node="//xsd:attributeGroup[@name='ObjectAttribs']">
+			<jxb:bindings node=".//xsd:attribute[@name='type']">
+				<jxb:property name="typeAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+	</jxb:bindings>
+	<jxb:bindings schemaLocation="UML2XMI.xsd" node="/xsd:schema">
+	    <jxb:schemaBindings>
+	        <jxb:package name="org.modeldriven.fuml.xmi.uml2">
+	            <jxb:javadoc><![CDATA[<body>Package level documentation for generated package org.modeldriven.fuml.xmi.uml2.</body>]]></jxb:javadoc>
+            </jxb:package>
+            <jxb:nameXmlTransform>
+                <jxb:elementName suffix="Element"/>
+                <jxb:typeName suffix="Type"/>
+                <jxb:modelGroupName suffix="ModelGroup"/>
+                <jxb:anonymousTypeName suffix="AnonymousType"/>
+            </jxb:nameXmlTransform>            
+	    </jxb:schemaBindings>
+		<jxb:bindings node=".//xsd:attribute[@name='realizingClassifier']">
+			<jxb:property name="realizingClassifierAttribute" />
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='Reception']">
+			<jxb:bindings node=".//xsd:attribute[@name='signal']">
+				<jxb:property name="signalAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='OpaqueExpression']">
+			<jxb:bindings node=".//xsd:attribute[@name='behavior']">
+				<jxb:property name="behaviorAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='PackageImport']">
+			<jxb:bindings node=".//xsd:attribute[@name='importedPackage']">
+				<jxb:property name="importedPackageAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='DecisionNode']">
+			<jxb:bindings node=".//xsd:attribute[@name='decisionInput']">
+				<jxb:property name="decisionInputAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='Duration']">
+			<jxb:bindings node=".//xsd:attribute[@name='event']">
+				<jxb:property name="eventAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='SignalTrigger']">
+			<jxb:bindings node=".//xsd:attribute[@name='signal']">
+				<jxb:property name="signalAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='Include']">
+			<jxb:bindings node=".//xsd:attribute[@name='addition']">
+				<jxb:property name="additionAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='ElementImport']">
+			<jxb:bindings node=".//xsd:attribute[@name='importedElement']">
+				<jxb:property name="importedElementAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='AcceptCallAction']">
+			<jxb:bindings node=".//xsd:attribute[@name='returnInformation']">
+				<jxb:property name="returnInformationAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='RaiseExceptionAction']">
+			<jxb:bindings node=".//xsd:attribute[@name='exception']">
+				<jxb:property name="exceptionAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='CallTrigger']">
+			<jxb:bindings node=".//xsd:attribute[@name='operation']">
+				<jxb:property name="operationAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='Trigger']">
+			<jxb:bindings node=".//xsd:attribute[@name='port']">
+				<jxb:property name="portAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='ParameterableElement']">
+			<jxb:bindings node=".//xsd:attribute[@name='templateParameter']">
+				<jxb:property name="templateParameterAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='CallBehaviorAction']">
+			<jxb:bindings node=".//xsd:attribute[@name='behavior']">
+				<jxb:property name="behaviorAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='ActivityParameterNode']">
+			<jxb:bindings node=".//xsd:attribute[@name='parameter']">
+				<jxb:property name="parameterAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='VariableAction']">
+			<jxb:bindings node=".//xsd:attribute[@name='variable']">
+				<jxb:property name="variableAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='Implementation']">
+			<jxb:bindings node=".//xsd:attribute[@name='contract']">
+				<jxb:property name="contractAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='Manifestation']">
+			<jxb:bindings node=".//xsd:attribute[@name='utilizedElement']">
+				<jxb:property name="utilizedElementAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='ProfileApplication']">
+			<jxb:bindings node=".//xsd:attribute[@name='importedProfile']">
+				<jxb:property name="importedProfileAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='BroadcastSignalAction']">
+			<jxb:bindings node=".//xsd:attribute[@name='signal']">
+				<jxb:property name="signalAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='InstanceValue']">
+			<jxb:bindings node=".//xsd:attribute[@name='instance']">
+				<jxb:property name="instanceAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='PackageMerge']">
+			<jxb:bindings node=".//xsd:attribute[@name='mergedPackage']">
+				<jxb:property name="mergedPackageAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		
+		<jxb:bindings node="//xsd:complexType[@name='InformationItem']">
+			<jxb:bindings node=".//xsd:attribute[@name='represented']">
+				<jxb:property name="representedAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='Substitution']">
+			<jxb:bindings node=".//xsd:attribute[@name='contract']">
+				<jxb:property name="representedAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='PackageableElement']">
+			<jxb:bindings node=".//xsd:attribute[@name='templateParameter']">
+				<jxb:property name="templateParameterAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='ProtocolConformance']">
+			<jxb:bindings node=".//xsd:attribute[@name='generalMachine']">
+				<jxb:property name="generalMachineAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='TimeExpression']">
+			<jxb:bindings node=".//xsd:attribute[@name='event']">
+				<jxb:property name="eventAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='LinkEndCreationData']">
+			<jxb:bindings node=".//xsd:attribute[@name='insertAt']">
+				<jxb:property name="insertAtAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+		<jxb:bindings node="//xsd:complexType[@name='ValueSpecification']">
+			<jxb:bindings node=".//xsd:attribute[@name='templateParameter']">
+				<jxb:property name="templateParameterAttribute" />
+			</jxb:bindings>
+		</jxb:bindings>
+	</jxb:bindings>
+</jxb:bindings>

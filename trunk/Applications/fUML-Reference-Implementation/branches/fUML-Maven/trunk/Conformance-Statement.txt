@@ -1,0 +1,65 @@
+Foundational UML Reference Implementation
+Conformance Statement
+
+The following conformance statement is provided as recommended in Subclause 2.4
+of the Semantics of a Foundational Subset for Executable UML Models
+specification document.
+
+1. Conformance Level: L3, with limited Dynamic Partial Acceptance. The input
+model must be within the fUML abstract syntax subset to be executed. Parts of
+the model that are not within this subset may be loaded as "stubs". If an 
+attempt is made to access or execute such a stub, a runtime error occurs.
+
+2. Model Library: The Reference Implementation implements all of the Foundation 
+Model Library except for BasicInputOutput::ActiveChannel.
+
+3. Abstract Syntax Mapping: The Reference Implementation uses XMI as its input
+format. This is loaded into an in-memory representation of a model as instances
+of Java classes that are directly generated from the fUML abstract syntax model.
+
+4. Semantic Value Mapping: Internally, all fUML values are implemented 
+semantically as instances of Java classes that are directly generated from the 
+fUML execution model for values. Input values may be obtained during an 
+execution by using the pre-instantiated StandardInputChannel implementation and
+values may be output using the pre-instantiated StandardOutputChannel 
+implementation.
+
+5. Execution Environment Mapping: The Reference Implementation directly
+implements the locus concept as Java classes generated from the fUML execution
+model for loci.
+
+   a. Execution takes place at a single locus.
+
+   b. All extensional values are persisted at the execution locus, so long as
+   this locus exists.
+
+   c. Single instances of the classes StandardInputChanngel and
+   StandardOutputChannel are pre-instantiated at the execution locus.
+
+6. Semantic Conformance: The Reference Implementation implements the entire fUML
+execution model through the generation of Java classes from the execution model
+itself. This includes a direct implementation of the fUML Executor class as a
+Java class implementing all the Executor operations. The Reference
+Implementation currently only allows for the synchronous execution of an
+activity to be initiated directly from the loaded XMI, but, via its actions,
+this activity may evaluate value specifications and execute other activities,
+both synchronously and asynchronously.
+
+7. Semantic Constraints
+
+   a. Semantics of time: The Reference Implementation does not provide an
+   explicit time model.
+
+   b. Semantics of concurrency: The Reference Implementation serializes all
+   execution. Each thread of execution is followed until it blocks, at which
+   point another thread is implicitly chosen for execution.
+
+   c. Semantics of inter-object communications mechanisms: The Reference
+   Implementation uses normal Java operation calls within a single JVM to
+   implement UML inter-object communications.
+
+8. Semantic Variation: The Reference Implementation uses the default semantics
+for all semantic variation points. The implementation may be extended with
+alternative semantics by providing appropriate semantic strategy class
+implementations.
+

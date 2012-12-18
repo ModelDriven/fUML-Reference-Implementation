@@ -1,0 +1,160 @@
+#**
+*Template for generating adapter classes for fUML RI representations of UML metaclasses.
+@projectPath /src/org/modeldriven/uml/fuml/#name(${object.name}).java 
+@artifactContext SyntaxClass 
+*#
+package org.modeldriven.uml.fuml;
+
+import UMLPrimitiveTypes.UnlimitedNatural;
+
+import java.util.List;
+import java.util.ArrayList;
+
+#macro( upperCase $name )
+${name.substring(0,1).toUpperCase()}${name.substring(1)}
+#end
+
+#macro( lowerCase $name )
+${name.substring(0,1).toLowerCase()}${name.substring(1)}
+#end
+
+#macro( simpleType $element )
+#if( ${element.type.eClass().name}=="PrimitiveType" )
+#if( ${element.type.name}=="UnlimitedNatural" )
+int
+#else
+#primitiveName(${element.type})
+#end
+#else #if( ${element.type.eClass().name}=="Enumeration" )
+String
+#else
+org.modeldriven.uml.#name(${element.type.name})
+#end
+#end
+#end
+
+#macro( wrap $type $expr )
+#if( ${type.eClass().name}=="PrimitiveType" )
+#if( ${type.name}=="UnlimitedNatural" )
+${expr}.naturalValue
+#else
+$expr
+#end
+#else #if( ${type.eClass().name}=="Enumeration" )
+${expr}.toString()
+#else
+new #name(${type.name})($expr)
+#end
+#end
+#end
+
+#macro( unwrap $type $expr )
+#if( ${type.eClass().name}=="PrimitiveType" )
+$expr
+#else #if( ${type.eClass().name}=="Enumeration" )
+#qualifiedName(${type}).valueOf($expr)
+#else
+((#name($type.name))$expr).getBase()
+#end
+#end
+#end
+
+#macro( attributes $list $prefix )
+#foreach( $attribute in $list )
+#set( $oppositeNotComposite = true )
+#set( $type = ${attribute.type} )
+## #if( ${type.eClass().name} == "Class" )
+##	#foreach( $opposite in ${type.ownedAttributes} )
+##		#if( ${opposite.type} == ${attribute.owner} && ${opposite.isComposite()} )
+##			#set( $oppositeNotComposite = false )
+##		#end
+##	#end
+## #end
+#set( $expr = "#name(${attribute.name})" )
+#if( $prefix!="" )
+	#set( $expr = "$prefix.$expr" )
+#end
+#set( $expr = "this.getBase().$expr" )
+#if( $attribute.upper==1 )
+	public #simpleType(${attribute}) get#upperCase(${attribute.name})() {
+		return #wrap(${attribute.type}, ${expr});
+	}
+	
+#if( !${attribute.isDerived()} && !${attribute.opposite.isComposite()} )
+	public void set#upperCase(${attribute.name})(#simpleType($attribute) #name($attribute.name)) {
+		this.getBase().set#upperCase(${attribute.name})(#unwrap(${attribute.type}, "#name(${attribute.name})"));
+	}
+#end
+#else
+	public List<#simpleType(${attribute})> get#upperCase(${attribute.name})() {
+		List<#simpleType(${attribute})> list = new ArrayList<#simpleType(${attribute})>();
+		for (#basicType(${attribute}) element: $expr) {
+			list.add(#wrap(${attribute.type}, "element"));
+		}
+		return list;
+	}
+
+#if( !${attribute.isDerived()} && !${attribute.opposite.isComposite()} )
+	public void add#upperCase(${attribute.name})(#simpleType($attribute) #name($attribute.name)) {
+		this.getBase().add#upperCase(${attribute.name})(#unwrap(${attribute.type}, "#name(${attribute.name})"));
+	}
+#end
+#end
+#end
+#end
+
+#macro( class $object )
+public class #name(${object.name})
+##	extends #qualifiedPackageName(${object.owner}).#name(${object.name})
+#if (${object.superClasses.size()}>0)
+	extends #name(${object.superClasses.get(0).name})
+#end
+	implements org.modeldriven.uml.#name(${object.name})
+{
+#if( !${object.isAbstract()} )
+	public #name(${object.name})() {
+		this(new #qualifiedName(${object})());
+	}	
+#end
+  
+#if( ${object.superClasses.size()}==0 )
+	protected #qualifiedName(${object}) base;
+	
+	public #name(${object.name})(#qualifiedName(${object}) base) {
+		this.base = base;
+	}
+#else
+	public #name(${object.name})(#qualifiedName(${object}) base) {
+		super(base);
+	}
+#end
+
+public #qualifiedName(${object}) getBase() {
+	return (#qualifiedName(${object}))this.base;
+}
+
+#attributes(${object.ownedAttributes},"")
+
+#set( $list = "")
+#set( $prefix = "" )
+#if( ${object.superClasses.size()}>1 )
+#set( $list = ${object.superClasses.get(1).ownedAttributes} )
+#set( $prefix = "#lowerCase(${object.superClasses.get(1).name})" )
+#end
+
+#attributes($list,$prefix)
+
+#set( $list = "")
+#set( $prefix = "" )
+#if( ${object.superClasses.size()}>2 )
+#set( $list = ${object.superClasses.get(2).ownedAttributes} )
+#set( $prefix = "#lowerCase(${object.superClasses.get(2).name})" )
+#end
+
+#attributes($list,$prefix)
+
+}
+#end
+
+#class($object)
+
