@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="fUML" default="build" basedir="..">
+	<basename property="source.project" file="${basedir}"/>
+	<!--
+	<property file="${basedir}/provision/user.build.properties"/>
+	-->
+	<property file="${basedir}/provision/build.properties"/>
+	<target name="build" description="build and generate all target artifacts" >
+	
+	    <echo message="source.project: ${source.project}"/>
+	    <echo message="source.model: ${source.model}"/>
+	
+        <org.modeldriven.modelPro 
+        platformTemplateBinding="/${source.project}/provision/transform/binding/template.xml" 
+        platformModelResource="platform:/resource/${source.project}/src/uml/${source.model}" 
+        platformVelocityDirectory="/${source.project}/provision/transform/velocity" 
+        platformTargetWorkspace="/${source.project}/target" 
+        paramMap="target.project.name=${target.project.name}" 
+                />
+	</target>
+	<target name="clean" description="clean all target artifacts" >
+		<delete  dir="${target.directory.workspace}"/>
+	</target>
+
+</project>

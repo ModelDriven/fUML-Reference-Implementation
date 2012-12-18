@@ -1,0 +1,54 @@
+#**
+*Template for generating interfaces for UML metaclasses.
+@projectPath /src/org/modeldriven/uml/#name(${object.name}).java 
+@artifactContext SyntaxClass 
+*#
+package org.modeldriven.uml;
+
+import java.util.List;
+
+#macro( upperCase $name )
+${name.substring(0,1).toUpperCase()}${name.substring(1)}
+#end
+
+#macro( simpleType $element )
+#if( ${element.type.eClass().name}=="PrimitiveType" )
+#if( ${element.type.name}=="UnlimitedNatural" )
+int
+#else
+#primitiveName(${element.type})
+#end
+#else #if( ${element.type.eClass().name}=="Enumeration" )
+String
+#else
+#name(${element.type.name})
+#end
+#end
+#end
+
+#macro( interface $object )
+public interface #name(${object.name})
+#if (${object.superClasses.size()}>0)
+ extends
+#foreach ( $superclass in ${object.superClasses} )
+    #if($velocityCount > 1),#end #name(${superclass.name}) 
+#end
+#end
+{
+#foreach ( $attribute in ${object.ownedAttributes} )
+#if( $attribute.upper==1 )
+	public #simpleType(${attribute}) get#upperCase(${attribute.name})(); 
+#if( !${attribute.isDerived()} && !${attribute.opposite.isComposite()} )
+	public void set#upperCase(${attribute.name})(#simpleType($attribute) #name($attribute.name));
+#end
+#else
+	public List<#simpleType(${attribute})> get#upperCase(${attribute.name})();
+#if( !${attribute.isDerived()} && !${attribute.opposite.isComposite()} )
+	public void add#upperCase(${attribute.name})(#simpleType($attribute) #name($attribute.name));
+#end
+#end
+#end
+}
+#end
+
+#interface($object)

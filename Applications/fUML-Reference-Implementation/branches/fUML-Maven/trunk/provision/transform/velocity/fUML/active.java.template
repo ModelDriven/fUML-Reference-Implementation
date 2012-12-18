@@ -1,0 +1,36 @@
+#**
+*Impl.java template for uml project
+*projectPath /src/${qualifiedName.replace("::","/")}.java 
+@projectPath /src/${object.owner.qualifiedName.replace("::","/")}/#name(${object.name})_Behavior.java 
+@artifactContext ActiveClass 
+*#
+#parse( "uml.fragment" )
+${copyrightBoilerPlate}
+${packageDeclaration}
+#imports()
+#commentcontent(${object})
+
+#macro( activeClass $object)
+
+#visibility(${object}) class #name(${object.name})_Behavior {
+
+	public #name(${object.name}) self = null;
+
+	public #name(${object.name})_Behavior(#name(${object.name}) self) {
+		this.self = self;
+	}
+
+#foreach( $reception in ${object.ownedReceptions} )
+	public void _send( #name(${reception.signal.name}) signal ) {
+	}
+#end
+
+	public void _startObjectBehavior() {
+	}
+
+}
+#end
+
+#activeClass(${object})
+
+

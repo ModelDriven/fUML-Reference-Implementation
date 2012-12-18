@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="src" path="target/fuml/src"/>
+	<classpathentry kind="src" path="src/java"/>
+	<classpathentry kind="lib" path="lib/activation.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb-api.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb-impl.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb-xjc.jar"/>
+	<classpathentry kind="lib" path="lib/jsr173_api.jar"/>
+	<classpathentry kind="lib" path="lib/junit.jar"/>
+	<classpathentry kind="lib" path="lib/log4j.jar"/>
+	<classpathentry kind="lib" path="lib/magicdraw/cmof14.jar"/>
+	<classpathentry kind="lib" path="lib/magicdraw/javax_jmi-1_0-fr.jar"/>
+	<classpathentry kind="lib" path="lib/magicdraw/jide-action.jar"/>
+	<classpathentry kind="lib" path="lib/magicdraw/jide-common.jar"/>
+	<classpathentry kind="lib" path="lib/magicdraw/jide-components.jar"/>
+	<classpathentry kind="lib" path="lib/magicdraw/jide-dock.jar"/>
+	<classpathentry kind="lib" path="lib/magicdraw/jide-grids.jar"/>
+	<classpathentry kind="lib" path="lib/magicdraw/md_api.jar"/>
+	<classpathentry kind="lib" path="lib/magicdraw/md_common_api.jar"/>
+	<classpathentry kind="lib" path="lib/magicdraw/uml2.jar"/>
+	<classpathentry kind="lib" path="lib/magicdraw/y.jar"/>
+	<classpathentry kind="lib" path="lib/sjsxp-1.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/stax-utils.jar"/>
+	<classpathentry kind="lib" path="lib/xalan.jar"/>
+	<classpathentry kind="lib" path="lib/xerces.jar"/>
+	<classpathentry kind="lib" path="lib/jdom.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="target/fuml/classes"/>
+</classpath>

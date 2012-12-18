@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Package xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmi:id="_3ADC7B74022D3C9FFCC70354" name="PrimitiveTypes">
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_3ADC7B74022D3CA010A4007B" name="Integer">
+    <ownedComment xmi:id="_rdk0FBTaEdqZu-3Jy1-uYg" annotatedElement="_3ADC7B74022D3CA010A4007B">
+      <body>An integer is a primitive type representing integer values.</body>
+    </ownedComment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_3ADC7B74022D3CA010AC0090" name="Boolean">
+    <ownedComment xmi:id="_rd3vARTaEdqZu-3Jy1-uYg" annotatedElement="_3ADC7B74022D3CA010AC0090">
+      <body>A Boolean type is used for logical expression, consisting of the predefined values true and false.</body>
+    </ownedComment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_3ADC7B74022D3CA010B103C3" name="String">
+    <ownedComment xmi:id="_reBgAxTaEdqZu-3Jy1-uYg" annotatedElement="_3ADC7B74022D3CA010B103C3">
+      <body>A string is a sequence of characters in some suitable character set used to display information about the model. Character sets may include non-Roman alphabets and characters.</body>
+    </ownedComment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_3ADC7B74022D3DE6A93C0003" name="UnlimitedNatural">
+    <ownedComment xmi:id="_reBgDRTaEdqZu-3Jy1-uYg" annotatedElement="_3ADC7B74022D3DE6A93C0003">
+      <body>An unlimited natural is a primitive type representing unlimited natural values.</body>
+    </ownedComment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_Iunz8GqlEd-4nvrqhtGdIw" name="Real">
+    <ownedComment xmi:id="_Iunz8WqlEd-4nvrqhtGdIw" annotatedElement="_Iunz8GqlEd-4nvrqhtGdIw">
+      <body>A real is a primitive type representing the mathematical concept of real.</body>
+    </ownedComment>
+  </packagedElement>
+  <profileApplication xmi:id="_LQB7n2q3Ed-4nvrqhtGdIw">
+    <eAnnotations xmi:id="_LQB7oGq3Ed-4nvrqhtGdIw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
+    </eAnnotations>
+    <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+  </profileApplication>
+</uml:Package>
