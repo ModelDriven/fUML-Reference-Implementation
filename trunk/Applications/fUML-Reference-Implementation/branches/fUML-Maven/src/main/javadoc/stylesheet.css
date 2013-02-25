@@ -1,0 +1,43 @@
+
+/* Javadoc style sheet */
+
+/* Define colors, fonts and other style attributes here to override the defaults */
+
+/* Page background color */
+body { background-color: #FFFFFF; color:#000000 }
+
+/* Headings */
+h1 { font-size: 145% }
+
+/* Table colors */
+.TableHeadingColor     { background: #deb887; color:#000000 } /* Burlywood */
+.TableSubHeadingColor  { background: #f5deb3; color:#000000 } /* Wheat */
+.TableRowColor         { background: #FFFFFF; color:#000000 } /* White */
+
+/* Font used in left-hand frame lists */
+.FrameTitleFont   { font-size: 100%; font-family: Helvetica, Arial, sans-serif; color:#000000 }
+.FrameHeadingFont { font-size:  90%; font-family: Helvetica, Arial, sans-serif; color:#000000 }
+.FrameItemFont    { font-size:  90%; font-family: Helvetica, Arial, sans-serif; color:#000000 }
+
+/* Navigation bar fonts and colors */
+.NavBarCell1    { background-color:#deb887; color:#000000} /* Burlywood */
+.NavBarCell1Rev { background-color:#B36415; color:#FFFFFF} /* Dark Blue */
+.NavBarFont1    { font-family: Arial, Helvetica, sans-serif; color:#000000;color:#000000;}
+.NavBarFont1Rev { font-family: Arial, Helvetica, sans-serif; color:#FFFFFF;color:#FFFFFF;}
+
+.NavBarCell2    { font-family: Arial, Helvetica, sans-serif; background-color:#FFFFFF; color:#000000}
+.NavBarCell3    { font-family: Arial, Helvetica, sans-serif; background-color:#FFFFFF; color:#000000}
+
+
+
+img
+{  
+    border-style: none;
+}
+
+a {  font-family: Arial, Helvetica, sans-serif; font-weight:bold; font-size: 12px; font-style: normal; line-height: normal; color: #B36415;}
+a:link {  font-family: Arial, Helvetica, sans-serif; font-weight:bold; font-size: 12px; font-style: normal; line-height: normal; color: #B36415;}
+a:hover {  font-family: Arial, Helvetica, sans-serif; font-weight:bold; font-size: 12px; font-style: normal; line-height: normal; color: #FF9900; text-decoration:underline}
+a:visited {  font-family: Arial, Helvetica, sans-serif; font-weight:bold; font-size: 12px; font-style: normal; line-height: normal; color: #B36415;}
+a:active {  font-family: Arial, Helvetica, sans-serif; font-weight:bold; font-size: 12px; font-style: normal; line-height: normal; color: #B36415;}
+
