@@ -1,0 +1,467 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.modeldriven</groupId>
+    <artifactId>fuml</artifactId>
+    <packaging>jar</packaging>
+    <name>FUML Reference Implementation</name>
+    <version>1.0</version>
+    <description>This open source software is a reference implementation, consisting of software and related files, for the OMG specification called the Semantics of a Foundational Subset for Executable UML Models (fUML). The reference implementation is intended to implement the execution semantics of UML activity models, accepting an XMI file from a conformant UML model as its input and providing an execution trace of the selected activity model(s) as its output. The core execution engine, which is directly generated from the normative syntactic and semantic models for fUML, may also be used as a library implementation of fUML in other software.</description>
+    <url>http://maven.apache.org</url>
+    <licenses>
+        <license>
+            <name>FUML Reference Implementation License</name>
+            <url>http://lib.modeldriven.org/MDLibrary/trunk/Applications/fUML-Reference-Implementation/trunk/Licensing-Information.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <url>http://lib.modeldriven.org/MDLibrary/trunk/Applications/fUML-Reference-Implementation/trunk</url>
+        <connection></connection>
+    </scm>  
+    <developers>
+        <developer>
+            <id>eds</id>
+            <name>Ed Seidewitz</name>
+            <email>ed-s@modeldriven.com</email>
+        </developer>
+        <developer>
+            <id>scinnamond</id>
+            <name>Scott Cinnamond</name>
+            <email>scinnamond@gmail.com</email>
+        </developer>
+    </developers>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xerces</artifactId>
+            <version>1.4.4</version>
+        </dependency>
+        <dependency>
+            <groupId>xalan</groupId>
+            <artifactId>xalan</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jsr173_api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>stax-utils</groupId>
+            <artifactId>stax-utils</artifactId>
+            <version>snapshot-20040917</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.stream</groupId>
+            <artifactId>sjsxp</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.1.9</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-xjc</artifactId>
+            <version>2.1.9</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+        </dependency>                  
+    </dependencies>
+  <build>
+    <plugins>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>jaxb2-maven-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>fuml-config</id>
+                    <phase>generate-sources</phase>
+                    <goals>
+                        <goal>xjc</goal>
+                    </goals>
+                    <configuration>
+                        <schemaDirectory>${basedir}/src/main/resources/org/modeldriven/fuml/config</schemaDirectory>
+                        <schemaFiles>FumlConfig.xsd</schemaFiles>
+                        <bindingDirectory>${basedir}/src/main/resources/org/modeldriven/fuml/config</bindingDirectory>
+                        <bindingFiles>jaxb-bindings.xml</bindingFiles>
+                        <staleFile>${project.build.directory}/jaxb2/.xjcStaleFlag-fuml-config</staleFile>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>repo-config</id>
+                    <phase>generate-sources</phase>
+                    <goals>
+                        <goal>xjc</goal>
+                    </goals>
+                    <configuration>
+                        <schemaDirectory>${basedir}/src/main/resources/org/modeldriven/fuml/repository</schemaDirectory>
+                        <schemaFiles>RepositoryConfig.xsd</schemaFiles>
+                        <bindingDirectory>${basedir}/src/main/resources/org/modeldriven/fuml/repository</bindingDirectory>
+                        <bindingFiles>jaxb-bindings.xml</bindingFiles>
+                        <staleFile>${project.build.directory}/jaxb2/.xjcStaleFlag-repo-config</staleFile>
+                    </configuration>
+                </execution>
+            </executions>
+            <configuration>
+                <!-- HACK: where is 'generated-sources' defined ?? -->
+                <outputDirectory>${project.build.directory}/generated-sources/java</outputDirectory>
+                <clearOutputDir>false</clearOutputDir>
+                <extension>true</extension>
+                <target>2.0</target>
+                <encoding>Cp1252</encoding>
+            </configuration>
+      </plugin>                                                         
+      <plugin>                                                         
+         <artifactId>maven-antrun-plugin</artifactId>                   
+         <version>1.7</version> 
+		 <dependencies>
+			<dependency>
+			<groupId>sun.jdk</groupId>
+			<artifactId>tools</artifactId>
+			<version>1.5.0</version>
+			<scope>system</scope>
+			<systemPath>${java.home}/../lib/tools.jar</systemPath>
+			</dependency>
+		 </dependencies>
+         <executions>  
+           <execution>    
+             <id>generate-model-factories</id>  
+             <!-- use process-classes phase rather than generate-sources as have a compile phase dependency on XSLTUtils  -->                                            
+             <phase>generate-sources</phase>                
+             <configuration>                                            
+               <target name="generate-model-factories">                                              
+                   <echo message="#### generate-model-factories ####"/>                                              
+                   <property name="compile_classpath" refid="maven.compile.classpath"/>
+                   <property name="deps_classpath" refid="maven.dependency.classpath"/>
+                   <path id="cp">                                                                                                                                                                                                                             
+                      <pathelement path="${compile_classpath}"/>                                                                                                                                                                                                  
+                   </path> 
+                   <mkdir dir="${basedir}/target/classes"/>
+			       <javac destdir="${basedir}/target/classes" 
+			          debug="on"> 
+			          <classpath refid="cp" />
+			          <src path="${basedir}/src/main/java/org/modeldriven/fuml/common/xsl"/>
+			       </javac>                          
+                   <java failonerror="yes"  fork="yes"                                                      
+                       classname="org.modeldriven.fuml.common.xsl.XSLTUtils">
+                     <jvmarg value="-Djavax.xml.transform.TransformerFactory=com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl"/>
+                     <classpath refid="cp" /> 
+                     <arg value="${basedir}/target/generated-sources/java/org/modeldriven/fuml/repository/model/PrimitiveTypesAssembler.java" />
+                     <arg value="${basedir}/src/main/resources/org/modeldriven/fuml/repository/PrimitiveTypes.xmi" />
+                     <arg value="${basedir}/src/main/resources/org/modeldriven/fuml/repository/FumlModelGenerator.xsl" />
+                     <arg value="pkg=org.modeldriven.fuml.repository.model cls=PrimitiveTypesAssembler"/>
+                   </java>
+                   <java failonerror="yes"  fork="yes"                                                      
+                       classname="org.modeldriven.fuml.common.xsl.XSLTUtils">
+                     <jvmarg value="-Djavax.xml.transform.TransformerFactory=com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl"/>
+                     <classpath refid="cp" /> 
+                     <arg value="${basedir}/target/generated-sources/java/org/modeldriven/fuml/repository/model/InfrastructureAssembler.java" />
+                     <arg value="${basedir}/src/main/resources/org/modeldriven/fuml/repository/Infrastructure.xmi" />
+                     <arg value="${basedir}/src/main/resources/org/modeldriven/fuml/repository/FumlModelGenerator.xsl" />
+                     <arg value="pkg=org.modeldriven.fuml.repository.model cls=InfrastructureAssembler"/>
+                   </java>
+                   <java failonerror="yes"  fork="yes"                                                      
+                       classname="org.modeldriven.fuml.common.xsl.XSLTUtils">
+                     <jvmarg value="-Djavax.xml.transform.TransformerFactory=com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl"/>
+                     <classpath refid="cp" /> 
+                     <arg value="${basedir}/target/generated-sources/java/org/modeldriven/fuml/repository/model/SuperstructureAssembler.java" />
+                     <arg value="${basedir}/src/main/resources/org/modeldriven/fuml/repository/Superstructure.xmi" />
+                     <arg value="${basedir}/src/main/resources/org/modeldriven/fuml/repository/FumlModelGenerator.xsl" />
+                     <arg value="pkg=org.modeldriven.fuml.repository.model cls=SuperstructureAssembler"/>
+                   </java>
+                   <java failonerror="yes"  fork="yes"                                                      
+                       classname="org.modeldriven.fuml.common.xsl.XSLTUtils">
+                     <jvmarg value="-Djavax.xml.transform.TransformerFactory=com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl"/>
+                     <classpath refid="cp" /> 
+                     <arg value="${basedir}/target/generated-sources/java/org/modeldriven/fuml/repository/model/fUML_SyntaxAssembler.java" />
+                     <arg value="${basedir}/src/main/resources/org/modeldriven/fuml/repository/fUML_Syntax.xmi" />
+                     <arg value="${basedir}/src/main/resources/org/modeldriven/fuml/repository/FumlModelGenerator.xsl" />
+                     <arg value="pkg=org.modeldriven.fuml.repository.model cls=fUML_SyntaxAssembler"/>
+                   </java>                      
+               </target>   
+             </configuration> 
+             <goals>                                                    
+               <goal>run</goal>                                         
+             </goals>                                                   
+           </execution> 
+         </executions>                                                  
+      </plugin>   
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <executions>
+              <execution>
+                  <id>attach-sources</id>
+                  <goals>
+                      <goal>jar</goal>
+                  </goals>
+              </execution>
+          </executions>
+      </plugin>
+      <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <version>1.7</version>
+          <executions>
+            <execution>
+              <id>add-source</id>
+              <phase>generate-sources</phase>
+              <goals>
+                <goal>add-source</goal>
+              </goals>
+              <configuration>
+                <sources>
+                  <source>${basedir}/target/generated-sources/java</source>
+                </sources>
+              </configuration>
+            </execution>
+          </executions>
+      </plugin>
+	  <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-surefire-plugin</artifactId>
+		<version>2.10</version>
+		<configuration>
+             
+            <argLine>-Dlog4j.configuration=log4j.properties</argLine>
+            <!-- 
+            <argLine>-Dlog4j.configuration=log4j.properties -Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address=8002,server=y,suspend=y</argLine>
+            -->
+               
+            <additionalClasspathElements>
+                <additionalClasspathElement>${basedir}/src/main/resources</additionalClasspathElement>
+                <additionalClasspathElement>${basedir}/src/test/resources</additionalClasspathElement>
+            </additionalClasspathElements>
+            <forkMode>always</forkMode> <!-- always for each test class (not every test 'pertest')  -->
+			  
+			 
+			<printSummary>true</printSummary>
+			<redirectTestOutputToFile>false</redirectTestOutputToFile>
+            <excludes>
+<!--                 <exclude>**/load/**</exclude>                        -->
+                <exclude>**/builtin/*LoopNode*</exclude> 
+<!--                 <exclude>**/model/**</exclude>                        -->
+<!--                 <exclude>**/builtin/**</exclude>                        -->
+<!--                 <exclude>**/library/**</exclude>                        -->
+<!--                 <exclude>**/validation/**</exclude>                        -->
+            </excludes>
+			<includes>
+                <include>**/model/**</include>                       
+                <include>**/load/**</include>                       
+                <include>**/builtin/**</include>                       
+                <include>**/library/**</include>                       
+                <include>**/validation/**</include>                       
+			</includes>
+			 
+		</configuration>
+	  </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.8.1</version>
+        <configuration>
+          <author>true</author>
+          <show>public</show>
+          <nohelp>false</nohelp>
+        </configuration>
+      </plugin>
+
+      <!-- Produce ZIP with dependencies and samples. -->
+      <!--
+      <plugin>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>2.2-beta-2</version>
+          <executions>
+              <execution>
+                  <id>assemble-zip</id>
+                  <phase>package</phase>
+                  <goals>
+                      <goal>single</goal>
+                  </goals>
+              </execution>
+          </executions>
+          <configuration>
+              <descriptors>
+                  <descriptor>maven-assembly-dist.xml</descriptor>
+              </descriptors>
+          </configuration>
+      </plugin>
+      -->
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.4</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!--
+          Release Plugin (Update version in POM before/after release, create
+          tag, deploy) to try: mvn release:prepare -DdryRun=true && mvn
+          release:clean to perform:
+
+          mvn release:prepare release:perform
+
+          Read http://nexus.sonatype.org/oss-repository-hosting.html#3 for
+          instructions on releasing to this project's Sonatype repository
+      -->
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>2.0-beta-7</version>
+      </plugin>
+    </plugins>
+    <pluginManagement>
+    	<plugins>
+    		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+    		<plugin>
+    			<groupId>org.eclipse.m2e</groupId>
+    			<artifactId>lifecycle-mapping</artifactId>
+    			<version>1.0.0</version>
+    			<configuration>
+    				<lifecycleMappingMetadata>
+    					<pluginExecutions>
+    						<pluginExecution>
+    							<pluginExecutionFilter>
+    								<groupId>
+    									org.apache.maven.plugins
+    								</groupId>
+    								<artifactId>
+    									maven-antrun-plugin
+    								</artifactId>
+    								<versionRange>[1.7,)</versionRange>
+    								<goals>
+    									<goal>run</goal>
+    								</goals>
+    							</pluginExecutionFilter>
+    							<action>
+    								<ignore></ignore>
+    							</action>
+    						</pluginExecution>
+    						<pluginExecution>
+    							<pluginExecutionFilter>
+    								<groupId>org.codehaus.mojo</groupId>
+    								<artifactId>
+    									jaxb2-maven-plugin
+    								</artifactId>
+    								<versionRange>[1.4,)</versionRange>
+    								<goals>
+    									<goal>xjc</goal>
+    								</goals>
+    							</pluginExecutionFilter>
+    							<action>
+    								<ignore></ignore>
+    							</action>
+    						</pluginExecution>
+    					</pluginExecutions>
+    				</lifecycleMappingMetadata>
+    			</configuration>
+    		</plugin>
+    	</plugins>
+    </pluginManagement>
+  </build>
+  <reporting>   
+    <plugins>                                                                          
+      <plugin>                                                                         
+        <groupId>org.apache.maven.plugins</groupId>                                    
+        <artifactId>maven-javadoc-plugin</artifactId>                                  
+        <version>2.8.1</version>                                                       
+      </plugin>                                                                        
+    </plugins> 
+  </reporting>                                                                         
+  <distributionManagement> 
+      <!-- My project's Sonatype repository to be used by the release plugin -->
+      <repository>
+          <id>sonatype-nexus-staging-and-release</id>
+          <name>Nexus Staging Repository</name>
+          <!--
+          giving a 400 error
+          <url>https://oss.sonatype.org/content/groups/public</url>
+          -->
+          <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+      </repository> 
+      <snapshotRepository>
+         <id>sonatype-nexus-snapshot</id>
+         <name>Nexus Snapshot Repository</name>
+         <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      </snapshotRepository>
+  </distributionManagement>
+  <!--repositories>
+      <repository>
+          <id>ibiblio.org</id>
+          <name>ibiblio Mirror of http://repo1.maven.org/maven2/</name>
+          <url>http://mirrors.ibiblio.org/pub/mirrors/maven2</url>
+      </repository>
+  </repositories-->
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>                             
+          
+          
+          
+          
+          
+          
+          
+          
