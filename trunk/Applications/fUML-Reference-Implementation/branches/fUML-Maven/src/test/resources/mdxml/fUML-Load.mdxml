@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xmi:XMI xmi:version='2.1' xmlns:uml='http://www.omg.org/spec/UML/20090901' xmlns:xmi='http://schema.omg.org/spec/XMI/2.1' xmlns:DSL_Customization='http://www.magicdraw.com/schemas/DSL_Customization.xmi' xmlns:MagicDraw_Profile='http://www.magicdraw.com/schemas/MagicDraw_Profile.xmi' xmlns:Validation_Profile='http://www.magicdraw.com/schemas/Validation_Profile.xmi' xmlns:StandardProfileL2='http://schema.omg.org/spec/UML/2.3/StandardProfileL2.xmi' xmlns:StandardProfileL3='http://schema.omg.org/spec/UML/2.3/StandardProfileL3.xmi' xmlns:Traceability_customization='http://www.magicdraw.com/schemas/Traceability_customization.xmi'>
+	<xmi:Documentation exporter='MagicDraw UML' exporterVersion='17.0'/>
+	<xmi:Extension extender='MagicDraw UML 17.0'>
+		<shareTable shareVersion='-1' standardSystemProfile='false'/>
+		<mountTable>
+			<module resource='file:/C:/MagicDraw_17_0/profiles/UML_Standard_Profile.xml' autoloadType='ALWAYS_LOAD' readOnly='true' loadIndex='false' requiredVersion='-1' version='17.0_'>
+				<mount mountPoint='magicdraw_uml_standard_profile_v_0001' mountedOn='eee_1045467100313_135436_1'/>
+			</module>
+		</mountTable>
+	</xmi:Extension>
+	<uml:Model xmi:id='eee_1045467100313_135436_1' name='Data' visibility='public'>
+		<xmi:Extension extender='MagicDraw UML 17.0'>
+			<moduleExtension ignoredInModule='true'/>
+		</xmi:Extension>
+		<packagedElement xmi:type='uml:Package' href='UML_Standard_Profile.xml#magicdraw_uml_standard_profile_v_0001'>
+			<xmi:Extension extender='MagicDraw UML 17.0'>
+				<referenceExtension referentPath='UML Standard Profile' referentType='Package'/>
+			</xmi:Extension>
+		</packagedElement>
+		<packagedElement xmi:type='uml:Package' xmi:id='_17_0_6_1707042b_1361731578399_177749_1654' name='test' visibility='public'>
+			<packagedElement xmi:type='uml:Class' xmi:id='_17_0_6_1707042b_1361731592024_977053_1655' name='LoadBehaviorTest' visibility='public' classifierBehavior='_17_0_6_1707042b_1361731859743_527049_1656'>
+				<ownedBehavior xmi:type='uml:OpaqueBehavior' xmi:id='_17_0_6_1707042b_1361731859743_527049_1656' name='TestOpaqueBehavior' visibility='public'>
+					<body>&lt;foo&gt;Here is the body of the behavior&lt;/foo&gt;</body>
+				</ownedBehavior>
+			</packagedElement>
+		</packagedElement>
+	</uml:Model>
+</xmi:XMI>
