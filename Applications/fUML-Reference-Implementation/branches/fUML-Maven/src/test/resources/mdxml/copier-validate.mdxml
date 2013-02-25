@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- This xmi file is optimized for MagicDraw UML. Some references are not saved. -->
+<!-- Change MagicDraw UML environment options property General->.Save Rich XMI -->
+
+<xmi:XMI xmi:version='2.1' 
+    xmlns:uml='http://schema.omg.org/spec/UML/2.1.2' 
+    xmlns:xmi='http://schema.omg.org/spec/XMI/2.1'>
+<uml:Model xmi:id='eee_1045467100313_135436_1' name='Data' visibility='public' viewpoint='&lt;'>
+    <packagedElement xmi:type="uml:Activity" xmi:id="_15_0_1_679022e_1223995514484_896767_235" name="Copier">
+      <ownedParameter xmi:id="_15_0_1_679022e_1223995912234_BAD-REFERENCE" name="input" visibility="public">
+        <type xmi:type="uml:MyInvalidClassName" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_15_0_1_679022e_1223996025593_891317_377" name="output" visibility="public" direction="inout">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedParameter>
+      <node xmi:type="uml:ActivityParameterNode" xmi:id="_15_0_1_679022e_1223995912234_157657_260" foo="bar" name="input_node" visibility="public" outgoing="_15_0_1_679022e_1223996025593_891317_377" parameter="_15_0_1_679022e_1223995912234_432857_259"/>
+      <node xmi:type="uml:ActivityNode" xmi:id="_15_0_1_679022e_1223995958359_650812_262" name="output_node" visibility="public" incoming="_15_0_1_679022e_1223996025593_891317_377" parameter="_15_0_1_679022e_1223995958359_633031_261"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_15_0_1_679022e_1223996025593_891317_377" name="copier_edge" visibility="public" source="_15_0_1_679022e_1223995912234_157657_260" target="_15_0_1_679022e_1223995958359_650812_262">
+        <weight xmi:type="uml:LiteralInteger" xmi:id="_15_0_1_679022e_1223996025593_207821_378" name="" value="1"/>
+      </edge>
+    </packagedElement>
+</uml:Model>
+</xmi:XMI>
