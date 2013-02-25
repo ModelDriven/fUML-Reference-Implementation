@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.modeldriven.org/fuml/repository/config" 
+  xmlns:mc="http://www.modeldriven.org/fuml/repository/config"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  
+    <xsd:complexType name="RepositoryConfig">
+        <xsd:annotation>
+            <xsd:documentation></xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:sequence>
+            <xsd:element name="artifact" type="mc:Artifact"  minOccurs="1" maxOccurs="unbounded">
+                <xsd:annotation>                                  
+                    <xsd:documentation></xsd:documentation>       
+                </xsd:annotation>                                 
+            </xsd:element>
+            <xsd:element name="ignoredPackage" type="mc:IgnoredPackage"  minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>                                  
+                    <xsd:documentation></xsd:documentation>       
+                </xsd:annotation>                                 
+            </xsd:element>
+            <xsd:element name="ignoredClass" type="mc:IgnoredClass"  minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>                                  
+                    <xsd:documentation></xsd:documentation>       
+                </xsd:annotation>                                 
+            </xsd:element>
+        </xsd:sequence>
+        
+        <xsd:attribute name="defaultUMLNamespaceURI" type="xsd:string" use="required">
+                <xsd:annotation>                                  
+                    <xsd:documentation>The default UML namespace Uniform Resource Identifier used to look up UML Classifiers and Types</xsd:documentation>       
+                </xsd:annotation>                                 
+        </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:element name="RepositoryConfig" type="mc:RepositoryConfig">
+        <xsd:annotation>
+            <xsd:documentation></xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+    <xsd:complexType name="Artifact">
+        <xsd:annotation>
+            <xsd:documentation></xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:sequence>
+            <xsd:element name="registeredPackage" type="mc:RegisteredPackage"  minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>                                  
+                    <xsd:documentation></xsd:documentation>       
+                </xsd:annotation>                                 
+            </xsd:element>
+        </xsd:sequence>
+        
+        <xsd:attribute name="name" type="xsd:string" use="required">
+                <xsd:annotation>                                  
+                    <xsd:documentation>The resource name</xsd:documentation>       
+                </xsd:annotation>                                 
+        </xsd:attribute>
+
+        <xsd:attribute name="urn" type="xsd:string" use="required">
+                <xsd:annotation>                                  
+                    <xsd:documentation>The resource Uniform Resource Name</xsd:documentation>       
+                </xsd:annotation>                                 
+        </xsd:attribute>
+
+        <xsd:attribute name="namespaceURI" type="xsd:string" use="required">
+                <xsd:annotation>                                  
+                    <xsd:documentation>The resource namespace Uniform Resource Identifier</xsd:documentation>       
+                </xsd:annotation>                                 
+        </xsd:attribute>
+
+
+        <xsd:attribute name="factoryClassName" type="xsd:string" use="required">
+                <xsd:annotation>                                  
+                    <xsd:documentation>The class name of the factory that creates objects that make up the artifact</xsd:documentation>       
+                </xsd:annotation>                                 
+        </xsd:attribute>
+
+    </xsd:complexType>
+
+    <xsd:element name="Artifact" type="mc:Artifact">
+        <xsd:annotation>
+            <xsd:documentation></xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+    <xsd:complexType name="RegisteredPackage">
+        <xsd:annotation>
+            <xsd:documentation></xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:attribute name="name" type="xsd:string">
+                <xsd:annotation>                                  
+                    <xsd:documentation>The qualified package name</xsd:documentation>       
+                </xsd:annotation>                                 
+        </xsd:attribute>
+
+    </xsd:complexType>
+
+    <xsd:element name="RegisteredPackage" type="mc:RegisteredPackage">
+        <xsd:annotation>
+            <xsd:documentation></xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+    <xsd:complexType name="IgnoredPackage">
+        <xsd:annotation>
+            <xsd:documentation></xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:attribute name="name" type="xsd:string">
+                <xsd:annotation>                                  
+                    <xsd:documentation>The qualified package name</xsd:documentation>       
+                </xsd:annotation>                                 
+        </xsd:attribute>
+
+    </xsd:complexType>
+
+    <xsd:element name="IgnoredPackage" type="mc:IgnoredPackage">
+        <xsd:annotation>
+            <xsd:documentation></xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+
+    <xsd:complexType name="IgnoredClass">
+        <xsd:annotation>
+            <xsd:documentation></xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:attribute name="name" type="xsd:string">
+                <xsd:annotation>                                  
+                    <xsd:documentation>The classifier name</xsd:documentation>       
+                </xsd:annotation>                                 
+        </xsd:attribute>
+
+    </xsd:complexType>
+
+    <xsd:element name="IgnoredClass" type="mc:IgnoredClass">
+        <xsd:annotation>
+            <xsd:documentation></xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+</xsd:schema>

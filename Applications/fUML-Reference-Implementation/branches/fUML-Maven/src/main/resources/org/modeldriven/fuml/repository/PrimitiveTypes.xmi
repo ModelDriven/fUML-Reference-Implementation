@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:uml="http://www.omg.org/spec/UML/20110701" xmlns:mofext="http://www.omg.org/spec/MOF/20110701">
+  <uml:Package xmi:type="uml:Package" xmi:id="_0" name="PrimitiveTypes" URI="http://www.omg.org/spec/PrimitiveTypes/20110701">
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="Boolean" name="Boolean">
+      <ownedComment xmi:type="uml:Comment" xmi:id="Boolean-_ownedComment.0" annotatedElement="Boolean">
+        <body>A Boolean type is used for logical expression, consisting of the predefined values true and false.</body>
+      </ownedComment>
+    </packagedElement>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="Integer" name="Integer">
+      <ownedComment xmi:type="uml:Comment" xmi:id="Integer-_ownedComment.0" annotatedElement="Integer">
+        <body>An integer is a primitive type representing integer values.</body>
+      </ownedComment>
+    </packagedElement>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="Real" name="Real">
+      <ownedComment xmi:type="uml:Comment" xmi:id="Real-_ownedComment.0" annotatedElement="Real">
+        <body>A real is a primitive type representing the mathematical concept of real.</body>
+      </ownedComment>
+    </packagedElement>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="String" name="String">
+      <ownedComment xmi:type="uml:Comment" xmi:id="String-_ownedComment.0" annotatedElement="String">
+        <body>A string is a sequence of characters in some suitable character set used to display information about the model. Character sets may include non-Roman alphabets and characters.</body>
+      </ownedComment>
+    </packagedElement>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="UnlimitedNatural" name="UnlimitedNatural">
+      <ownedComment xmi:type="uml:Comment" xmi:id="UnlimitedNatural-_ownedComment.0" annotatedElement="UnlimitedNatural">
+        <body>An unlimited natural is a primitive type representing unlimited natural values.</body>
+      </ownedComment>
+    </packagedElement>
+  </uml:Package>
+  <mofext:Tag xmi:type="mofext:Tag" xmi:id="_2" name="org.omg.xmi.nsPrefix" value="primitives" element="_0"/>
+  <mofext:Tag xmi:type="mofext:Tag" xmi:id="_3" name="org.omg.xmi.schemaType" value="http://www.w3.org/2001/XMLSchema#boolean" element="Boolean"/>
+  <mofext:Tag xmi:type="mofext:Tag" xmi:id="_4" name="org.omg.xmi.schemaType" value="http://www.w3.org/2001/XMLSchema#integer" element="Integer"/>
+  <mofext:Tag xmi:type="mofext:Tag" xmi:id="_5" name="org.omg.xmi.schemaType" value="http://www.w3.org/2001/XMLSchema#double" element="Real"/>
+</xmi:XMI>
