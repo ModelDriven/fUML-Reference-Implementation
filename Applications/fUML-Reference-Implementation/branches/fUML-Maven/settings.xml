@@ -1,0 +1,25 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <!--                    
+  <localRepository>${user.home}/.m2/repository</localRepository>
+  -->
+  <interactiveMode>true</interactiveMode>
+  <usePluginRegistry>false</usePluginRegistry>
+  <offline>false</offline>
+  <servers>
+    <server>
+      <id>sonatype-nexus-snapshots</id>
+      <username>scinnamond</username>
+      <password>p1hoenix</password>
+    </server>
+    <server>
+      <id>sonatype-nexus-staging</id>
+      <username>scinnamond</username>
+      <password>p1hoenix</password>
+    </server>
+  </servers>
+</settings>
+
+
