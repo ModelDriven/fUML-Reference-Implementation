@@ -4,11 +4,20 @@
     <formats>
         <format>zip</format>
     </formats>
+    <dependencySets>
+        <dependencySet>
+            <includes>
+                <include>*:jar</include>
+            </includes>
+            <outputDirectory>lib</outputDirectory>
+        </dependencySet>
+    </dependencySets>
+    
     <fileSets>
         <fileSet>
-            <directory>${project.basedir}/target</directory>
+            <directory>bin</directory>
             <includes>
-                <include>*.jar</include>
+                <include>*</include>
             </includes>
         </fileSet>
     </fileSets>

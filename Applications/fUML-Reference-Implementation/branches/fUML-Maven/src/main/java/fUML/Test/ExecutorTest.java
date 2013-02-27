@@ -22,7 +22,6 @@ import fUML.Syntax.CommonBehaviors.BasicBehaviors.*;
 import fUML.Semantics.*;
 import fUML.Semantics.Classes.Kernel.*;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.*;
-import fUML.Semantics.Loci.*;
 
 public class ExecutorTest extends fUML.Test.Test {
 
