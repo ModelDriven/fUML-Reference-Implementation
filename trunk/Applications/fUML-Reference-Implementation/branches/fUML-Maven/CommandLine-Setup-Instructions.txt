@@ -1,0 +1,28 @@
+1.) Download and install Java 1.6.x JDK and set your JAVA_HOME
+environment variable to the JDK root diretory.
+
+    See http://www.oracle.com/technetwork/java/javaee/downloads/java-ee-sdk-6u3-jdk-6u29-downloads-523388.html
+
+2.) Download and install Maven 2.2.1 (not 3). Make sure the 
+Maven 'bin' directory is part of you system path. 
+
+
+    See http://maven.apache.org/download.cgi
+
+3.) Download and install Ant
+
+    See http://ant.apache.org/bindownload.cgi
+
+6.) Test the project. Go to the project root and type: 
+    
+    mvn test
+      
+7.) Package the project, creating the fuml-*.*.*-distribution.zip 
+Go to the project root and type: 
+
+    mvn package
+    
+8.) Run behaviors. Unzip the fuml-*-distribution.zip file. Go to 
+the fuml-*\bin directory. Type: 
+
+   fuml [model file] [behavior name]            
