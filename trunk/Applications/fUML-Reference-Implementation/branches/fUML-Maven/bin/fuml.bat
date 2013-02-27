@@ -37,18 +37,7 @@ set JAVAC_JAR=%JAVA_HOME%\lib\tools.jar
 
 :SKIP_TOOLS
 
-set FUML_CLASSPATH=%FUML_LIB_DIR%/fuml.jar
-set FUML_CLASSPATH=%FUML_CLASSPATH%;%FUML_LIB_DIR%/activation.jar
-set FUML_CLASSPATH=%FUML_CLASSPATH%;%FUML_LIB_DIR%/commons-logging.jar
-set FUML_CLASSPATH=%FUML_CLASSPATH%;%FUML_LIB_DIR%/log4j.jar
-set FUML_CLASSPATH=%FUML_CLASSPATH%;%FUML_LIB_DIR%/junit.jar
-set FUML_CLASSPATH=%FUML_CLASSPATH%;%FUML_LIB_DIR%/jaxb-api-2.1-EA2.jar
-set FUML_CLASSPATH=%FUML_CLASSPATH%;%FUML_LIB_DIR%/jaxb-impl-2.1-EA2.jar
-set FUML_CLASSPATH=%FUML_CLASSPATH%;%FUML_LIB_DIR%/stax-api.jar
-set FUML_CLASSPATH=%FUML_CLASSPATH%;%FUML_LIB_DIR%/stax-utils.jar
-set FUML_CLASSPATH=%FUML_CLASSPATH%;%FUML_LIB_DIR%/xalan.jar
-set FUML_CLASSPATH=%FUML_CLASSPATH%;%FUML_LIB_DIR%/xerces.jar
-set FUML_CLASSPATH=%FUML_CLASSPATH%;%FUML_LIB_DIR%/jdom.jar
+set FUML_CLASSPATH=%FUML_LIB_DIR%/*
 
 rem Setup FUML specific properties
 set JAVA_OPTS=%JAVA_OPTS% -Dprogram.name=%PROGNAME%
@@ -85,7 +74,7 @@ echo ===========================================================================
 echo.
 
 :RESTART
-"%JAVA%" %JAVA_OPTS% "-Djava.endorsed.dirs=%FUML_ENDORSED_DIRS%" -classpath "%FUML_CLASSPATH%" -Dlog4j.debug=false -Dlog4j.configuration=file:log4j.properties org.modeldriven.fuml.Fuml %*
+"%JAVA%" %JAVA_OPTS% -classpath "%FUML_CLASSPATH%" "-Djava.endorsed.dirs=%FUML_ENDORSED_DIRS%" -Dlog4j.debug=false -Dlog4j.configuration=file:log4j.properties org.modeldriven.fuml.Fuml %*
 if ERRORLEVEL 10 goto RESTART
 
 :END
