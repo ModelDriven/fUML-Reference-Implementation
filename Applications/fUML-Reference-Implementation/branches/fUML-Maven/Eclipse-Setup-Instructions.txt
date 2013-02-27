@@ -1,0 +1,33 @@
+1.) Download and install Java 1.6.x JDK and set your JAVA_HOME
+environment variable to the JDK root diretory.
+
+    See http://www.oracle.com/technetwork/java/javaee/downloads/java-ee-sdk-6u3-jdk-6u29-downloads-523388.html
+
+2.) Download and install Maven 2.2.1 (not 3)
+
+    See http://maven.apache.org/download.cgi
+
+3.) Download and install Ant
+
+    See http://ant.apache.org/bindownload.cgi
+
+4.) Download an Eclise version or derivitive with Maven 2 (M2) 
+support. Recommend Spring Tools Suite (STS). 
+    
+    See http://www.springsource.org/sts
+
+5.) Launch Eclipse (or derivitive) and import the
+fUML project.
+
+    File->Import->Maven->Existing Maven Projects
+
+    (Browse to the project "parent" directory, select the project, Finish.) 
+
+6.) Test the project
+
+    (Right-Click the project root)->Run As->Maven Test
+      
+7.) Install the project
+
+    (Right-Click the project root)->Run As->Maven Install
+      
