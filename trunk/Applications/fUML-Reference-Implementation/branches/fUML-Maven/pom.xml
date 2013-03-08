@@ -321,7 +321,11 @@
               </descriptors>
           </configuration>
       </plugin>
-      <!--  
+      <!-- 
+          Comment out the below GPG plugin if not set up with GPG
+          and just want to install local locally. 
+      -->
+      <!--    
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-gpg-plugin</artifactId>
