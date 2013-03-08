@@ -41,7 +41,7 @@ public class ArtifactLoader
 	
     private static Log log = LogFactory.getLog(ArtifactLoader.class);
     
-    protected List<Class_> classList = new ArrayList<Class_>();
+    protected List<org.modeldriven.fuml.repository.Class_> classList = new ArrayList<org.modeldriven.fuml.repository.Class_>();
     protected RepositoryArtifact artifact;
     protected BasicElementReader modelElementReader;
 	protected boolean validateExternalReferences = true;
@@ -177,24 +177,23 @@ public class ArtifactLoader
             }
             else if (fumlObject instanceof Class_ && !(fumlObject instanceof OpaqueBehavior)) {
             	Class_ clss = (Class_)fumlObject;
-            	classList.add(clss);
             	if (!(clss instanceof Stereotype)) {
                 	if (clss.package_ != null) {
-                	    Repository.INSTANCE.getMapping().mapClass(clss, 
-                	    		getQualifiedPackageName(clss.package_), artifact);
+                		this.classList.add(Repository.INSTANCE.getMapping().mapClass(clss, 
+                	    		getQualifiedPackageName(clss.package_), artifact));
                 	}
                 	else
-                		Repository.INSTANCE.getMapping().mapClass(clss, 
-                    			null, artifact);
+                		this.classList.add(Repository.INSTANCE.getMapping().mapClass(clss, 
+                    			null, artifact));
             	}
             	else {
             		Stereotype stereotype = (Stereotype)clss;
                 	if (stereotype.package_ != null)
-                	    Repository.INSTANCE.getMapping().mapStereotype(stereotype, 
-                	    		getQualifiedPackageName(stereotype.package_), artifact);
+                		this.classList.add(Repository.INSTANCE.getMapping().mapStereotype(stereotype, 
+                	    		getQualifiedPackageName(stereotype.package_), artifact));
                 	else
-                		Repository.INSTANCE.getMapping().mapStereotype(stereotype, 
-                    			null, artifact);
+                		this.classList.add(Repository.INSTANCE.getMapping().mapStereotype(stereotype, 
+                    			null, artifact));
             	}            		
             }  
             else if (fumlObject instanceof Enumeration) {
@@ -303,18 +302,8 @@ public class ArtifactLoader
 
 	public void streamCompleted(ElementReaderEvent event) {
 		
-    	for (Class_ c: classList) {  
-    		org.modeldriven.fuml.repository.Class_ clss = null;
-    		if (!(c instanceof Stereotype)) {
-    		    clss = new org.modeldriven.fuml.repository.model.Class_(c, 
-    		    		this.artifact);
-    		}
-    		else
-    		{
-    		    clss = new org.modeldriven.fuml.repository.model.Stereotype((Stereotype)c, 
-    		    		this.artifact);
-    		}	
-    		Repository.INSTANCE.loadClass(clss);
+    	for (org.modeldriven.fuml.repository.Class_ c: classList) {  
+    		Repository.INSTANCE.loadClass(c);
     	}
     		
 	}
