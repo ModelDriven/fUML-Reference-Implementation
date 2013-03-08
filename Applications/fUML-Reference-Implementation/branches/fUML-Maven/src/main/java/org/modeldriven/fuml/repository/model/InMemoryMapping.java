@@ -169,7 +169,7 @@ public class InMemoryMapping implements RepositoryMapping
 					+ qualifiedName + "'");		
 	}
 
-	public void mapElementById(Element element, RepositoryArtifact artifact) {
+	public org.modeldriven.fuml.repository.Element mapElementById(fUML.Syntax.Classes.Kernel.Element element, RepositoryArtifact artifact) {
 		org.modeldriven.fuml.repository.Element elem = 
 			    new org.modeldriven.fuml.repository.model.Element(element, artifact);
 		elementIdToElementMap.put(element.getXmiId(), elem);
@@ -178,9 +178,10 @@ public class InMemoryMapping implements RepositoryMapping
         	throw new RepositorylException("found existing reference, '"
         			+ globalId + "'");
         elementIdToElementMap.put(globalId, elem);
+        return elem;
 	}
 	
-	public void mapElementByName(NamedElement element, RepositoryArtifact artifact) {
+	public org.modeldriven.fuml.repository.NamedElement mapElementByName(NamedElement element, RepositoryArtifact artifact) {
 		if (element instanceof Class_) {
 			org.modeldriven.fuml.repository.Class_ clss = 
 				new org.modeldriven.fuml.repository.model.Class_((Class_)element, artifact);
@@ -189,7 +190,8 @@ public class InMemoryMapping implements RepositoryMapping
 			if (element.qualifiedName != null) {
 				qualifiedElementNameToElementMap.put(element.qualifiedName, clss);
 			    qualifiedClassifierNameToClassifierMap.put(element.qualifiedName, clss);
-			}			
+			}
+			return clss;
 		}
 		else if (element instanceof Classifier) {
 			org.modeldriven.fuml.repository.Classifier classifier = 
@@ -199,7 +201,8 @@ public class InMemoryMapping implements RepositoryMapping
 			if (element.qualifiedName != null) {
 				qualifiedElementNameToElementMap.put(element.qualifiedName, classifier);
 			    qualifiedClassifierNameToClassifierMap.put(element.qualifiedName, classifier);
-			}			
+			}
+			return classifier;
 		}
 		else {
 			org.modeldriven.fuml.repository.NamedElement elem = 
@@ -207,10 +210,11 @@ public class InMemoryMapping implements RepositoryMapping
 			elementNameToElementMap.put(element.name, elem);				
 			if (element.qualifiedName != null) 
 				qualifiedElementNameToElementMap.put(element.qualifiedName, elem);
+			return elem;
 		}
 	}
 	
-    public void mapPackage(Package p, String currentPackageName, RepositoryArtifact artifact) {
+    public org.modeldriven.fuml.repository.Package mapPackage(Package p, String currentPackageName, RepositoryArtifact artifact) {
     	String qualifiedName = null;
         if (currentPackageName != null)
         	qualifiedName = currentPackageName + "." + p.name;
@@ -247,6 +251,7 @@ public class InMemoryMapping implements RepositoryMapping
         	throw new RepositorylException("found existing package reference, '"
         			+ globalId + "'");
         elementIdToElementMap.put(globalId, pkg);
+        return pkg;
     }
 
     public void mapPackageMerge(Package p, String sourcePackageXmiId) {
@@ -273,20 +278,22 @@ public class InMemoryMapping implements RepositoryMapping
         target.addNode(source);
     }
     
-    public void mapClass(Class_ clss, String currentPackageName, RepositoryArtifact artifact) {
+    public org.modeldriven.fuml.repository.Class_ mapClass(Class_ clss, String currentPackageName, RepositoryArtifact artifact) {
 
 		org.modeldriven.fuml.repository.Class_ repositoryClass = 
 			new org.modeldriven.fuml.repository.model.Class_(clss, artifact);
 		mapClassifier(clss, repositoryClass, currentPackageName,
 				artifact);
+		return repositoryClass;
     }
 
-    public void mapClassifier(Classifier classifier, String currentPackageName, RepositoryArtifact artifact) {
+    public org.modeldriven.fuml.repository.Classifier mapClassifier(Classifier classifier, String currentPackageName, RepositoryArtifact artifact) {
 
 		org.modeldriven.fuml.repository.Classifier repositoryClassifier = 
 			new org.modeldriven.fuml.repository.model.Classifier(classifier, artifact);
 		mapClassifier(classifier, repositoryClassifier, currentPackageName,
 				artifact);
+		return repositoryClassifier;
     }
     
     private void mapClassifier(Classifier classifier, 
@@ -368,7 +375,7 @@ public class InMemoryMapping implements RepositoryMapping
         }         
     }
     
-    public void mapStereotype(Stereotype stereotype, String currentPackageName, RepositoryArtifact artifact) {
+    public org.modeldriven.fuml.repository.Stereotype mapStereotype(Stereotype stereotype, String currentPackageName, RepositoryArtifact artifact) {
     	String packageQualifiedName = null;
     	if (currentPackageName != null)
     		packageQualifiedName = currentPackageName + "." + stereotype.name;
@@ -378,6 +385,7 @@ public class InMemoryMapping implements RepositoryMapping
         if (log.isDebugEnabled())
             log.debug("mapping stereotype, " + artifact.getURN() + "#" + packageQualifiedName);
             
+        org.modeldriven.fuml.repository.Stereotype stereotypeClassifier = null;
         // try and find the classifier for this stereotype to determine
         // how to map it
         if (stereotype.getXmiNamespace() != null) {
@@ -385,7 +393,7 @@ public class InMemoryMapping implements RepositoryMapping
 	        String xmiNamespaceQualifiedClassifierName = stereotype.getXmiNamespace()
 	            + "#" + stereotype.getClass().getSimpleName();
 	        
-	        org.modeldriven.fuml.repository.Stereotype stereotypeClassifier = (org.modeldriven.fuml.repository.Stereotype)qualifiedClassifierNameToClassifierMap.get(xmiNamespaceQualifiedClassifierName);
+	        stereotypeClassifier = (org.modeldriven.fuml.repository.Stereotype)qualifiedClassifierNameToClassifierMap.get(xmiNamespaceQualifiedClassifierName);
 	        if (stereotypeClassifier != null) {
 	        	boolean foundExtension = false;
 	        	for (fUML.Syntax.Classes.Kernel.Property prop : stereotypeClassifier.getDelegate().ownedAttribute)
@@ -516,10 +524,10 @@ public class InMemoryMapping implements RepositoryMapping
         else
         	log.warn("missing artifact URI - could not map element '"
         			+ stereotype.name + "' as externally referencable by artifact URI");
-
+        return stereotypeClassifier;
     }
     
-    public void mapProperty(Classifier c, Property p, RepositoryArtifact artifact) {
+    public org.modeldriven.fuml.repository.Property mapProperty(Classifier c, Property p, RepositoryArtifact artifact) {
         if (log.isDebugEnabled())
 	    	if (c != null) // FIXME - why after assembly this could happen
 	            log.debug("mapping property, " + artifact.getURN() + "#" + c.name + "." + p.name);
@@ -537,9 +545,11 @@ public class InMemoryMapping implements RepositoryMapping
         	throw new RepositorylException("found existing property reference, '"
         			+ globalId + ".");
         elementIdToElementMap.put(globalId, property);
+        
+        return property;
     }
     
-    public void mapPrimitiveType(PrimitiveType t, String currentPackageName, RepositoryArtifact artifact) {
+    public org.modeldriven.fuml.repository.Classifier mapPrimitiveType(PrimitiveType t, String currentPackageName, RepositoryArtifact artifact) {
     	
     	if (log.isDebugEnabled())
             log.debug("mapping type, " + artifact.getURN() + "#" + currentPackageName + "." + t.getClass().getSimpleName());
@@ -577,16 +587,17 @@ public class InMemoryMapping implements RepositoryMapping
             elementIdToElementMap.put(uri + "/" + "uml.xml" 
                     + "#" + t.name, classifier);  
         }
+        return classifier;
     }
     
-    public void mapDataType(DataType t, String currentPackageName, RepositoryArtifact artifact) {
+    public org.modeldriven.fuml.repository.DataType mapDataType(DataType t, String currentPackageName, RepositoryArtifact artifact) {
     	
     	if (log.isDebugEnabled())
             log.debug("mapping datatype, " + artifact.getURN() + "#" + currentPackageName + "." + t.getClass().getSimpleName());
         
-        org.modeldriven.fuml.repository.Classifier classifier = new org.modeldriven.fuml.repository.model.Classifier(t, artifact);
+        org.modeldriven.fuml.repository.DataType dataType = new org.modeldriven.fuml.repository.model.DataType(t, artifact);
         if (t.name != null && currentPackageName != null) {
-            qualifiedClassifierNameToClassifierMap.put(currentPackageName + "." + t.name, classifier);
+            qualifiedClassifierNameToClassifierMap.put(currentPackageName + "." + t.name, dataType);
             classifierNameToPackageNameMap.put(t.name, currentPackageName);
             qualifiedClassifierNameToPackageNameMap.put(currentPackageName + "." + t.name,
                 currentPackageName);
@@ -596,12 +607,12 @@ public class InMemoryMapping implements RepositoryMapping
         if (elementIdToElementMap.get(t.getXmiId()) != null)
         	throw new RepositorylException("found existing datatype, '"
         			+ t.getXmiId() + ".");
-        elementIdToElementMap.put(t.getXmiId(), classifier);
+        elementIdToElementMap.put(t.getXmiId(), dataType);
         String globalId = artifact.getURN() + "#" + t.getXmiId();
         if (elementIdToElementMap.get(globalId) != null)
         	throw new RepositorylException("found existing datatype, '"
         			+ globalId + ".");
-        elementIdToElementMap.put(globalId, classifier); 
+        elementIdToElementMap.put(globalId, dataType); 
         if (t.name != null) {
             if (artifact.getNamespaceURI() != null) {
     	        String artifactNamespaceQualifiedName = artifact.getNamespaceURI()
@@ -611,33 +622,35 @@ public class InMemoryMapping implements RepositoryMapping
     	        	    log.debug("found existing datatype by artifact qualified name, '"
     	        			+ artifactNamespaceQualifiedName + "' while mapping artifact, "
     	        			+ artifact.getURN());
-    	        qualifiedClassifierNameToClassifierMap.put(artifactNamespaceQualifiedName, classifier);
+    	        qualifiedClassifierNameToClassifierMap.put(artifactNamespaceQualifiedName, dataType);
             }
             else
         	    log.warn("missing artifact URI - could not map datatype '"
         			+ t.name + "' as externally referencable by artifact URI");
         }
+        return dataType;
     }
 
-    public void mapEnumeration(Enumeration e, String currentPackageName, RepositoryArtifact artifact) {
+    public org.modeldriven.fuml.repository.Enumeration mapEnumeration(Enumeration e, String currentPackageName, RepositoryArtifact artifact) {
         if (log.isDebugEnabled())
             log.debug("mapping enumeration, " + currentPackageName + "." + e.name);
-        org.modeldriven.fuml.repository.Classifier classifier = new org.modeldriven.fuml.repository.model.Enumeration(e, artifact);
+        org.modeldriven.fuml.repository.Enumeration enumeration = new org.modeldriven.fuml.repository.model.Enumeration(e, artifact);
         //classifierNameToClassifierMap.put(e.name, classifier); // FIXME: flat name mapping
-        qualifiedClassifierNameToClassifierMap.put(currentPackageName + "." + e.name, classifier);
+        qualifiedClassifierNameToClassifierMap.put(currentPackageName + "." + e.name, enumeration);
         classifierNameToPackageNameMap.put(e.name, currentPackageName); // FIXME: flat name mapping
         qualifiedClassifierNameToPackageNameMap.put(currentPackageName + "." + e.name,
                 currentPackageName);
         if (elementIdToElementMap.get(e.getXmiId()) != null)
         	throw new RepositorylException("found existing enumeration, '"
         			+ e.getXmiId() + ".");
-        elementIdToElementMap.put(e.getXmiId(), classifier);
+        elementIdToElementMap.put(e.getXmiId(), enumeration);
+        return enumeration;
     }
 
-    public void mapEnumerationExternal(Enumeration e, String currentPackageName, RepositoryArtifact artifact) {
+    public org.modeldriven.fuml.repository.Enumeration mapEnumerationExternal(Enumeration e, String currentPackageName, RepositoryArtifact artifact) {
         if (log.isDebugEnabled())
             log.debug("mapping enumeration, " + currentPackageName + "." + e.name);
-        org.modeldriven.fuml.repository.Classifier classifier = new org.modeldriven.fuml.repository.model.Enumeration(e, artifact);
+        org.modeldriven.fuml.repository.Enumeration classifier = new org.modeldriven.fuml.repository.model.Enumeration(e, artifact);
         //classifierNameToClassifierMap.put(e.name, classifier); // FIXME: flat name mapping
         qualifiedClassifierNameToClassifierMap.put(currentPackageName + "." + e.name, classifier);
         //classifierNameToPackageNameMap.put(e.name, currentPackageName); // FIXME: flat name mapping
@@ -647,26 +660,29 @@ public class InMemoryMapping implements RepositoryMapping
         	throw new RepositorylException("found existing enumeration, '"
         			+ e.getXmiId() + ".");
         elementIdToElementMap.put(e.getXmiId(), classifier);
+        return classifier;
     }
     
-    public void mapEnumerationLiteral(EnumerationLiteral literal, String currentPackageName, RepositoryArtifact artifact) {
+    public org.modeldriven.fuml.repository.EnumerationLiteral mapEnumerationLiteral(EnumerationLiteral literal, String currentPackageName, RepositoryArtifact artifact) {
         if (log.isDebugEnabled())
             log.debug("mapping enumeration literal, " + currentPackageName + "." + literal.name);
         if (elementIdToElementMap.get(literal.getXmiId()) != null)
         	throw new RepositorylException("found existing enumeration literal, '"
         			+ literal.getXmiId() + ".");
-        org.modeldriven.fuml.repository.NamedElement namedElement = new org.modeldriven.fuml.repository.model.EnumerationLiteral(literal, artifact);
+        org.modeldriven.fuml.repository.EnumerationLiteral namedElement = new org.modeldriven.fuml.repository.model.EnumerationLiteral(literal, artifact);
         elementIdToElementMap.put(literal.getXmiId(), namedElement);
+        return namedElement;
     }   
     
-	public void mapAssociation(Association assoc, String currentPackageName, RepositoryArtifact artifact) {
+	public org.modeldriven.fuml.repository.Association mapAssociation(Association assoc, String currentPackageName, RepositoryArtifact artifact) {
         if (log.isDebugEnabled())
             log.debug("mapping association, " + currentPackageName + "." + assoc.name);
         if (elementIdToElementMap.get(assoc.getXmiId()) != null)
         	throw new RepositorylException("found existing association, '"
         			+ assoc.getXmiId() + ".");
-        org.modeldriven.fuml.repository.Classifier classifier = new org.modeldriven.fuml.repository.model.Classifier(assoc, artifact);
-        elementIdToElementMap.put(assoc.getXmiId(), classifier);		
+        org.modeldriven.fuml.repository.Association association = new org.modeldriven.fuml.repository.model.Association(assoc, artifact);
+        elementIdToElementMap.put(assoc.getXmiId(), association);
+        return association;
 	}
 
     public void mergePackage(Package target, Package source) {
