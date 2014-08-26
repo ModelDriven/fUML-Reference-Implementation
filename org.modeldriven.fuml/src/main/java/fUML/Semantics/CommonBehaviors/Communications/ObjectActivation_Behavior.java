@@ -12,21 +12,6 @@
 
 package fUML.Semantics.CommonBehaviors.Communications;
 
-import fUML.Debug;
-import UMLPrimitiveTypes.*;
-
-import java.util.Iterator;
-
-import fUML.Syntax.*;
-import fUML.Syntax.Classes.Kernel.*;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.*;
-import fUML.Syntax.CommonBehaviors.Communications.*;
-
-import fUML.Semantics.*;
-import fUML.Semantics.Classes.Kernel.*;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.*;
-import fUML.Semantics.Loci.LociL1.*;
-
 public class ObjectActivation_Behavior {
 
 	public ObjectActivation self = null;
@@ -35,13 +20,25 @@ public class ObjectActivation_Behavior {
 		this.self = self;
 	}
 
-	int signalCount = 0;
+	public int signalCount = 0;
+	public ObjectActivationExecution execution = null;
+	
 	public void _startObjectBehavior() {
 		// *** This should start the EventDispatchLoop ***
 
+		/*
 		while (this.signalCount > 0) {
 			this.self.dispatchNextEvent();
 			signalCount = signalCount - 1;
+		}
+		*/
+		
+		if (this.execution == null) {
+			this.execution = new ObjectActivationExecution(this);
+		}
+		
+		if (this.signalCount > 0) {
+			ExecutionQueue.enqueue(execution);
 		}
 	} // _startObjectBehavior
 
@@ -55,5 +52,11 @@ public class ObjectActivation_Behavior {
 			this._startObjectBehavior();
 		}
 	} // _send
+	
+	public void dispatchNextEvent() {
+		this.self.dispatchNextEvent();
+		signalCount = signalCount - 1;
+		this._startObjectBehavior();
+	}
 
 }

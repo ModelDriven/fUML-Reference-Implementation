@@ -12,19 +12,6 @@
 
 package fUML.Semantics.CommonBehaviors.Communications;
 
-import fUML.Debug;
-import UMLPrimitiveTypes.*;
-
-import fUML.Syntax.*;
-import fUML.Syntax.Classes.Kernel.*;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.*;
-import fUML.Syntax.CommonBehaviors.Communications.*;
-
-import fUML.Semantics.*;
-import fUML.Semantics.Classes.Kernel.*;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.*;
-import fUML.Semantics.Loci.*;
-
 public class ClassifierBehaviorExecution_Behavior {
 
 	public ClassifierBehaviorExecution self = null;
@@ -35,7 +22,8 @@ public class ClassifierBehaviorExecution_Behavior {
 
 	public void _startObjectBehavior() {
 		// *** This should start the asynchronous ClassifierBehaviorExecutionActivity to do the following. ***
-		this.self.execution.execute();
+		// this.self.execution.execute();
+		ExecutionQueue.enqueue(this.self.execution);
 	}
 
 }
