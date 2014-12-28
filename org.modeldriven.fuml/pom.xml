@@ -33,6 +33,7 @@
     </developers>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <xjc.output.dir>${project.build.directory}/generated-sources/java</xjc.output.dir>
     </properties>
     <dependencies>
         <dependency>
@@ -110,6 +111,71 @@
     </dependencies>
   <build>
     <plugins>
+				<plugin>
+					<!-- jaxb2-maven-plugin does not work with latest version of java http://www.journaldev.com/1312/how-to-generate-java-classes-from-xsd-using-xjc-maven-plugin 
+						http://mojo.codehaus.org/jaxb2-maven-plugin/ -->
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<executions>
+            <execution>
+              <id>fuml-config</id>
+              <phase>generate-sources</phase>
+              <goals>
+                <goal>run</goal>
+              </goals>
+              <configuration>
+                <target>
+                  <mkdir dir="${xjc.output.dir}" />
+                  <exec executable="sh">
+                    <arg
+                      line="${basedir}/bin/runXJC.sh
+                            ${xjc.output.dir}
+                            ${basedir}/src/main/resources/org/modeldriven/fuml/config/jaxb-bindings.xml
+                            ${basedir}/src/main/resources/org/modeldriven/fuml/config/FumlConfig.xsd" />
+                  </exec>
+                </target>
+              </configuration>
+            </execution>
+            <execution>
+              <id>repo-config</id>
+              <phase>generate-sources</phase>
+              <goals>
+                <goal>run</goal>
+              </goals>
+              <configuration>
+                <target>
+                  <mkdir dir="${xjc.output.dir}" />
+                  <exec executable="sh">
+                    <arg
+                      line="${basedir}/bin/runXJC.sh
+                            ${xjc.output.dir}
+                            ${basedir}/src/main/resources/org/modeldriven/fuml/repository/jaxb-bindings.xml
+                            ${basedir}/src/main/resources/org/modeldriven/fuml/repository/RepositoryConfig.xsd" />
+                  </exec>
+                </target>
+              </configuration>
+            </execution>
+          </executions>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>add-source</id>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>add-source</goal>
+							</goals>
+							<configuration>
+								<sources>
+									<source>${xjc.output.dir}</source>
+								</sources>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+        <!-- 
         <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>jaxb2-maven-plugin</artifactId>
@@ -144,14 +210,15 @@
                 </execution>
             </executions>
             <configuration>
-                <!-- HACK: where is 'generated-sources' defined ?? -->
+                <!- - HACK: where is 'generated-sources' defined ?? - ->
                 <outputDirectory>${project.build.directory}/generated-sources/java</outputDirectory>
                 <clearOutputDir>false</clearOutputDir>
                 <extension>true</extension>
                 <target>2.0</target>
                 <encoding>Cp1252</encoding>
             </configuration>
-      </plugin>                                                         
+      </plugin>  
+       -->                                                       
       <plugin>                                                         
          <artifactId>maven-antrun-plugin</artifactId>                   
          <version>1.7</version> 
