@@ -126,11 +126,11 @@
               <configuration>
                 <target>
                   <mkdir dir="${xjc.output.dir}" />
-                  <exec executable="sh">
+                  <exec executable="xjc">
                     <arg
-                      line="${basedir}/bin/runXJC.sh
-                            ${xjc.output.dir}
-                            ${basedir}/src/main/resources/org/modeldriven/fuml/config/jaxb-bindings.xml
+                      line="-d ${xjc.output.dir}
+                            -extension
+                            -b ${basedir}/src/main/resources/org/modeldriven/fuml/config/jaxb-bindings.xml
                             ${basedir}/src/main/resources/org/modeldriven/fuml/config/FumlConfig.xsd" />
                   </exec>
                 </target>
@@ -145,11 +145,11 @@
               <configuration>
                 <target>
                   <mkdir dir="${xjc.output.dir}" />
-                  <exec executable="sh">
+                  <exec executable="xjc">
                     <arg
-                      line="${basedir}/bin/runXJC.sh
-                            ${xjc.output.dir}
-                            ${basedir}/src/main/resources/org/modeldriven/fuml/repository/jaxb-bindings.xml
+                      line="-d ${xjc.output.dir}
+                            -extension
+                            -b ${basedir}/src/main/resources/org/modeldriven/fuml/repository/jaxb-bindings.xml
                             ${basedir}/src/main/resources/org/modeldriven/fuml/repository/RepositoryConfig.xsd" />
                   </exec>
                 </target>
