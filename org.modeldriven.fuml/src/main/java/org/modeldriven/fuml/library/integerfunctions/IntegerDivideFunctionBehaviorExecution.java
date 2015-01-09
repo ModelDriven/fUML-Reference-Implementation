@@ -1,7 +1,11 @@
 /*
  * Copyright 2008 Lockheed Martin Corporation, except as stated in the file 
- * entitled Licensing-Information. All modifications copyright 2009 Data Access Technologies, Inc. Licensed under the Academic Free License 
- * version 3.0 (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
+ * entitled Licensing-Information. 
+ * 
+ * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * 
+ * Licensed under the Academic Free License version 3.0 
+ * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
  * in the file entitled Licensing-Information. 
  *
  * Contributors:
@@ -9,70 +13,48 @@
  *
  */
 
-
 package org.modeldriven.fuml.library.integerfunctions;
+
+import org.modeldriven.fuml.library.LibraryFunctions;
 
 import fUML.Debug;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
-import fUML.Semantics.Classes.Kernel.Value;
-
-/**
- * <!-- begin-user-doc --> An implementation of the model object '
- * 
- * <em><b>org::modeldriven::fuml::library::integerfunctions::IntegerDivideFunctionBehaviorExecution</b></em>
- * '. <!-- end-user-doc -->
- * <p>
- * The following features are implemented:
- * <ul>
- * <li>{@link IntegerDivideFunctionBehaviorExecution#doIntegerFunction <em>
- * doIntegerFunction</em>}</li>
- * <li>{@link IntegerDivideFunctionBehaviorExecution#new_ <em>new_</em>}</li>
- * </ul>
- * </p>
- * 
- * @generated
- */
+import fUML.Semantics.Classes.Kernel.RealValue;
 
 public class IntegerDivideFunctionBehaviorExecution extends
-        org.modeldriven.fuml.library.integerfunctions.IntegerFunctionBehaviorExecution {
+		fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution {
 
-    // Attributes
+	@Override
+	public void doBody(
+			fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList inputParameters,
+			fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList outputParameters) {
+		// Extract integer arguments and perform an integer function on them.
 
-    // Operations of the class
-    /**
-     * operation doIntegerFunction <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @generated
-     */
-    public Value doIntegerFunction(UMLPrimitiveTypes.intList arguments) {
-        // Compute the integer divide function.
-    	
-    	int arg1 = arguments.getValue(0);
-    	int arg2 = arguments.getValue(1);
+		int arg1 = ((IntegerValue) (inputParameters.getValue(0)).values
+				.getValue(0)).value;
+		int arg2 = ((IntegerValue) (inputParameters.getValue(1)).values
+				.getValue(0)).value;
 
-    	// Check for illegal divide by zero
-    	if (arg2 == 0) {
-        	Debug.println("[doBody] Integer Divide, divide by zero not allowed");    		
-    		return null;
-    	}
+		// Check for illegal divide by zero
+		if (arg2 == 0) {
+			Debug.println("[doBody] Integer Divide, divide by zero not allowed");
+			LibraryFunctions.addEmptyValueListToOutputList(outputParameters);
+		}
 
-    	// Perform Divide function
-    	IntegerValue iv = new IntegerValue();
-    	iv.value = arg1/arg2;
-    	Debug.println("[doBody] Integer Divide result = " + iv.value);
-    	return iv;
-    }
+		// Perform Divide function
+		float x = ((float) arg1) / ((float) arg2);
+		Debug.println("[doBody] Integer Divide result = " + x);
 
-    /**
-     * operation new_ <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @generated
-     */
+		RealValue result = new RealValue();
+		result.value = x;
+		result.type = this.locus.factory.getBuiltInType("Real");
+		LibraryFunctions.addValueToOutputList(result, outputParameters);
+	}
 
-    public fUML.Semantics.Classes.Kernel.Value new_() {
-        // Create a new instance of this kind of function behavior execution.
+	public fUML.Semantics.Classes.Kernel.Value new_() {
+		// Create a new instance of this kind of function behavior execution.
 
-        return new IntegerDivideFunctionBehaviorExecution();
-    }
+		return new IntegerDivideFunctionBehaviorExecution();
+	}
 
 } // IntegerDivideFunctionBehaviorExecution

@@ -35,6 +35,18 @@ public class Classifier extends NamedElement
     	return _package;
     }
     
+    //public fUML.Syntax.Classes.Kernel.ClassifierList getGeneral() {
+	//    return this._classifier.general;
+    //}
+    
+    private List<org.modeldriven.fuml.repository.Classifier> general = new ArrayList<org.modeldriven.fuml.repository.Classifier>();
+    public List<org.modeldriven.fuml.repository.Classifier> getGeneral() {
+    	if (general.size() == 0 && this._classifier.general != null && this._classifier.general.size() > 0)
+    	    for (int i = 0; i < this._classifier.general.size(); i++)
+    	    	this.general.add(new Classifier(this._classifier.general.get(i), this.artifact));
+    	return general;
+    }
+    
     private List<org.modeldriven.fuml.repository.Classifier> generalization = new ArrayList<org.modeldriven.fuml.repository.Classifier>();
     public List<org.modeldriven.fuml.repository.Classifier> getGeneralization() {
     	if (generalization.size() == 0 && this._classifier.generalization != null && this._classifier.generalization.size() > 0)
@@ -45,11 +57,7 @@ public class Classifier extends NamedElement
     }   
     
     public boolean isAbstract() {
-    	// fUML generated code has an isAbstract member on both Classifier and Class_
-    	if (_classifier instanceof fUML.Syntax.Classes.Kernel.Class_)
-    		return ((fUML.Syntax.Classes.Kernel.Class_)_classifier).isAbstract;
-    	else
-    	    return this._classifier.isAbstract;
+    	return this._classifier.isAbstract;
     }
 
 	public boolean isDataType() {

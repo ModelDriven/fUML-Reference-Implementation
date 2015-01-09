@@ -27,12 +27,13 @@ public abstract class OutputChannelObject extends ChannelObject {
         String name = execution.getOperationName();
 
         if (name.equals("write")) {
-        	Status status = new Status("OutputChannelObject");
+        	Status status = new Status(this.locus, "OutputChannelObject");
             this.write(execution.getParameterValue("value").values.getValue(0), status);
             this.updateStatus(execution, status);
         } else if (name.equals("isFull")) {
             BooleanValue isFullValue = new BooleanValue();
             isFullValue.value = this.isFull();
+            isFullValue.type = this.locus.factory.getBuiltInType("Boolean");
             execution.setReturnParameterValue(isFullValue);
         } else {
             super.execute(execution);

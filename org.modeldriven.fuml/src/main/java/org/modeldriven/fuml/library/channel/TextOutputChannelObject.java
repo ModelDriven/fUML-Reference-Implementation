@@ -61,7 +61,7 @@ public abstract class TextOutputChannelObject extends OutputChannelObject {
         // parameterValue.values.getValue(0));
         // }
         
-        Status status = new Status("TextOutputChannel");
+        Status status = new Status(this.locus, "TextOutputChannel");
 
         if (name.equals("writeNewLine")) {
             this.writeNewLine(status);            

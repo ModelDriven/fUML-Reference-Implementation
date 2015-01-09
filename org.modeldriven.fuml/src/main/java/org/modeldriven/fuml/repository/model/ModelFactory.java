@@ -1,3 +1,20 @@
+/*
+ * Initial version copyright 2008 Lockheed Martin Corporation, except
+ * as stated in the file entitled Licensing-Information.
+ *
+ * Modifications:
+ * Copyright 2009 Data Access Technologies, Inc.
+ * Copyright 2013 Ivar Jacobson International SA
+ *
+ * Licensed under the Academic Free License version 3.0
+ * (http://www.opensource.org/licenses/afl-3.0.php), except as stated
+ * in the file entitled Licensing-Information.
+ *
+ * Contributors:
+ *   MDS - initial API and implementation
+ *   IJI
+ *
+ */
 package org.modeldriven.fuml.repository.model;
 
 import java.util.ArrayList;
@@ -6,7 +23,6 @@ import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.modeldriven.fuml.environment.Environment;
 import org.modeldriven.fuml.repository.Repository;
 import org.modeldriven.fuml.repository.RepositoryArtifact;
 import org.modeldriven.fuml.repository.RepositoryMapping;
@@ -51,29 +67,24 @@ public class ModelFactory
     
     public Package createPackage(String name, String qualifiedName, String id, Package parent, RepositoryArtifact artifact) {
     	Package p = new Package();
+        if (parent != null)
+            parent.addPackagedElement(p);
+
         p.name = name;
         p.qualifiedName = qualifiedName;
         p.setHref(artifact.getURN() + "#" + p.qualifiedName);
         p.setXmiId(id);
-        if (parent != null)
-            parent.addPackagedElement(p);
-        
-        if (parent != null) {
-            parent.nestedPackage.add(p);
-            p.nestingPackage = parent;
-        }
         
         return p;
     }
             
     public Class_ createClass(String name, String id, Package pkg) {
         Class_ c = new Class_();
+        pkg.addPackagedElement(c);        
+
         c.name = name;
         c.qualifiedName = pkg.qualifiedName + "." + c.name;
         c.setXmiId(id);
-        
-        pkg.addPackagedElement(c);        
-        c.package_ = pkg;
         
         return c;
     }
@@ -88,6 +99,16 @@ public class ModelFactory
     public PrimitiveType createPrimitiveType(String name, String id) {
     	PrimitiveType t = new PrimitiveType();
         t.name = name;
+        t.setXmiId(id);
+        return t;        
+    }
+
+    public PrimitiveType createPrimitiveType(String name, String id, Package pkg) {
+    	PrimitiveType t = new PrimitiveType();
+    	pkg.addPackagedElement(t);
+    	
+        t.name = name;
+        t.qualifiedName = pkg.qualifiedName + "." + t.name;
         t.setXmiId(id);
         return t;        
     }

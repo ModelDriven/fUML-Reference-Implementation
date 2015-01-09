@@ -35,7 +35,6 @@ import org.modeldriven.fuml.library.Library;
 import org.modeldriven.fuml.repository.Class_;
 import org.modeldriven.fuml.repository.Classifier;
 import org.modeldriven.fuml.repository.Property;
-import org.modeldriven.fuml.repository.Stereotype;
 import org.modeldriven.fuml.xmi.AbstractXmiNodeVisitor;
 import org.modeldriven.fuml.xmi.ModelSupport;
 import org.modeldriven.fuml.xmi.XmiExternalReferenceElement;
@@ -144,7 +143,7 @@ public class ValidationErrorCollector extends AbstractXmiNodeVisitor
                 addError(ErrorCode.DUPLICATE_REFERENCE,
                         ErrorSeverity.FATAL, eventNode);
         }
-    	
+
 		Classifier classifier = findClassifier(target, source);
 		if (classifier == null)
 		{
@@ -179,7 +178,7 @@ public class ValidationErrorCollector extends AbstractXmiNodeVisitor
     	classifierMap.put(target, classifier);
     	
         boolean hasAttributes = eventNode.hasAttributes();
-    	if (isPrimitiveTypeElement(eventNode, classifier, hasAttributes))
+    	if (isNotReferenceElement(eventNode, classifier, hasAttributes))
     		return;
 
     	if (isInternalReferenceElement(eventNode, classifier, hasAttributes))
@@ -201,10 +200,8 @@ public class ValidationErrorCollector extends AbstractXmiNodeVisitor
         	return;
     	}
 
-    	
     	// validate target node as attribute of source
-    	if (source != null) {    		
-    		
+    	if (source != null) {
     		Class_ sourceClassifier = (Class_)classifierMap.get(source);
     	    if (sourceClassifier != null) {
 	            Property property = sourceClassifier.findProperty(target.getLocalName());
@@ -230,10 +227,12 @@ public class ValidationErrorCollector extends AbstractXmiNodeVisitor
     	    // else source is an undefined class, and we handled that previously
     	}
     	
-    	if (eventNode.hasAttributes())
-    	    validateAttributes(eventNode, source, (Class_)classifier, eventNode.getAttributes());
-
-    	validateAttributesAgainstModel(eventNode, source, (Class_)classifier);
+    	if (classifier instanceof Class_) {
+	    	if (eventNode.hasAttributes())
+	    	    validateAttributes(eventNode, source, (Class_)classifier, eventNode.getAttributes());
+	
+	    	validateAttributesAgainstModel(eventNode, source, (Class_)classifier);
+    	}
 	}
 
 	private void validateAttributes(StreamNode target, XmiNode source,
@@ -322,16 +321,8 @@ public class ValidationErrorCollector extends AbstractXmiNodeVisitor
 	            	ValidationExemption exemption = FumlConfiguration.getInstance().findValidationExemptionByProperty(ValidationExemptionType.REQUIRED_PROPERTY,
 	            			classifier, prop.getName(), target.getNamespaceURI(), domain);
 	            	if (exemption == null) {
-	            		
-	            		if (!prop.isDerived()) {
-	                        addError(ErrorCode.PROPERTY_REQUIRED,
-	                            ErrorSeverity.FATAL, target, prop.getName());
-	            		}
-	            		else {
-		    				if (log.isDebugEnabled())
-		    					log.debug("found derived, required property '" 
-		    						+ classifier.getName() + "." + prop.getName() + "' - no way to derive property");
-	            		}
+	                    addError(ErrorCode.PROPERTY_REQUIRED,
+	                        ErrorSeverity.FATAL, target, prop.getName());
 	            	}
 	            	else {
 	    				if (log.isDebugEnabled())
@@ -418,29 +409,23 @@ public class ValidationErrorCollector extends AbstractXmiNodeVisitor
                 {
                     if (validateExternalReferences)
                     {
-                        StreamNode streamNode = (StreamNode)reference.getXmiNode();
-                    	if (domain == null)
-                    		domain = FumlConfiguration.getInstance().findNamespaceDomain(streamNode.getNamespaceURI());	            	
+                        if (Library.getInstance().lookup(id) != null) {
+                            // happy
+                        } else if (id != null && id.startsWith("pathmap:")) {
+                        	// FIXME: resolve these references inside/outside of lib(s)
+                        } else {
+                            StreamNode streamNode = (StreamNode)reference.getXmiNode();
+                        	if (domain == null)
+                        		domain = FumlConfiguration.getInstance().findNamespaceDomain(streamNode.getNamespaceURI());	            	
 
-                    	ValidationExemption exemption = FumlConfiguration.getInstance().findValidationExemptionByReference(ValidationExemptionType.EXTERNAL_REFERENCE,
-                    			reference.getClassifier(), id, streamNode.getNamespaceURI(), domain);
-                    	if (exemption != null)
-                    		continue; // external reference is specifically exempted from validation
-                        
-                    	// Note: if we are currently validating a library artifact
-                    	// it is particularly important to escape the validation on a
-                    	// specific exemption (above), as we could have e.g. external reference
-                    	// errors in the library itself, causing a stack overflow here.
-                    	if (Library.getInstance().lookup(id) != null)
-                            continue; // happy
-                        else if (id != null && id.startsWith("pathmap:")) // FIXME: resolve these references inside/outside of lib(s)
-                            continue;
-                        
-                        addError(ErrorCode.INVALID_EXTERNAL_REFERENCE, ErrorSeverity.FATAL, 
-                        		reference, id);
+                        	ValidationExemption exemption = FumlConfiguration.getInstance().findValidationExemptionByReference(ValidationExemptionType.EXTERNAL_REFERENCE,
+                        			reference.getClassifier(), id, streamNode.getNamespaceURI(), domain);
+                        	if (exemption == null) {
+                                addError(ErrorCode.INVALID_EXTERNAL_REFERENCE, ErrorSeverity.FATAL, 
+                                		reference, id);
+                        	}                	
+                        }
                     }
-                    else
-                        continue;
                 }
                 else // internal reference
                 {

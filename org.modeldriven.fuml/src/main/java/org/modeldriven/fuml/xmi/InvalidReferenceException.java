@@ -1,7 +1,11 @@
 /*
  * Copyright 2008 Lockheed Martin Corporation, except as stated in the file 
- * entitled Licensing-Information. All modifications copyright 2009 Data Access Technologies, Inc. Licensed under the Academic Free License 
- * version 3.0 (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
+ * entitled Licensing-Information. 
+ * 
+ * All modifications copyright 2009-2015 Data Access Technologies, Inc. 
+ * 
+ * Licensed under the Academic Free License version 3.0 
+ * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
  * in the file entitled Licensing-Information. 
  *
  * Contributors:
@@ -16,6 +20,8 @@ package org.modeldriven.fuml.xmi;
  * @author Scott Cinnamond
  */
 public class InvalidReferenceException extends XmiException {
+	
+	private static final long serialVersionUID = 1L;
 	
 	public InvalidReferenceException(Throwable t) {
 		super(t);

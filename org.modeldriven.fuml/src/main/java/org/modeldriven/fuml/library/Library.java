@@ -33,6 +33,25 @@ public class Library {
     private LibraryConfiguration config;
 
     private Library() {
+    }
+    
+    public static Library getInstance() throws LibraryException {
+        if (instance == null)
+            initializeInstance();
+        return instance;
+    }
+
+    private static synchronized void initializeInstance() {
+    	if (instance == null) {
+    		// NOTE: Separating initialization from construction avoids the
+    		// possibility of an infinite loop if an attempt is made to 
+    		// access the library instance during initialization.
+    		instance = new Library();
+    		instance.initialize();
+    	}
+    }
+
+    private void initialize() {
         log.info("initializing...");
         config = FumlConfiguration.getInstance().getConfig().getLibraryConfiguration();
         if (config != null && config.getLibraryImport() != null) {
@@ -43,23 +62,9 @@ public class Library {
         }
     }
 
-    public static Library getInstance() throws LibraryException {
-        if (instance == null)
-            initializeInstance();
-        return instance;
-    }
-
-    private static synchronized void initializeInstance() {
-        if (instance == null)
-            instance = new Library();
-    }
-
-    @SuppressWarnings("unchecked")
     private void load(LibraryImport libraryImport) {
         log.info("loading library artifact, " + libraryImport.getName());
         InputStream stream = Library.class.getResourceAsStream(libraryImport.getName());
-        if (stream == null)
-        	stream = Library.class.getClassLoader().getResourceAsStream(libraryImport.getName());
         if (stream == null)
             throw new LibraryException("cannot find resource '" + libraryImport.getName() + "'");
 
@@ -69,11 +74,6 @@ public class Library {
         		stream);
         
         ArtifactLoader reader = new ArtifactLoader();
-        // this is a library which is itself used to
-        // validate and assemble external references
-        reader.setValidateExternalReferences(false);
-        reader.setAssembleExternalReferences(false);
-        
         reader.read(artifact);
         log.info("completed library artifact, " + libraryImport.getName());
     }

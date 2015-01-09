@@ -1,7 +1,11 @@
 /*
  * Copyright 2008 Lockheed Martin Corporation, except as stated in the file 
- * entitled Licensing-Information. All modifications copyright 2009 Data Access Technologies, Inc. Licensed under the Academic Free License 
- * version 3.0 (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
+ * entitled Licensing-Information. 
+ * 
+ * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * 
+ * Licensed under the Academic Free License version 3.0 
+ * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
  * in the file entitled Licensing-Information. 
  *
  * Contributors:
@@ -9,64 +13,24 @@
  *
  */
 
-
 package org.modeldriven.fuml.library.integerfunctions;
 
 import fUML.Debug;
-import fUML.Semantics.Classes.Kernel.IntegerValue;
-import fUML.Semantics.Classes.Kernel.Value;
-
-/**
- * <!-- begin-user-doc --> An implementation of the model object '
- * 
- * <em><b>org::modeldriven::fuml::library::integerfunctions::IntegerMaxFunctionBehaviorExecution</b></em>
- * '. <!-- end-user-doc -->
- * <p>
- * The following features are implemented:
- * <ul>
- * <li>{@link IntegerMaxFunctionBehaviorExecution#doIntegerFunction <em>
- * doIntegerFunction</em>}</li>
- * <li>{@link IntegerMaxFunctionBehaviorExecution#new_ <em>new_</em>}</li>
- * </ul>
- * </p>
- * 
- * @generated
- */
 
 public class IntegerMaxFunctionBehaviorExecution extends
-        org.modeldriven.fuml.library.integerfunctions.IntegerFunctionBehaviorExecution {
+        IntegerFunctionBehaviorExecution {
 
-    // Attributes
-
-    // Operations of the class
-	
-    /**
-     * operation doIntegerFunction <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @generated
-     */
-    public Value doIntegerFunction(UMLPrimitiveTypes.intList arguments) {
+    public Integer doIntegerFunction(UMLPrimitiveTypes.intList arguments) {
 
     	int i1 = arguments.getValue(0);
     	int i2 = arguments.getValue(1);
     	
-    	IntegerValue iv = new IntegerValue();
+    	int i = (i1 >= i2)? i1: i2;
     	
-    	if (i1 >= i2) {
-    		iv.value = i1;
-    	} else {
-    		iv.value = i2;
-    	}
-    	
-    	Debug.println("[doBody] Integer Max result = " + iv.value);
-    	return iv;
+     	Debug.println("[doBody] Integer Max result = " + i);
+    	return i;
     }
 
-    /**
-     * operation new_ <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @generated
-     */
     public fUML.Semantics.Classes.Kernel.Value new_() {
         // Create a new instance of this kind of function behavior execution.
         return new IntegerMaxFunctionBehaviorExecution();

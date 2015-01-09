@@ -11,9 +11,6 @@ public abstract class ElementReader {
 	protected List<ValidationEventListener> validationEventListeners;
 	protected List<ElementAssemblerEventListener> elementAssemblerEventListeners;
 	protected List<ElementReaderEventListener> elementReaderEventListeners;
-	protected boolean validateExternalReferences = true;
-	protected boolean assembleExternalReferences = true;
-	
     
     public void addValidationEventListener(ValidationEventListener eventListener) {
     	if (validationEventListeners == null)
@@ -50,21 +47,5 @@ public abstract class ElementReader {
     		return;
     	this.elementReaderEventListeners.remove(eventListener);
     }
-
-	public boolean isValidateExternalReferences() {
-		return validateExternalReferences;
-	}
-
-	public void setValidateExternalReferences(boolean validateExternalReferences) {
-		this.validateExternalReferences = validateExternalReferences;
-	}
-
-	public boolean isAssembleExternalReferences() {
-		return assembleExternalReferences;
-	}
-
-	public void setAssembleExternalReferences(boolean assembleExternalReferences) {
-		this.assembleExternalReferences = assembleExternalReferences;
-	}
     
 }

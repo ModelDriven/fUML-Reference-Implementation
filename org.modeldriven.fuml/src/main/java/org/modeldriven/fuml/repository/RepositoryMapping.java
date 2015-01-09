@@ -1,20 +1,32 @@
 package org.modeldriven.fuml.repository;
 
+import org.modeldriven.fuml.repository.ext.Stereotype;
+
+import fUML.Syntax.Classes.Kernel.Association;
+import fUML.Syntax.Classes.Kernel.Class_;
+import fUML.Syntax.Classes.Kernel.Classifier;
+import fUML.Syntax.Classes.Kernel.DataType;
+import fUML.Syntax.Classes.Kernel.Element;
+import fUML.Syntax.Classes.Kernel.Enumeration;
+import fUML.Syntax.Classes.Kernel.EnumerationLiteral;
+import fUML.Syntax.Classes.Kernel.NamedElement;
+import fUML.Syntax.Classes.Kernel.Package;
+import fUML.Syntax.Classes.Kernel.PrimitiveType;
+import fUML.Syntax.Classes.Kernel.Property;
 
 public interface RepositoryMapping {
 
-	public Element mapElementById(fUML.Syntax.Classes.Kernel.Element element, RepositoryArtifact artifact);
-	public NamedElement mapElementByName(fUML.Syntax.Classes.Kernel.NamedElement element, RepositoryArtifact artifact);
-	public Package mapPackage(fUML.Syntax.Classes.Kernel.Package pkg, String currentPackageName, RepositoryArtifact artifact);
-	public void mapPackageMerge(fUML.Syntax.Classes.Kernel.Package pkg, String sourcePackageXmiId);
-	public Classifier mapClassifier(fUML.Syntax.Classes.Kernel.Classifier classifier, String currentPackageName, RepositoryArtifact artifact);
-	public Class_ mapClass(fUML.Syntax.Classes.Kernel.Class_ clss, String currentPackageName, RepositoryArtifact artifact);
-	public Stereotype mapStereotype(org.modeldriven.fuml.repository.ext.Stereotype stereotype, String currentPackageName, RepositoryArtifact artifact);
-	public Property mapProperty(fUML.Syntax.Classes.Kernel.Classifier clss, fUML.Syntax.Classes.Kernel.Property proprty, RepositoryArtifact artifact);
-	public Classifier mapPrimitiveType(fUML.Syntax.Classes.Kernel.PrimitiveType type, String currentPackageName, RepositoryArtifact artifact);
-	public Enumeration mapEnumeration(fUML.Syntax.Classes.Kernel.Enumeration e, String currentPackageName, RepositoryArtifact artifact);
-	public Enumeration mapEnumerationExternal(fUML.Syntax.Classes.Kernel.Enumeration e, String currentPackageName, RepositoryArtifact artifact);
-	public EnumerationLiteral mapEnumerationLiteral(fUML.Syntax.Classes.Kernel.EnumerationLiteral literal, String currentPackageName, RepositoryArtifact artifact);
-	public Association mapAssociation(fUML.Syntax.Classes.Kernel.Association assoc, String currentPackageName, RepositoryArtifact artifact);
-	public DataType mapDataType(fUML.Syntax.Classes.Kernel.DataType t, String currentPackageName, RepositoryArtifact artifact);
+	public void mapElementById(Element element, RepositoryArtifact artifact);
+	public void mapElementByName(NamedElement element, RepositoryArtifact artifact);
+	public void mapPackage(Package pkg, String currentPackageName, RepositoryArtifact artifact);
+	public void mapPackageMerge(Package pkg, String sourcePackageXmiId);
+	public void mapClassifier(Classifier classifier, String currentPackageName, RepositoryArtifact artifact);
+	public void mapClass(Class_ clss, String currentPackageName, RepositoryArtifact artifact);
+	public void mapStereotype(Stereotype stereotype, String currentPackageName, RepositoryArtifact artifact);
+	public void mapProperty(Classifier clss, Property proprty, RepositoryArtifact artifact);
+	public void mapPrimitiveType(PrimitiveType type, String currentPackageName, RepositoryArtifact artifact);
+	public void mapEnumeration(Enumeration e, String currentPackageName, RepositoryArtifact artifact);
+	public void mapEnumerationLiteral(EnumerationLiteral literal, String currentPackageName, RepositoryArtifact artifact);
+	public void mapAssociation(Association assoc, String currentPackageName, RepositoryArtifact artifact);
+	public void mapDataType(DataType t, String currentPackageName, RepositoryArtifact artifact);
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:uml="http://www.omg.org/spec/UML/20110701">
-  <uml:Package xmi:type="uml:Package" xmi:id="_0" name="UML">
+  <uml:Package xmi:type="uml:Package" xmi:id="UML" name="UML">
     <packagedElement xmi:type="uml:Package" xmi:id="Actions" name="Actions">
       <packageImport xmi:type="uml:PackageImport" xmi:id="Actions-_packageImport.0" importedPackage="Activities"/>
       <packagedElement xmi:type="uml:Package" xmi:id="Actions-BasicActions" name="BasicActions">

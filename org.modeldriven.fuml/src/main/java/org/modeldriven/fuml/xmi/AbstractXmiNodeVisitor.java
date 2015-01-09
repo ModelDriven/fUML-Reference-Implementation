@@ -1,6 +1,10 @@
 /*
  * Copyright 2008 Lockheed Martin Corporation, except as stated in the file 
- * entitled Licensing-Information. All modifications copyright 2009 Data Access Technologies, Inc. Licensed under the Academic Free License 
+ * entitled Licensing-Information. 
+ * 
+ * All modifications copyright 2009 Data Access Technologies, Inc. 
+ * 
+ * Licensed under the Academic Free License 
  * version 3.0 (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
  * in the file entitled Licensing-Information. 
  *
@@ -22,8 +26,6 @@ import javax.xml.stream.events.Attribute;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.modeldriven.fuml.xmi.stream.StreamNode;
-
-import fUML.Syntax.Classes.Kernel.Element;
 
 import org.modeldriven.fuml.assembly.AssemblyAdapter;
 import org.modeldriven.fuml.assembly.AssemblyException;
@@ -91,10 +93,10 @@ public abstract class AbstractXmiNodeVisitor {
         return classifier;
 	}
 		
-	protected boolean isPrimitiveTypeElement(XmiNode node, Classifier classifier,
+	protected boolean isNotReferenceElement(XmiNode node, Classifier classifier,
 			boolean hasAttributes)
 	{
-		return modelSupport.isPrimitiveTypeElement(node, classifier, hasAttributes);
+		return modelSupport.isNotReferenceElement(node, classifier, hasAttributes);
 	}
 
 	protected boolean isInternalReferenceElement(XmiNode node, Classifier classifier,

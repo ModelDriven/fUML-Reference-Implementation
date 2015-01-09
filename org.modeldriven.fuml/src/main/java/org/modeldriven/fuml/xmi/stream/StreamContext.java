@@ -1,7 +1,11 @@
 /*
  * Copyright 2008 Lockheed Martin Corporation, except as stated in the file 
- * entitled Licensing-Information. All modifications copyright 2009 Data Access Technologies, Inc. Licensed under the Academic Free License 
- * version 3.0 (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
+ * entitled Licensing-Information. 
+ * 
+ * All modifications copyright 2009-2015 Data Access Technologies, Inc. 
+ * 
+ * Licensed under the Academic Free License version 3.0 
+ * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
  * in the file entitled Licensing-Information. 
  *
  * Contributors:
@@ -59,10 +63,11 @@ public class StreamContext {
 	    defaultNamespace = this.getUmlNamespace(); 	    
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void loadNamespaces(XMLEvent root) {
 		
 		List<Namespace> list = new ArrayList<Namespace> ();
-    	Iterator<Namespace> namespaceIter = root.asStartElement().getNamespaces();
+		Iterator<Namespace> namespaceIter = root.asStartElement().getNamespaces();
     	while (namespaceIter.hasNext())
     	{
     		Namespace namespace = namespaceIter.next();

@@ -69,6 +69,8 @@ public class ElementGraphAssembler extends AbstractXmiNodeVisitor
         for (ElementAssembler root : roots)
             root.acceptBreadthFirst(new ElementLinker());
         for (ElementAssembler root : roots)
+        	root.associateDeferredGeneralizations();
+        for (ElementAssembler root : roots)
             root.acceptBreadthFirst(new LibraryRegistration()); // TODO: move to
                                                             // library package      
         for (ElementAssembler root : roots)
@@ -154,7 +156,7 @@ public class ElementGraphAssembler extends AbstractXmiNodeVisitor
         }
         
         boolean hasAttributes = eventNode.hasAttributes();
-        if (isPrimitiveTypeElement(target, classifier, hasAttributes))
+        if (isNotReferenceElement(target, classifier, hasAttributes))
             return; // must be an attribute, handled in ElementAssembler
 
         ElementAssembler sourceAssembler = null;
@@ -180,7 +182,7 @@ public class ElementGraphAssembler extends AbstractXmiNodeVisitor
         		(Class_)classifier, this.resultsAssemblerMap);
         assembler.setAssembleExternalReferences(this.assembleExternalReferences);
         assembler.assembleElementClass();
-        assembler.assemleFeatures();
+        assembler.assembleFeatures();
         
         this.resultsAssemblerMap.put(assembler.getXmiId(), assembler);
         this.xmiNodeToAssemblerMap.put(target, assembler);

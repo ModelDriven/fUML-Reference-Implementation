@@ -30,13 +30,14 @@ public abstract class TextInputChannelObject extends InputChannelObject {
     public void execute(OperationExecution execution) {
         String name = execution.getOperationName();
 
-        Status status = new Status("TextInputChannel");
+        Status status = new Status(this.locus, "TextInputChannel");
         PrimitiveValue resultValue = null;
         
         if (name.equals("readCharacter")) {
             String result = this.readCharacter(status);
             if (result != null) {
 	            resultValue = new StringValue();
+	            resultValue.type = this.locus.factory.getBuiltInType("String");
 	            ((StringValue)resultValue).value = result;
             }
             this.updateStatus(execution, status);
@@ -44,6 +45,7 @@ public abstract class TextInputChannelObject extends InputChannelObject {
             String result = this.peekCharacter(status);
             if (result != null) {
 	            resultValue = new StringValue();
+	            resultValue.type = this.locus.factory.getBuiltInType("String");
 	            ((StringValue)resultValue).value = result;
             }
             this.updateStatus(execution, status);
@@ -51,6 +53,7 @@ public abstract class TextInputChannelObject extends InputChannelObject {
             String result = this.readLine(status);
             if (result != null) {
 	            resultValue = new StringValue();
+	            resultValue.type = this.locus.factory.getBuiltInType("String");
 	            ((StringValue)resultValue).value = result;
             }
             this.updateStatus(execution, status);
@@ -58,6 +61,7 @@ public abstract class TextInputChannelObject extends InputChannelObject {
             Integer result = this.readInteger(status);
             if (result != null) {
 	            resultValue = new IntegerValue();
+	            resultValue.type = this.locus.factory.getBuiltInType("Integer");
 	            ((IntegerValue)resultValue).value = result;
             }
             this.updateStatus(execution, status);
@@ -65,6 +69,7 @@ public abstract class TextInputChannelObject extends InputChannelObject {
             Boolean result = this.readBoolean(status);
             if (result != null) {
 	            resultValue = new BooleanValue();
+	            resultValue.type = this.locus.factory.getBuiltInType("Boolean");
 	            ((BooleanValue)resultValue).value = result;
             }
             this.updateStatus(execution, status);
@@ -72,6 +77,7 @@ public abstract class TextInputChannelObject extends InputChannelObject {
             UnlimitedNatural result = this.readUnlimitedNatural(status);
             if (result != null) {
 	            resultValue = new UnlimitedNaturalValue();
+	            resultValue.type = this.locus.factory.getBuiltInType("UnlimitedNatural");
 	            ((UnlimitedNaturalValue)resultValue).value = result;
             }
             this.updateStatus(execution, status);

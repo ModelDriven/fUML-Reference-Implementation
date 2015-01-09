@@ -2,14 +2,17 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except
  * as stated in the file entitled Licensing-Information.
  *
- * All modifications copyright 2009 Data Access Technologies, Inc.
+ * Modifications:
+ * Copyright 2009 Data Access Technologies, Inc.
+ * Copyright 2013 Ivar Jacobson International SA
  *
- * All modifications copyright 2009 Data Access Technologies, Inc. Licensed under the Academic Free License version 3.0
+ * Licensed under the Academic Free License version 3.0
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated
  * in the file entitled Licensing-Information.
  *
  * Contributors:
  *   MDS - initial API and implementation
+ *   IJI
  *
  */
 package org.modeldriven.fuml.repository.model;
@@ -31,7 +34,6 @@ import org.modeldriven.fuml.bind.DefaultValidationEventHandler;
 import org.modeldriven.fuml.common.reflect.ReflectionUtils;
 import org.modeldriven.fuml.config.ExtensionPackage;
 import org.modeldriven.fuml.config.FumlConfiguration;
-import org.modeldriven.fuml.environment.Environment;
 import org.modeldriven.fuml.repository.config.Artifact;
 import org.modeldriven.fuml.repository.config.IgnoredClass;
 import org.modeldriven.fuml.repository.config.IgnoredPackage;
@@ -53,7 +55,6 @@ import org.modeldriven.fuml.xmi.InvalidReferenceException;
 import org.modeldriven.fuml.xmi.XmiException;
 import org.xml.sax.SAXException;
 
-import fUML.Syntax.Classes.Kernel.Generalization;
 import fUML.Syntax.Classes.Kernel.Operation;
 import fUML.Syntax.Classes.Kernel.PackageableElement;
 
@@ -63,7 +64,6 @@ public class InMemoryRepository extends InMemoryMapping
     private static Log log = LogFactory.getLog(InMemoryRepository.class);
     private static InMemoryRepository instance = null;
     private static String configFileName = "RepositoryConfig.xml";
-    private static final List<Classifier> EMPTY_CLASSIFIER_LIST = new ArrayList<Classifier>();
 
     private RepositoryConfig config;
 
@@ -88,43 +88,6 @@ public class InMemoryRepository extends InMemoryMapping
             throw new RepositorylException(e);
         }
 
-        // The fUML execution environment requires a single instance
-        // of these primitive types to be used for execution purposes.
-        // Consequently they are "assembled" into M1 models. As a repository, 
-        // we need to map these at bootstrap time as repository interface
-        // instances for later lookup.
-        org.modeldriven.fuml.repository.model.Classifier primitiveTypeClassifier = 
-        	new org.modeldriven.fuml.repository.model.Classifier(
-        	    Environment.getInstance().getInteger(), null);
-        if (primitiveTypeClassifier.getXmiId() == null || primitiveTypeClassifier.getXmiId().length() == 0)
-        	throw new IllegalStateException("expected XMI ID for fUML primitive type");
-        elementIdToElementMap.put(primitiveTypeClassifier.getXmiId(), primitiveTypeClassifier);
-        classifierNameToClassifierMap.put("Integer", primitiveTypeClassifier);
-
-        primitiveTypeClassifier = 
-        	new org.modeldriven.fuml.repository.model.Classifier(
-        	    Environment.getInstance().getString(), null);
-        if (primitiveTypeClassifier.getXmiId() == null || primitiveTypeClassifier.getXmiId().length() == 0)
-        	throw new IllegalStateException("expected XMI ID for fUML primitive type");
-        elementIdToElementMap.put(primitiveTypeClassifier.getXmiId(), primitiveTypeClassifier);
-        classifierNameToClassifierMap.put("String", primitiveTypeClassifier);
-
-        primitiveTypeClassifier = 
-        	new org.modeldriven.fuml.repository.model.Classifier(
-        	    Environment.getInstance().getBoolean(), null);
-        if (primitiveTypeClassifier.getXmiId() == null || primitiveTypeClassifier.getXmiId().length() == 0)
-        	throw new IllegalStateException("expected XMI ID for fUML primitive type");
-        elementIdToElementMap.put(primitiveTypeClassifier.getXmiId(), primitiveTypeClassifier);
-        classifierNameToClassifierMap.put("Boolean", primitiveTypeClassifier);
-
-        primitiveTypeClassifier = 
-        	new org.modeldriven.fuml.repository.model.Classifier(
-        	    Environment.getInstance().getUnlimitedNatural(), null);
-        if (primitiveTypeClassifier.getXmiId() == null || primitiveTypeClassifier.getXmiId().length() == 0)
-        	throw new IllegalStateException("expected XMI ID for fUML primitive type");
-        elementIdToElementMap.put(primitiveTypeClassifier.getXmiId(), primitiveTypeClassifier);
-        classifierNameToClassifierMap.put("UnlimitedNatural", primitiveTypeClassifier);
-        
         Iterator<IgnoredPackage> packages = config.getIgnoredPackage().iterator();
         while (packages.hasNext()) {
             IgnoredPackage pkg = packages.next();
@@ -165,15 +128,10 @@ public class InMemoryRepository extends InMemoryMapping
         }
     }
 
-    /**
-     * Collects attributes and operations for the given class and
-     * maps it by default UML namespace URI and artifact namespace URI 
-     * qualified names.  Because of the mapping to default UML namespace, 
-     * This method is only for use on initialization
-     * when M2 level FUML/UML artifacts are being loaded.
-     * @param clss the class
-     * @param className the class name
-     */
+    public void loadClass(Class_ clss) {
+    	construct(clss, clss.getName());
+    }
+    
     private void construct(Class_ clss, String className) {
         List<Property> attributes = new ArrayList<Property>();
         collectAttributes(clss, attributes);
@@ -200,28 +158,6 @@ public class InMemoryRepository extends InMemoryMapping
         //String packageQualifiedName = implClass.getDelegate().package_.name + "." + className;
         //this.qualifiedClassifierNameToClassifierMap.put(packageQualifiedName, clss);
     }
-    
-    /**
-     * Collects attributes and operations for the given class and
-     * maps it by artifact(file) namespace URI qualified
-     * names. 
-     * @param clss the class
-     * @param className the class name
-     */
-    public void loadClass(Class_ clss) {
-        List<Property> attributes = new ArrayList<Property>();
-        collectAttributes(clss, attributes);
-
-        List<Operation> operations = new ArrayList<Operation>();
-        collectOperations(clss, operations);
-
-        org.modeldriven.fuml.repository.model.Class_ implClass = (org.modeldriven.fuml.repository.model.Class_)clss;
-        implClass.setAttributes(attributes);
-        implClass.setOperations(operations);
-        
-        String artifactQualifiedName = clss.getArtifact().getNamespaceURI() + "#" + clss.getName();
-        this.qualifiedClassifierNameToClassifierMap.put(artifactQualifiedName, clss);
-    }    
 
     private void bootstrap() {
 
@@ -284,9 +220,9 @@ public class InMemoryRepository extends InMemoryMapping
         }    	
     }
     
-    private Package getPackage(org.modeldriven.fuml.repository.RepositoryArtifact aftifact, String qualifiedName) {
+    private Package getPackage(org.modeldriven.fuml.repository.RepositoryArtifact artifact, String qualifiedName) {
     	
-        List<Package> artifactPackages = artifactURIToPackagesMap.get(aftifact.getURN());
+        List<Package> artifactPackages = artifactURIToPackagesMap.get(artifact.getURN());
    	    Iterator<Package> iter = artifactPackages.iterator();	
     	while (iter.hasNext())
     	{   			
@@ -559,15 +495,6 @@ public class InMemoryRepository extends InMemoryMapping
     
     public static void main(String[] args) {
     	InMemoryRepository.getInstance();
-    }
-    
-	public List<Classifier> getSpecializations(Classifier classifier) {
-    	List<Classifier> result = this.classifierIdToSpecializationClassifierMap.get(
-    		classifier.getXmiId());
-    	if (result != null)
-    		return result;
-    	else
-    		return EMPTY_CLASSIFIER_LIST;
     }
 
 }

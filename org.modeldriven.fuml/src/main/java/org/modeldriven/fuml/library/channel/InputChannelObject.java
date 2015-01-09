@@ -28,11 +28,12 @@ public abstract class InputChannelObject extends ChannelObject {
     public void execute(OperationExecution execution) {
         String name = execution.getOperationName();
         
-        Status status = new Status("InputChannel");
+        Status status = new Status(this.locus, "InputChannel");
 
         if (name.equals("hasMore")) {
             BooleanValue hasMoreValue = new BooleanValue();
             hasMoreValue.value = this.hasMore();
+            hasMoreValue.type = this.locus.factory.getBuiltInType("Boolean");
             execution.setReturnParameterValue(hasMoreValue);
         } else if (name.equals("read")) {
         	Value value = this.read(status);

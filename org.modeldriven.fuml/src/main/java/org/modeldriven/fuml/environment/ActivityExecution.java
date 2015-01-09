@@ -17,11 +17,12 @@ import java.util.Iterator;
 import org.modeldriven.fuml.assembly.ElementStubAssembler;
 
 import fUML.Debug;
+import fUML.Semantics.CommonBehaviors.Communications.ExecutionQueue;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Classes.Kernel.Comment;
 
 public class ActivityExecution extends fUML.Semantics.Activities.IntermediateActivities.ActivityExecution {
-
+	
     public void execute() {
         Activity activity = (Activity) (this.getTypes().getValue(0));
         if (activity.ownedComment != null && activity.ownedComment.size() > 0
@@ -35,7 +36,11 @@ public class ActivityExecution extends fUML.Semantics.Activities.IntermediateAct
             throw new InvalidExecutionTargetException("cannot execute invalid activity '" + activity.name
                     + "' - see above errors");
         }
-        super.execute();
+        if (ExecutionQueue.notStarted()) {
+        	ExecutionQueue.start(this);
+        } else {
+        	super.execute();
+        }
     } // execute
 
 } // ActivityExecution

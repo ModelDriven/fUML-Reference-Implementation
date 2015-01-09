@@ -23,7 +23,6 @@ public interface Repository {
 	public String getJavaPackageNameForClass(Classifier classifier);
 	public String findJavaPackageNamePackageForClass(Classifier classifier);
 	public boolean isIgnoredClassifier(Classifier classifier);
-	public List<Classifier> getSpecializations(Classifier classifier);
     public List<Extension> getExtensions(Element element);
     public List<Stereotype> getStereotypes(Element element);
     public List<Stereotype> getStereotypes(Class<?> clss);

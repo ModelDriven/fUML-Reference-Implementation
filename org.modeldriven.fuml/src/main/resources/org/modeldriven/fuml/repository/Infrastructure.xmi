@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:uml="http://www.omg.org/spec/UML/20110701">
-  <uml:Package xmi:type="uml:Package" xmi:id="_0" name="InfrastructureLibrary">
+  <uml:Package xmi:type="uml:Package" xmi:id="InfrastructureLibrary" name="InfrastructureLibrary">
     <packagedElement xmi:type="uml:Package" xmi:id="Core" name="Core">
       <packagedElement xmi:type="uml:Package" xmi:id="Core-Abstractions" name="Abstractions">
         <packageImport xmi:type="uml:PackageImport" xmi:id="Core-Abstractions-_packageImport.0">

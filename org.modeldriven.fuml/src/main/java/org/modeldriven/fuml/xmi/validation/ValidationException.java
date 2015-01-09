@@ -21,7 +21,6 @@ public class ValidationException extends XmiException {
 	
 	private static final long serialVersionUID = 1L;
 
-	@SuppressWarnings("unused")
 	private ValidationException() {
         super("not implemented");
     }

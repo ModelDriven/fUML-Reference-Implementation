@@ -79,6 +79,10 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
 
     private ElementAssembler parentAssembler; // FIXME: re-factor ASAP!!
 
+    // Generalizations deferred until element linking is complete, keyed to the
+    // specific classifier.
+    private List<Generalization> deferredGeneralizations;
+
     /** XMI source */
     private XmiNode source;
     private XmiNode parent;
@@ -94,7 +98,7 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
     /** fUML class target(s) */
     private Element target;
     private Comment targetComment;
-
+    
     @SuppressWarnings("unused")
     private ElementAssembler() {
         // nope
@@ -115,10 +119,6 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
         QName hrefName = new QName("href");
         this.xmiHref = eventNode.getStartElementEvent().asStartElement().getAttributeByName(hrefName);
         
-		if ("OpaqueBehavior".equals(prototype.getName()) || "PrimitiveType".equals(prototype.getName())) {
-			int foo = 0;
-			foo++;
-		}
         
         this.xmiNamespace = eventNode.getNamespaceURI();
         if (this.xmiNamespace == null)
@@ -132,7 +132,24 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
 
     public void setParentAssembler(ElementAssembler parentAssembler) {
         this.parentAssembler = parentAssembler;
-    }    
+    }
+    
+    public List<Generalization> getDeferredGeneralizations() {
+    	return this.deferredGeneralizations;
+    }
+    
+    public void addDeferredGeneralization(Generalization generalization) {
+    	// Record deferred generalizations only in root assemblers.
+    	ElementAssembler parent = this.getParentAssembler();
+    	if (parent == null) {
+    		if (this.deferredGeneralizations == null) {
+    			this.deferredGeneralizations = new ArrayList<Generalization>();
+    		}
+    		this.deferredGeneralizations.add(generalization);
+    	} else {
+    		parent.addDeferredGeneralization(generalization);
+    	}
+    }
 
     public void assembleElementClass() {
         try {
@@ -169,8 +186,6 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
 
             if (object instanceof Element) {
                 if (object instanceof PrimitiveType && object.getHref() != null) {
-                    //if (object.getHref() != null) 
-                        //throw new AssemblyException("expected 'href' attribute for primitive type");
                     // FIXME; gotta be a better way! URI resolver??
                     // Note: Path map variables allow for portability of URIs. The actual location 
                     // indicated by a URI depends on the run-time binding of the path variable. Thus, different 
@@ -198,6 +213,7 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
                     	throw new AssemblyException("could not determine target object for prototype, "
                     		+ this.prototype.getXmiNamespace() + "#" 
                     		+ this.prototype.getName());
+                    
                 } else {
                     this.target = (Element) object;
                     if (this.target == null)
@@ -244,7 +260,6 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
     // will
     // need to be enhanced to find opposite properties using associations.
     // 
-    @SuppressWarnings("unchecked")
     public void registerElement() {
         try {
             if (!(this.target instanceof Type))
@@ -344,11 +359,19 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
     // that as well. Metadata will need to be enhanced to use associations.
     public void associateElement(ElementAssembler other) {
         try {
-        	
             Property property = other.getPrototype().findProperty(this.getSource().getLocalName());
             if (property == null)
                 return; // we validate this elsewhere
 
+            // If the target property is "generalization", then defer associating it with the source.
+            // This is necessary to ensure that the general classifier is fully assembled before
+            // it is added as a generalization of the specific classifier. Otherwise, the
+            // inherited members of the specific classifier will not be set properly.
+            if ("generalization".equals(this.source.getLocalName())) {
+            	this.addDeferredGeneralization((Generalization)this.getTargetObject());
+            	return;
+            }
+            
             if (!property.isSingular()) {
                 if (log.isDebugEnabled())
                     log.debug("linking collection property: " + other.getPrototype().getName() + "."
@@ -415,7 +438,30 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
         }
     }
 
-    public void assemleFeatures() {
+    public void associateDeferredGeneralizations() {
+		List<Generalization> deferredGeneralizations = this.getDeferredGeneralizations();
+		if (deferredGeneralizations != null) {
+			while (!deferredGeneralizations.isEmpty()) {
+				int i = 0;
+				while (i < deferredGeneralizations.size()) {
+					Generalization deferredGeneralization = deferredGeneralizations.get(i);
+					// Only associate a deferred generalization with its specific classifier
+					// if there are no generalizations still deferred for the general
+					// classifier.
+					for (Generalization generalization: deferredGeneralizations) {
+						if (generalization.specific == deferredGeneralization.general) {
+							i++;
+							continue;
+						}
+					}
+					deferredGeneralization.specific.addGeneralization(deferredGeneralization);
+					deferredGeneralizations.remove(deferredGeneralization);
+				}
+			}
+		}
+	}
+    
+	public void assembleFeatures() {
         try {
             NamespaceDomain domain = null; // only lookup as needed	            	
             StreamNode eventNode = (StreamNode) source;
@@ -481,35 +527,19 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
             }
 
             // look at model properties not found in above attribute set
-            // checking for child XMI elements
             List<Property> properties = this.prototype.getNamedProperties();
             for (Property property : properties) {
                 QName name = new QName(property.getName());
                 String value = eventNode.getAttributeValue(name);
                 if (value != null && value.trim().length() > 0)
-                    continue; // attributes handled above
+                    continue; // handled above
 
-        	    
-        		// If child XMI element is a primitive type attribute
-        		// of the parent, it gets ignored as part of the element assembler
-        		// graph in ElementGraphAssembler. Must assemble it here. Reference elements are however
-        		// handled in ElementGraphAssembler.
-                XmiNode child = eventNode.findChildByName(property.getName());
-                if (child != null) {
-                	StreamNode childEventNode = (StreamNode)child; 
-                    boolean hasAttributes = childEventNode.hasAttributes();
-            		Classifier childType = property.getType();
-                	if (this.modelSupport.isPrimitiveTypeElement(child, 
-                			childType, hasAttributes))
-                	{
-                		value = childEventNode.getData();
-                        this.assembleNonReferenceFeature(property, value, childType);
+                XmiNode childNode = eventNode.findChildByName(property.getName());
+                if (childNode != null) {
+                	if (!this.modelSupport.isReferenceAttribute(property)) {
+                 		this.assembleNonReferenceFeature(property, childNode.getData(), property.getType());
                 	}
-                	// Only if we found a child element which "satisfies" the property
-                	// otherwise need to validate further
-                	// We DO want to escape here for reference property
-                	// child elements as these are handled in ElementGraphAssembler.
-                    continue;                     
+                	continue;
                 }
 
                 String defaultValue = property.findPropertyDefault();
@@ -522,7 +552,7 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
                     this.assembleNonReferenceFeature(property, defaultValue, type);
                     continue;
                 }
-                
+
                 if (!property.isRequired())
                     continue; // don't bother digging further for a value
 
@@ -592,10 +622,9 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
 
     public void assembleReferenceFeatures() {
         try {
-            StreamNode eventNode = (StreamNode) source;
-            if (references == null)
+            if (this.references == null)
                 return;
-            Iterator<XmiReference> iter = references.iterator();
+            Iterator<XmiReference> iter = this.references.iterator();
             while (iter.hasNext()) {
                 XmiReference reference = iter.next();
                 this.assembleReferenceFeature(reference);
@@ -621,14 +650,14 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
         }
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     private void assembleNonReferenceFeature(Property property, String stringValue, Classifier type)
             throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException,
             IllegalAccessException, InstantiationException, NoSuchFieldException {
         if (type.getDelegate() instanceof Enumeration) {
             if (log.isDebugEnabled())
                 log.debug("assembling enum feature <" + type.getName() + "> " + this.getPrototype().getName()
-                        + "." + property.getName());
+                        + "." + property.getName() + " = " + stringValue);
             Object value = toEnumerationValue(stringValue, type);
             assembleEnumerationFeature(property, value, type);
         } else if (type.getDelegate() instanceof DataType) {
@@ -637,7 +666,7 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
 
             if (log.isDebugEnabled())
                 log.debug("assembling primitive feature <" + javaType.getName() + "> "
-                        + this.getPrototype().getName() + "." + property.getName());
+                        + this.getPrototype().getName() + "." + property.getName() + " = " + stringValue);
 
             if (property.isSingular())
                 assembleSingularPrimitiveFeature(property, value, javaType);
@@ -658,7 +687,7 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
                 if (log.isDebugEnabled())
                     log.debug("assembling primitive feature <"
                             + UnlimitedNatural.class.getSimpleName() + "> "
-                            + this.getPrototype().getName() + "." + property.getName());
+                            + this.getPrototype().getName() + "." + property.getName() + " = " + stringValue);
                 if (property.isSingular())
                     assembleSingularPrimitiveFeature(property, value, UnlimitedNatural.class);
                 else
@@ -669,7 +698,7 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
             throw new AssemblyException("unexpected instance, " + type.getClass().getName());
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     private void assembleReferenceFeature(XmiReference reference) throws ClassNotFoundException,
             NoSuchMethodException, InvocationTargetException, IllegalAccessException,
             InstantiationException, NoSuchFieldException {
@@ -681,6 +710,20 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
 
         if (type.getDelegate() instanceof Enumeration || type.getDelegate() instanceof DataType)
             return; // handled these in pre-assembly
+
+        String instancecClassName = type.getName();
+        // TODO: We have a keyword map, but unclear whether upper-case 'Class' should be mapped. Definately 'class' is.
+        if ("Class".equals(instancecClassName))
+            instancecClassName = instancecClassName + "_"; 
+
+        String packageName = metadata.getJavaPackageNameForClass(type);
+        String qualifiedName = packageName + "." + instancecClassName;
+        Class fClass_ = Class.forName(qualifiedName);
+        if (!Element.class.isAssignableFrom(fClass_)) {
+            log.warn("ignoring non-element feature <" + type.getName() + "> " + this.getPrototype().getName()
+                    + "." + property.getName());
+            return;
+        }
 
         if (property.isSingular()) {
             if (log.isDebugEnabled())
@@ -699,29 +742,29 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
                 	// FIXME: resolve these references inside/outside of lib(s)
                     if (id == null || !id.startsWith("pathmap:")) 
                     {
-                    	Element referent = Library.getInstance().lookup(id);
+                        Element referent = Library.getInstance().lookup(id);
                         if (referent == null) {                        	
                         	if (domain == null)
                         		domain = FumlConfiguration.getInstance().findNamespaceDomain(eventNode.getNamespaceURI());	            	
-                        	
+
                         	ValidationExemption exemption = FumlConfiguration.getInstance().findValidationExemptionByReference(ValidationExemptionType.EXTERNAL_REFERENCE,
                         			reference.getClassifier(), id, eventNode.getNamespaceURI(), domain);
-                        	// if external reference not specifically exempted from validation
-                        	if (exemption == null) {	                        	
+                        	if (exemption == null) {
                                 throw new ValidationException(new ValidationError(reference, id,
                                         ErrorCode.INVALID_EXTERNAL_REFERENCE, ErrorSeverity.FATAL));
-                            }
+                        	}
+                        	// otherwise don't attempt to assemble
                         }
                         else
                             this.assembleSingularReferenceFeature(referent, property, type);
                     }
                 }
             } else {
-                FumlObject target = null;
+                Element target = null;
 
                 ElementAssembler referencedAssembler = this.assemblerMap.get(id);
                 if (referencedAssembler != null)
-                    target = referencedAssembler.getTargetObject();
+                    target = referencedAssembler.getTarget();
                 else
                     target = Environment.getInstance().findElementById(id);
 
@@ -748,33 +791,39 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
                             if (referent == null) {
                             	if (domain == null)
                             		domain = FumlConfiguration.getInstance().findNamespaceDomain(eventNode.getNamespaceURI());	            	
-                            	
+
                             	ValidationExemption exemption = FumlConfiguration.getInstance().findValidationExemptionByReference(ValidationExemptionType.EXTERNAL_REFERENCE,
-                            		reference.getClassifier(), id, eventNode.getNamespaceURI(), domain);
-                            	
-                            	// if external reference not specifically 
-                            	// exempted from validation
-                            	if (exemption == null) 	                        	
+                            			reference.getClassifier(), id, eventNode.getNamespaceURI(), domain);
+                            	if (exemption == null) {
                                     throw new ValidationException(new ValidationError(reference, id,
-                                            ErrorCode.INVALID_EXTERNAL_REFERENCE, ErrorSeverity.FATAL));             	 
+                                            ErrorCode.INVALID_EXTERNAL_REFERENCE, ErrorSeverity.FATAL));
+                            	}
+                            	// otherwise don't attempt to assemble
                             }
                             else
                                 this.assembleCollectionReferenceFeature(referent, property, type);
                         }
                     }
                 } else {
+                	FumlObject target = null;
+                	
                     ElementAssembler referencedAssembler = this.assemblerMap.get(id);
-                    if (referencedAssembler == null)
+                    if (referencedAssembler != null)
+                        target = referencedAssembler.getTargetObject();
+                    else
+                        target = Environment.getInstance().findElementById(id);
+
+                    if (target != null)
+                        this.assembleCollectionReferenceFeature(target, property, type);
+                    else
                         throw new ValidationException(new ValidationError(reference, id,
                                 ErrorCode.INVALID_REFERENCE, ErrorSeverity.FATAL));
-                    this.assembleCollectionReferenceFeature(referencedAssembler.getTargetObject(),
-                            property, type);
                 }
             }
         }
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     private void assembleEnumerationFeature(Property property, Object value, Classifier type)
             throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException,
             IllegalAccessException, InstantiationException {
@@ -798,7 +847,7 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
         }
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     private void assembleSingularPrimitiveFeature(Property property, Object value, Class javaType)
             throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException,
             IllegalAccessException, InstantiationException, NoSuchFieldException {
@@ -806,7 +855,7 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
                 + property.getName().substring(1);
         Object[] args = { value };
         try {
-            Method setter = ReflectionUtils.getMethod(this.getTargetClass(), methodName, javaType);
+            Method setter = this.getTargetClass().getMethod(methodName, new Class[] { javaType });
             setter.invoke(this.getTargetObject(), args);
         } catch (NoSuchMethodException e) {
             try {
@@ -824,7 +873,7 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
         }
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     private void assembleCollectionPrimitiveFeature(Property property, Object value, Class javaType)
             throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException,
             IllegalAccessException, InstantiationException, NoSuchFieldException {
@@ -832,7 +881,7 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
                 + property.getName().substring(1);
         try {
             Object[] args = { value };
-            Method adder = ReflectionUtils.getMethod(this.getTargetClass(), methodName, javaType);
+            Method adder = this.getTargetClass().getMethod(methodName, new Class[] { javaType });
             adder.invoke(this.getTargetObject(), args);
         } catch (NoSuchMethodException e) {
             try {
@@ -904,8 +953,7 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
             }
         }
     }
-
-
+    
     /**
      * Returns the Java class associated with the given primitive type. 
      * 
@@ -918,9 +966,10 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
      * @param dataType the dataType to convert.
      * @return the Java Class
      */
-	private Class<?> toPrimitiveJavaClass(DataType dataType) {
+    @SuppressWarnings("rawtypes")
+	private Class toPrimitiveJavaClass(DataType dataType) {
         if (PrimitiveType.class.isAssignableFrom(dataType.getClass())) {
-            if (dataType.name != null && dataType.name.length() > 0) {
+            if (dataType.name != null && dataType.name.trim().length() > 0) {
                 if (String.class.getSimpleName().equals(dataType.name))
                     return java.lang.String.class;
                 else if (Integer.class.getSimpleName().equals(dataType.name))
@@ -929,6 +978,8 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
                     return boolean.class;
                 else if (UnlimitedNatural.class.getSimpleName().equals(dataType.name))
                     return int.class; 
+                else if ("Real".equals(dataType.name))
+                    return float.class;
                 else
                     throw new AssemblyException("unknown dataType ("
                             + dataType.getClass().getName() + ") name: '" + dataType.name + "'");
@@ -940,6 +991,8 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
                 else if (dataType.getHref().endsWith(Boolean.class.getSimpleName()))
                     return boolean.class;
                 else if (dataType.getHref().endsWith(UnlimitedNatural.class.getSimpleName()))
+                    return int.class;
+                else if (dataType.getHref().endsWith("Real"))
                     return int.class;
                 else
                     throw new AssemblyException("unknown dataType ("
@@ -968,7 +1021,7 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
      * @param javaType the Java type under which to evaluate the the String value.
      * @return the value
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     private Object toPrimitiveJavaValue(String value, DataType dataType, Class javaType) {
         if (javaType.equals(java.lang.String.class))
             return value;
@@ -998,11 +1051,15 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
             return Boolean.valueOf(value);
         else if (javaType.equals(boolean.class))
             return (boolean) Boolean.valueOf(value).booleanValue();
+        else if (javaType.equals(float.class)) {
+        	return (float)Float.valueOf(value).floatValue();
+        }
         else
             return value;
     }
 
-    private Object toEnumerationValue(String value, Classifier type) throws ClassNotFoundException,
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	private Object toEnumerationValue(String value, Classifier type) throws ClassNotFoundException,
             NoSuchMethodException, InvocationTargetException, IllegalAccessException,
             InstantiationException {
         String pkg = metadata.getJavaPackageNameForClass(type);
@@ -1034,7 +1091,8 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
             return targetComment;
     }
 
-    public Class getTargetClass() {
+    @SuppressWarnings("rawtypes")
+	public Class getTargetClass() {
         if (target != null)
             return target.getClass();
         else

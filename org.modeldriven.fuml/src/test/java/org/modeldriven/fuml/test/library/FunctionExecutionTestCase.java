@@ -39,7 +39,7 @@ public class FunctionExecutionTestCase extends FUMLTest {
             log.info("loaded " + filename);
         }
     }
-           
+      
     public void testTestIntegerFunctions() throws Exception {
         log.info("testTestIntegerFunctions");
         execute("TestIntegerFunctions");
@@ -49,6 +49,18 @@ public class FunctionExecutionTestCase extends FUMLTest {
     public void testTestIntegerComparisonFunctions() throws Exception {
         log.info("testTestIntegerComparisonFunctions");
         execute("TestIntegerComparisonFunctions");
+        log.info("done");
+    }
+            
+    public void testTestRealFunctions() throws Exception {
+        log.info("testTestRealFunctions");
+        execute("TestRealFunctions");
+        log.info("done");
+    }
+   
+    public void testTestRealComparisonFunctions() throws Exception {
+        log.info("testTestRealComparisonFunctions");
+        execute("TestRealComparisonFunctions");
         log.info("done");
     }
             
@@ -75,7 +87,7 @@ public class FunctionExecutionTestCase extends FUMLTest {
         execute("TestListFunctions");
         log.info("done");
     }
-     
+    
     public void testHelloWorld() throws Exception {
         log.info("testHelloWorld");
         execute("HelloWorld");

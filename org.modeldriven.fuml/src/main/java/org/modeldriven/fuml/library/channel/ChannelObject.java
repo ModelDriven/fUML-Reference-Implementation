@@ -22,7 +22,9 @@ import fUML.Semantics.Classes.Kernel.StringValue;
 
 public abstract class ChannelObject extends ImplementationObject {
 	
-	protected Status status = new Status("ChannelObject");
+	// NOTE: Initial status is not set here because this.locus will not be
+	// set when the object is first created.
+	protected Status status = null;
 
     public abstract String getName();
     public abstract void open(Status errorStatus);
@@ -30,6 +32,9 @@ public abstract class ChannelObject extends ImplementationObject {
     public abstract boolean isOpen();
     
     public Status getStatus() {
+    	if (this.status == null) {
+    		this.status = new Status(this.locus, "ChannelObject");
+    	}
     	return this.status;
     }
     
@@ -43,11 +48,12 @@ public abstract class ChannelObject extends ImplementationObject {
     public void execute(OperationExecution execution) {
         String name = execution.getOperationName();
         
-        Status status = new Status("ChannelObject");
+        Status status = new Status(this.locus, "ChannelObject");
 
         if (name.equals("getName")) {
             StringValue nameValue = new StringValue();
             nameValue.value = this.getName();
+            nameValue.type = this.locus.factory.getBuiltInType("String");
             execution.setReturnParameterValue(nameValue);
         } else if (name.equals("open")) {
             this.open(status);
@@ -58,6 +64,7 @@ public abstract class ChannelObject extends ImplementationObject {
         } else if (name.equals("isOpen")) {
             BooleanValue isOpenValue = new BooleanValue();
             isOpenValue.value = this.isOpen();
+            isOpenValue.type = this.locus.factory.getBuiltInType("Boolean");
             execution.setReturnParameterValue(isOpenValue);
         } else if (name.equals("getStatus")) {
         	Status result = this.getStatus();        	

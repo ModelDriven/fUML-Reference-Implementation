@@ -22,7 +22,6 @@ import org.modeldriven.fuml.xmi.validation.ValidationEvent;
 import org.modeldriven.fuml.xmi.validation.ValidationEventListener;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
-import fUML.Syntax.Classes.Kernel.Classifier;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.EnumerationLiteral;
 import fUML.Syntax.Classes.Kernel.PrimitiveType;
@@ -41,11 +40,9 @@ public class ArtifactLoader
 	
     private static Log log = LogFactory.getLog(ArtifactLoader.class);
     
-    protected List<org.modeldriven.fuml.repository.Class_> classList = new ArrayList<org.modeldriven.fuml.repository.Class_>();
+    protected List<Class_> classList = new ArrayList<Class_>();
     protected RepositoryArtifact artifact;
     protected BasicElementReader modelElementReader;
-	protected boolean validateExternalReferences = true;
-	protected boolean assembleExternalReferences = true;
     
 	public ArtifactLoader() {
 		this.modelElementReader = new BasicElementReader();
@@ -55,23 +52,7 @@ public class ArtifactLoader
 		this.modelElementReader = modelElementReader;
 	}
         
-    public boolean isValidateExternalReferences() {
-		return this.modelElementReader.isValidateExternalReferences();
-	}
-
-	public void setValidateExternalReferences(boolean validateExternalReferences) {
-		this.modelElementReader.setValidateExternalReferences(validateExternalReferences);
-	}
-
-	public boolean isAssembleExternalReferences() {
-		return this.modelElementReader.isAssembleExternalReferences();
-	}
-
-	public void setAssembleExternalReferences(boolean assembleExternalReferences) {
-		this.modelElementReader.setAssembleExternalReferences(assembleExternalReferences);
-	}
-
-	public void read(FileArtifact artifact) {
+    public void read(FileArtifact artifact) {
     	    	
     	log.debug("reading " + artifact.getURN());
     	this.artifact = artifact;
@@ -93,7 +74,7 @@ public class ArtifactLoader
     public void read(ResourceArtifact artifact) {
     	
     	this.artifact = artifact;
-    	log.debug("reading " + artifact.getURN());
+    	log.info("reading " + artifact.getURN());
 
     	StreamReader reader = new StreamReader();
 
@@ -177,32 +158,33 @@ public class ArtifactLoader
             }
             else if (fumlObject instanceof Class_ && !(fumlObject instanceof OpaqueBehavior)) {
             	Class_ clss = (Class_)fumlObject;
+            	classList.add(clss);
             	if (!(clss instanceof Stereotype)) {
                 	if (clss.package_ != null) {
-                		this.classList.add(Repository.INSTANCE.getMapping().mapClass(clss, 
-                	    		getQualifiedPackageName(clss.package_), artifact));
+                	    Repository.INSTANCE.getMapping().mapClass(clss, 
+                	    		getQualifiedPackageName(clss.package_), artifact);
                 	}
                 	else
-                		this.classList.add(Repository.INSTANCE.getMapping().mapClass(clss, 
-                    			null, artifact));
+                		Repository.INSTANCE.getMapping().mapClass(clss, 
+                    			null, artifact);
             	}
             	else {
             		Stereotype stereotype = (Stereotype)clss;
                 	if (stereotype.package_ != null)
-                		this.classList.add(Repository.INSTANCE.getMapping().mapStereotype(stereotype, 
-                	    		getQualifiedPackageName(stereotype.package_), artifact));
+                	    Repository.INSTANCE.getMapping().mapStereotype(stereotype, 
+                	    		getQualifiedPackageName(stereotype.package_), artifact);
                 	else
-                		this.classList.add(Repository.INSTANCE.getMapping().mapStereotype(stereotype, 
-                    			null, artifact));
+                		Repository.INSTANCE.getMapping().mapStereotype(stereotype, 
+                    			null, artifact);
             	}            		
             }  
             else if (fumlObject instanceof Enumeration) {
             	Enumeration enumeration = (Enumeration)fumlObject;        			
                	if (enumeration.package_ != null)
-            	    Repository.INSTANCE.getMapping().mapEnumerationExternal(enumeration, 
+            	    Repository.INSTANCE.getMapping().mapEnumeration(enumeration, 
             	    		getQualifiedPackageName(enumeration.package_), artifact);
             	else
-            		Repository.INSTANCE.getMapping().mapEnumerationExternal(enumeration, 
+            		Repository.INSTANCE.getMapping().mapEnumeration(enumeration, 
                 			null, artifact);
             }
             else if (fumlObject instanceof DataType) {
@@ -302,8 +284,18 @@ public class ArtifactLoader
 
 	public void streamCompleted(ElementReaderEvent event) {
 		
-    	for (org.modeldriven.fuml.repository.Class_ c: classList) {  
-    		Repository.INSTANCE.loadClass(c);
+    	for (Class_ c: classList) {  
+    		org.modeldriven.fuml.repository.Class_ clss = null;
+    		if (!(c instanceof Stereotype)) {
+    		    clss = new org.modeldriven.fuml.repository.model.Class_(c, 
+    		    		this.artifact);
+    		}
+    		else
+    		{
+    		    clss = new org.modeldriven.fuml.repository.model.Stereotype((Stereotype)c, 
+    		    		this.artifact);
+    		}	
+    		Repository.INSTANCE.loadClass(clss);
     	}
     		
 	}

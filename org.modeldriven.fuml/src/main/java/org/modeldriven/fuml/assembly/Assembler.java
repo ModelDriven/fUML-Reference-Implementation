@@ -13,7 +13,7 @@ package org.modeldriven.fuml.assembly;
 
 public interface Assembler {
     public void assembleElementClass();
-    public void assemleFeatures();
+    public void assembleFeatures();
     public void assembleReferenceFeatures();
     public void associateElement(ElementAssembler other);
 }

@@ -1,7 +1,11 @@
 /*
  * Copyright 2008 Lockheed Martin Corporation, except as stated in the file 
- * entitled Licensing-Information. All modifications copyright 2009 Data Access Technologies, Inc. Licensed under the Academic Free License 
- * version 3.0 (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
+ * entitled Licensing-Information. 
+ * 
+ * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * 
+ * Licensed under the Academic Free License version 3.0 
+ * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
  * in the file entitled Licensing-Information. 
  *
  * Contributors:
@@ -9,78 +13,31 @@
  *
  */
 
-
 package org.modeldriven.fuml.library.unlimitednaturalfunctions;
 
-import UMLPrimitiveTypes.UnlimitedNatural;
+import UMLPrimitiveTypes.intList;
 import fUML.Debug;
-import fUML.Semantics.Classes.Kernel.BooleanValue;
-import fUML.Semantics.Classes.Kernel.Value;
 
-/**
- * <!-- begin-user-doc --> An implementation of the model object '
- * 
- * <em><b>org::modeldriven::fuml::library::unlimitednaturalfunctions::UnlimitedNaturalLessThanEqualFunctionBehaviorExecution</b></em>
- * '. <!-- end-user-doc -->
- * <p>
- * The following features are implemented:
- * <ul>
- * <li>{@link UnlimitedNaturalLessThanEqualFunctionBehaviorExecution#doUnlimitedNaturalFunction <em>
- * doIntegerFunction</em>}</li>
- * <li>{@link UnlimitedNaturalLessThanEqualFunctionBehaviorExecution#new_ <em>new_</em>}</li>
- * </ul>
- * </p>
- * 
- * @generated
- */
 public class UnlimitedNaturalLessThanEqualFunctionBehaviorExecution extends
-        org.modeldriven.fuml.library.unlimitednaturalfunctions.UnlimitedNaturalFunctionBehaviorExecution {
+UnlimitedNaturalRelationalFunctionBehaviorExecution {
 
-    // Attributes
-
-    // Operations of the class
-	
-    /**
-     * operation doUnlimitedNaturalFunction <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @generated
-     */
-    public Value doUnlimitedNaturalFunction(UnlimitedNatural un1, UnlimitedNatural un2) {
+	@Override
+    public boolean doUnlimitedNaturalFunction(intList arguments) {
+		
+		int i1 = arguments.get(0);
+		int i2 = arguments.get(1);
+		
+    	// This function returns true if i1 <= i2, where a value of -1 means 
+		// "unbounded", which is the highest possible value.
     	
-    	BooleanValue bv = new BooleanValue();
+		boolean result = i1 == i2 || i2 < 0 || i1 >= 0 && i1 < i2;
     	
-    	// This function returns true if un1 <= un2.  Value of -1 means "unbounded", which
-    	// is the highest possible value.
-    	
-    	if (un1.naturalValue == -1 && un2.naturalValue == -1) {
-    		// Both are the same value, so lessThanOrEqual function is true
-    		bv.value = true;
-    	} else if (un2.naturalValue == -1) {
-    		// Second argument is highest possible value, so lessThanOrEqual function is true
-    		bv.value = true;
-    	} else if (un1.naturalValue == -1) {
-    		// First argument is highest possible value, so lessThanOrEqual function is false
-    		bv.value = false;
-    	} else {
-        	// Neither argument is highest possible value, so perform regular lessThanOrEqual function
-        	if (un1.naturalValue <= un2.naturalValue) {
-        		bv.value = true;
-        	} else {
-        		bv.value = false;
-        	}		    		
-    	}
-    	
-    	Debug.println("[doBody] Unlimited Natural Less Than or Equal results = " + bv.value);
-    	return bv;
+    	Debug.println("[doBody] Unlimited Natural Less Than or Equal result = " + result);
+    	return result;
     }
 
-    /**
-     * operation new_ <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @generated
-     */
+	@Override
     public fUML.Semantics.Classes.Kernel.Value new_() {
-        // Create a new instance of this kind of function behavior execution.
         return new UnlimitedNaturalLessThanEqualFunctionBehaviorExecution();
     }
 

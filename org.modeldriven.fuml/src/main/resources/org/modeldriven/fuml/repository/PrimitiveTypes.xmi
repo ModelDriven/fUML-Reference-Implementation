@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:uml="http://www.omg.org/spec/UML/20110701" xmlns:mofext="http://www.omg.org/spec/MOF/20110701">
-  <uml:Package xmi:type="uml:Package" xmi:id="_0" name="PrimitiveTypes" URI="http://www.omg.org/spec/PrimitiveTypes/20110701">
+  <uml:Package xmi:type="uml:Package" xmi:id="PrimitiveTypes" name="PrimitiveTypes" URI="http://www.omg.org/spec/PrimitiveTypes/20110701">
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="Boolean" name="Boolean">
       <ownedComment xmi:type="uml:Comment" xmi:id="Boolean-_ownedComment.0" annotatedElement="Boolean">
         <body>A Boolean type is used for logical expression, consisting of the predefined values true and false.</body>

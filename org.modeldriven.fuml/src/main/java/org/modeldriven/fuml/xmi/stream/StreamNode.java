@@ -134,7 +134,8 @@ public class StreamNode implements XmiNode {
         return (attrib != null);
     }
     
-    public boolean hasAttributes()
+    @SuppressWarnings("unchecked")
+	public boolean hasAttributes()
     {
         if (startElementEvent != null)
         {    
@@ -144,7 +145,8 @@ public class StreamNode implements XmiNode {
         return false;       
     }    
 
-    public Iterator<Attribute> getAttributes()
+    @SuppressWarnings("unchecked")
+	public Iterator<Attribute> getAttributes()
     {
         if (startElementEvent != null)
         {    

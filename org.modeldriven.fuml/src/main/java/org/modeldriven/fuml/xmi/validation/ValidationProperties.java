@@ -1,7 +1,11 @@
 /*
  * Copyright 2008 Lockheed Martin Corporation, except as stated in the file 
- * entitled Licensing-Information. All modifications copyright 2009 Data Access Technologies, Inc. Licensed under the Academic Free License 
- * version 3.0 (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
+ * entitled Licensing-Information. 
+ * 
+ * All modifications copyright 2009-2015 Data Access Technologies, Inc. 
+ * 
+ * Licensed under the Academic Free License version 3.0 
+ * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
  * in the file entitled Licensing-Information. 
  *
  * Contributors:
@@ -30,7 +34,6 @@ public class ValidationProperties {
     private Properties props = new Properties();
     private String fileName = "";
 
-    @SuppressWarnings("unchecked")
 	private ValidationProperties()
     {      	
         fileName = System.getProperty(PROPERTY_NAME_VALIDATION_PROPERTIES,
@@ -58,19 +61,18 @@ public class ValidationProperties {
     	//props.putAll(System.getProperties());
 
     	//trim values...in case spaces were inadvertently added in properties file.
-    	Iterator keys = props.keySet().iterator();
+    	Iterator<?> keys = props.keySet().iterator();
 		while(keys.hasNext()) {
 			String key = (String)keys.next();
 			props.setProperty(key, props.getProperty(key).trim());
 		}   	
     }
 
-    @SuppressWarnings("unchecked")
 	public String dumpProperties(String separator)
     {
         StringBuffer buf = new StringBuffer();
 
-        Iterator itr = props.keySet().iterator();
+        Iterator<?> itr = props.keySet().iterator();
         while (itr.hasNext()) {
             String key = (String) itr.next();
             String value = props.getProperty(key);

@@ -4,7 +4,6 @@ public class ValidationErrorEvent extends ValidationEvent {
 
 	private ValidationError error;
 	
-	@SuppressWarnings("unused")
 	private ValidationErrorEvent() {
 		super(null); // not used
 	}

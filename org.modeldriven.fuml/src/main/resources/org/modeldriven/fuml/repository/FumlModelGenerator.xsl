@@ -76,77 +76,57 @@ public class <xsl:value-of select="$cls" /> extends ModelAssembler
     private void constructPackages()
     {
         Package pkg = null;
-     <xsl:for-each select="//*[@xmi:type = 'uml:Package' or @xmi:type = 'uml:Model']">
+     <xsl:for-each select="//*[@xmi:type = 'uml:Package']">
         <xsl:variable name="packageName">                 
           <xsl:call-template name="findPackageName">                    
             <xsl:with-param name="pkg" select="''"/>       
             <xsl:with-param name="clss" select="."/>       
           </xsl:call-template>                                                    
-        </xsl:variable>  
-        <xsl:variable name="name">
-            <xsl:choose>
-            <xsl:when test="@name != ''"> 
-                <xsl:value-of select="@name" />             
-            </xsl:when>                                       
-            <xsl:otherwise>                                                    
-                <xsl:value-of select="name/text()" />             
-            </xsl:otherwise>                                                   
-            </xsl:choose>  
-        </xsl:variable> 
-                                                        
+        </xsl:variable>                                                  
         <xsl:variable name="qualifiedPackageName">
             <xsl:choose>                                                           
                 <xsl:when test="$packageName != ''"> 
-                    <xsl:value-of select="concat(concat($packageName, '.'), $name)"/>        
+                    <xsl:value-of select="concat(concat($packageName, '.'), @name)"/>        
                 </xsl:when>                                                    
                 <xsl:otherwise>                                                
-                    <xsl:value-of select="$name"/>        
+                    <xsl:value-of select="@name"/>        
                 </xsl:otherwise>                                               
             </xsl:choose>                                   
         </xsl:variable>    
-        <xsl:variable name="id">
-            <xsl:choose>                                                           
-                <xsl:when test="@xmi:uuid != ''"> 
-                    <xsl:value-of select="@xmi:uuid"/>        
-                </xsl:when>                                                    
-                <xsl:otherwise>                                                
-                    <xsl:value-of select="@xmi:id"/>        
-                </xsl:otherwise>                                               
-            </xsl:choose>                                   
-        </xsl:variable>    
-        <xsl:if test="$id != '_0'">
                      
         // <xsl:value-of select="$qualifiedPackageName"/>
         <xsl:choose>                                                           
             <xsl:when test="$packageName = ''">            
-    	pkg  = factory.createPackage("<xsl:value-of select="$name" />", "<xsl:value-of select="$qualifiedPackageName" />", "<xsl:value-of select="$id" />", this); // root package
+    	pkg  = factory.createPackage("<xsl:value-of select="@name" />", "<xsl:value-of select="$qualifiedPackageName" />", "<xsl:value-of select="@xmi:id" />", this); // root package
     	mapping.mapPackage(pkg, null, this); 
             </xsl:when>                                                        
             <xsl:otherwise>                                                    
-    	pkg  = factory.createPackage("<xsl:value-of select="$name" />", "<xsl:value-of select="$qualifiedPackageName" />", "<xsl:value-of select="$id" />", pkg, this);
+    	pkg  = factory.createPackage("<xsl:value-of select="@name" />", "<xsl:value-of select="$qualifiedPackageName" />", "<xsl:value-of select="@xmi:id" />", pkg, this);
     	mapping.mapPackage(pkg, "<xsl:value-of select="$packageName" />", this); 
             </xsl:otherwise>                                                   
         </xsl:choose>
         <xsl:for-each select="packageMerge">
         
-          <xsl:variable name="localMergedPackage" select="@mergedPackage"/>                 
-          <xsl:variable name="remoteMergedPackage" select="./mergedPackage/@href"/>                 
-          <xsl:choose>                                                           
+         <xsl:variable name="localMergedPackage" select="@mergedPackage"/>                 
+         <xsl:variable name="remoteMergedPackage" select="./mergedPackage/@href"/>                 
+        <xsl:choose>                                                           
             <xsl:when test="$localMergedPackage != ''">            
         mapping.mapPackageMerge(pkg, "<xsl:value-of select="$localMergedPackage" />");
             </xsl:when>                                                        
             <xsl:otherwise>                                                    
         mapping.mapPackageMerge(pkg, "<xsl:value-of select="$remoteMergedPackage" />");
             </xsl:otherwise>                                                   
-          </xsl:choose>
+        </xsl:choose>
+       
         </xsl:for-each>                                                          
-        </xsl:if>
     </xsl:for-each>
     }   
 
     private void constructPrimitiveTypes()
     {
-        PrimitiveType type = null;
+    Package pkg = null;
+    String packageId = null;
+    PrimitiveType type = null;
     <xsl:for-each select="//packagedElement[@xmi:type = 'uml:PrimitiveType']">
         <xsl:variable name="packageName">                 
           <xsl:call-template name="findPackageName">                    
@@ -154,18 +134,13 @@ public class <xsl:value-of select="$cls" /> extends ModelAssembler
             <xsl:with-param name="clss" select="."/>       
           </xsl:call-template>                                                    
         </xsl:variable>                                                  
-        <xsl:variable name="name">
-	        <xsl:choose>
-	        <xsl:when test="@name != ''"> 
-	            <xsl:value-of select="@name" />             
-	        </xsl:when>                                       
-	        <xsl:otherwise>                                                    
-	            <xsl:value-of select="name/text()" />             
-	        </xsl:otherwise>                                                   
-	        </xsl:choose>  
-        </xsl:variable> 
-        // <xsl:value-of select="$name" />
-    	type  = factory.createPrimitiveType("<xsl:value-of select="$name" />", "<xsl:value-of select="@xmi:id" />");
+        packageId = this.artifact.getUrn() + "#" + "<xsl:value-of select="../@xmi:id"/>";   
+        
+        // <xsl:value-of select="$packageName" />.<xsl:value-of select="@name" /> 
+        pkg = (Package)model.getElementById(packageId).getDelegate();       
+        
+        // <xsl:value-of select="@name" />
+    	type  = factory.createPrimitiveType("<xsl:value-of select="@name" />", "<xsl:value-of select="@xmi:id" />", pkg);
     	mapping.mapPrimitiveType(type, "<xsl:value-of select="$packageName" />", this); 
     </xsl:for-each>
     }   
@@ -370,15 +345,8 @@ public class <xsl:value-of select="$cls" /> extends ModelAssembler
       <xsl:param name="clss" />                                                  
                                                                                  
       <xsl:if test="$clss/../@xmi:type = 'uml:Package' or name($clss/..) = 'uml:Model'">                         
-          <xsl:variable name="pkgvar"> 
-              <xsl:choose>   
-              <xsl:when test="@name != ''"> 
-                  <xsl:value-of select="concat($clss/../@name, $pkg)" />             
-              </xsl:when>                                       
-              <xsl:otherwise>                                                    
-                  <xsl:value-of select="concat($clss/../name/text(), $pkg)" />             
-              </xsl:otherwise>                                                   
-              </xsl:choose>   
+          <xsl:variable name="pkgvar">                                           
+              <xsl:value-of select="concat($clss/../@name, $pkg)" />             
           </xsl:variable>                                                        
           <xsl:choose>                                                           
               <xsl:when test="$clss/../../@xmi:type = 'uml:Package' or name($clss/../..) = 'uml:Model'">            

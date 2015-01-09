@@ -151,7 +151,7 @@ public class Fuml {
         }
     }
     
-    private void execute(String uri, String target) {
+    protected void execute(String uri, String target) {
         try {
             Environment environment = Environment.getInstance();
             Behavior behavior = environment.findBehavior(target);
@@ -166,7 +166,7 @@ public class Fuml {
         }
     }
 
-    private void execute(File file, String uri, String target) {
+    protected void execute(File file, String uri, String target) {
         try {
         	log.info("loading artifact, " + file.getName());
         	IncrementalArtifactLoader reader = new IncrementalArtifactLoader();
@@ -216,7 +216,7 @@ public class Fuml {
         }
     }
     
-    private static void printUsage() {
+    protected static void printUsage() {
         log.info("====================================================================");
         log.info("USAGE: fuml <model-file-name> [<behavior-name> <behavior-name> <behavior-name> <...>]");
         log.info("====================================================================");

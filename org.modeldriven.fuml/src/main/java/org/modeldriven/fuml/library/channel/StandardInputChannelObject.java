@@ -65,6 +65,7 @@ public class StandardInputChannelObject extends TextInputChannelObject {
 		if (s != null) {
 			v = new StringValue();
 			v.value = s;
+			v.type = this.locus.factory.getBuiltInType("String");
 		}
 		return v;
 	}
@@ -76,6 +77,7 @@ public class StandardInputChannelObject extends TextInputChannelObject {
 		if (s != null) {
 			v = new StringValue();
 			v.value = s;
+			v.type = this.locus.factory.getBuiltInType("String");
 		}
 		return v;
 	}
