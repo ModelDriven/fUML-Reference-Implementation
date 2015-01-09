@@ -1,35 +1,24 @@
 /*
- * Copyright (c) 2008 Lockheed Martin Corporation.
- * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Public License v1.0
- * which accompanies this distribution, and is available at
+ * Initial version copyright 2008 Lockheed Martin Corporation, except  
+ * as stated in the file entitled Licensing-Information. 
  * 
+ * All modifications copyright 2009-2015 Data Access Technologies, Inc.
  *
- * Contributors:
- *   MDS - initial API and implementation
- *
+ * Licensed under the Academic Free License version 3.0 
+ * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
+ * in the file entitled Licensing-Information. 
  */
 
 package org.modeldriven.fuml.library.unlimitednaturalfunctions;
 
-import org.modeldriven.fuml.library.LibraryTestSetup;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import junit.framework.TestCase;
+import org.modeldriven.fuml.library.LibraryTest;
 
-public class UnlimitedNaturalMinFunctionBehaviorExecutionTest extends TestCase {
+public class UnlimitedNaturalMinFunctionBehaviorExecutionTest extends LibraryTest {
 	
-	ParameterValueList inputParameters;
-	ParameterValueList outputParameters;
-
-	/**
-	 * Set up the ParameterValueLists to simulate the fUML system before calling
-	 * the doBody() method on the library classes.
-	 */
 	@Override
 	public void setUp() {
-		LibraryTestSetup libraryTestSetup = new LibraryTestSetup();
-		inputParameters = libraryTestSetup.setupInputParameterList();
-		outputParameters = libraryTestSetup.setupOutputParameterList();
+		super.setUp();
+		obj = new UnlimitedNaturalMinFunctionBehaviorExecution();
 	}
 	
 	/**
@@ -39,8 +28,7 @@ public class UnlimitedNaturalMinFunctionBehaviorExecutionTest extends TestCase {
 	 */
 	public void testDoBody_firstMin() throws Exception {
 		UnlimitedNaturalConversion.insertTwoUnlimitedNaturalsIntoParameterValueList(9, 12, inputParameters);
-		UnlimitedNaturalMinFunctionBehaviorExecution obj = new UnlimitedNaturalMinFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		assertEquals(9, UnlimitedNaturalConversion.extractUnlimitedNaturalFromParameterValueList(outputParameters));
 	}
 
@@ -51,8 +39,7 @@ public class UnlimitedNaturalMinFunctionBehaviorExecutionTest extends TestCase {
 	 */
 	public void testDoBody_secondMin() throws Exception {
 		UnlimitedNaturalConversion.insertTwoUnlimitedNaturalsIntoParameterValueList(88, 77, inputParameters);
-		UnlimitedNaturalMinFunctionBehaviorExecution obj = new UnlimitedNaturalMinFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		assertEquals(77, UnlimitedNaturalConversion.extractUnlimitedNaturalFromParameterValueList(outputParameters));
 	}
 		
@@ -63,8 +50,7 @@ public class UnlimitedNaturalMinFunctionBehaviorExecutionTest extends TestCase {
 	 */
 	public void testDoBody_firstUnbounded() throws Exception {
 		UnlimitedNaturalConversion.insertTwoUnlimitedNaturalsIntoParameterValueList(-1, 12, inputParameters);
-		UnlimitedNaturalMinFunctionBehaviorExecution obj = new UnlimitedNaturalMinFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		assertEquals(12, UnlimitedNaturalConversion.extractUnlimitedNaturalFromParameterValueList(outputParameters));
 	}
 	
@@ -75,8 +61,7 @@ public class UnlimitedNaturalMinFunctionBehaviorExecutionTest extends TestCase {
 	 */
 	public void testDoBody_secondUnbounded() throws Exception {
 		UnlimitedNaturalConversion.insertTwoUnlimitedNaturalsIntoParameterValueList(1000, -1, inputParameters);
-		UnlimitedNaturalMinFunctionBehaviorExecution obj = new UnlimitedNaturalMinFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		assertEquals(1000, UnlimitedNaturalConversion.extractUnlimitedNaturalFromParameterValueList(outputParameters));
 	}
 	
@@ -87,8 +72,7 @@ public class UnlimitedNaturalMinFunctionBehaviorExecutionTest extends TestCase {
 	 */
 	public void testDoBody_bothUnbounded() throws Exception {
 		UnlimitedNaturalConversion.insertTwoUnlimitedNaturalsIntoParameterValueList(-1, -1, inputParameters);
-		UnlimitedNaturalMinFunctionBehaviorExecution obj = new UnlimitedNaturalMinFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		assertEquals(-1, UnlimitedNaturalConversion.extractUnlimitedNaturalFromParameterValueList(outputParameters));
 	}	
 	
@@ -97,15 +81,14 @@ public class UnlimitedNaturalMinFunctionBehaviorExecutionTest extends TestCase {
 	 * 
 	 * @throws Exception
 	 */
-	public void testDoBody_negativeNum() throws Exception {
-		UnlimitedNaturalConversion.insertTwoUnlimitedNaturalsIntoParameterValueList(-5, -8, inputParameters);
-		UnlimitedNaturalMinFunctionBehaviorExecution obj = new UnlimitedNaturalMinFunctionBehaviorExecution();
-		try {
-			// this should throw an exception
-			obj.doBody(inputParameters, outputParameters);
-			fail("expected exception not thrown");
-		} catch (IllegalArgumentException e) {}
-	}	
+//	public void testDoBody_negativeNum() throws Exception {
+//		UnlimitedNaturalConversion.insertTwoUnlimitedNaturalsIntoParameterValueList(-5, -8, inputParameters);
+//		try {
+//			// this should throw an exception
+//			doBody();
+//			fail("expected exception not thrown");
+//		} catch (IllegalArgumentException e) {}
+//	}	
 	
 	/**
 	 * Tests the new_() method in the UnlimitedNaturalMinFunctionBehaviorExecution
@@ -114,7 +97,6 @@ public class UnlimitedNaturalMinFunctionBehaviorExecutionTest extends TestCase {
 	 * @throws Exception
 	 */
 	public void testNew_() throws Exception {
-		UnlimitedNaturalMinFunctionBehaviorExecution obj = new UnlimitedNaturalMinFunctionBehaviorExecution();
 		UnlimitedNaturalMinFunctionBehaviorExecution newobj = (UnlimitedNaturalMinFunctionBehaviorExecution) obj.new_();
 		assertNotSame(obj, newobj);
 	}	

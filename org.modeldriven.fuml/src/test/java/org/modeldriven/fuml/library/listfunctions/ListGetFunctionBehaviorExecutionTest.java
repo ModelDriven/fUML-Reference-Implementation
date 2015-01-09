@@ -1,41 +1,30 @@
 /*
- * Copyright (c) 2008 Lockheed Martin Corporation.
- * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Public License v1.0
- * which accompanies this distribution, and is available at
+ * Initial version copyright 2008 Lockheed Martin Corporation, except  
+ * as stated in the file entitled Licensing-Information. 
  * 
+ * All modifications copyright 2009-2015 Data Access Technologies, Inc.
  *
- * Contributors:
- *   MDS - initial API and implementation
- *
+ * Licensed under the Academic Free License version 3.0 
+ * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
+ * in the file entitled Licensing-Information. 
  */
 
 package org.modeldriven.fuml.library.listfunctions;
 
-import org.modeldriven.fuml.library.LibraryTestSetup;
+import org.modeldriven.fuml.library.LibraryTest;
 import org.modeldriven.fuml.library.integerfunctions.IntegerConversion;
 
 import fUML.Debug;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
 import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import junit.framework.TestCase;
 
-public class ListGetFunctionBehaviorExecutionTest extends TestCase {
+public class ListGetFunctionBehaviorExecutionTest extends LibraryTest {
 	
-	ParameterValueList inputParameters;
-	ParameterValueList outputParameters;
-
-	/**
-	 * Set up the ParameterValueLists to simulate the fUML system before calling
-	 * the doBody() method on the library classes.
-	 */
 	@Override
 	public void setUp() {
-		LibraryTestSetup libraryTestSetup = new LibraryTestSetup();
-		inputParameters = libraryTestSetup.setupInputParameterList();
-		outputParameters = libraryTestSetup.setupOutputParameterList();
+		super.setUp();
+		obj = new ListGetFunctionBehaviorExecution();
 	}
 	
 	/**
@@ -63,8 +52,7 @@ public class ListGetFunctionBehaviorExecutionTest extends TestCase {
 		IntegerConversion.insertOneIntegerIntoParameterValueList(1, inputParameters);
 
 		// Run get function on list
-		ListGetFunctionBehaviorExecution obj = new ListGetFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		
 		// Get the returned Value object
 		IntegerValue iv2 = (IntegerValue) outputParameters.getValue(0).values.getValue(0);		
@@ -99,8 +87,7 @@ public class ListGetFunctionBehaviorExecutionTest extends TestCase {
 		IntegerConversion.insertOneIntegerIntoParameterValueList(99, inputParameters);
 
 		// Run get function on list
-		ListGetFunctionBehaviorExecution obj = new ListGetFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		
 		// Get the returned Value object
 		IntegerValue iv2 = (IntegerValue) outputParameters.getValue(0).values.getValue(0);		
@@ -133,8 +120,7 @@ public class ListGetFunctionBehaviorExecutionTest extends TestCase {
 		IntegerConversion.insertOneIntegerIntoParameterValueList(2, inputParameters);
 
 		// Run get function on list
-		ListGetFunctionBehaviorExecution obj = new ListGetFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		
 		// Assert the list is empty
 		assertEquals(0, outputParameters.getValue(0).values.size());
@@ -165,8 +151,7 @@ public class ListGetFunctionBehaviorExecutionTest extends TestCase {
 		IntegerConversion.insertOneIntegerIntoParameterValueList(0, inputParameters);
 
 		// Run get function on list
-		ListGetFunctionBehaviorExecution obj = new ListGetFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		
 		// Assert the list is empty due to invalid index
 		assertEquals(0, outputParameters.getValue(0).values.size());
@@ -194,8 +179,7 @@ public class ListGetFunctionBehaviorExecutionTest extends TestCase {
 		IntegerConversion.insertOneIntegerIntoParameterValueList(1, inputParameters);
 		
 		// Run size function on list
-		ListGetFunctionBehaviorExecution obj = new ListGetFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		
 		// Assert the list is empty due to invalid index
 		assertEquals(0, outputParameters.getValue(0).values.size());	}
@@ -207,7 +191,6 @@ public class ListGetFunctionBehaviorExecutionTest extends TestCase {
 	 * @throws Exception
 	 */
 	public void testNew_() throws Exception {
-		ListGetFunctionBehaviorExecution obj = new ListGetFunctionBehaviorExecution();
 		ListGetFunctionBehaviorExecution newobj = (ListGetFunctionBehaviorExecution) obj.new_();
 		assertNotSame(obj, newobj);
 	}	

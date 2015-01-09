@@ -1,36 +1,25 @@
 /*
- * Copyright (c) 2008 Lockheed Martin Corporation.
- * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Public License v1.0
- * which accompanies this distribution, and is available at
+ * Initial version copyright 2008 Lockheed Martin Corporation, except  
+ * as stated in the file entitled Licensing-Information. 
  * 
+ * All modifications copyright 2009-2015 Data Access Technologies, Inc.
  *
- * Contributors:
- *   MDS - initial API and implementation
- *
+ * Licensed under the Academic Free License version 3.0 
+ * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
+ * in the file entitled Licensing-Information. 
  */
 
 package org.modeldriven.fuml.library.unlimitednaturalfunctions;
 
-import org.modeldriven.fuml.library.LibraryTestSetup;
+import org.modeldriven.fuml.library.LibraryTest;
 import org.modeldriven.fuml.library.stringfunctions.StringConversion;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import junit.framework.TestCase;
 
-public class UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecutionTest extends TestCase {
+public class UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecutionTest extends LibraryTest {
 	
-	ParameterValueList inputParameters;
-	ParameterValueList outputParameters;
-
-	/**
-	 * Set up the ParameterValueLists to simulate the fUML system before calling
-	 * the doBody() method on the library classes.
-	 */
 	@Override
 	public void setUp() {
-		LibraryTestSetup libraryTestSetup = new LibraryTestSetup();
-		inputParameters = libraryTestSetup.setupInputParameterList();
-		outputParameters = libraryTestSetup.setupOutputParameterList();
+		super.setUp();
+		obj = new UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecution();
 	}
 	
 	/**
@@ -40,8 +29,7 @@ public class UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecutionTest ext
 	 */
 	public void testDoBody_int() throws Exception {
 		StringConversion.insertOneStringIntoParameterValueList("9", inputParameters);
-		UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecution obj = new UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		assertEquals(9, UnlimitedNaturalConversion.extractUnlimitedNaturalFromParameterValueList(outputParameters));
 	}
 
@@ -52,8 +40,7 @@ public class UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecutionTest ext
 	 */
 	public void testDoBody_unbounded() throws Exception {
 		StringConversion.insertOneStringIntoParameterValueList("*", inputParameters);
-		UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecution obj = new UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		assertEquals(-1, UnlimitedNaturalConversion.extractUnlimitedNaturalFromParameterValueList(outputParameters));
 	}
 	
@@ -64,8 +51,7 @@ public class UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecutionTest ext
 	 */
 	public void testDoBody_negativeNum() throws Exception {
 		StringConversion.insertOneStringIntoParameterValueList("-5", inputParameters);
-		UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecution obj = new UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		// Verify the values list is empty
 		assertEquals(0, outputParameters.getValue(0).values.size());
 	}
@@ -77,8 +63,7 @@ public class UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecutionTest ext
 	 */
 	public void testDoBody_notNumber() throws Exception {
 		StringConversion.insertOneStringIntoParameterValueList("abcde", inputParameters);
-		UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecution obj = new UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		// Verify the values list is empty
 		assertEquals(0, outputParameters.getValue(0).values.size());
 	}	
@@ -90,7 +75,6 @@ public class UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecutionTest ext
 	 * @throws Exception
 	 */
 	public void testNew_() throws Exception {
-		UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecution obj = new UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecution();
 		UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecution newobj = (UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecution) obj.new_();
 		assertNotSame(obj, newobj);
 	}	
