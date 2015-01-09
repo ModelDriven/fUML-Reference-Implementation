@@ -1,37 +1,25 @@
 /*
- * Copyright (c) 2008 Lockheed Martin Corporation.
- * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Public License v1.0
- * which accompanies this distribution, and is available at
+ * Initial version copyright 2008 Lockheed Martin Corporation, except  
+ * as stated in the file entitled Licensing-Information. 
  * 
+ * All modifications copyright 2009-2015 Data Access Technologies, Inc.
  *
- * Contributors:
- *   MDS - initial API and implementation
- *
+ * Licensed under the Academic Free License version 3.0 
+ * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
+ * in the file entitled Licensing-Information. 
  */
 
 package org.modeldriven.fuml.library.booleanfunctions;
 
-import org.modeldriven.fuml.library.LibraryTestSetup;
+import org.modeldriven.fuml.library.LibraryTest;
 import org.modeldriven.fuml.library.stringfunctions.StringConversion;
 
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import junit.framework.TestCase;
-
-public class BooleanToBooleanFunctionBehaviorExecutionTest extends TestCase {
+public class BooleanToBooleanFunctionBehaviorExecutionTest extends LibraryTest {
 	
-	ParameterValueList inputParameters;
-	ParameterValueList outputParameters;
-
-	/**
-	 * Set up the ParameterValueLists to simulate the fUML system before calling
-	 * the doBody() method on the library classes.
-	 */
 	@Override
 	public void setUp() {
-		LibraryTestSetup libraryTestSetup = new LibraryTestSetup();
-		inputParameters = libraryTestSetup.setupInputParameterList();
-		outputParameters = libraryTestSetup.setupOutputParameterList();
+		super.setUp();
+		this.obj = new BooleanToBooleanFunctionBehaviorExecution();
 	}
 	
 	/**
@@ -41,8 +29,7 @@ public class BooleanToBooleanFunctionBehaviorExecutionTest extends TestCase {
 	 */
 	public void testDoBody_true() throws Exception {
 		StringConversion.insertOneStringIntoParameterValueList("true", inputParameters);
-		BooleanToBooleanFunctionBehaviorExecution obj = new BooleanToBooleanFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		assertEquals(true, BooleanConversion.extractBooleanFromParameterValueList(outputParameters));
 	}	
 
@@ -53,8 +40,7 @@ public class BooleanToBooleanFunctionBehaviorExecutionTest extends TestCase {
 	 */
 	public void testDoBody_TRUE() throws Exception {
 		StringConversion.insertOneStringIntoParameterValueList("TRUE", inputParameters);
-		BooleanToBooleanFunctionBehaviorExecution obj = new BooleanToBooleanFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		assertEquals(true, BooleanConversion.extractBooleanFromParameterValueList(outputParameters));
 	}	
 	
@@ -65,8 +51,7 @@ public class BooleanToBooleanFunctionBehaviorExecutionTest extends TestCase {
 	 */
 	public void testDoBody_false() throws Exception {
 		StringConversion.insertOneStringIntoParameterValueList("false", inputParameters);
-		BooleanToBooleanFunctionBehaviorExecution obj = new BooleanToBooleanFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		assertEquals(false, BooleanConversion.extractBooleanFromParameterValueList(outputParameters));
 	}	
 	
@@ -77,8 +62,7 @@ public class BooleanToBooleanFunctionBehaviorExecutionTest extends TestCase {
 	 */
 	public void testDoBody_FALSE() throws Exception {
 		StringConversion.insertOneStringIntoParameterValueList("FALSE", inputParameters);
-		BooleanToBooleanFunctionBehaviorExecution obj = new BooleanToBooleanFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		assertEquals(false, BooleanConversion.extractBooleanFromParameterValueList(outputParameters));
 	}
 	
@@ -89,8 +73,7 @@ public class BooleanToBooleanFunctionBehaviorExecutionTest extends TestCase {
 	 */
 	public void testDoBody_ABCDE() throws Exception {
 		StringConversion.insertOneStringIntoParameterValueList("ABCDE", inputParameters);
-		BooleanToBooleanFunctionBehaviorExecution obj = new BooleanToBooleanFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		// verify output list is empty due to invalid input
 		assertEquals(0, outputParameters.getValue(0).values.size());
 	}	
@@ -102,7 +85,6 @@ public class BooleanToBooleanFunctionBehaviorExecutionTest extends TestCase {
 	 * @throws Exception
 	 */
 	public void testNew_() throws Exception {
-		BooleanToBooleanFunctionBehaviorExecution obj = new BooleanToBooleanFunctionBehaviorExecution();
 		BooleanToBooleanFunctionBehaviorExecution newobj = (BooleanToBooleanFunctionBehaviorExecution) obj.new_();
 		assertNotSame(obj, newobj);
 	}	

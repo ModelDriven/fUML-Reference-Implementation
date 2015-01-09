@@ -1,35 +1,24 @@
 /*
- * Copyright (c) 2008 Lockheed Martin Corporation.
- * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Public License v1.0
- * which accompanies this distribution, and is available at
+ * Initial version copyright 2008 Lockheed Martin Corporation, except  
+ * as stated in the file entitled Licensing-Information. 
  * 
+ * All modifications copyright 2009-2015 Data Access Technologies, Inc.
  *
- * Contributors:
- *   MDS - initial API and implementation
- *
+ * Licensed under the Academic Free License version 3.0 
+ * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
+ * in the file entitled Licensing-Information. 
  */
 
 package org.modeldriven.fuml.library.booleanfunctions;
 
-import org.modeldriven.fuml.library.LibraryTestSetup;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import junit.framework.TestCase;
+import org.modeldriven.fuml.library.LibraryTest;
 
-public class BooleanXorFunctionBehaviorExecutionTest extends TestCase {
+public class BooleanXorFunctionBehaviorExecutionTest extends LibraryTest {
 	
-	ParameterValueList inputParameters;
-	ParameterValueList outputParameters;
-
-	/**
-	 * Set up the ParameterValueLists to simulate the fUML system before calling
-	 * the doBody() method on the library classes.
-	 */
 	@Override
 	public void setUp() {
-		LibraryTestSetup libraryTestSetup = new LibraryTestSetup();
-		inputParameters = libraryTestSetup.setupInputParameterList();
-		outputParameters = libraryTestSetup.setupOutputParameterList();
+		super.setUp();
+		this.obj = new BooleanXorFunctionBehaviorExecution();
 	}
 	
 	/**
@@ -39,8 +28,7 @@ public class BooleanXorFunctionBehaviorExecutionTest extends TestCase {
 	 */
 	public void testDoBody_true_true() throws Exception {
 		BooleanConversion.insertTwoBooleansIntoParameterValueList(true, true, inputParameters);
-		BooleanXorFunctionBehaviorExecution obj = new BooleanXorFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		assertEquals(false, BooleanConversion.extractBooleanFromParameterValueList(outputParameters));
 	}	
 
@@ -51,8 +39,7 @@ public class BooleanXorFunctionBehaviorExecutionTest extends TestCase {
 	 */
 	public void testDoBody_true_false() throws Exception {
 		BooleanConversion.insertTwoBooleansIntoParameterValueList(true, false, inputParameters);
-		BooleanXorFunctionBehaviorExecution obj = new BooleanXorFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		assertEquals(true, BooleanConversion.extractBooleanFromParameterValueList(outputParameters));
 	}	
 	
@@ -63,8 +50,7 @@ public class BooleanXorFunctionBehaviorExecutionTest extends TestCase {
 	 */
 	public void testDoBody_false_true() throws Exception {
 		BooleanConversion.insertTwoBooleansIntoParameterValueList(false, true, inputParameters);
-		BooleanXorFunctionBehaviorExecution obj = new BooleanXorFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		assertEquals(true, BooleanConversion.extractBooleanFromParameterValueList(outputParameters));
 	}	
 	
@@ -75,8 +61,7 @@ public class BooleanXorFunctionBehaviorExecutionTest extends TestCase {
 	 */
 	public void testDoBody_false_false() throws Exception {
 		BooleanConversion.insertTwoBooleansIntoParameterValueList(false, false, inputParameters);
-		BooleanXorFunctionBehaviorExecution obj = new BooleanXorFunctionBehaviorExecution();
-		obj.doBody(inputParameters, outputParameters);
+		doBody();
 		assertEquals(false, BooleanConversion.extractBooleanFromParameterValueList(outputParameters));
 	}
 	
@@ -87,7 +72,6 @@ public class BooleanXorFunctionBehaviorExecutionTest extends TestCase {
 	 * @throws Exception
 	 */
 	public void testNew_() throws Exception {
-		BooleanXorFunctionBehaviorExecution obj = new BooleanXorFunctionBehaviorExecution();
 		BooleanXorFunctionBehaviorExecution newobj = (BooleanXorFunctionBehaviorExecution) obj.new_();
 		assertNotSame(obj, newobj);
 	}	

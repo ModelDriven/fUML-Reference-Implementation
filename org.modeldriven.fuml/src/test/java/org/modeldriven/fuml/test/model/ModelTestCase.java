@@ -1,7 +1,5 @@
 package org.modeldriven.fuml.test.model;
 
-
-
 import java.util.List;
 
 import junit.framework.Test;
@@ -15,7 +13,6 @@ import org.modeldriven.fuml.repository.Property;
 import org.modeldriven.fuml.repository.Repository;
 import org.modeldriven.fuml.test.FUMLTest;
 import org.modeldriven.fuml.test.FUMLTestSetup;
-import org.modeldriven.fuml.library.channel.StandardOutputChannelObject;
 
 
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
@@ -63,9 +60,6 @@ public class ModelTestCase extends FUMLTest {
         Classifier activityClassifier = Repository.INSTANCE.findClassifier(Activity.class.getSimpleName());
         assertTrue("could not find class 'Activity'", 
         		activityClassifier != null);
-        
-        
-        
     }
 
     public void testActivityEdge() throws Exception {    
@@ -76,24 +70,20 @@ public class ModelTestCase extends FUMLTest {
         assertTrue("No ownedAttribute 'isLeaf' found for class 'Activity'", isLeaf != null);
         assertTrue("Expected singular ownedAttribute 'isLeaf' for class 'Activity'", 
         		isLeaf.isSingular());
-       
-    }
-    
+    }    
     
     public void testOpaqueBehavior() throws Exception {    
     	Class_ opaqueBehaviorClassifier = (Class_)Repository.INSTANCE.findClassifier(OpaqueBehavior.class.getSimpleName());
         assertTrue("could not find class 'OpaqueBehavior'", opaqueBehaviorClassifier != null);
         Property visibility = opaqueBehaviorClassifier.findProperty("visibility");
-        assertTrue("No ownedAttribute 'visibility' found for class 'OpaqueBehavior'", visibility != null);
-        
+        assertTrue("No ownedAttribute 'visibility' found for class 'OpaqueBehavior'", visibility != null);        
     }
     
     public void testOpaqueExpression() throws Exception {    
     	Class_ opaqueExpressionClassifier = (Class_)Repository.INSTANCE.findClassifier("OpaqueExpression");
         assertTrue("could not find class 'OpaqueExpression'", opaqueExpressionClassifier != null);
         Property visibility = opaqueExpressionClassifier.findProperty("visibility");
-        assertTrue("No ownedAttribute 'visibility' found for class 'OpaqueExpression'", visibility != null);
-        
+        assertTrue("No ownedAttribute 'visibility' found for class 'OpaqueExpression'", visibility != null);       
     }
 
     public void testParameter() throws Exception {    
@@ -108,8 +98,7 @@ public class ModelTestCase extends FUMLTest {
         assertTrue("Expected 'Parameter.direction' as required", 
         		direction.isRequired());
         assertTrue("Expected default value for 'Parameter.direction'", 
-        		direction.hasPropertyDefaultValue());
-        
+        		direction.hasPropertyDefaultValue());        
     }
 
     public void testCallBehaviorAction() throws Exception {    
@@ -119,8 +108,7 @@ public class ModelTestCase extends FUMLTest {
         Property behavior = actionClassifier.findProperty("behavior");
         assertTrue("No ownedAttribute 'behavior' found for class 'CallBehaviorAction'", behavior != null);
         assertTrue("Expected ownedAttribute 'behavior' as required for class 'CallBehaviorAction'", 
-        		behavior.isRequired());
-        
+        		behavior.isRequired());        
     }
 
     public void testLiteralInteger() throws Exception {    
@@ -129,8 +117,7 @@ public class ModelTestCase extends FUMLTest {
         assertTrue("could not find class for 'LiteralInteger'", integerClassifier != null);
         Property nameProp = integerClassifier.findProperty("name");
         assertTrue("No ownedAttribute 'name' found for class 'LiteralInteger'", nameProp != null);
-        Classifier nameType = nameProp.findType();
-        
+        Classifier nameType = nameProp.findType();        
     }
 
     public void testLiteralUnlimitedNatural() throws Exception {    
@@ -146,8 +133,7 @@ public class ModelTestCase extends FUMLTest {
         assertTrue("No ownedAttribute 'value' found for class 'LiteralUnlimitedNatural'", valueProp != null);
         Classifier valueType = valueProp.findType();
         assertNotNull("LiteralUnlimitedNatural.value is null", 
-        		valueType);
-        
+        		valueType);        
     }    
 
     public void testTypedElement() throws Exception {    
@@ -155,8 +141,7 @@ public class ModelTestCase extends FUMLTest {
         Class_ typedElementClassifier = (Class_)Repository.INSTANCE.findClassifier(TypedElement.class.getSimpleName());
         assertTrue("could not find class for 'TypedElement'", typedElementClassifier != null);
         Property type = typedElementClassifier.findProperty("type");
-        assertTrue("No ownedAttribute 'type' found for class 'TypedElement'", type != null);
-        
+        assertTrue("No ownedAttribute 'type' found for class 'TypedElement'", type != null);        
     }
 
     public void testNamedElement() throws Exception {    
@@ -176,7 +161,6 @@ public class ModelTestCase extends FUMLTest {
         assertTrue("could not find class for 'Feature'", featureClassifier != null);
         Property isLeaf = featureClassifier.findProperty("isLeaf");
         assertTrue("No ownedAttribute 'isLeaf' found for class 'Feature'", isLeaf != null);
-        
     }
     
     public void testActivityParameterNode() throws Exception {    
@@ -197,9 +181,6 @@ public class ModelTestCase extends FUMLTest {
         // upperBound not in fUML
         //Property upperBound = nodeClassifier.findProperty("upperBound");
         //assertTrue("No ownedAttribute 'upperBound' found for class 'ActivityParameterNode'", upperBound != null);
-
-        
-        
     }
     
     public void testClass() throws Exception {    
@@ -218,8 +199,6 @@ public class ModelTestCase extends FUMLTest {
         assertNull("Unexpected ownedAttribute 'isLeaf' found for class 'Class'", isLeaf);
         Property generalizationProp = classifier.findProperty("generalization");
         assertTrue("No ownedAttribute 'generalization' found for class 'Class'", generalizationProp != null);
-
-        
     }
 
     public void testProperty() throws Exception {    
@@ -229,9 +208,7 @@ public class ModelTestCase extends FUMLTest {
         logProperties((Class_)propertyClassifier);
         Property defaultValue = propertyClassifier.findProperty("defaultValue");
         assertTrue("No ownedAttribute 'defaultValue' found for class 'Property'", defaultValue != null);
-        
     }
-   
     
     private void logProperties(Class_ classifier) {
         List<Property> props = classifier.getNamedProperties();
@@ -248,7 +225,6 @@ public class ModelTestCase extends FUMLTest {
     	
     }
     
-    
     public void testObjectNode() throws Exception {    
         log.info("testObjectNode");
         Class_ objectNodeClassifier = (Class_)Repository.INSTANCE.findClassifier(ObjectNode.class.getSimpleName());
@@ -264,9 +240,6 @@ public class ModelTestCase extends FUMLTest {
         assertTrue("expected 'FIFO' as default for 'ObjectNode.ordering'", 
                 "FIFO".equals(dflt));
         */
-                       
-
-        
     }
     
     public void testExpansionRegion() throws Exception {    
@@ -278,8 +251,7 @@ public class ModelTestCase extends FUMLTest {
         String dflt = modeProp.getPropertyDefault();
         
         assertTrue("Expected default for 'mode' property for class 'ExpansionRegion'", 
-                dflt != null);
-        
+                dflt != null);        
     }
 
     public void testPackage() throws Exception {    
