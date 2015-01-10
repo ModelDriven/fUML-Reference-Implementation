@@ -5,18 +5,18 @@
     <artifactId>fuml</artifactId>
     <packaging>jar</packaging>
     <name>FUML Reference Implementation</name>
-    <version>1.1.0</version>
+    <version>1.1.0_svn_merge</version>
     <description>This open source software is a reference implementation, consisting of software and related files, for the OMG specification called the Semantics of a Foundational Subset for Executable UML Models (fUML). The reference implementation is intended to implement the execution semantics of UML activity models, accepting an XMI file from a conformant UML model as its input and providing an execution trace of the selected activity model(s) as its output. The core execution engine, which is directly generated from the normative syntactic and semantic models for fUML, may also be used as a library implementation of fUML in other software.</description>
     <url>http://maven.apache.org</url>
     <licenses>
         <license>
             <name>FUML Reference Implementation License</name>
-            <url>http://lib.modeldriven.org/MDLibrary/trunk/Applications/fUML-Reference-Implementation/trunk/Licensing-Information.txt</url>
+            <url>https://github.com/ModelDriven/fUML-Reference-Implementation/blob/master/org.modeldriven.fuml/Licensing-Information.txt</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
     <scm>
-        <url>http://lib.modeldriven.org/MDLibrary/trunk/Applications/fUML-Reference-Implementation/trunk</url>
+        <url>https://github.com/ModelDriven/fUML-Reference-Implementation</url>
         <connection></connection>
     </scm>  
     <developers>
@@ -294,6 +294,16 @@
            </execution> 
          </executions>                                                  
       </plugin>   
+	  <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-compiler-plugin</artifactId>
+		<version>2.3.2</version>
+		<configuration>
+			<source>1.6</source>
+			<target>1.6</target>
+			<encoding>UTF-8</encoding>
+		</configuration>
+	  </plugin>
       <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
