@@ -37,17 +37,17 @@ Building
 The implementation build requires the following to be installed:
 
     Oracle Java Version 6 or above - see http://java.oracle.com/
-    Apache Ant Version 1.7.0 or above - see http://ant.apache.org/
+    Apache Maven Version 2.2 or above - see http://maven.apache.org/
 
 To build from the command line:
 
 1. In a Windows/DOS command window, navigate to the 'root' reference
 implementation directory.
-This directory is where the Apache Ant 'build.xml' file can be found.
+This directory is where the Apache Maven 'pom.xml' file can be found.
 
 2. Use the following command:
 
-    ant
+    mvn -DskipTests install
 
 Several targets will be executed, and the message 'BUILD SUCCESSFUL' should
 be displayed. Generated and compiled code can be found under the 'target'
@@ -55,23 +55,7 @@ directory.
 
 To build using Eclipse:
 
-1. Checkout the source from SVN or download and unzip the source '.zip' file
-into a local directory called 'fUML-Reference-Implementation'. This name reflects
-the current SVN folder name. 
-
-	Note: For Eclipse with an integrated Ant build certain restrictions
-	require some folder name to be baked into the Eclipse project external
-	build configuration, hence we baked in the current SVN folder name for
-	the RI.
-
-2. Launch Eclipse and Create a Workspace. In the "Select a Workspace" prompt,
-browse to the parent folder of the 'fUML-Reference-Implementation' folder above.
-
-3. Import the fUML RI Project Into the Workspace. Select File->Import->
-General->Existing Projects Into Workspace. Select 'Next>>'. Select the 'Select
-Root Directory' radio-button, browse to the 'fUML-Reference-Implementation'
-folder above, and select it. Then select 'Finish'. The project should begin
-building automatically.
+[TBD]
 
 
 Testing
@@ -83,32 +67,15 @@ file can be found.
 
 2. Use the following command:
 
-    ant test
+    mvn test
 
-The formatted HTML test output can be found in the 'target/fuml/testoutput'
-directory. Load the 'target/fuml/testoutput/index.html' page into a browser to
-view the test results.
-
-The below tests can be run individual using the following commands:
-
-    ant [test-name]
-    ant run-test-reports
-
-where 'test-name' is one of the following:
-
-test-model
-test-library
-test-validate
-test-execution
-test-magic-draw-execution
-test-external-reference
-test-function-execution
-test-incremental-validation
+The test output can be found in the 'target/surefire-reports'
+directory. 
 
 
 Testing individual JUnit tests in Eclipse: 
 
-1. Right-click on any file under the 'test' folder with a filename ending in
+1. Right-click on any file under the 'src/test/java' folder with a filename ending in
 'TestCase' or 'Test' and select Run As->JUnit Test. The test should execute and
 display output.
 
@@ -122,14 +89,12 @@ file can be found.
 
 2. Use the following command:
 
-    ant deploy
+    mvn install
 
 A binary deployment 'zip' file will be created and expanded onto the current
 drive's root directory. The deployment directory will be called: 
-'fuml-[version string]' 
+'fuml-[version string]-distribution' 
 
-Note: Pre-packaged deployment archives can be found under the
-'dist' directory. These can be manually un-archived to the desired location.
 
 
 Running
