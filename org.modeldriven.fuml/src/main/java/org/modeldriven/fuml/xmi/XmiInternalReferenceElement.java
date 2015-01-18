@@ -40,6 +40,8 @@ public class XmiInternalReferenceElement extends XmiReferenceElement implements 
 	public XmiInternalReferenceElement(XmiNode node, Classifier classifier) {
 		super(node, classifier);	
 		construct();
+		if (log.isDebugEnabled()) 
+			log.debug("created " + this.node.getLocalName() + " (" + this.node.getXmiId() + ")");
 	}
 	
 	private void construct()

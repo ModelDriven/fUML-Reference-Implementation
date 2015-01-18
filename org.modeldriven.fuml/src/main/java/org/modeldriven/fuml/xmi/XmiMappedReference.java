@@ -47,6 +47,8 @@ public class XmiMappedReference implements XmiReference {
         this.name = name;
         this.classifier = classifier;
         construct(values);
+		if (log.isDebugEnabled()) 
+			log.debug("created " + this.node.getLocalName() + " (" + this.node.getXmiId() + ")");
     }
 
 	public Classifier getClassifier() {

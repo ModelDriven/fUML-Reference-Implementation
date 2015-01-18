@@ -2,7 +2,8 @@ package org.modeldriven.fuml;
 
 public enum FumlSystemProperty {
     
-	CONFIG("fuml.configuration");
+	CONFIG("fuml.configuration"),
+	REPOSITORY("repository.configuration");
     
     private String property;
     private FumlSystemProperty(String property) {

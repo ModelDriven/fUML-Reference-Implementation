@@ -5,7 +5,7 @@
     <artifactId>fuml</artifactId>
     <packaging>jar</packaging>
     <name>FUML Reference Implementation</name>
-    <version>1.1.0_svn_merge</version>
+    <version>1.1.1</version>
     <description>This open source software is a reference implementation, consisting of software and related files, for the OMG specification called the Semantics of a Foundational Subset for Executable UML Models (fUML). The reference implementation is intended to implement the execution semantics of UML activity models, accepting an XMI file from a conformant UML model as its input and providing an execution trace of the selected activity model(s) as its output. The core execution engine, which is directly generated from the normative syntactic and semantic models for fUML, may also be used as a library implementation of fUML in other software.</description>
     <url>http://maven.apache.org</url>
     <licenses>
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.1</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -74,11 +74,6 @@
             <version>1.2.8</version>
         </dependency>
         <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jsr173_api</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
             <groupId>stax-utils</groupId>
             <artifactId>stax-utils</artifactId>
             <version>snapshot-20040917</version>
@@ -87,21 +82,6 @@
             <groupId>com.sun.xml.stream</groupId>
             <artifactId>sjsxp</artifactId>
             <version>1.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>2.1.9</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-xjc</artifactId>
-            <version>2.1.9</version>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
@@ -354,6 +334,7 @@
 		<configuration>
              
             <argLine>-Dlog4j.configuration=log4j.properties</argLine>
+            <argLine>-Dfuml.configuration=TestFumlConfig.xml</argLine>
             <!-- 
             <argLine>-Dlog4j.configuration=log4j.properties -Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address=8002,server=y,suspend=y</argLine>
             -->
@@ -368,8 +349,9 @@
 			<printSummary>true</printSummary>
 			<redirectTestOutputToFile>false</redirectTestOutputToFile>
             <excludes>
+                <exclude>**/load/profile/**</exclude> <!-- these are helper classes not tests and JUnit will try to run them if not excluded  -->                      
 <!--                 <exclude>**/load/**</exclude>                        -->
-                <exclude>**/builtin/*LoopNode*</exclude> 
+                <exclude>**/builtin/*LoopNode*</exclude>                 
 <!--                 <exclude>**/model/**</exclude>                        -->
 <!--                 <exclude>**/builtin/**</exclude>                        -->
 <!--                 <exclude>**/library/**</exclude>                        -->
@@ -384,7 +366,12 @@
 			</includes>
 			 
 		</configuration>
-	  </plugin>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>2.18.1</version>
+      </plugin>
       <!-- Produce ZIP with dependencies and samples. -->
       <plugin>
           <artifactId>maven-assembly-plugin</artifactId>

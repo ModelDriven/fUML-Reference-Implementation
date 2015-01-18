@@ -319,7 +319,8 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
                         + implObjectClassName + "' for library class, " 
                         + libraryObjectClassName);
             }
-            log.info("mapped " + targetType.name + " to " + implObjectClassName);
+            if (log.isDebugEnabled())
+                log.debug("mapped " + targetType.name + " to " + implObjectClassName);
             
             Object object = ReflectionUtils.instanceForName(implObjectClassName);
 

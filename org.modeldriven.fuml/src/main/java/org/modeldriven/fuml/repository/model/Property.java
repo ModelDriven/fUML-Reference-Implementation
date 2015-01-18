@@ -85,25 +85,29 @@ public class Property extends NamedElement
     private Classifier findType(boolean supressErrors) {
         Classifier result = null;
         
-        String typeXmiId = this.property.typedElement.type.getXmiId();
-        if (typeXmiId != null) {
-        	Element elementResult = Repository.INSTANCE.getElementById(typeXmiId);
-        	try {
-        	    result = (Classifier)elementResult;
-        	}
-        	catch (ClassCastException e) {
-        		throw new RuntimeException(e);
-        	}
-        	//if (Classifier.class.isAssignableFrom(Element.class))
-        	//    result = Classifier.class.cast(elementResult);
-            //else
-            //	throw new IllegalStateException(Classifier.class.getName() 
-            //		+ " cannot be assigned from " + Element.class.getName());
-            if (result == null && !supressErrors)
-                throw new InvalidReferenceException(typeXmiId);
+        if (this.property.typedElement != null && this.property.typedElement.type != null)
+        {
+	        String typeXmiId = this.property.typedElement.type.getXmiId();
+	        if (typeXmiId != null) {
+	        	Element elementResult = Repository.INSTANCE.getElementById(typeXmiId);
+	        	try {
+	        	    result = (Classifier)elementResult;
+	        	}
+	        	catch (ClassCastException e) {
+	        		throw new RuntimeException(e);
+	        	}
+	        	//if (Classifier.class.isAssignableFrom(Element.class))
+	        	//    result = Classifier.class.cast(elementResult);
+	            //else
+	            //	throw new IllegalStateException(Classifier.class.getName() 
+	            //		+ " cannot be assigned from " + Element.class.getName());
+	            if (result == null && !supressErrors)
+	                throw new InvalidReferenceException(typeXmiId);
+	        }
         }
         if (result == null && !supressErrors)
-            throw new RepositorylException("no type found for property, " + this.property.name);
+            throw new RepositorylException("no type found for property, " 
+            		+ this.property.class_.name + "." + this.property.name);
         return result;
     }
     

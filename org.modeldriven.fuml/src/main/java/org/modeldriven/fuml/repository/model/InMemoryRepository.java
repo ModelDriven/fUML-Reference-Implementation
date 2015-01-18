@@ -30,6 +30,7 @@ import javax.xml.bind.UnmarshalException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.modeldriven.fuml.FumlSystemProperty;
 import org.modeldriven.fuml.bind.DefaultValidationEventHandler;
 import org.modeldriven.fuml.common.reflect.ReflectionUtils;
 import org.modeldriven.fuml.config.ExtensionPackage;
@@ -55,6 +56,7 @@ import org.modeldriven.fuml.xmi.InvalidReferenceException;
 import org.modeldriven.fuml.xmi.XmiException;
 import org.xml.sax.SAXException;
 
+import fUML.Syntax.Classes.Kernel.Generalization;
 import fUML.Syntax.Classes.Kernel.Operation;
 import fUML.Syntax.Classes.Kernel.PackageableElement;
 
@@ -63,7 +65,8 @@ public class InMemoryRepository extends InMemoryMapping
 {
     private static Log log = LogFactory.getLog(InMemoryRepository.class);
     private static InMemoryRepository instance = null;
-    private static String configFileName = "RepositoryConfig.xml";
+    private static String defaultConfigFileName = "RepositoryConfig.xml";  
+    private static final List<Classifier> EMPTY_CLASSIFIER_LIST = new ArrayList<Classifier>();
 
     private RepositoryConfig config;
 
@@ -72,7 +75,7 @@ public class InMemoryRepository extends InMemoryMapping
     
     private Map<String, IgnoredPackage> ignoredPackageNameMap = new HashMap<String, IgnoredPackage>();
     private Map<String, IgnoredClass> ignoredClassNameMap = new HashMap<String, IgnoredClass>();
-
+    private String activeConfigFileName;
 
     private InMemoryRepository() {
          
@@ -80,7 +83,10 @@ public class InMemoryRepository extends InMemoryMapping
         try {
             RepositoryConfigDataBinding configBinding = new RepositoryConfigDataBinding(
                     new DefaultValidationEventHandler());
-            config = unmarshalConfig(configFileName, configBinding);
+            activeConfigFileName = System.getProperty(FumlSystemProperty.REPOSITORY.getProperty(), 
+            		defaultConfigFileName);
+            
+            config = unmarshalConfig(activeConfigFileName, configBinding);
             
         } catch (SAXException e) {
             throw new RepositorylException(e);
@@ -128,10 +134,15 @@ public class InMemoryRepository extends InMemoryMapping
         }
     }
 
-    public void loadClass(Class_ clss) {
-    	construct(clss, clss.getName());
-    }
-    
+    /**
+     * Collects attributes and operations for the given class and
+     * maps it by default UML namespace URI and artifact namespace URI 
+     * qualified names.  Because of the mapping to default UML namespace, 
+     * This method is only for use on initialization
+     * when M2 level FUML/UML artifacts are being loaded.
+     * @param clss the class
+     * @param className the class name
+     */
     private void construct(Class_ clss, String className) {
         List<Property> attributes = new ArrayList<Property>();
         collectAttributes(clss, attributes);
@@ -157,7 +168,29 @@ public class InMemoryRepository extends InMemoryMapping
         
         //String packageQualifiedName = implClass.getDelegate().package_.name + "." + className;
         //this.qualifiedClassifierNameToClassifierMap.put(packageQualifiedName, clss);
-    }
+    }    
+        
+    /**
+     * Collects attributes and operations for the given class and
+     * maps it by artifact(file) namespace URI qualified
+     * names. 
+     * @param clss the class
+     * @param className the class name
+     */
+    public void loadClass(Class_ clss) {
+        List<Property> attributes = new ArrayList<Property>();
+        collectAttributes(clss, attributes);
+
+        List<Operation> operations = new ArrayList<Operation>();
+        collectOperations(clss, operations);
+
+        org.modeldriven.fuml.repository.model.Class_ implClass = (org.modeldriven.fuml.repository.model.Class_)clss;
+        implClass.setAttributes(attributes);
+        implClass.setOperations(operations);
+        
+        String artifactQualifiedName = clss.getArtifact().getNamespaceURI() + "#" + clss.getName();
+        this.qualifiedClassifierNameToClassifierMap.put(artifactQualifiedName, clss);
+    }    
 
     private void bootstrap() {
 
@@ -495,6 +528,14 @@ public class InMemoryRepository extends InMemoryMapping
     
     public static void main(String[] args) {
     	InMemoryRepository.getInstance();
+    }
+	public List<Classifier> getSpecializations(Classifier classifier) {
+    	List<Classifier> result = this.classifierIdToSpecializationClassifierMap.get(
+    		classifier.getXmiId());
+    	if (result != null)
+    		return result;
+    	else
+    		return EMPTY_CLASSIFIER_LIST;
     }
 
 }

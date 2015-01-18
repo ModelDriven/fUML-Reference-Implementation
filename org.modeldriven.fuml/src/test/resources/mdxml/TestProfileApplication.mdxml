@@ -1,0 +1,634 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xmi:XMI xmi:version='2.1' xmlns:uml='http://www.omg.org/spec/UML/20090901' xmlns:xmi='http://schema.omg.org/spec/XMI/2.1' xmlns:Traceability_customization='http://www.magicdraw.com/schemas/Traceability_customization.xmi' xmlns:DSL_Customization='http://www.magicdraw.com/schemas/DSL_Customization.xmi' xmlns:Test_Profile='http://www.magicdraw.com/schemas/Test_Profile.xmi' xmlns:Validation_Profile='http://www.magicdraw.com/schemas/Validation_Profile.xmi' xmlns:StandardProfileL3='http://schema.omg.org/spec/UML/2.3/StandardProfileL3.xmi' xmlns:StandardProfileL2='http://schema.omg.org/spec/UML/2.3/StandardProfileL2.xmi' xmlns:MagicDraw_Profile='http://www.magicdraw.com/schemas/MagicDraw_Profile.xmi'>
+	<xmi:Documentation exporter='MagicDraw UML' exporterVersion='17.0'/>
+	<xmi:Extension extender='MagicDraw UML 17.0'>
+		<shareTable shareVersion='-1' standardSystemProfile='false'/>
+		<mountTable>
+			<module resource='file:/C:/MagicDraw%20UML%2017.0%20SP6/profiles/UML_Standard_Profile.xml' autoloadType='ALWAYS_LOAD' readOnly='true' loadIndex='false' requiredVersion='-1' version='17.0_'>
+				<mount mountPoint='magicdraw_uml_standard_profile_v_0001' mountedOn='eee_1045467100313_135436_9283424_89234'/>
+			</module>
+			<module resource='file:/C:/%3Cproject.dir%3E/Test_Profile.mdxml' autoloadType='ALWAYS_LOAD' readOnly='true' loadIndex='true' requiredVersion='-1'>
+				<mount mountPoint='_16_0_1_1707042b_1278513361573_159825_364' mountedOn='eee_1045467100313_135436_9283424_89234'/>
+			</module>
+		</mountTable>
+	</xmi:Extension>
+	<uml:Model xmi:id='eee_1045467100313_135436_9283424_89234' name='model' visibility='public'>
+		<xmi:Extension extender='MagicDraw UML 17.0'>
+			<moduleExtension ignoredInModule='true'/>
+		</xmi:Extension>
+		<ownedComment xmi:type='uml:Comment' xmi:id='_17_0_2_1707042cx_1339189331644_664224_1511' body='A test model which exercises all SDO datatypes where each node contains a property for each SDO datatype and nodes and be composed into hierarchical structures. &#10;'>
+			<annotatedElement xmi:idref='eee_1045467100313_135436_9283424_89234'/>
+		</ownedComment>
+		<packagedElement xmi:type='uml:Package' xmi:id='_17_0_2_1707042cx_1339189431129_892808_1671_923824' name='org' visibility='public'>
+			<packagedElement xmi:type='uml:Package' xmi:id='_17_0_2_1707042cx_1339189439444_460321_16_923842' name='modeldriven' visibility='public'>
+				<packagedElement xmi:type='uml:Package' xmi:id='_17_0_2_1707042cx_1349976943610_90008_1912' name='test' visibility='public'>
+					<packagedElement xmi:type='uml:Package' xmi:id='_17_0_2_1707042cx_1339189629566_657525_1679_992234' name='datatypes' visibility='public'>
+
+		<packagedElement xmi:type='uml:Enumeration' xmi:id='a2f944df-73ba-48e6-9e44-acabd5b9a376' name='TestValues' visibility='public'>
+			<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='9252e0d8-f15f-4f9a-94b1-f459f9025fb1' name='a' visibility='public'/>
+			<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='84ff85d1-df52-4f40-9117-9f0b3595f5db' name='b' visibility='public'/>
+			<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='a399ebc6-c144-4f70-b48d-109d5ddf6336' name='c' visibility='public'/>
+			<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='88b98404-70e0-4532-81e5-62d3d2c06670' name='d' visibility='public'/>
+			<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='c478aa4d-0b96-48d3-a58d-1b9f64a41a4b' name='e' visibility='public'/>
+		</packagedElement>
+
+
+						<packagedElement xmi:type='uml:Class' xmi:id='_17_0_2_1707042cx_1339246750460_952849_1746_9934' name='Concurrent' visibility='public' isAbstract='true'>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1339246916083_927037_1761' name='createdOn' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-DateTime'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::DateTime' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042cx_1339246938520_201913_1763' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042cx_1339246938520_261098_1762' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1339246963051_686364_1767' name='lastModifiedOn' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-DateTime'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::DateTime' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042cx_1339246976410_974706_1769' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042cx_1339246976410_114315_1768' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1339247016488_372121_1773' name='lastAccessedOn' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-DateTime'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::DateTime' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042cx_1339247035378_218147_1775' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042cx_1339247035378_323150_1774' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1339255847984_354915_1774' name='seqId' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Long'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Long' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042cx_1339255864218_749537_1776' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042cx_1339255864218_240732_1775' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349977344793_194705_1913' name='createdBy' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-String'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::String' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349977599951_612063_1986' name='lastModifiedBy' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-String'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::String' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042cx_1349977599951_768897_1987' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042cx_1349977599951_528879_1988' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042b_1350057437713_560405_1632' name='levelNum' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Long'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Long' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1350057469568_886652_1634' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1350057469568_526469_1633' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042b_1350057491987_265361_1638' name='sequenceNum' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Long'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Long' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1350057506422_831626_1640' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1350057506422_173217_1639' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+							</ownedAttribute>
+						</packagedElement>
+						
+						
+						<packagedElement xmi:type='uml:Class' xmi:id='_17_0_2_1707042cx_1339249980131_730120_2027' name='Node' visibility='public'>
+							<ownedComment xmi:type='uml:Comment' xmi:id='_17_0_2_1707042cx_1349977841191_499496_2020' body='A test entity which contains every SDO 2.1 datatype.'>
+								<annotatedElement xmi:idref='_17_0_2_1707042cx_1339249980131_730120_2027'/>
+							</ownedComment>
+							<generalization xmi:type='uml:Generalization' xmi:id='_17_0_2_1707042cx_1339250790742_444995_2497' general='_17_0_2_1707042cx_1339246750460_952849_1746_9934'/>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1339252127774_887000_3526' name='parent' visibility='private' type='_17_0_2_1707042cx_1339249980131_730120_2027' association='_17_0_2_1707042cx_1339252127774_39731_3525'>
+								<ownedComment xmi:type='uml:Comment' xmi:id='_17_0_2_1707042cx_1349977880206_977540_2022' body='The parent node(s)'>
+									<annotatedElement xmi:idref='_17_0_2_1707042cx_1339252127774_887000_3526'/>
+								</ownedComment>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042cx_1339252161977_488790_3544' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042cx_1339252161977_457780_3543' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1339252127774_138947_3527' name='child' visibility='private' type='_17_0_2_1707042cx_1339249980131_730120_2027' association='_17_0_2_1707042cx_1339252127774_39731_3525'>
+								<ownedComment xmi:type='uml:Comment' xmi:id='_17_0_2_1707042cx_1349977870277_657983_2021' body='The child node(s)'>
+									<annotatedElement xmi:idref='_17_0_2_1707042cx_1339252127774_138947_3527'/>
+								</ownedComment>
+								<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042cx_1339252158712_759903_3540' visibility='public' value='*'/>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042cx_1339252158712_357061_3539' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349977921563_357168_2023' name='name' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-String'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::String' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349985978535_495136_1769' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349985978535_425654_1768' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978116897_645976_2029' name='booleanField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Boolean'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Boolean' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349985988294_669165_1771' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349985988294_482281_1770' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978227971_996409_2037' name='bytesField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Bytes'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Bytes' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349985998304_518999_1773' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349985998304_605861_1772' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978265162_802532_2041' name='characterField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Character'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Character' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986007314_856249_1775' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986007314_44925_1774' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978304680_580994_2045' name='dateField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Date'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Date' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986016168_296073_1777' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986016168_710081_1776' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978330302_441650_2049' name='dateTimeField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-DateTime'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::DateTime' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986023429_815129_1779' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986023429_471711_1778' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978355066_400265_2053' name='dayField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Day'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Day' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986032548_562816_1781' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986032548_800204_1780' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978384904_35389_2057' name='decimalField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Decimal'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Decimal' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986041137_625503_1783' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986041137_256568_1782' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978405389_907714_2061' name='doubleField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Double'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Double' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986048460_350453_1785' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986048460_606167_1784' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978431870_770285_2065' name='durationField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Duration'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Duration' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986072836_533775_1787' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986072836_506807_1786' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978479102_379917_2069' name='floatField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Float'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Float' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986083220_102324_1789' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986083220_466813_1788' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978505770_59620_2073' name='intField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Int'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Int' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986096087_106105_1791' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986096087_720572_1790' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978617878_888002_2077' name='integerField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Integer'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Integer' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986105456_721490_1793' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986105456_612594_1792' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978649199_330446_2081' name='longField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Long'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Long' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986116840_615446_1795' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986116840_386735_1794' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978674837_514534_2085' name='monthField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Month'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Month' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986128957_938950_1797' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986128957_146169_1796' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978698945_892448_2089' name='monthDayField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-MonthDay'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::MonthDay' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986139872_338605_1799' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986139872_293259_1798' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978722350_224286_2093' name='objectField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Object'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Object' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986149366_641312_1801' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986149366_934878_1800' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978744366_269577_2097' name='shortField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Short'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Short' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986159641_990699_1803' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986159641_967291_1802' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978768926_839842_2101' name='stringField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-String'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::String' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986168885_978281_1805' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986168885_155328_1804' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978791926_473218_2105' name='stringsField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Strings'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Strings' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986179145_389801_1807' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986179145_155665_1806' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978820046_500147_2109' name='timeField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Time'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Time' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986188857_722660_1809' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986188857_866626_1808' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978845646_750948_2113' name='uriField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-URI'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::URI' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986199679_181444_1811' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986199679_91267_1810' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978869338_607274_2117' name='YearField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Year'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Year' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986208298_921065_1813' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986208298_267037_1812' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978889699_850658_2121' name='yearMonthField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-YearMonth'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::YearMonth' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986216590_98283_1815' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986216590_693485_1814' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042cx_1349978915267_520148_2125' name='yearMonthDayField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-YearMonthDay'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::YearMonthDay' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986225303_314537_1817' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986225303_807051_1816' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042b_1349985934812_136108_1764' name='byteField' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Byte'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Byte' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986242262_350714_1819' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986242262_794647_1818' visibility='public'/>
+							</ownedAttribute>
+							<ownedAttribute xmi:type='uml:Property' xmi:id='_17_0_2_1707042b_1349986705880_839118_1820' name='rootId' visibility='private'>
+								<type xmi:type='uml:DataType' href='Test_Profile.mdxml#test-profile-datatypes-Long'>
+									<xmi:Extension extender='MagicDraw UML 17.0'>
+										<referenceExtension referentPath='Test Profile::datatypes::Long' referentType='DataType'/>
+									</xmi:Extension>
+								</type>
+								<xmi:Extension extender='MagicDraw UML 17.0'>
+									<modelExtension>
+										<upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_17_0_2_1707042b_1349986759518_914716_1827' visibility='public' value='1'/>
+									</modelExtension>
+								</xmi:Extension>
+								<lowerValue xmi:type='uml:LiteralInteger' xmi:id='_17_0_2_1707042b_1349986759518_641298_1826' visibility='public'/>
+							</ownedAttribute>
+						</packagedElement>
+						<packagedElement xmi:type='uml:Association' xmi:id='_17_0_2_1707042cx_1339252127774_39731_3525' visibility='public'>
+							<memberEnd xmi:idref='_17_0_2_1707042cx_1339252127774_887000_3526'/>
+							<memberEnd xmi:idref='_17_0_2_1707042cx_1339252127774_138947_3527'/>
+						</packagedElement>
+						<packagedElement xmi:type='uml:Class' xmi:id='_17_0_2_1707042b_1350071359520_740718_1636' name='DateTimeNode' visibility='public'>
+							<generalization xmi:type='uml:Generalization' xmi:id='_17_0_2_1707042b_1350076351827_388114_1938' general='_17_0_2_1707042cx_1339249980131_730120_2027'/>
+						</packagedElement>
+						<packagedElement xmi:type='uml:Class' xmi:id='_17_0_2_1707042b_1350073338020_489929_1865' name='DateNode' visibility='public'>
+							<generalization xmi:type='uml:Generalization' xmi:id='_17_0_2_1707042b_1350076363009_510047_1941' general='_17_0_2_1707042cx_1339249980131_730120_2027'/>
+						</packagedElement>
+						<packagedElement xmi:type='uml:Class' xmi:id='_17_0_2_1707042b_1350230778643_490663_1658' name='IntNode' visibility='public'>
+							<generalization xmi:type='uml:Generalization' xmi:id='_17_0_2_1707042b_1350230797680_555525_1678' general='_17_0_2_1707042cx_1339249980131_730120_2027'/>
+						</packagedElement>
+						<packagedElement xmi:type='uml:Class' xmi:id='_17_0_2_1707042b_1350230857663_961556_1684' name='LongNode' visibility='public'>
+							<generalization xmi:type='uml:Generalization' xmi:id='_17_0_2_1707042b_1350230867915_104143_1704' general='_17_0_2_1707042cx_1339249980131_730120_2027'/>
+						</packagedElement>
+						<packagedElement xmi:type='uml:Class' xmi:id='_17_0_2_1707042b_1350230892211_47777_1710' name='StringNode' visibility='public'>
+							<generalization xmi:type='uml:Generalization' xmi:id='_17_0_2_1707042b_1350230903009_879603_1730' general='_17_0_2_1707042cx_1339249980131_730120_2027'/>
+						</packagedElement>
+						<packagedElement xmi:type='uml:Class' xmi:id='_17_0_2_1707042b_1357237558856_622609_1669' name='FloatNode' visibility='public'>
+							<generalization xmi:type='uml:Generalization' xmi:id='_17_0_2_1707042b_1357237589350_59954_1693' general='_17_0_2_1707042cx_1339249980131_730120_2027'/>
+						</packagedElement>
+						<packagedElement xmi:type='uml:Class' xmi:id='_17_0_2_1707042b_1357237618597_377290_1695' name='DoubleNode' visibility='public'>
+							<generalization xmi:type='uml:Generalization' xmi:id='_17_0_2_1707042b_1357237670990_479720_1742' general='_17_0_2_1707042cx_1339249980131_730120_2027'/>
+						</packagedElement>
+						<packagedElement xmi:type='uml:Class' xmi:id='_17_0_2_1707042b_1357237644864_429788_1718' name='DecimalNode' visibility='public'>
+							<generalization xmi:type='uml:Generalization' xmi:id='_17_0_2_1707042b_1357237673720_838881_1745' general='_17_0_2_1707042cx_1339249980131_730120_2027'/>
+						</packagedElement>
+					</packagedElement>
+				</packagedElement>
+			</packagedElement>
+		</packagedElement>
+		 
+		<packagedElement xmi:type='uml:Profile' href='Test_Profile.mdxml#_16_0_1_1707042b_1278513361573_159825_364'>
+			<xmi:Extension extender='MagicDraw UML 17.0'>
+				<referenceExtension referentPath='Test Profile' referentType='Profile'/>
+			</xmi:Extension>
+		</packagedElement>
+		 
+	</uml:Model>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978282478_310876_2042' base_NamedElement='_17_0_2_1707042cx_1349978265162_802532_2041' physicalName='CRF'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1339247038800_273741_1776' base_NamedElement='_17_0_2_1707042cx_1339247016488_372121_1773' physicalName='LAO'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042b_1357237655969_683664_1737' base_NamedElement='_17_0_2_1707042b_1357237644864_429788_1718' physicalName='DCMLND'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042b_1350057474677_966355_1635' base_NamedElement='_17_0_2_1707042b_1350057437713_560405_1632' physicalName='LN'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042b_1350057509359_980908_1641' base_NamedElement='_17_0_2_1707042b_1350057491987_265361_1638' physicalName='SN'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1339252174946_900274_3555' base_NamedElement='_17_0_2_1707042cx_1339252127774_138947_3527' physicalName='CHLD'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1339252167337_420669_3547' base_NamedElement='_17_0_2_1707042cx_1339252127774_887000_3526' physicalName='PRNT'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042b_1350073368994_652588_1887' base_NamedElement='_17_0_2_1707042b_1350073338020_489929_1865' physicalName='DND'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349977370909_932833_1914' base_NamedElement='_17_0_2_1707042cx_1349977344793_194705_1913' physicalName='CB'/>
+	<Test_Profile:Concurrent xmi:id='_17_0_2_1707042cx_1349977370909_932833_1914application1' base_Property='_17_0_2_1707042cx_1349977344793_194705_1913' dataFlavor='user' type='origination'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042b_1350230801956_483828_1680' base_NamedElement='_17_0_2_1707042b_1350230778643_490663_1658' physicalName='INTND'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978686704_183665_2086' base_NamedElement='_17_0_2_1707042cx_1349978674837_514534_2085' physicalName='MNF'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978755998_468560_2098' base_NamedElement='_17_0_2_1707042cx_1349978744366_269577_2097' physicalName='STF'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042b_1350072826219_827976_1861' base_NamedElement='_17_0_2_1707042b_1350071359520_740718_1636' physicalName='DTND'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978810600_113970_2106' base_NamedElement='_17_0_2_1707042cx_1349978791926_473218_2105' physicalName='SSF'/>
+	<Test_Profile:ValueConstraint xmi:id='_17_0_2_1707042cx_1349978810600_113970_2106application1' base_Property='_17_0_2_1707042cx_1349978791926_473218_2105' maxLength='30'/>
+
+	<Test_Profile:EnumerationConstraint xmi:id='505d1550-f82a-4155-8314-08a32e9b1e2aapplication2' base_Property='_17_0_2_1707042cx_1349978768926_839842_2101' value='a2f944df-73ba-48e6-9e44-acabd5b9a376'/>
+
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978492405_277936_2070' base_NamedElement='_17_0_2_1707042cx_1349978479102_379917_2069' physicalName='FF'/>
+	<Test_Profile:ValueConstraint xmi:id='_17_0_2_1707042cx_1349978492405_277936_2070application1' base_Property='_17_0_2_1707042cx_1349978479102_379917_2069' fractionDigits='22' totalDigits='25'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042b_1349986722057_36233_1821' base_NamedElement='_17_0_2_1707042b_1349986705880_839118_1820' physicalName='ID'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042b_1349985951349_665704_1765' base_NamedElement='_17_0_2_1707042b_1349985934812_136108_1764' physicalName='BTF'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1339246980144_152904_1770' base_NamedElement='_17_0_2_1707042cx_1339246963051_686364_1767' physicalName='LMO'/>
+	<Test_Profile:Concurrent xmi:id='_17_0_2_1707042cx_1339246980144_152904_1770application1' base_Property='_17_0_2_1707042cx_1339246963051_686364_1767' dataFlavor='time' type='optimistic'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978906072_791146_2122' base_NamedElement='_17_0_2_1707042cx_1349978889699_850658_2121' physicalName='YMF'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978859345_65810_2114' base_NamedElement='_17_0_2_1707042cx_1349978845646_750948_2113' physicalName='URIF'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978736247_646332_2094' base_NamedElement='_17_0_2_1707042cx_1349978722350_224286_2093' physicalName='OF'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978367213_698424_2054' base_NamedElement='_17_0_2_1707042cx_1349978355066_400265_2053' physicalName='DYF'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978344511_396749_2050' base_NamedElement='_17_0_2_1707042cx_1349978330302_441650_2049' physicalName='DMF'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978518496_724153_2074' base_NamedElement='_17_0_2_1707042cx_1349978505770_59620_2073' physicalName='IF'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1339246944489_398224_1764_234' base_NamedElement='_17_0_2_1707042cx_1339246916083_927037_1761' physicalName='CO'/>
+	<Test_Profile:Concurrent xmi:id='_17_0_2_1707042cx_1339246944489_398224_1764_234application1' base_Property='_17_0_2_1707042cx_1339246916083_927037_1761' dataFlavor='time' type='origination'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349977599951_2681_1989' base_NamedElement='_17_0_2_1707042cx_1349977599951_612063_1986' physicalName='LMB'/>
+	<Test_Profile:Concurrent xmi:id='_17_0_2_1707042cx_1349977599951_2681_1989application1' base_Property='_17_0_2_1707042cx_1349977599951_612063_1986' dataFlavor='user' type='optimistic'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978416069_382351_2062' base_NamedElement='_17_0_2_1707042cx_1349978405389_907714_2061' physicalName='DBF'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349977936488_703132_2024' base_NamedElement='_17_0_2_1707042cx_1349977921563_357168_2023' physicalName='NM'/>
+	<Test_Profile:ValueConstraint xmi:id='_17_0_2_1707042cx_1349977936488_703132_2024application1' base_Property='_17_0_2_1707042cx_1349977921563_357168_2023' maxLength='60'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042b_1350230906723_620551_1732' base_NamedElement='_17_0_2_1707042b_1350230892211_47777_1710' physicalName='STRND'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978664204_513336_2082' base_NamedElement='_17_0_2_1707042cx_1349978649199_330446_2081' physicalName='LGF'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1339249989084_37296_2028' base_NamedElement='_17_0_2_1707042cx_1339249980131_730120_2027' physicalName='DN'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978927121_104060_2126' base_NamedElement='_17_0_2_1707042cx_1349978915267_520148_2125' physicalName='YMD'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978782245_611402_2102' base_NamedElement='_17_0_2_1707042cx_1349978768926_839842_2101' physicalName='SGF'/>
+	<Test_Profile:ValueConstraint xmi:id='_17_0_2_1707042cx_1349978782245_611402_2102application1' base_Property='_17_0_2_1707042cx_1349978768926_839842_2101' maxLength='20'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1339255867406_980047_1777' base_NamedElement='_17_0_2_1707042cx_1339255847984_354915_1774' physicalName='SEQ_ID'/>
+	<Test_Profile:Key xmi:id='_17_0_2_1707042cx_1339255867406_980047_1777application1' base_Property='_17_0_2_1707042cx_1339255847984_354915_1774' type='primary'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978319466_202303_2046' base_NamedElement='_17_0_2_1707042cx_1349978304680_580994_2045' physicalName='DTF'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978877798_896866_2118' base_NamedElement='_17_0_2_1707042cx_1349978869338_607274_2117' physicalName='YRF'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042b_1357237575343_854092_1688' base_NamedElement='_17_0_2_1707042b_1357237558856_622609_1669' physicalName='FLTND'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978167828_212046_2030' base_NamedElement='_17_0_2_1707042cx_1349978116897_645976_2029' physicalName='BF'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978439708_933436_2066' base_NamedElement='_17_0_2_1707042cx_1349978431870_770285_2065' physicalName='DRF'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042b_1357237634117_595853_1714' base_NamedElement='_17_0_2_1707042b_1357237618597_377290_1695' physicalName='DBLND'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042b_1350230871800_119021_1706' base_NamedElement='_17_0_2_1707042b_1350230857663_961556_1684' physicalName='LNGND'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978711436_242894_2090' base_NamedElement='_17_0_2_1707042cx_1349978698945_892448_2089' physicalName='MDF'/>
+	<Test_Profile:Namespace xmi:id='_17_0_2_1707042cx_1339189637613_437606_1680' base_Package='_17_0_2_1707042cx_1339189629566_657525_1679_992234' uri='http://modeldriven.org/test/datatypes'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1339189637613_437606_1680application1' base_NamedElement='_17_0_2_1707042cx_1339189629566_657525_1679_992234' physicalName='DATATYPES'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978397567_367415_2058' base_NamedElement='_17_0_2_1707042cx_1349978384904_35389_2057' physicalName='DCF'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978245177_484741_2038' base_NamedElement='_17_0_2_1707042cx_1349978227971_996409_2037' physicalName='BTS'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978832647_696641_2110' base_NamedElement='_17_0_2_1707042cx_1349978820046_500147_2109' physicalName='TMF'/>
+	<Test_Profile:Alias xmi:id='_17_0_2_1707042cx_1349978633257_543720_2078' base_NamedElement='_17_0_2_1707042cx_1349978617878_888002_2077' physicalName='INF'/>
+</xmi:XMI>

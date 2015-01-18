@@ -18,7 +18,7 @@ public class ResourceArtifact implements RepositoryArtifact {
 			String namespaceUri,
 			InputStream stream) {
 		this.name = urn;
-		this.urn = namespaceUri;
+		this.urn = urn;
 		this.namespaceURI = namespaceUri;
 		this.stream = stream;
 	}
