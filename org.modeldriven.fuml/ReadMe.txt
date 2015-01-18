@@ -54,9 +54,22 @@ be displayed. Generated and compiled code can be found under the 'target'
 directory.
 
 To build using Eclipse:
+    The implementation build requires Eclipse Kepler or above with the M2E plugin and dependencies:
 
-[TBD]
+1.) Start Eclipse
 
+2.) Import the Maven project into Eclipse
+    File->Import->Existing Maven Projects
+    Select <Next> and for the "root directory" select the parent directory for the pom.xml file.
+    The project should be imported successfully
+
+3.) Run the tests
+    Right click the project root (fuml)
+    ->Run As->Maven test
+
+4.) Install
+    Right click the project root (fuml)
+    ->Run As->Maven install
 
 Testing
 -------
