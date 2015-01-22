@@ -44,7 +44,7 @@ implementation directory.
 This directory is where the Apache Maven 'pom.xml' file can be found.
 
 2. Use the following command:
-
+   
         mvn -DskipTests install
 
 Several targets will be executed, and the message 'BUILD SUCCESSFUL' should
@@ -115,13 +115,13 @@ binary or source distribution (see above).
 
         fuml <model-file> [<behavior-name> <behavior-name> <behavior-name> <...>]
 
-    Where:
+   Where:
 
-    \<model-file> is UML model file (XMI 2.1 format)
+   * `<model-file>` is UML model file (XMI 2.1 format)
      
-    \<behavior-name> is a named behavior within the model-file
+   * `<behavior-name>` is a named behavior within the model-file
 
-    If no behavior name is given, then there should be only a single behavior in the
+   If no behavior name is given, then there should be only a single behavior in the
 top-level namespace of the model, and this is what is executed.
 
 3. The execution trace will print to the console. This may be redirected to a
