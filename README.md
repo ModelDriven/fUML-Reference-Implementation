@@ -28,7 +28,7 @@ execution semantics and the execution semantics of its profiles suchas SysML.
 ###Licensing
 
 For licensing information, please see the file Licensing-Information.txt and the
-associated files Common-Public-License-1.0.txt and Apache-License-2.0.txt.
+associated files [Common-Public-License-1.0.txt](https://github.com/ModelDriven/fUML-Reference-Implementation/blob/master/org.modeldriven.fuml/Common-Public-License-2.0.txt) and [Apache-License-2.0.txt](https://github.com/ModelDriven/fUML-Reference-Implementation/blob/master/org.modeldriven.fuml/Apache-License-2.0.txt).
 
 ###Building
 
