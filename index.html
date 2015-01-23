@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Foundational UML (fUML) Reference Implementation : An open-source implementation of the OMG Foundational Semantics for Executable UML Models (Foundational UML) specification.">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Foundational UML (fUML) Reference Implementation</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/ModelDriven/fUML-Reference-Implementation">View on GitHub</a>
+
+          <h1 id="project_title">Foundational UML (fUML) Reference Implementation</h1>
+          <h2 id="project_tagline">An open-source implementation of the OMG Foundational Semantics for Executable UML Models (Foundational UML) specification.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/ModelDriven/fUML-Reference-Implementation/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/ModelDriven/fUML-Reference-Implementation/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>
+<a id="what-is-fuml" class="anchor" href="#what-is-fuml" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is fUML?</h3>
+
+<p>fUML is a subset of the standard <a href="http://www.uml.org">Unified Modeling Language (UML)</a> for which there are standard, precise execution semantics. This subset includes the typical structural modeling constructs of UML, such as classes, associations, data types and enumerations. But it also includes the ability to model behavior using UML activities, which are composed from a rich set of primitive actions. A model constructed in fUML is therefore executable in exactly the same sense as a program in a traditional programming language, but it is written with the level of abstraction and richness of expression of a modeling language.</p>
+
+<p>Like UML, fUML is standardized by the <a href="http://www.omg.org">Object Management Group (OMG)</a>, which maintains the <a href="http://www.omg.org/spec/FUML">fUML specification</a> (which is formally known as the "Semantics of a Foundational Subset for Executable UML Models"). There is also a standard textual surface syntax for fUML call the <a href="http://www.omg.org/spec/ALF">Action Language for fUML (Alf)</a>, which is particularly useful for defining detailed behaviors in the context of an fUML model, and which has its own <a href="http://alf.modeldriven.org">reference implementation</a>.</p>
+
+<h3>
+<a id="what-is-the-reference-implementation" class="anchor" href="#what-is-the-reference-implementation" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is the Reference Implementation?</h3>
+
+<p>This is a complete open source implementation of fUML. It consists of two parts.</p>
+
+<ul>
+<li><p>The <em>fUML Execution Engine</em> that executes an in-memory representation of fUML models. The implementation for the engine is directly generated from the normative syntactic and semantic models for fUML.</p></li>
+<li><p>The <em>XMI Loader</em> that reads a fUML model from a file in the standard <a href="http://www.omg.org/spec/XMI/2.1">XML Metadata Interchange (XMI) 2.1</a> format for UML and loads it into memory. The loader also reads the standard Foundational Model Library model file and resolves normative user model references to library elements.</p></li>
+</ul>
+
+<p>The fUML Execution Engine may be used itself as a library implementation of fUML in other software, or it may be used in conjunction with the XMI Loader to provide a standalone capability to execute conforming fUML models represented in XMI.</p>
+
+<p>The reference implementation was initially developed as part of a Lockheed Martin Corporation funded project with <a href="http:www.modeldriven.com">Model Driven Solutions</a> in 2008, and has been maintained by Model Driven Solutions as part of its <a href="http://www.modeldriven.org">modeldriven.org</a> open source community since then. The objectives for this reference implementation are to encourage UML tool vendors to implement the fUML standard in their tools and to provide a reference that can assist in evaluating vendor implementation conformance with the specification.</p>
+
+<p>See also the Foundational UML Reference Implementation Conformance Statement.</p>
+
+<h3>
+<a id="are-there-other-implementations-of-fuml" class="anchor" href="#are-there-other-implementations-of-fuml" aria-hidden="true"><span class="octicon octicon-link"></span></a>Are there other implementations of fUML?</h3>
+
+<p>A number of other implementations of fUML are now available, associated with various previously existing UML tools. These include at least the following:</p>
+
+<ul>
+<li><p>The <a href="https://www.magicdraw.com/simulation">Cameo Simulation Toolkit</a> for <a href="http://www.magicdraw.com">MagicDraw</a> from <a href="http://www.nomagic.om">No Magic</a>.</p></li>
+<li><p><a href="http://www.lieberlieber.com/model-engineering/amuse/product-overview/">AM|USE 2.2 by LieberLieber</a> for the <a href="http://www.sparxsystems.com/products/ea/index.html">Enterprise Architect</a> tool from <a href="http://www.sparxsystems.com/">Sparx Systems</a>.</p></li>
+<li><p>The <a href="https://wiki.eclipse.org/Papyrus/UserGuide/ModelExecution">Moka</a> module for the open-source <a href="http://www.eclipse.org/papyrus">Papyrus</a> tool from <a href="http://www.eclipse.org">Eclipse</a>.</p></li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Foundational UML (fUML) Reference Implementation maintained by <a href="https://github.com/ModelDriven">ModelDriven</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
