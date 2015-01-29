@@ -18,15 +18,20 @@ public class BasicElementReader extends ElementReader
     
     private static String STREAM_ELEMENT_NAME_XMI = "XMI";
     private static String STREAM_ELEMENT_NAME_MODEL = "Model";
+    private static String STREAM_ELEMENT_NAME_PROFILE = "Profile";
    
     public BasicElementReader() {    	
     }
     
+    /**
+     * Returns element names which can be legal root elements in XMI.
+     */
     public String[] getElementNames()
     {
         return new String[] {
         		STREAM_ELEMENT_NAME_XMI,	
-        	    STREAM_ELEMENT_NAME_MODEL
+        	    STREAM_ELEMENT_NAME_MODEL,
+        	    STREAM_ELEMENT_NAME_PROFILE
         };
     }
 
@@ -51,6 +56,8 @@ public class BasicElementReader extends ElementReader
 
         ValidationErrorCollector errorCollector = new ValidationErrorCollector(
                 event.getSource());
+        errorCollector.setValidateExternalReferences(this.validateExternalReferences);
+        
         if (this.validationEventListeners != null)
         	for (ValidationEventListener listener : this.validationEventListeners)
         		errorCollector.addEventListener(listener);
@@ -61,6 +68,7 @@ public class BasicElementReader extends ElementReader
         {
             ElementGraphAssembler assembler =
                 new ElementGraphAssembler(event.getSource());
+            assembler.setAssembleExternalReferences(this.assembleExternalReferences);
             if (this.elementAssemblerEventListeners != null)
             	for (ElementAssemblerEventListener listener : this.elementAssemblerEventListeners)
             		assembler.addEventListener(listener);

@@ -35,6 +35,7 @@ import org.modeldriven.fuml.config.FumlConfiguration;
 import org.modeldriven.fuml.config.ImportAdapter;
 import org.modeldriven.fuml.config.ImportAdapterType;
 import org.modeldriven.fuml.config.NamespaceDomain;
+import org.modeldriven.fuml.config.NamespaceMapping;
 import org.modeldriven.fuml.config.ReferenceMappingType;
 import org.modeldriven.fuml.config.ValidationExemption;
 import org.modeldriven.fuml.config.ValidationExemptionType;
@@ -740,28 +741,15 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
 
             if (reference instanceof XmiExternalReferenceElement) {
                 if (assembleExternalReferences) {
-                	// FIXME: resolve these references inside/outside of lib(s)
-                    if (id == null || !id.startsWith("pathmap:")) 
-                    {
-                        Element referent = Library.getInstance().lookup(id);
-                        if (referent == null) {                        	
-                        	if (domain == null)
-                        		domain = FumlConfiguration.getInstance().findNamespaceDomain(eventNode.getNamespaceURI());	            	
-
-                        	ValidationExemption exemption = FumlConfiguration.getInstance().findValidationExemptionByReference(ValidationExemptionType.EXTERNAL_REFERENCE,
-                        			reference.getClassifier(), id, eventNode.getNamespaceURI(), domain);
-                        	if (exemption == null) {
-                                throw new ValidationException(new ValidationError(reference, id,
-                                        ErrorCode.INVALID_EXTERNAL_REFERENCE, ErrorSeverity.FATAL));
-                        	}
-                        	// otherwise don't attempt to assemble
-                        }
-                        else
-                            this.assembleSingularReferenceFeature(referent, property, type);
-                    }
+                    if (log.isDebugEnabled())
+                        log.debug("assembling singular external reference feature <" + type.getName() + "> "
+                                + this.getPrototype().getName() + "." + property.getName());
+                    Element referent = this.resolveExternalReference(eventNode, reference, id);
+                    if (referent != null)
+                        this.assembleSingularReferenceFeature(referent, property, type);  
                 }
             } else {
-                Element target = null;
+                FumlObject target = null;
 
                 ElementAssembler referencedAssembler = this.assemblerMap.get(id);
                 if (referencedAssembler != null)
@@ -785,43 +773,73 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
                 String id = iter.next();
                 if (reference instanceof XmiExternalReferenceElement) {
                     if (assembleExternalReferences) {
-                    	// FIXME: resolve these references inside/outside of lib(s)
-                        if (id == null || !id.startsWith("pathmap:")) 
-                        {
-                            Element referent = Library.getInstance().lookup(id);
-                            if (referent == null) {
-                            	if (domain == null)
-                            		domain = FumlConfiguration.getInstance().findNamespaceDomain(eventNode.getNamespaceURI());	            	
-
-                            	ValidationExemption exemption = FumlConfiguration.getInstance().findValidationExemptionByReference(ValidationExemptionType.EXTERNAL_REFERENCE,
-                            			reference.getClassifier(), id, eventNode.getNamespaceURI(), domain);
-                            	if (exemption == null) {
-                                    throw new ValidationException(new ValidationError(reference, id,
-                                            ErrorCode.INVALID_EXTERNAL_REFERENCE, ErrorSeverity.FATAL));
-                            	}
-                            	// otherwise don't attempt to assemble
-                            }
-                            else
-                                this.assembleCollectionReferenceFeature(referent, property, type);
-                        }
+                        Element referent = this.resolveExternalReference(eventNode, reference, id);
+                        if (referent != null)
+                        	this.assembleCollectionReferenceFeature(referent, property, type);
                     }
                 } else {
-                	FumlObject target = null;
-                	
                     ElementAssembler referencedAssembler = this.assemblerMap.get(id);
-                    if (referencedAssembler != null)
-                        target = referencedAssembler.getTargetObject();
-                    else
-                        target = Environment.getInstance().findElementById(id);
-
-                    if (target != null)
-                        this.assembleCollectionReferenceFeature(target, property, type);
-                    else
+                    if (referencedAssembler == null)
                         throw new ValidationException(new ValidationError(reference, id,
                                 ErrorCode.INVALID_REFERENCE, ErrorSeverity.FATAL));
+                    this.assembleCollectionReferenceFeature(referencedAssembler.getTargetObject(),
+                            property, type);
                 }
             }
         }
+    }
+    
+    /**
+     * Resolves a single external reference id by first resolving the pathmap if exists, then checking for
+     * a valid library reference, then a valid qualified element reference. If neither a library or
+     * element reference are found, a validation error is thrown. 
+     * @param eventNode the stream event node
+     * @param reference the Xmi reference
+     * @param id the id
+     * @throws ValidationException when no mapping is found for a pathmap or when no library or qualified element
+     * is found for the given id. 
+     * @return the resolved element
+     */
+    private Element resolveExternalReference(StreamNode eventNode, XmiReference reference, String id) {
+    	NamespaceDomain domain = null; // only lookup as needed
+        if (id == null) {
+            throw new ValidationException(new ValidationError(reference, "",
+                    ErrorCode.INVALID_EXTERNAL_REFERENCE, ErrorSeverity.FATAL));
+        }
+    	String mappedId = id;
+        if (mappedId.toUpperCase().startsWith("PATHMAP:")) {
+        	int idx = id.lastIndexOf("#");
+        	String pathmap = id.substring(0, idx);
+        	NamespaceMapping mapping = FumlConfiguration.getInstance().findPathmap(pathmap); 
+        	if (mapping == null) 
+                throw new ValidationException(new ValidationError(reference, mappedId,
+                        ErrorCode.INVALID_EXTERNAL_REFERENCE, ErrorSeverity.FATAL));
+        	mappedId = mapping.getTarget() + id.substring(idx);  
+        	if (log.isDebugEnabled())
+        		log.debug("resolved external pathmap reference '" + id + "' to '" + mappedId + "'");
+        }
+    	Element referent = Library.getInstance().lookup(mappedId); 
+        if (referent == null) {                           	
+        	org.modeldriven.fuml.repository.Element elem = Repository.INSTANCE.findElementByQualifiedName(mappedId);
+        	if (elem != null)
+        	    referent = elem.getDelegate();
+        }
+        if (referent == null) {
+        	if (domain == null)
+        		domain = FumlConfiguration.getInstance().findNamespaceDomain(eventNode.getNamespaceURI());	            	
+        	
+        	ValidationExemption exemption = FumlConfiguration.getInstance().findValidationExemptionByReference(ValidationExemptionType.EXTERNAL_REFERENCE,
+        			reference.getClassifier(), id, eventNode.getNamespaceURI(), domain);
+        	if (exemption == null)
+        		exemption = FumlConfiguration.getInstance().findValidationExemptionByReference(ValidationExemptionType.EXTERNAL_REFERENCE,
+            			reference.getClassifier(), mappedId, eventNode.getNamespaceURI(), domain);
+        	// if external reference not specifically exempted from validation
+        	if (exemption == null) {	                        	
+                throw new ValidationException(new ValidationError(reference, mappedId,
+                        ErrorCode.INVALID_EXTERNAL_REFERENCE, ErrorSeverity.FATAL));
+            } 
+        }
+    	return referent;
     }
 
     @SuppressWarnings("rawtypes")

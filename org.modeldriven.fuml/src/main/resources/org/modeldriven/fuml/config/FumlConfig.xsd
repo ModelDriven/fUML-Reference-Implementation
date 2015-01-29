@@ -49,6 +49,11 @@
                     <xsd:documentation></xsd:documentation>       
                 </xsd:annotation>                                 
             </xsd:element>
+            <xsd:element name="NamespaceMapping" type="cfg:NamespaceMapping"  minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>                                  
+                    <xsd:documentation></xsd:documentation>       
+                </xsd:annotation>                                 
+            </xsd:element>
             <xsd:element name="Exemption" type="cfg:ImportExemption"  minOccurs="1" maxOccurs="unbounded">
                 <xsd:annotation>                                  
                     <xsd:documentation></xsd:documentation>       
@@ -254,6 +259,43 @@
         </xsd:annotation>
     </xsd:element>
 
+    <xsd:complexType name="NamespaceMapping">
+        <xsd:annotation>
+            <xsd:documentation></xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:attribute name="pathmap" type="xsd:string" use="required">
+            <xsd:annotation>                                  
+                <xsd:documentation>The pathmap URI prefix</xsd:documentation>       
+            </xsd:annotation>                                 
+        </xsd:attribute>
+
+        <xsd:attribute name="domain" type="cfg:NamespaceDomain" use="required">
+            <xsd:annotation>                                  
+                <xsd:documentation>The namespace domain name</xsd:documentation>       
+            </xsd:annotation>                                 
+        </xsd:attribute>
+        
+        <xsd:attribute name="uri" type="xsd:string" use="required">
+            <xsd:annotation>                                  
+                <xsd:documentation>The namespace URI</xsd:documentation>       
+            </xsd:annotation>                                 
+        </xsd:attribute>
+
+        <xsd:attribute name="target" type="xsd:string" use="required">
+            <xsd:annotation>                                  
+                <xsd:documentation>The target namespace URI</xsd:documentation>       
+            </xsd:annotation>                                 
+        </xsd:attribute>
+
+    </xsd:complexType>
+
+    <xsd:element name="NamespaceMapping" type="cfg:NamespaceMapping">
+        <xsd:annotation>
+            <xsd:documentation></xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
     <xsd:simpleType name="NamespaceDomain">
         <xsd:annotation>
             <xsd:documentation></xsd:documentation>

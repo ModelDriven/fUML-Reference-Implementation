@@ -41,6 +41,7 @@ public class FumlConfiguration {
     /** maps import exemptions to XML element local names */
     private Map<String, ImportExemption> importExemptions = new HashMap<String, ImportExemption>();
     private Map<String, ImportAdapter> importAdapters = new HashMap<String, ImportAdapter>();
+    private Map<String, NamespaceMapping> pathmaps = new HashMap<String, NamespaceMapping>();
     
     /** maps validation exemptions to classifier names */
     private Map<String, List<ValidationExemption>> validationExemptions = new HashMap<String, List<ValidationExemption>>();
@@ -67,6 +68,22 @@ public class FumlConfiguration {
                 {
                     executions.put(mapping.getClassName(), mapping);
                     Class.forName(mapping.getExecutionClassName()); // execution classes must exist on the classpath
+                }
+            if (config.getImportConfiguration().getNamespaceMapping() != null)  
+                for (NamespaceMapping mapping : config.getImportConfiguration().getNamespaceMapping()) {
+                	NamespaceDomain pathmapDomain = mapping.getDomain();
+                	
+                	NamespaceDomain targetDomain = this.getNamespaceDomain(mapping.getUri());
+                	if (pathmapDomain.ordinal() != targetDomain.ordinal())
+                		throw new FumlConfigurationException("namespace domain '" + pathmapDomain.name() + "' for namespace mapping '"
+                			+ mapping.getPathmap() + "' does not match namspace domain ("+targetDomain.name()+") of target URI");
+                	if (!mapping.getTarget().startsWith(mapping.getUri())) {
+                		throw new FumlConfigurationException("target for namespace mapping '"
+                    			+ mapping.getPathmap() + "' for namspace domain ("+targetDomain.name()+") expected to contain (start with) domain uri '"
+                    			+ mapping.getUri() + "'");
+                	}
+                	
+                	pathmaps.put(mapping.getPathmap(), mapping);
                 }
 
             if (config.getImportConfiguration().getExemption() != null)
@@ -142,6 +159,7 @@ public class FumlConfiguration {
         return config;
     } 
     
+    //FIXME: map this - inefficient
     public String[] getSupportedNamespaceURIsForDomain(NamespaceDomain domain)
     {
         List<String> list = new ArrayList<String>();
@@ -160,6 +178,7 @@ public class FumlConfiguration {
         return results;
     }
 
+   //FIXME: map this - inefficient
     public NamespaceDomain getNamespaceDomain(String namespaceUri)
     {
     	NamespaceDomain result = findNamespaceDomain(namespaceUri);
@@ -169,6 +188,7 @@ public class FumlConfiguration {
     	return result;
     }
     
+   //FIXME: map this - inefficient
     public NamespaceDomain findNamespaceDomain(String namespaceUri)
     {
         Iterator<SupportedNamespace> namespaces = 
@@ -180,6 +200,10 @@ public class FumlConfiguration {
                 return namespace.getDomain();
         }
         return null;
+    }
+        
+    public NamespaceMapping findPathmap(String path) {
+    	return this.pathmaps.get(path);
     }
     
     public boolean hasReferenceMapping(Classifier classifier, Property property)

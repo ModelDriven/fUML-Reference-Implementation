@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_Z68-YCG2EeSfsoM4aIlAPw" name="Test Data Types">
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-Date" name="Date" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321547962924_853208_608" body="This UML data type maps directly to the test Date data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-Date"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-DateTime" name="DateTime" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321547973971_899116_609" body="This UML data type maps directly to the test DateTime data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-DateTime"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-Integer" name="Integer" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321548049939_551502_616" body="This UML data type maps directly to the test Integer data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-Integer"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-Int" name="Int" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321548038017_340206_615" body="This UML data type maps directly to the test Int data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-Int"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-Long" name="Long" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321548060689_382231_617" body="This UML data type maps directly to the test Long data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-Long"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-Short" name="Short" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321548100126_307745_621" body="This UML data type maps directly to the test Short data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-Short"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-Decimal" name="Decimal" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321547997518_634969_611" body="This UML data type maps directly to the test Decimal data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-Decimal"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-String" name="String" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321548110766_185738_622" body="This UML data type maps directly to the test String data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-String"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-Float" name="Float" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321548029330_257622_614" body="This UML data type maps directly to the test Float data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-Float"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-Double" name="Double" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321548006002_13614_612" body="This UML data type maps directly to the test Decimal data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-Double"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-Boolean" name="Boolean" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321546199050_396743_604" body="This UML data type maps directly to the test Boolean data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-Boolean"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-Character" name="Character" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321547952736_653423_607" body="This UML data type maps directly to the test Character data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-Character"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-Byte" name="Byte" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321547912345_360864_605" body="This UML data type maps directly to the test Byte data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-Byte"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-Bytes" name="Bytes" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321547928564_486315_606" body="This UML data type maps directly to the test Bytes data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-Bytes"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-Day" name="Day" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321547988299_151961_610" body="This UML data type maps directly to the test Day data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-Day"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-Duration" name="Duration" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321548020268_924430_613" body="This UML data type maps directly to the test Duration data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-Duration"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-Month" name="Month" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321548069595_679630_618" body="This UML data type maps directly to the test Month data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-Month"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-MonthDay" name="MonthDay" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321548080142_979781_619" body="This UML data type maps directly to the test MonthDay data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-MonthDay"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-Object" name="Object" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321548088564_514880_620" body="This UML data type maps directly to the test Object data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-Object"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-Strings" name="Strings" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321548123548_253769_623" body="This UML data type maps directly to the test Strings data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-Strings"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-Time" name="Time" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321548131251_309738_624" body="This UML data type maps directly to the test Time data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-Time"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-URI" name="URI" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321548139141_838431_625" body="This UML data type maps directly to the test URI data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-URI"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-Year" name="Year" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321548148078_987401_626" body="This UML data type maps directly to the test Year data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-Year"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-YearMonth" name="YearMonth" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321548158578_125802_627" body="This UML data type maps directly to the test YearMonth data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-YearMonth"/>
+					</ownedComment>
+				</packagedElement>
+				<packagedElement xmi:type="uml:DataType" xmi:id="test-profile-datatypes-YearMonthDay" name="YearMonthDay" visibility="public">
+					<ownedComment xmi:type="uml:Comment" xmi:id="_16_0_1_1707042b_1321548169125_188327_628" body="This UML data type maps directly to the test YearMonthDay data type. ">
+						<annotatedElement xmi:idref="test-profile-datatypes-YearMonthDay"/>
+					</ownedComment>
+				</packagedElement>
+</uml:Model>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:TestProfile="http:///schemas/TestProfile/_Cvni8DqeEeSIqNFH5qbSSw/28" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/TestProfile/_Cvni8DqeEeSIqNFH5qbSSw/28 pathmap://TEST_PROFILES/Test.profile.uml#_Cvr0YDqeEeSIqNFH5qbSSw">
+  <uml:Model xmi:id="xxxxxx_Z68-YCG2EeSfsoM4aIlAPw" name="model">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_XBzlEDSQEeSBasb0GALRCA">
+      <importedPackage xmi:type="uml:Profile" href="pathmap://TEST_PROFILES/Test.profile.uml#_NlmngCJUEeSXvPZh3aumVA"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Package" xmi:id="_pzEGkCG2EeSfsoM4aIlAPw" name="core">
+      <packagedElement xmi:type="uml:Class" xmi:id="_18FG0CG2EeSfsoM4aIlAPw" name="Person">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_uWTy0SG3EeSfsoM4aIlAPw" name="org" type="_muj-UCG3EeSfsoM4aIlAPw" association="_uWTy0CG3EeSfsoM4aIlAPw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uWTy0iG3EeSfsoM4aIlAPw" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uWTy0yG3EeSfsoM4aIlAPw" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_KfnKYCG5EeSfsoM4aIlAPw" name="firstName">
+          <type xmi:type="uml:DataType" href="pathmap://TEST_LIBRARIES/TestDataTypes.uml#test-profile-datatypes-String"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_VyOHECG5EeSfsoM4aIlAPw" name="lastName">
+          <type xmi:type="uml:DataType" href="pathmap://TEST_LIBRARIES/TestDataTypes.uml#test-profile-datatypes-String"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_muj-UCG3EeSfsoM4aIlAPw" name="Org">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_uVdeQCG3EeSfsoM4aIlAPw" name="person" type="_18FG0CG2EeSfsoM4aIlAPw" association="_uWTy0CG3EeSfsoM4aIlAPw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uVdeQSG3EeSfsoM4aIlAPw" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uVdeQiG3EeSfsoM4aIlAPw" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_qwfQwCG5EeSfsoM4aIlAPw" name="dunsNumber">
+          <type xmi:type="uml:DataType" href="pathmap://TEST_LIBRARIES/TestDataTypes.uml#test-profile-datatypes-String"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_uWTy0CG3EeSfsoM4aIlAPw" name="A_org_person_1" memberEnd="_uWTy0SG3EeSfsoM4aIlAPw _uVdeQCG3EeSfsoM4aIlAPw"/>
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="_SWy08DU0EeSGltiJIpAcpw" name="DUNSType">
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_X9pvwDU0EeSGltiJIpAcpw" name="a1"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_Y3oEsDU0EeSGltiJIpAcpw" name="b1"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_ZriN4DU0EeSGltiJIpAcpw" name="c1"/>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_U4jB8CJaEeSXvPZh3aumVA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_U5NJQCJaEeSXvPZh3aumVA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../profile1/model.profile.uml#_Sq2mMTIPEeSpk4BoSGQf2Q"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../profile1/model.profile.uml#_NlmngCJUEeSXvPZh3aumVA"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_mjCWsTLBEeS2m-mTBzrOPw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_mjj7IDLBEeS2m-mTBzrOPw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://TEST_PROFILES/Test.profile.uml#_Cvr0YDqeEeSIqNFH5qbSSw"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://TEST_PROFILES/Test.profile.uml#_NlmngCJUEeSXvPZh3aumVA"/>
+    </profileApplication>
+  </uml:Model>
+  <TestProfile:Namespace xmi:id="_3a9l0DUhEeSk5sxkwOH2-Q" base_Package="_pzEGkCG2EeSfsoM4aIlAPw" uri="http://test.eclipse"/>
+  <TestProfile:Alias xmi:id="_3bH94DUhEeSk5sxkwOH2-Q" base_NamedElement="_18FG0CG2EeSfsoM4aIlAPw" physicalName="PRSN"/>
+  <TestProfile:Alias xmi:id="_3bIk8DUhEeSk5sxkwOH2-Q" base_NamedElement="_muj-UCG3EeSfsoM4aIlAPw" physicalName="ORG"/>
+  <TestProfile:Alias xmi:id="_3bIk8TUhEeSk5sxkwOH2-Q" base_NamedElement="_KfnKYCG5EeSfsoM4aIlAPw" physicalName="FRST_NM"/>
+  <TestProfile:Alias xmi:id="_3bJMADUhEeSk5sxkwOH2-Q" base_NamedElement="_VyOHECG5EeSfsoM4aIlAPw" physicalName="LST_NM"/>
+  <TestProfile:Alias xmi:id="_3bJMATUhEeSk5sxkwOH2-Q" base_NamedElement="_qwfQwCG5EeSfsoM4aIlAPw" physicalName="DUNS"/>
+  <TestProfile:Alias xmi:id="_a37iEDSQEeSBasb0GALRCA" base_NamedElement="_18FG0CG2EeSfsoM4aIlAPw" physicalName="PRSN"/>
+  <TestProfile:Alias xmi:id="_fXzmsDSQEeSBasb0GALRCA" base_NamedElement="_KfnKYCG5EeSfsoM4aIlAPw" physicalName="FRST_NM"/>
+  <TestProfile:Alias xmi:id="_iu-94DSQEeSBasb0GALRCA" base_NamedElement="_VyOHECG5EeSfsoM4aIlAPw" physicalName="LST_NM"/>
+  <TestProfile:Alias xmi:id="_oWjqYDSQEeSBasb0GALRCA" base_NamedElement="_muj-UCG3EeSfsoM4aIlAPw" physicalName="ORG"/>
+  <TestProfile:Alias xmi:id="_rBwFUDSQEeSBasb0GALRCA" base_NamedElement="_qwfQwCG5EeSfsoM4aIlAPw" physicalName="DNS"/>
+  <TestProfile:Namespace xmi:id="_1GL-sDSQEeSBasb0GALRCA" base_Package="_pzEGkCG2EeSfsoM4aIlAPw" uri="http://test/model/core"/>
+  <TestProfile:Alias xmi:id="_MhCOYDUnEeSGltiJIpAcpw" base_NamedElement="_uVdeQCG3EeSfsoM4aIlAPw" physicalName="PRS"/>
+  <TestProfile:EnumerationConstraint xmi:id="_cK-r0DU0EeSGltiJIpAcpw" base_Property="_qwfQwCG5EeSfsoM4aIlAPw" value="_SWy08DU0EeSGltiJIpAcpw"/>
+  <TestProfile:Alias xmi:id="_2R6YcDU0EeSGltiJIpAcpw" base_NamedElement="_X9pvwDU0EeSGltiJIpAcpw" physicalName="A1"/>
+  <TestProfile:Alias xmi:id="_3cJ-ADU0EeSGltiJIpAcpw" base_NamedElement="_Y3oEsDU0EeSGltiJIpAcpw" physicalName="B1"/>
+  <TestProfile:Alias xmi:id="_5MCnQDU0EeSGltiJIpAcpw" base_NamedElement="_ZriN4DU0EeSGltiJIpAcpw" physicalName="C1"/>
+</xmi:XMI>

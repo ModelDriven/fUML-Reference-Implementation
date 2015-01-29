@@ -61,6 +61,7 @@ public class IncrementalElementReader extends ElementReader
 
         ValidationErrorCollector errorCollector = new ValidationErrorCollector(
                 event.getSource());
+        errorCollector.setValidateExternalReferences(this.validateExternalReferences);
         if (this.validationEventListeners != null)
         	for (ValidationEventListener listener : this.validationEventListeners)
         		errorCollector.addEventListener(listener);
@@ -71,6 +72,7 @@ public class IncrementalElementReader extends ElementReader
         {
             ElementGraphAssembler assembler =
                 new ElementGraphAssembler(event.getSource());
+            assembler.setAssembleExternalReferences(this.assembleExternalReferences);
             if (this.elementAssemblerEventListeners != null)
             	for (ElementAssemblerEventListener listener : this.elementAssemblerEventListeners)
             		assembler.addEventListener(listener);

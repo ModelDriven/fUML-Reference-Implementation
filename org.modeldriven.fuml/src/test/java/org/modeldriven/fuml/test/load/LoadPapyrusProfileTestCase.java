@@ -19,6 +19,7 @@ package org.modeldriven.fuml.test.load;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import junit.framework.Test;
@@ -39,46 +40,61 @@ import org.modeldriven.fuml.repository.Repository;
 import org.modeldriven.fuml.repository.Stereotype;
 import org.modeldriven.fuml.test.FUMLTest;
 import org.modeldriven.fuml.test.FUMLTestSetup;
+import org.modeldriven.fuml.test.load.profile.Alias;
 import org.modeldriven.fuml.test.load.profile.EnumerationConstraint;
 import org.modeldriven.fuml.test.load.profile.ValueConstraint;
 
 /**
- * Loads a UML profile example on test setup, then loads a document annotated with the
+ * Loads an Eclipse Papyrus UML profile example on test setup, then loads a document annotated with the
  * profile and tests for the existence of various stereotypes and their values tied to specific
  * properties and other elements.
  */
-public class LoadProfileTestCase extends FUMLTest {
-	private static Log log = LogFactory.getLog(LoadProfileTestCase.class);
+public class LoadPapyrusProfileTestCase extends FUMLTest {
+	private static Log log = LogFactory.getLog(LoadPapyrusProfileTestCase.class);
 
 	private static Environment environment; // JUnit creates a new test class
 											// for every test!
-	String FILE_URN = "TestProfileApplication_File";
-	String NAMESPACE_URI = "test/mdxml/TestProfileApplication_File";
+	String FILE_URN = "TestPapyrusProfileApplication_File";
+	String NAMESPACE_URI = "test/uml/TestPapyrusProfileApplication_File";
 
 	public static Test suite() {
-		return FUMLTestSetup.newTestSetup(LoadProfileTestCase.class);
+		return FUMLTestSetup.newTestSetup(LoadPapyrusProfileTestCase.class);
 	}
 
 	public void setUp() throws Exception {
 
 		if (environment == null) {
-			String filename = "./target/test-classes/mdxml/TestProfile.mdxml";
+			String filename = "./target/test-classes/uml/TestPapyrus.profile.uml";
 			File file = new File(filename);
 			assertTrue("file '" + filename + "' does not exist", file.exists());
 			FileInputStream stream = new FileInputStream(file);
-			String PROFILE_NAMESPACE_URI = "http://www.magicdraw.com/schemas/Test_Profile.xmi";
-			String PROFILE_FILE_URN = "Test_Profile.mdxml";
+			String PROFILE_NAMESPACE_URI = "http:///schemas/TestProfile/_Cvni8DqeEeSIqNFH5qbSSw/28";
+			String PROFILE_FILE_URN = "Test.profile.uml";
 			ResourceArtifact artifact = new ResourceArtifact(PROFILE_FILE_URN,
 					PROFILE_NAMESPACE_URI, stream);
 			Fuml.load(artifact);
+
+			filename = "./target/test-classes/uml/TestPapyrusDataTypes.uml";
+			file = new File(filename);
+			assertTrue("file '" + filename + "' does not exist", file.exists());
+			stream = new FileInputStream(file);
+			PROFILE_NAMESPACE_URI = "http:///schemas/TestDataTypes";
+			PROFILE_FILE_URN = "TestDataTypes.uml";
+			artifact = new ResourceArtifact(PROFILE_FILE_URN,
+					PROFILE_NAMESPACE_URI, stream);
+			Fuml.load(artifact);
+			
 			environment = Environment.getInstance();
 		}
 	}
-
+	
+	 
 	@org.junit.Test
 	public void testLoadProfileApplication() throws Exception {
-		log.info("testLoadProfileApplication");
-		String filename = "./target/test-classes/mdxml/TestProfileApplication.mdxml";
+		
+		 
+		log.info("testLoadPapyrusProfileApplication");
+		String filename = "./target/test-classes/uml/TestPapyrusProfileApplication.uml";
 		File file = new File(filename);
 		assertTrue("file '" + filename + "' does not exist", file.exists());
 		FileInputStream stream = new FileInputStream(file);
@@ -86,28 +102,37 @@ public class LoadProfileTestCase extends FUMLTest {
 				NAMESPACE_URI, stream);
 		Fuml.load(artifact);	
 
-		Classifier nodeClassifier = Repository.INSTANCE.findClassifier(
-				NAMESPACE_URI + "#" + "Node");
-		assertTrue(nodeClassifier != null);
-		assertTrue(nodeClassifier instanceof Class_);
-		Class_ nodeClass = (Class_)nodeClassifier;
-		Property stringsFieldProp = nodeClass.getProperty("stringsField");
-		assertTrue(stringsFieldProp != null);
-		assertTrue(hasStereotype(stringsFieldProp, ValueConstraint.class));
-		ValueConstraint valueConstraint = (ValueConstraint)getStereotype(stringsFieldProp, 
-				ValueConstraint.class).getDelegate();
-		assertTrue(Integer.parseInt(valueConstraint.getMaxLength()) == 30);
+		Classifier personClassifier = Repository.INSTANCE.findClassifier(
+				NAMESPACE_URI + "#" + "Person");
+		assertTrue(personClassifier != null);
+		assertTrue(personClassifier instanceof Class_);
+		Class_ personClass = (Class_)personClassifier;
+		Property firstNameProp = personClass.getProperty("firstName");
+		assertTrue(firstNameProp != null);
+		assertTrue(hasStereotype(firstNameProp, Alias.class));
+		Alias alias = (Alias)getStereotype(firstNameProp, 
+				Alias.class).getDelegate();
+		assertTrue("FRST_NM".equals(alias.getPhysicalName()));
 		
-		Property stringFieldProp = nodeClass.getProperty("stringField");		
-		assertTrue(hasStereotype(stringFieldProp, EnumerationConstraint.class));
-		EnumerationConstraint enumConstraint = (EnumerationConstraint)getStereotype(stringFieldProp, 
+		Classifier orgClassifier = Repository.INSTANCE.findClassifier(
+				NAMESPACE_URI + "#" + "Org");
+		assertTrue(orgClassifier != null);
+		assertTrue(orgClassifier instanceof Class_);
+		Class_ orgClass = (Class_)orgClassifier;
+		Property dunsProp = orgClass.getProperty("dunsNumber");
+		assertTrue(dunsProp != null);
+		assertTrue(hasStereotype(dunsProp, EnumerationConstraint.class));
+		EnumerationConstraint enumConstraint = (EnumerationConstraint)getStereotype(dunsProp, 
 				EnumerationConstraint.class).getDelegate();
 		fUML.Syntax.Classes.Kernel.Enumeration e = enumConstraint.getValue();		
 		Enumeration repoEnum = (Enumeration)Repository.INSTANCE.findElementById(e.getXmiId());
 		assertTrue(repoEnum != null);
-		assertTrue("TestValues".equals(repoEnum.getName()));
+		assertTrue("DUNSType".equals(repoEnum.getName()));
 		assertTrue(repoEnum.getOwnedLiteral() != null);
+		
+		 
 	}	
+	 
 	 
 	private boolean hasStereotype(Element elem, Class<?> stereotypeClass) {
 		List<Stereotype> list = Repository.INSTANCE.getStereotypes(elem);
