@@ -67,24 +67,29 @@ public class ModelFactory
     
     public Package createPackage(String name, String qualifiedName, String id, Package parent, RepositoryArtifact artifact) {
     	Package p = new Package();
-        if (parent != null)
-            parent.addPackagedElement(p);
-
         p.name = name;
         p.qualifiedName = qualifiedName;
         p.setHref(artifact.getURN() + "#" + p.qualifiedName);
         p.setXmiId(id);
+        if (parent != null)
+            parent.addPackagedElement(p);
+        
+        if (parent != null) {
+            parent.nestedPackage.add(p);
+            p.nestingPackage = parent;
+        }
         
         return p;
     }
             
     public Class_ createClass(String name, String id, Package pkg) {
         Class_ c = new Class_();
-        pkg.addPackagedElement(c);        
 
         c.name = name;
         c.qualifiedName = pkg.qualifiedName + "." + c.name;
         c.setXmiId(id);
+        pkg.addPackagedElement(c);        
+        c.package_ = pkg;
         
         return c;
     }

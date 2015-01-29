@@ -57,7 +57,11 @@ public class Classifier extends NamedElement
     }   
     
     public boolean isAbstract() {
-    	return this._classifier.isAbstract;
+    	// fUML generated code has an isAbstract member on both Classifier and Class_
+    	if (_classifier instanceof fUML.Syntax.Classes.Kernel.Class_)
+    		return ((fUML.Syntax.Classes.Kernel.Class_)_classifier).isAbstract;
+    	else
+    	    return this._classifier.isAbstract;
     }
 
 	public boolean isDataType() {

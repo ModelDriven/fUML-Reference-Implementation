@@ -26,6 +26,7 @@ public interface RepositoryMapping {
 	public void mapProperty(Classifier clss, Property proprty, RepositoryArtifact artifact);
 	public void mapPrimitiveType(PrimitiveType type, String currentPackageName, RepositoryArtifact artifact);
 	public void mapEnumeration(Enumeration e, String currentPackageName, RepositoryArtifact artifact);
+	public void mapEnumerationExternal(Enumeration e, String currentPackageName, RepositoryArtifact artifact);
 	public void mapEnumerationLiteral(EnumerationLiteral literal, String currentPackageName, RepositoryArtifact artifact);
 	public void mapAssociation(Association assoc, String currentPackageName, RepositoryArtifact artifact);
 	public void mapDataType(DataType t, String currentPackageName, RepositoryArtifact artifact);

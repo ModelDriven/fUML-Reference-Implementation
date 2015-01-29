@@ -1,5 +1,6 @@
 package org.modeldriven.fuml.repository.model;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.modeldriven.fuml.FumlObject;
 import org.modeldriven.fuml.common.reflect.ReflectionUtils;
 import org.modeldriven.fuml.config.FumlConfiguration;
 import org.modeldriven.fuml.config.NamespaceDomain;
@@ -58,6 +60,9 @@ public class InMemoryMapping implements RepositoryMapping
     // qualified classifier specific maps
     protected Map<String, org.modeldriven.fuml.repository.Classifier> qualifiedClassifierNameToClassifierMap = new HashMap<String, org.modeldriven.fuml.repository.Classifier>();    
     protected Map<String, String> qualifiedClassifierNameToPackageNameMap = new HashMap<String, String>();
+    // maps qualifier XMI ID rather than qualified name, as target classifier 
+    // may not have yet been unmarshalled, to specializations
+    protected Map<String, List<org.modeldriven.fuml.repository.Classifier>> classifierIdToSpecializationClassifierMap = new HashMap<String, List<org.modeldriven.fuml.repository.Classifier>>();    
 
     // package specific maps
     protected Map<String, org.modeldriven.fuml.repository.Package> qualifiedPackageNameToPackageMap = new HashMap<String, org.modeldriven.fuml.repository.Package>();
@@ -202,8 +207,6 @@ public class InMemoryMapping implements RepositoryMapping
 			elementNameToElementMap.put(element.name, elem);				
 			if (element.qualifiedName != null) 
 				qualifiedElementNameToElementMap.put(element.qualifiedName, elem);
-			else 
-				qualifiedElementNameToElementMap.put(element.name, elem);
 		}
 	}
 	
@@ -211,8 +214,8 @@ public class InMemoryMapping implements RepositoryMapping
     	String qualifiedName = null;
         if (currentPackageName != null)
         	qualifiedName = currentPackageName + "." + p.name;
-        else
-        	qualifiedName = p.name;   	
+        //else
+        //	qualifiedName = p.name;   	
     	
         if (log.isDebugEnabled())
             log.debug("mapping package, " + artifact.getURN() + "#" + p.name);
@@ -220,11 +223,12 @@ public class InMemoryMapping implements RepositoryMapping
 
 		org.modeldriven.fuml.repository.Package pkg = new org.modeldriven.fuml.repository.model.Package(p, artifact);
         
-		if (qualifiedPackageNameToPackageMap.get(qualifiedName) != null)
-			throw new RepositorylException("found existing package, '"
-					+ qualifiedName + ".");
-		qualifiedPackageNameToPackageMap.put(qualifiedName, pkg);
-		
+		if (qualifiedName != null) {
+            if (qualifiedPackageNameToPackageMap.get(qualifiedName) != null)
+        	    throw new RepositorylException("found existing package, '"
+        			+ qualifiedName + ".");
+            qualifiedPackageNameToPackageMap.put(qualifiedName, pkg);
+		}
 		// NOTE: This is to provide a consistent way to resolve library element
 		// names, for add-on functionality.
         qualifiedElementNameToElementMap.put(qualifiedName, pkg);
@@ -339,6 +343,7 @@ public class InMemoryMapping implements RepositoryMapping
         
         // so all classifiers can be externally referenced (i.e. external XMI references)using a "generic"
         // namespace assigned currently in the model artifact config entry
+        // FIXME: note mapping artifact qualified datatypes to qualifiedClassifierNameToClassifierMap below  !!!          
         if (artifact.getNamespaceURI() != null) {
 	        String artifactNamespaceQualifiedName = artifact.getNamespaceURI()
 	            + "#" + classifier.name;
@@ -353,6 +358,18 @@ public class InMemoryMapping implements RepositoryMapping
         	log.warn("missing artifact URI - could not map element '"
         			+ classifier.name + "' as externally referencable by artifact URI");
 
+        Iterator<Generalization> sourceIter = classifier.generalization.iterator();
+        while (sourceIter.hasNext()) {
+            Generalization generalization = sourceIter.next();
+            
+            List<org.modeldriven.fuml.repository.Classifier> list = 
+            	this.classifierIdToSpecializationClassifierMap.get(generalization.general.getXmiId());
+            if (list == null) {
+            	list = new ArrayList<org.modeldriven.fuml.repository.Classifier>();
+            	this.classifierIdToSpecializationClassifierMap.put(generalization.general.getXmiId(), list);
+            }
+            list.add(repositoryClassifier);
+        }         
     }
     
     public void mapStereotype(Stereotype stereotype, String currentPackageName, RepositoryArtifact artifact) {
@@ -372,11 +389,15 @@ public class InMemoryMapping implements RepositoryMapping
 	        String xmiNamespaceQualifiedClassifierName = stereotype.getXmiNamespace()
 	            + "#" + stereotype.getClass().getSimpleName();
 	        
-	        org.modeldriven.fuml.repository.Stereotype stereotypeClassifier = (org.modeldriven.fuml.repository.Stereotype)qualifiedClassifierNameToClassifierMap.get(xmiNamespaceQualifiedClassifierName);
-	        if (stereotypeClassifier != null) {
+	        //org.modeldriven.fuml.repository.Stereotype stereotypeClassifier = (org.modeldriven.fuml.repository.Stereotype)qualifiedClassifierNameToClassifierMap.get(xmiNamespaceQualifiedClassifierName);
+	        //if this is the stereotype definition in an instance model, not the profile model
+	        org.modeldriven.fuml.repository.Class_ stereotypeClassifier = (org.modeldriven.fuml.repository.Class_)qualifiedClassifierNameToClassifierMap.get(xmiNamespaceQualifiedClassifierName);
+	        if (stereotypeClassifier != null && stereotypeClassifier instanceof org.modeldriven.fuml.repository.Stereotype) {
 	        	boolean foundExtension = false;
 	        	for (fUML.Syntax.Classes.Kernel.Property prop : stereotypeClassifier.getDelegate().ownedAttribute)
 	        	{
+	        		if (prop.name == null || !prop.name.startsWith("base_"))
+	        			continue;	        		
 	        		if (prop.association == null)
 	        			continue;
 	        		org.modeldriven.fuml.repository.Element assocElement = null; 
@@ -384,7 +405,9 @@ public class InMemoryMapping implements RepositoryMapping
 	                	throw new RepositorylException("could not find association reference, '"
 	                			+ prop.association.getXmiId() + "' while mapping artifact, "
 	                			+ artifact.getURN());
-	        		if (!(assocElement.getDelegate() instanceof Extension))
+	        		
+	        		fUML.Syntax.Classes.Kernel.Element delegateElement = assocElement.getDelegate();
+	        		if (!(delegateElement instanceof Extension))
 	        			continue;
 	        		
 	        		foundExtension = true;
@@ -393,9 +416,9 @@ public class InMemoryMapping implements RepositoryMapping
 	        		
 	        		try {
 	        			
-	        			Element targetElement = null;
+	        			FumlObject targetElement = null;
 						try {
-							targetElement = (Element)ReflectionUtils.invokePublicGetterOrField(
+							targetElement = (FumlObject)ReflectionUtils.invokePublicGetterOrField(
 									stereotype, targetClassAttributeName);
 						} catch (InvocationTargetException e) {
 						}
@@ -443,7 +466,7 @@ public class InMemoryMapping implements RepositoryMapping
 	        	}
 	        	if (!foundExtension)
 	        		throw new RepositorylException("could not find extension property for Stereotype, '"
-                			+ stereotypeClassifier.getXmiId() + "' while mapping artifact, "
+                			+ stereotype.getXmiId() + "' while mapping artifact, "
                 			+ artifact.getURN());
 	        }
 	        else {
@@ -533,16 +556,11 @@ public class InMemoryMapping implements RepositoryMapping
         
         org.modeldriven.fuml.repository.Classifier classifier = new org.modeldriven.fuml.repository.model.Classifier(t, artifact);
         
-        String qualifiedName = currentPackageName + "." + t.name;
         classifierNameToClassifierMap.put(t.name, classifier);
-        qualifiedClassifierNameToClassifierMap.put(qualifiedName, classifier);
+        qualifiedClassifierNameToClassifierMap.put(currentPackageName + "." + t.name, classifier);
         classifierNameToPackageNameMap.put(t.name, currentPackageName);
-        qualifiedClassifierNameToPackageNameMap.put(qualifiedName, currentPackageName);
-        
-        // NOTE: This is to provide a consistent way to resolve library element
-        // names, for add-on functionality.
-        qualifiedElementNameToElementMap.put(qualifiedName, classifier);
-
+        qualifiedClassifierNameToPackageNameMap.put(currentPackageName + "." + t.name,
+                currentPackageName);
         if (elementIdToElementMap.get(t.getXmiId()) != null)
         	throw new RepositorylException("found existing primitive type, '"
         			+ t.getXmiId() + ".");
@@ -560,10 +578,15 @@ public class InMemoryMapping implements RepositoryMapping
         elementIdToElementMap.put("pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml" 
                 + "#" + t.name, classifier);  
         
+        // FIXME: map primitive types to all configured UML 
+        // namespaces using all known URL fragment suffixes
         String[] uris = FumlConfiguration.getInstance().getSupportedNamespaceURIsForDomain(NamespaceDomain.UML);
-        for (String uri : uris)
+        for (String uri : uris) {
+            elementIdToElementMap.put(uri + "/" + "PrimitiveTypes.xmi" 
+                + "#" + t.name, classifier);  
             elementIdToElementMap.put(uri + "/" + "uml.xml" 
-                + "#" + t.name, classifier);        
+                    + "#" + t.name, classifier);  
+        }
     }
     
     public void mapDataType(DataType t, String currentPackageName, RepositoryArtifact artifact) {
@@ -573,15 +596,11 @@ public class InMemoryMapping implements RepositoryMapping
         
         org.modeldriven.fuml.repository.Classifier classifier = new org.modeldriven.fuml.repository.model.Classifier(t, artifact);
         if (t.name != null && currentPackageName != null) {
-        	String qualifiedName = currentPackageName + "." + t.name;
-            qualifiedClassifierNameToClassifierMap.put(qualifiedName, classifier);
+            qualifiedClassifierNameToClassifierMap.put(currentPackageName + "." + t.name, classifier);
             classifierNameToPackageNameMap.put(t.name, currentPackageName);
-            qualifiedClassifierNameToPackageNameMap.put(qualifiedName, currentPackageName);
-            
-            // NOTE: This is to provide a consistent way to resolve library element
-            // names, for add-on functionality.
-            qualifiedElementNameToElementMap.put(qualifiedName, classifier);
-       }
+            qualifiedClassifierNameToPackageNameMap.put(currentPackageName + "." + t.name,
+                currentPackageName);
+        }
         
         
         if (elementIdToElementMap.get(t.getXmiId()) != null)
@@ -597,13 +616,32 @@ public class InMemoryMapping implements RepositoryMapping
             if (artifact.getNamespaceURI() != null) {
     	        String artifactNamespaceQualifiedName = artifact.getNamespaceURI()
     	            + "#" + t.name;
+    	    	if (log.isDebugEnabled())
+    	            log.debug("mapping datatype to artifact qualified name, " + artifactNamespaceQualifiedName);
     	        if (qualifiedClassifierNameToClassifierMap.get(artifactNamespaceQualifiedName) != null)
     	        	if (log.isDebugEnabled())
     	        	    log.debug("found existing datatype by artifact qualified name, '"
     	        			+ artifactNamespaceQualifiedName + "' while mapping artifact, "
     	        			+ artifact.getURN());
     	        qualifiedClassifierNameToClassifierMap.put(artifactNamespaceQualifiedName, classifier);
-            }
+    	        
+    	        //FIXME: artifact qualified classifiers only mapped to this map above !!
+    	        if (elementIdToElementMap.get(artifactNamespaceQualifiedName) != null)
+    	        	if (log.isDebugEnabled())
+    	        	    log.debug("found existing classifier, '"
+    	        			+ artifactNamespaceQualifiedName + "' while mapping artifact, "
+    	        			+ artifact.getURN());
+    	        elementIdToElementMap.put(artifactNamespaceQualifiedName, classifier);
+    	        
+    	        String artifactNamespaceQualifiedUUID = artifact.getNamespaceURI()
+        	            + "#" + t.getXmiId();
+    	        if (elementIdToElementMap.get(artifactNamespaceQualifiedUUID) != null)
+    	        	if (log.isDebugEnabled())
+    	        	    log.debug("found existing classifier, '"
+    	        			+ artifactNamespaceQualifiedUUID + "' while mapping artifact, "
+    	        			+ artifact.getURN());
+    	        elementIdToElementMap.put(artifactNamespaceQualifiedUUID, classifier);
+           }
             else
         	    log.warn("missing artifact URI - could not map datatype '"
         			+ t.name + "' as externally referencable by artifact URI");
@@ -614,23 +652,32 @@ public class InMemoryMapping implements RepositoryMapping
         if (log.isDebugEnabled())
             log.debug("mapping enumeration, " + currentPackageName + "." + e.name);
         org.modeldriven.fuml.repository.Classifier classifier = new org.modeldriven.fuml.repository.model.Enumeration(e, artifact);
-        classifierNameToClassifierMap.put(e.name, classifier); // FIXME: why are we doing this flat mapping??
-        
-        String qualifiedName = currentPackageName + "." + e.name;
-        qualifiedClassifierNameToClassifierMap.put(qualifiedName, classifier);
-        classifierNameToPackageNameMap.put(e.name, currentPackageName);
-        qualifiedClassifierNameToPackageNameMap.put(qualifiedName, currentPackageName);
-        
-        // NOTE: This is to provide a consistent way to resolve library element
-        // names, for add-on functionality.
-        qualifiedElementNameToElementMap.put(qualifiedName, classifier);
-        
+        //classifierNameToClassifierMap.put(e.name, classifier); // FIXME: flat name mapping
+        qualifiedClassifierNameToClassifierMap.put(currentPackageName + "." + e.name, classifier);
+        classifierNameToPackageNameMap.put(e.name, currentPackageName); // FIXME: flat name mapping
+        qualifiedClassifierNameToPackageNameMap.put(currentPackageName + "." + e.name,
+                currentPackageName);
         if (elementIdToElementMap.get(e.getXmiId()) != null)
         	throw new RepositorylException("found existing enumeration, '"
         			+ e.getXmiId() + ".");
         elementIdToElementMap.put(e.getXmiId(), classifier);
     }
 
+    public void mapEnumerationExternal(Enumeration e, String currentPackageName, RepositoryArtifact artifact) {
+        if (log.isDebugEnabled())
+            log.debug("mapping enumeration, " + currentPackageName + "." + e.name);
+        org.modeldriven.fuml.repository.Classifier classifier = new org.modeldriven.fuml.repository.model.Enumeration(e, artifact);
+        //classifierNameToClassifierMap.put(e.name, classifier); // FIXME: flat name mapping
+        qualifiedClassifierNameToClassifierMap.put(currentPackageName + "." + e.name, classifier);
+        //classifierNameToPackageNameMap.put(e.name, currentPackageName); // FIXME: flat name mapping
+        qualifiedClassifierNameToPackageNameMap.put(currentPackageName + "." + e.name,
+                currentPackageName);
+        if (elementIdToElementMap.get(e.getXmiId()) != null)
+        	throw new RepositorylException("found existing enumeration, '"
+        			+ e.getXmiId() + ".");
+        elementIdToElementMap.put(e.getXmiId(), classifier);
+    }
+    
     public void mapEnumerationLiteral(EnumerationLiteral literal, String currentPackageName, RepositoryArtifact artifact) {
         if (log.isDebugEnabled())
             log.debug("mapping enumeration literal, " + currentPackageName + "." + literal.name);

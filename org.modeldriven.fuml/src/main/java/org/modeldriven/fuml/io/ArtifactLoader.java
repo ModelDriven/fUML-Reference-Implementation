@@ -43,6 +43,8 @@ public class ArtifactLoader
     protected List<Class_> classList = new ArrayList<Class_>();
     protected RepositoryArtifact artifact;
     protected BasicElementReader modelElementReader;
+	protected boolean validateExternalReferences = true;
+	protected boolean assembleExternalReferences = true;
     
 	public ArtifactLoader() {
 		this.modelElementReader = new BasicElementReader();
@@ -52,6 +54,21 @@ public class ArtifactLoader
 		this.modelElementReader = modelElementReader;
 	}
         
+    public boolean isValidateExternalReferences() {
+		return this.modelElementReader.isValidateExternalReferences();
+	}
+
+	public void setValidateExternalReferences(boolean validateExternalReferences) {
+		this.modelElementReader.setValidateExternalReferences(validateExternalReferences);
+	}
+
+	public boolean isAssembleExternalReferences() {
+		return this.modelElementReader.isAssembleExternalReferences();
+	}
+
+	public void setAssembleExternalReferences(boolean assembleExternalReferences) {
+		this.modelElementReader.setAssembleExternalReferences(assembleExternalReferences);
+	}
     public void read(FileArtifact artifact) {
     	    	
     	log.debug("reading " + artifact.getURN());
@@ -74,7 +91,7 @@ public class ArtifactLoader
     public void read(ResourceArtifact artifact) {
     	
     	this.artifact = artifact;
-    	log.info("reading " + artifact.getURN());
+    	log.debug("reading " + artifact.getURN());
 
     	StreamReader reader = new StreamReader();
 
@@ -181,10 +198,10 @@ public class ArtifactLoader
             else if (fumlObject instanceof Enumeration) {
             	Enumeration enumeration = (Enumeration)fumlObject;        			
                	if (enumeration.package_ != null)
-            	    Repository.INSTANCE.getMapping().mapEnumeration(enumeration, 
+            	    Repository.INSTANCE.getMapping().mapEnumerationExternal(enumeration, 
             	    		getQualifiedPackageName(enumeration.package_), artifact);
             	else
-            		Repository.INSTANCE.getMapping().mapEnumeration(enumeration, 
+            		Repository.INSTANCE.getMapping().mapEnumerationExternal(enumeration, 
                 			null, artifact);
             }
             else if (fumlObject instanceof DataType) {
