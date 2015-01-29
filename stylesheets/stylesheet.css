@@ -41,7 +41,7 @@ ol, ul {
 
 table {
   border-collapse: collapse;
-  border-spacing: 0;
+  border: 0;
 }
 
 /*******************************************************************************
@@ -248,7 +248,7 @@ th {
 
 td {
   padding: 10px;
-  border: 1px solid #373737;
+  border: 0;
  }
 
 form {
