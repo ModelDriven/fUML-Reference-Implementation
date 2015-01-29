@@ -236,6 +236,7 @@ table {
   border: none;
   margin-bottom: 20px;
   text-align: left;
+  border-spacing: 5px;
  }
 
 th {
@@ -247,7 +248,7 @@ th {
 
 td {
   border: none;
-  padding: 10px;
+  border-spacing: 5px;
  }
 
 form {
