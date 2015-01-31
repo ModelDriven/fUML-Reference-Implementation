@@ -1,11 +1,11 @@
 ### fUML Reference Implementation
-### v1.1.0a Release Notes
+### v1.1.0b Release Notes
 
 This is a production maintenance release of the fUML Reference Implementation.
 
 ### fUML Execution Engine
 
-The current base release for the fUML Execution Engine is v1.1.0, conforming to v1.1 of the fUML Specification. The v1.1.0a maintenance release includes implementation of resolutions to the following OMG issues, currently under consideration by the fUML 1.2 Revision Task Force. However, the task force has not yet voted to adopt these resolutions, so they are subject to change in future releases of the Reference Implementation.
+The current base release for the fUML Execution Engine is v1.1.0, conforming to v1.1 of the fUML Specification. The v1.1.0b maintenance release includes implementation of resolutions to the following OMG issues, currently under consideration by the fUML 1.2 Revision Task Force. However, the task force has not yet voted to adopt these resolutions, so they are subject to change in future releases of the Reference Implementation.
 
 The full list of open fUML issues is available at http://solitaire.omg.org/issues/task-force/FUML12.
 
@@ -19,9 +19,6 @@ The full list of open fUML issues is available at http://solitaire.omg.org/issue
 ### XMI Loader/Infrastructure
 
 This maintenance release resolves the following issues related to the XMI Loader and other Reference Implementation infrastructure capabilities, as tracked in our issue management system on GitHub (see https://github.com/ModelDriven/fUML-Reference-Implementation/issues).
-
-#### Bugs
-
 
 #### Improvements
 
