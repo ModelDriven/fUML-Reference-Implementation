@@ -5,16 +5,9 @@ This is a production maintenance release of the fUML Reference Implementation.
 
 ### fUML Execution Engine
 
-The current base release for the fUML Execution Engine is v1.1.0, conforming to v1.1 of the fUML Specification. The v1.1.0b maintenance release includes implementation of resolutions to the following OMG issues, currently under consideration by the fUML 1.2 Revision Task Force. However, the task force has not yet voted to adopt these resolutions, so they are subject to change in future releases of the Reference Implementation.
+The current base release for the fUML Execution Engine is v1.1.0, conforming to v1.1 of the [fUML Specification](http://www.omg.org/spec/FUML/1.1). The v1.1.0b maintenance release builds on the v1.1.0a maintenance release, which includes preliminary implementation of  resolutions to the certain OMG issues currently under consideration by the fUML 1.2 Revision Task Force (see the [v1.1.0a Release Notes](./fuml-1.1.0a.md)). No further changes to the fUML Execution Engine have been made in this maintenance release.
 
 The full list of open fUML issues is available at http://solitaire.omg.org/issues/task-force/FUML12.
-
-[FUML 12-8](http://solitaire.omg.org/issues/task-force/FUML12#issue-16433) (18280) LoopNodeActivation does not currently handle the firing of a contained activity final node
-[FUML 12-9](http://solitaire.omg.org/issues/task-force/FUML12#issue-16434) (18282) The bodyOutputLists for a loop node need to be cleared when the node fires again
-[FUML 12-10](http://solitaire.omg.org/issues/task-force/FUML12#issue-16435) (18321) Certain Boolean flags are not properly initialized in some cases [partial fix]
-[FUML 12-11](http://solitaire.omg.org/issues/task-force/FUML12#issue-16436) (18362) Problem with ActivityExecution::terminate
-[FUML 12-12](http://solitaire.omg.org/issues/task-force/FUML12#issue-16437) (18364) RealValue::toString puts too many digits in the mantissa
-[FUML 12-13](http://solitaire.omg.org/issues/task-force/FUML12#issue-16438) (18365) Objects with cyclic references cannot be converted to string representations
 
 ### XMI Loader/Infrastructure
 
@@ -22,6 +15,6 @@ This maintenance release resolves the following issues related to the XMI Loader
 
 #### Improvements
 
-[Issue #9] - Add Support For Papyrus Models
+[Issue #9] - Add Support For Papyrus Models  
 [Issue #22] - Add Support for Papyrus Libraries
 
