@@ -7,6 +7,7 @@
     <!-- supported namespaces -->
     <SupportedNamespace domain="xmi" uri="http://schema.omg.org/spec/XMI/2.1" />
     <SupportedNamespace domain="xmi" uri="http://www.omg.org/spec/XMI/20110701" /> <!-- XMI 2.4.1 -->
+    <SupportedNamespace domain="xmi" uri="http://www.omg.org/spec/XMI/20131001" /> <!-- XMI 2.5 Default XMI NS used by Papyrus -->
     
     <SupportedNamespace domain="uml" uri="http://www.eclipse.org/uml2/2.0.0/UML" />
     <SupportedNamespace domain="uml" uri="http://www.eclipse.org/uml2/2.1.0/UML" />
@@ -16,6 +17,7 @@
     <SupportedNamespace domain="uml" uri="http://schema.omg.org/spec/UML/2.2" />   
     <SupportedNamespace domain="uml" uri="http://www.omg.org/spec/UML/20090901" /> <!-- UML 2.3 -->    
     <SupportedNamespace domain="uml" uri="http://www.omg.org/spec/UML/20110701" /> <!-- UML 2.4.1 -->    
+    <SupportedNamespace domain="uml" uri="http://www.eclipse.org/uml2/5.0.0/UML" /> <!-- new Eclipse UML -->           
     
     <SupportedNamespace domain="ecore" uri="http://www.eclipse.org/emf/2002/Ecore" />
     <SupportedNamespace domain="magicdraw" uri="http:///schemas/MagicDrawProfile/_eFzsIKxbEd2Kp9hnZinLyQ/0" />
