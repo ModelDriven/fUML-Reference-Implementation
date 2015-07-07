@@ -118,6 +118,11 @@ public class ExecutionTestCase extends FUMLTest {
         log.info("done");
     }
     
+    public void testTestClassValueRemover() throws Exception {
+    	execute("TestClassAttributeValueRemover");
+    	log.info("done");
+    }
+    
     private void execute(String activityName)
     {
         Behavior behavior = environment.findBehavior(activityName);
