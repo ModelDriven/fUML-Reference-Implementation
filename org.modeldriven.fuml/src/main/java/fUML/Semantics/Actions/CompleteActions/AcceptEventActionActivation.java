@@ -25,7 +25,6 @@ import fUML.Syntax.Activities.IntermediateActivities.*;
 import fUML.Syntax.Actions.BasicActions.*;
 import fUML.Syntax.Actions.IntermediateActions.*;
 import fUML.Syntax.Actions.CompleteActions.*;
-
 import fUML.Semantics.*;
 import fUML.Semantics.Classes.Kernel.*;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.*;
@@ -39,6 +38,13 @@ public class AcceptEventActionActivation extends
 
 	public fUML.Semantics.Actions.CompleteActions.AcceptEventActionEventAccepter eventAccepter = null;
 	public Boolean waiting = false;
+	
+	public void initialize(ActivityNode node, ActivityNodeActivationGroup group) {
+		// Initialize this accept event action activation to be not waiting for an event.
+		
+		super.initialize(node, group);
+		this.waiting = false;
+	}
 
 	public void run() {
 		// Create an event accepter and initialize waiting to false.
@@ -80,17 +86,6 @@ public class AcceptEventActionActivation extends
 		return ready;
 	} // isReady
 	
-	public boolean isWaiting() {
-		// Indicate whether this accept event action activation is waiting for an event occurrence.
-
-		// Ensure that the waiting attribute is initialized.
-		if (this.waiting == null) {
-			this.waiting = false;
-		}
-		
-		return this.waiting;
-	}
-
 	public void doAction() {
 		// Do nothing. [This will never be called.]
 

@@ -40,6 +40,14 @@ public abstract class ActivityNodeActivation extends
 	public boolean running = false;
 	public fUML.Semantics.Activities.IntermediateActivities.TokenList heldTokens = new fUML.Semantics.Activities.IntermediateActivities.TokenList();
 
+	public void initialize(ActivityNode node, ActivityNodeActivationGroup group) {
+		// Initialize this node activation.
+		
+		this.node = node;
+		this.group = group;
+		this.running = false;
+	}
+	
 	public void run() {
 		// Run the activation of this node.
 

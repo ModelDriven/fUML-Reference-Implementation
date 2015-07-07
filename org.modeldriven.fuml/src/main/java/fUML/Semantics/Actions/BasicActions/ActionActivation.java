@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2015 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2012 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -23,7 +23,6 @@ import fUML.Syntax.CommonBehaviors.BasicBehaviors.*;
 import fUML.Syntax.CommonBehaviors.Communications.*;
 import fUML.Syntax.Activities.IntermediateActivities.*;
 import fUML.Syntax.Actions.BasicActions.*;
-
 import fUML.Semantics.*;
 import fUML.Semantics.Classes.Kernel.*;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.*;
@@ -34,7 +33,14 @@ public abstract class ActionActivation extends
 		fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation {
 
 	public fUML.Semantics.Actions.BasicActions.PinActivationList pinActivations = new fUML.Semantics.Actions.BasicActions.PinActivationList();
-	public Boolean firing = false;
+	public boolean firing = false;
+	
+	public void initialize(ActivityNode node, ActivityNodeActivationGroup group) {
+		// Initialize this action activation to be not firing.
+		
+		super.initialize(node, group);
+		this.firing = false;
+	}
 
 	public void run() {
 		// Run this action activation and any outoging fork node attached to it.
@@ -175,12 +181,7 @@ public abstract class ActionActivation extends
 	public boolean isFiring() {
 		// Indicate whether this action activation is currently firing or not.
 
-		// Ensure that the firing attribute is initialized;
-		if (this.firing == null) {
-			this.firing = false;
-		}
-		
-		return this.firing;
+		return firing;
 	} // isFiring
 
 	public abstract void doAction();
