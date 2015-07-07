@@ -67,8 +67,8 @@ public class RemoveStructuralFeatureValueActionActivation
 		}
 
 		if (association != null) {
-			LinkList links = this.getMatchingLinks(association, feature, value);
-
+			LinkList links = this.getMatchingLinksForEndValue(association, feature, value, inputValue);
+			
 			if (action.isRemoveDuplicates) {
 				for (int i = 0; i < links.size(); i++) {
 					Link link = links.getValue(i);

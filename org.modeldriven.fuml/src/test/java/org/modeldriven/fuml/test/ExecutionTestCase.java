@@ -122,6 +122,11 @@ public class ExecutionTestCase extends FUMLTest {
     	execute("TestClassAttributeValueRemover");
     	log.info("done");
     }
+
+    public void testTestAssociationEndWriterReader() throws Exception {
+    	execute("TestAssociationEndWriterReader");
+    	log.info("done");
+    }
     
     private void execute(String activityName)
     {

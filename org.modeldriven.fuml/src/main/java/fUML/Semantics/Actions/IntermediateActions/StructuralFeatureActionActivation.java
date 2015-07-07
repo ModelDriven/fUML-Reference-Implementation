@@ -53,6 +53,19 @@ public abstract class StructuralFeatureActionActivation extends
 			fUML.Semantics.Classes.Kernel.Value oppositeValue) {
 		// Get the links of the given binary association whose end opposite
 		// to the given end has the given value
+		
+		return this.getMatchingLinksForEndValue(association, end, oppositeValue, null);
+	}
+
+	
+	public fUML.Semantics.Classes.Kernel.LinkList getMatchingLinksForEndValue(
+			fUML.Syntax.Classes.Kernel.Association association,
+			fUML.Syntax.Classes.Kernel.StructuralFeature end,
+			fUML.Semantics.Classes.Kernel.Value oppositeValue,
+			fUML.Semantics.Classes.Kernel.Value endValue) {
+		// Get the links of the given binary association whose end opposite
+		// to the given end has the given opposite value and, optionally, that
+		// has a given end value for the given end.
 
 		Property oppositeEnd = this.getOppositeEnd(association, end);
 
@@ -62,23 +75,27 @@ public abstract class StructuralFeatureActionActivation extends
 		LinkList links = new LinkList();
 		for (int i = 0; i < extent.size(); i++) {
 			ExtensionalValue link = extent.getValue(i);
-			if (link.getFeatureValue(oppositeEnd).values.getValue(0).equals(
-					oppositeValue)) {
-				if (!end.multiplicityElement.isOrdered | links.size() == 0) {
-					links.addValue((Link) link);
-				} else {
-					int n = link.getFeatureValue(end).position;
-					boolean continueSearching = true;
-					int j = 0;
-					while (continueSearching & j < links.size()) {
-						j = j + 1;
-						continueSearching = links.getValue(j - 1)
-								.getFeatureValue(end).position < n;
-					}
-					if (continueSearching) {
+			if (link.getFeatureValue(oppositeEnd).values.getValue(0).equals(oppositeValue)) {
+				boolean matches = true;
+				if (endValue != null) {
+					matches = link.getFeatureValue(end).values.getValue(0).equals(endValue);
+				}
+				if (matches) {
+					if (!end.multiplicityElement.isOrdered | links.size() == 0) {
 						links.addValue((Link) link);
 					} else {
-						links.addValue(j - 1, (Link) link);
+						int n = link.getFeatureValue(end).position;
+						boolean continueSearching = true;
+						int j = 0;
+						while (continueSearching & j < links.size()) {
+							j = j + 1;
+							continueSearching = links.getValue(j - 1).getFeatureValue(end).position < n;
+						}
+						if (continueSearching) {
+							links.addValue((Link) link);
+						} else {
+							links.addValue(j - 1, (Link) link);
+						}
 					}
 				}
 			}
