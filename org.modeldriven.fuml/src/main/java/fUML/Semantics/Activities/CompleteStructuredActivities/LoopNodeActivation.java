@@ -54,10 +54,7 @@ public class LoopNodeActivation
 
 		LoopNode loopNode = (LoopNode) (this.node);
 		InputPinList loopVariableInputs = loopNode.loopVariableInput;
-		// OutputPinList loopVariables = loopNode.loopVariable;
-		// OutputPinList resultPins = loopNode.result;
 
-		// ValuesList bodyOutputLists = this.bodyOutputLists;
 		this.bodyOutputLists.clear();
 		for (int i = 0; i < loopVariableInputs.size(); i++) {
 			InputPin loopVariableInput = loopVariableInputs.getValue(i);
