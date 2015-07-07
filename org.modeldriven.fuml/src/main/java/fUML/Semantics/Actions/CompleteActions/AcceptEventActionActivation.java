@@ -67,7 +67,7 @@ public class AcceptEventActionActivation extends
 	} // fire
 
 	public boolean isReady() {
-		// An accept event action activiation is ready to fire only if it is not
+		// An accept event action activation is ready to fire only if it is not
 		// already waiting for an event.
 
 		boolean ready;
@@ -124,8 +124,7 @@ public class AcceptEventActionActivation extends
 					this.putTokens(resultPins.getValue(0), result);
 				}
 			} else {
-				FeatureValueList featureValues = signalInstance
-						.getFeatureValues();
+				FeatureValueList featureValues = signalInstance.getMemberValues();
 				for (int i = 0; i < featureValues.size(); i++) {
 					FeatureValue featureValue = featureValues.getValue(i);
 					OutputPin resultPin = resultPins.getValue(i);
