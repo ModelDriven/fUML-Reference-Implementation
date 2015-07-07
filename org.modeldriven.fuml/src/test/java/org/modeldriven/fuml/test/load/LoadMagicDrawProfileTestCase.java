@@ -86,10 +86,18 @@ public class LoadMagicDrawProfileTestCase extends FUMLTest {
 				NAMESPACE_URI, stream);
 		Fuml.load(artifact);	
 
-		Classifier nodeClassifier = Repository.INSTANCE.findClassifier(
+		// test package qualified name
+		Classifier nodeClassifier = Repository.INSTANCE.findClassifier("model.org.modeldriven.test.data.Node");
+		assertTrue(nodeClassifier != null);
+		assertTrue(nodeClassifier instanceof Class_);
+
+		// test uri qualified name
+		nodeClassifier = Repository.INSTANCE.findClassifier(
 				NAMESPACE_URI + "#" + "Node");
 		assertTrue(nodeClassifier != null);
 		assertTrue(nodeClassifier instanceof Class_);
+		
+		
 		Class_ nodeClass = (Class_)nodeClassifier;
 		Property stringsFieldProp = nodeClass.getProperty("stringsField");
 		assertTrue(stringsFieldProp != null);
@@ -107,6 +115,8 @@ public class LoadMagicDrawProfileTestCase extends FUMLTest {
 		assertTrue(repoEnum != null);
 		assertTrue("TestValues".equals(repoEnum.getName()));
 		assertTrue(repoEnum.getOwnedLiteral() != null);
+		
+		
 	}	
 	 
 	private boolean hasStereotype(Element elem, Class<?> stereotypeClass) {
