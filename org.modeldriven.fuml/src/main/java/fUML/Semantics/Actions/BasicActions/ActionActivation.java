@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2015 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -34,7 +34,7 @@ public abstract class ActionActivation extends
 		fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation {
 
 	public fUML.Semantics.Actions.BasicActions.PinActivationList pinActivations = new fUML.Semantics.Actions.BasicActions.PinActivationList();
-	public boolean firing = false;
+	public Boolean firing = false;
 
 	public void run() {
 		// Run this action activation and any outoging fork node attached to it.
@@ -175,7 +175,12 @@ public abstract class ActionActivation extends
 	public boolean isFiring() {
 		// Indicate whether this action activation is currently firing or not.
 
-		return firing;
+		// Ensure that the firing attribute is initialized;
+		if (this.firing == null) {
+			this.firing = false;
+		}
+		
+		return this.firing;
 	} // isFiring
 
 	public abstract void doAction();
@@ -254,6 +259,7 @@ public abstract class ActionActivation extends
 
 		if (this.outgoingEdges.size() == 0) {
 			forkNodeActivation = new ForkNodeActivation();
+			forkNodeActivation.running = false;
 			ActivityEdgeInstance newEdge = new ActivityEdgeInstance();
 			super.addOutgoingEdge(newEdge);
 			forkNodeActivation.addIncomingEdge(newEdge);

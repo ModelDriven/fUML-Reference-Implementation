@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2015 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -38,7 +38,7 @@ public class AcceptEventActionActivation extends
 		fUML.Semantics.Actions.BasicActions.ActionActivation {
 
 	public fUML.Semantics.Actions.CompleteActions.AcceptEventActionEventAccepter eventAccepter = null;
-	public boolean waiting = false;
+	public Boolean waiting = false;
 
 	public void run() {
 		// Create an event accepter and initialize waiting to false.
@@ -79,6 +79,17 @@ public class AcceptEventActionActivation extends
 
 		return ready;
 	} // isReady
+	
+	public boolean isWaiting() {
+		// Indicate whether this accept event action activation is waiting for an event occurrence.
+
+		// Ensure that the waiting attribute is initialized.
+		if (this.waiting == null) {
+			this.waiting = false;
+		}
+		
+		return this.waiting;
+	}
 
 	public void doAction() {
 		// Do nothing. [This will never be called.]
