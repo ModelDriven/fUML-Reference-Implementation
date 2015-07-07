@@ -214,24 +214,23 @@ public class InMemoryMapping implements RepositoryMapping
     	String qualifiedName = null;
         if (currentPackageName != null)
         	qualifiedName = currentPackageName + "." + p.name;
-        //else
-        //	qualifiedName = p.name;   	
     	
         if (log.isDebugEnabled())
-            log.debug("mapping package, " + artifact.getURN() + "#" + p.name);
-
+            log.debug("mapping package, " + artifact.getURN() + "#" + p.name + "(" + currentPackageName + ")");
 
 		org.modeldriven.fuml.repository.Package pkg = new org.modeldriven.fuml.repository.model.Package(p, artifact);
         
+		// NOTE: This is to provide a consistent way to resolve library element
+		// names, for add-on functionality.
 		if (qualifiedName != null) {
+			
+	        if (log.isDebugEnabled())
+	            log.debug("mapping package, " + artifact.getURN() + "#" + p.name + " by package qualified name: " + qualifiedName);		
             if (qualifiedPackageNameToPackageMap.get(qualifiedName) != null)
         	    throw new RepositorylException("found existing package, '"
         			+ qualifiedName + ".");
             qualifiedPackageNameToPackageMap.put(qualifiedName, pkg);
 		}
-		// NOTE: This is to provide a consistent way to resolve library element
-		// names, for add-on functionality.
-        qualifiedElementNameToElementMap.put(qualifiedName, pkg);
 		
         List<org.modeldriven.fuml.repository.Package> artifactPackages = artifactURIToPackagesMap.get(artifact.getURN());
         if (artifactPackages == null)

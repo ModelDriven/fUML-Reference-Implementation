@@ -296,6 +296,7 @@
               </execution>
           </executions>
       </plugin>
+       
       <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
@@ -308,6 +309,7 @@
             </execution>
           </executions>
       </plugin>
+        
       <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>build-helper-maven-plugin</artifactId>
@@ -351,6 +353,7 @@
             <excludes>
                 <exclude>**/load/profile/**</exclude> <!-- these are helper classes not tests and JUnit will try to run them if not excluded  -->                      
 <!--                 <exclude>**/load/**</exclude>                        -->
+                <exclude>**/load/*MagicDrawProfile*</exclude> <!-- needs work -->                      
                 <exclude>**/builtin/*LoopNode*</exclude>                 
 <!--                 <exclude>**/model/**</exclude>                        -->
 <!--                 <exclude>**/builtin/**</exclude>                        -->
@@ -395,7 +398,7 @@
           Comment out the below GPG plugin if not set up with GPG
           and just want to install local locally. 
       -->
-      <!--    
+           
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-gpg-plugin</artifactId>
@@ -410,7 +413,7 @@
           </execution>
         </executions>
       </plugin>
-      -->
+       
       <!--
           Release Plugin (Update version in POM before/after release, create
           tag, deploy) to try: mvn release:prepare -DdryRun=true && mvn
