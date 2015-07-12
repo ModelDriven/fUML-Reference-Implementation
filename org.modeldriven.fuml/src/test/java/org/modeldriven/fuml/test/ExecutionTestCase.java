@@ -128,6 +128,11 @@ public class ExecutionTestCase extends FUMLTest {
     	log.info("done");
     }
     
+    public void testTestClassReclassifier() throws Exception {
+    	execute("TestClassReclassifier");
+    	log.info("done");
+    }
+    
     private void execute(String activityName)
     {
         Behavior behavior = environment.findBehavior(activityName);

@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2015 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -45,15 +45,17 @@ public class ReclassifyObjectActionActivation extends
 		// classifiers that are removed.
 		// Add all new classifiers as types of the referent object that are not
 		// already types.
-		// Add (empty) feature values to the referent object for the structural
+		// Add feature values to the referent object for the structural
 		// features of all added classifiers.
+		// Any features that previously had values maintain those values,
+		// while new features are initialized as being empty.
 
 		ReclassifyObjectAction action = (ReclassifyObjectAction) (this.node);
 		ClassifierList newClassifiers = action.newClassifier;
 		ClassifierList oldClassifiers = action.oldClassifier;
 
 		Value input = this.takeTokens(action.object).getValue(0);
-
+		
 		if (input instanceof Reference) {
 			Object_ object = ((Reference) input).referent;
 
@@ -80,7 +82,6 @@ public class ReclassifyObjectActionActivation extends
 
 				if (toBeRemoved) {
 					object.types.removeValue(i - 1);
-					object.removeFeatureValues(type);
 				} else {
 					i = i + 1;
 				}
@@ -98,16 +99,12 @@ public class ReclassifyObjectActionActivation extends
 
 				if (toBeAdded) {
 					object.types.addValue((Class_) classifier);
-					NamedElementList members = classifier.member;
-					for (int k = 0; k < members.size(); k++) {
-						NamedElement member = members.getValue(k);
-						if (member instanceof StructuralFeature) {
-							object.setFeatureValue((StructuralFeature) member,
-									new ValueList(), 0);
-						}
-					}
 				}
 			}
+			
+			FeatureValueList oldFeatureValues = object.getFeatureValues();
+			object.featureValues = new FeatureValueList();
+			object.addFeatureValues(oldFeatureValues);
 		}
 	} // doAction
 

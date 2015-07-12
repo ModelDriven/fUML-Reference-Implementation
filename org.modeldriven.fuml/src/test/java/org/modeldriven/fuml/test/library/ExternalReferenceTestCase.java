@@ -41,7 +41,7 @@ public class ExternalReferenceTestCase extends FUMLTest {
     	}   	
     }
 
-    public void testLUnlimitedNaturalFunctions() throws Exception {
+    public void testUnlimitedNaturalFunctions() throws Exception {
         try {
         	// this behavior currently contains invalid external references - FIXME: Ed S
             execute("TestUnlimitedNaturalFunctions");
