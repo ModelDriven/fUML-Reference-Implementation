@@ -123,6 +123,7 @@ public abstract class CallActionActivation extends
 				this.callExecutions.removeValue(i - 1);
 				notFound = false;
 			}
+			i = i + 1;
 		}
 	} // removeCallExecution
 
