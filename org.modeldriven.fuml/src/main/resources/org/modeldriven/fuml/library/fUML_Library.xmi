@@ -1527,7 +1527,7 @@
 						xmi:id="BasicInputOutput-ReadLine-errorStatus-_lowerValue"/>
 				</ownedParameter>
 				<ownedParameter xmi:type="uml:Parameter" xmi:id="BasicInputOutput-ReadLine-result"
-					name="result" direction="out">
+					name="result" direction="return">
 					<type href="http://www.omg.org/spec/UML/20110701/PrimitiveTypes.xmi#String"/>
 				</ownedParameter>
 				<edge xmi:type="uml:ObjectFlow" xmi:id="BasicInputOutput-ReadLine-_edge.0"
