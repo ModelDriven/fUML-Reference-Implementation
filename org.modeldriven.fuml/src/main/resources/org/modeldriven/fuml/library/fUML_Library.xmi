@@ -1624,8 +1624,7 @@
 			</packagedElement>
 		</packagedElement>
 		<packagedElement xmi:type="uml:Package" xmi:id="Common" name="Common">
-			<packagedElement xmi:type="uml:Signal" xmi:id="Common-Notification" name="Notification"
-				visibility="private">
+			<packagedElement xmi:type="uml:Signal" xmi:id="Common-Notification" name="Notification">
 				<ownedAttribute xmi:type="uml:Property" xmi:id="Common-Notification-content"
 					name="content" visibility="public">
 					<lowerValue xmi:type="uml:LiteralInteger"
