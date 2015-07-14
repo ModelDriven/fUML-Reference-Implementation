@@ -808,7 +808,7 @@
 						xmi:id="PrimitiveBehaviors-UnlimitedNaturalFunctions-ToInteger-result"
 						name="result" direction="return">
 						<type
-							href="http://www.omg.org/spec/UML/20110701/PrimitiveTypes.xmi#UnlimitedNatural"/>
+							href="http://www.omg.org/spec/UML/20110701/PrimitiveTypes.xmi#Integer"/>
 						<lowerValue xmi:type="uml:LiteralInteger"
 							xmi:id="PrimitiveBehaviors-UnlimitedNaturalFunctions-ToInteger-result-_lowerValue"
 						/>
