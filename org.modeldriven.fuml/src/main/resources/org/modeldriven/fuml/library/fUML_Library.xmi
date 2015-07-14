@@ -1633,8 +1633,8 @@
 			</packagedElement>
 			<packagedElement xmi:type="uml:Class" xmi:id="Common-Listener" name="Listener"
 				isAbstract="true" isActive="true">
-				<ownedReception xmi:type="uml:Reception" xmi:id="Common-Listener-_ownedReception.0"
-					signal="Common-Notification"/>
+				<ownedReception xmi:type="uml:Reception" xmi:id="Common-Listener-Notification"
+					name = "Notification" signal="Common-Notification"/>
 			</packagedElement>
 			<packagedElement xmi:type="uml:DataType" xmi:id="Common-Status" name="Status">
 				<ownedAttribute xmi:type="uml:Property" xmi:id="Common-Status-context"
