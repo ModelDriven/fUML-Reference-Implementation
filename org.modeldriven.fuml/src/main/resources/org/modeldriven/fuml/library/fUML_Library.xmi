@@ -1403,7 +1403,7 @@
 				</ownedParameter>
 				<ownedParameter xmi:type="uml:Parameter"
 					xmi:id="BasicInputOutput-WriteLine-errorStatus" name="errorStatus"
-					direction="out">
+					direction="out" type = "Common-Status">
 					<lowerValue xmi:type="uml:LiteralInteger"
 						xmi:id="BasicInputOutput-WriteLine-errorStatus-_lowerValue"/>
 				</ownedParameter>
@@ -1522,7 +1522,7 @@
 				name="ReadLine" isReentrant="false">
 				<ownedParameter xmi:type="uml:Parameter"
 					xmi:id="BasicInputOutput-ReadLine-errorStatus" name="errorStatus"
-					direction="out">
+					direction="out" type = "Common-Status">
 					<lowerValue xmi:type="uml:LiteralInteger"
 						xmi:id="BasicInputOutput-ReadLine-errorStatus-_lowerValue"/>
 				</ownedParameter>
