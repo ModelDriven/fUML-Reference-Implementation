@@ -1053,6 +1053,37 @@
 						/>
 					</ownedParameter>
 				</packagedElement>
+				<packagedElement xmi:type="uml:FunctionBehavior"
+					xmi:id="PrimitiveBehaviors-ListFunctions-ListConcat" name="ListConcat"
+					isAbstract="true" isReentrant="false">
+					<ownedParameter xmi:type="uml:Parameter"
+						xmi:id="PrimitiveBehaviors-ListFunctions-ListConcat-list1" name="list1"
+						 isOrdered = "true" isUnique = "false">
+						<lowerValue xmi:type="uml:LiteralInteger"
+							xmi:id="PrimitiveBehaviors-ListFunctions-ListConcat-list1-_lowerValue"/>
+						<upperValue xmi:type="uml:LiteralUnlimitedNatural"
+							xmi:id="PrimitiveBehaviors-ListFunctions-ListConcat-list1-_upperValue"
+							value="*"/>
+					</ownedParameter>
+					<ownedParameter xmi:type="uml:Parameter"
+						xmi:id="PrimitiveBehaviors-ListFunctions-ListConcat-list2" name="list2"
+						 isOrdered = "true" isUnique = "false">
+						<lowerValue xmi:type="uml:LiteralInteger"
+							xmi:id="PrimitiveBehaviors-ListFunctions-ListConcat-list2-_lowerValue"/>
+						<upperValue xmi:type="uml:LiteralUnlimitedNatural"
+							xmi:id="PrimitiveBehaviors-ListFunctions-ListConcat-list2-_upperValue"
+							value="*"/>
+					</ownedParameter>
+					<ownedParameter xmi:type="uml:Parameter"
+						xmi:id="PrimitiveBehaviors-ListFunctions-ListConcat-result" name="result"
+						direction="return" isOrdered = "true" isUnique = "false">
+						<lowerValue xmi:type="uml:LiteralInteger"
+							xmi:id="PrimitiveBehaviors-ListFunctions-ListConcat-result-_lowerValue"/>
+						<upperValue xmi:type="uml:LiteralUnlimitedNatural"
+							xmi:id="PrimitiveBehaviors-ListFunctions-ListConcat-result-_upperValue"
+							value="*"/>
+					</ownedParameter>
+				</packagedElement>
 			</packagedElement>
 		</packagedElement>
 		<packagedElement xmi:type="uml:Package" xmi:id="BasicInputOutput" name="BasicInputOutput">
