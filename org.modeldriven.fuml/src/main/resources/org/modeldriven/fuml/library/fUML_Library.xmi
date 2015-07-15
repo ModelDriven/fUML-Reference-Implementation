@@ -1016,7 +1016,8 @@
 					xmi:id="PrimitiveBehaviors-ListFunctions-ListSize" name="ListSize"
 					isAbstract="true" isReentrant="false">
 					<ownedParameter xmi:type="uml:Parameter"
-						xmi:id="PrimitiveBehaviors-ListFunctions-ListSize-list" name="list">
+						xmi:id="PrimitiveBehaviors-ListFunctions-ListSize-list" name="list"
+						isUnique="false">
 						<lowerValue xmi:type="uml:LiteralInteger"
 							xmi:id="PrimitiveBehaviors-ListFunctions-ListSize-list-_lowerValue"/>
 						<upperValue xmi:type="uml:LiteralUnlimitedNatural"
@@ -1034,7 +1035,8 @@
 					xmi:id="PrimitiveBehaviors-ListFunctions-ListGet" name="ListGet"
 					isAbstract="true" isReentrant="false">
 					<ownedParameter xmi:type="uml:Parameter"
-						xmi:id="PrimitiveBehaviors-ListFunctions-ListGet-list" name="list">
+						xmi:id="PrimitiveBehaviors-ListFunctions-ListGet-list" name="list"
+						isOrdered="true" isUnique="false">
 						<lowerValue xmi:type="uml:LiteralInteger"
 							xmi:id="PrimitiveBehaviors-ListFunctions-ListGet-list-_lowerValue"/>
 						<upperValue xmi:type="uml:LiteralUnlimitedNatural"
