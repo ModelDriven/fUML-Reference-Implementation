@@ -2,7 +2,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except
  * as stated in the file entitled Licensing-Information.
  *
- * All modifications copyright 2009-2011 Data Access Technologies, Inc. 
+ * All modifications copyright 2009-2015 Data Access Technologies, Inc. 
  * (Model Driven Solutions). Licensed under the Academic Free License version 3.0
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated
  * in the file entitled Licensing-Information.
@@ -706,7 +706,7 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
             InstantiationException, NoSuchFieldException {
         StreamNode eventNode = (StreamNode) this.getSource();
 
-        NamespaceDomain domain = null; // only lookup as needed
+        // NamespaceDomain domain = null; // only lookup as needed
         Property property = this.prototype.getProperty(reference.getLocalName());
         Classifier type = property.getType();
 
@@ -778,12 +778,19 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
                         	this.assembleCollectionReferenceFeature(referent, property, type);
                     }
                 } else {
+                	FumlObject target = null;
+                	
                     ElementAssembler referencedAssembler = this.assemblerMap.get(id);
-                    if (referencedAssembler == null)
+                    if (referencedAssembler != null)
+                        target = referencedAssembler.getTargetObject();
+                    else
+                        target = Environment.getInstance().findElementById(id);
+
+                    if (target != null)
+                        this.assembleCollectionReferenceFeature(target, property, type);
+                    else
                         throw new ValidationException(new ValidationError(reference, id,
                                 ErrorCode.INVALID_REFERENCE, ErrorSeverity.FATAL));
-                    this.assembleCollectionReferenceFeature(referencedAssembler.getTargetObject(),
-                            property, type);
                 }
             }
         }
