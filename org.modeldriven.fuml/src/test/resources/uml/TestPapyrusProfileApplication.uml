@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:TestProfile="http:///schemas/TestProfile/_Cvni8DqeEeSIqNFH5qbSSw/28" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/TestProfile/_Cvni8DqeEeSIqNFH5qbSSw/28 pathmap://TEST_PROFILES/Test.profile.uml#_Cvr0YDqeEeSIqNFH5qbSSw">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:TestProfile="http:///schemas/TestProfile/_Cvni8DqeEeSIqNFH5qbSSw/28" 
+xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" 
+xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" 
+xsi:schemaLocation="http:///schemas/TestProfile/_Cvni8DqeEeSIqNFH5qbSSw/28 pathmap://TEST_PROFILES/Test.profile.uml#_Cvr0YDqeEeSIqNFH5qbSSw">
   <uml:Model xmi:id="xxxxxx_Z68-YCG2EeSfsoM4aIlAPw" name="model">
     <packageImport xmi:type="uml:PackageImport" xmi:id="_XBzlEDSQEeSBasb0GALRCA">
       <importedPackage xmi:type="uml:Profile" href="pathmap://TEST_PROFILES/Test.profile.uml#_NlmngCJUEeSXvPZh3aumVA"/>

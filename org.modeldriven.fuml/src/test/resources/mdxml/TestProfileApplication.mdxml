@@ -23,7 +23,8 @@
 		<packagedElement xmi:type='uml:Package' xmi:id='_17_0_2_1707042cx_1339189431129_892808_1671_923824' name='org' visibility='public'>
 			<packagedElement xmi:type='uml:Package' xmi:id='_17_0_2_1707042cx_1339189439444_460321_16_923842' name='modeldriven' visibility='public'>
 				<packagedElement xmi:type='uml:Package' xmi:id='_17_0_2_1707042cx_1349976943610_90008_1912' name='test' visibility='public'>
-					<packagedElement xmi:type='uml:Package' xmi:id='_17_0_2_1707042cx_1339189629566_657525_1679_992234' name='datatypes' visibility='public'>
+					
+					<packagedElement xmi:type='uml:Package' xmi:id='_17_0_2_1707042cx_1339189629566_657525_1679_992234' name='data' visibility='public'>
 
 		<packagedElement xmi:type='uml:Enumeration' xmi:id='a2f944df-73ba-48e6-9e44-acabd5b9a376' name='TestValues' visibility='public'>
 			<ownedLiteral xmi:type='uml:EnumerationLiteral' xmi:id='9252e0d8-f15f-4f9a-94b1-f459f9025fb1' name='a' visibility='public'/>
