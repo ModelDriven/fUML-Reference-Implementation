@@ -14,10 +14,8 @@ package fUML.Semantics.Classes.Kernel;
 
 import fUML.Debug;
 import UMLPrimitiveTypes.*;
-
 import fUML.Syntax.*;
 import fUML.Syntax.Classes.Kernel.*;
-
 import fUML.Semantics.*;
 import fUML.Semantics.Loci.*;
 
@@ -148,8 +146,20 @@ public abstract class CompoundValue extends
 
 			int j = 1;
 			while (j <= featureValue.values.size()) {
-				buffer = buffer + " "
-						+ featureValue.values.getValue(j - 1).toString();
+				Value value = featureValue.values.getValue(j - 1);
+				if (value instanceof Reference) {
+					Object_ object = ((Reference)value).referent;
+					buffer = buffer + " Reference to (" + object.objectId() + ":";
+					types = object.getTypes();
+					int n = 1;
+					while (n <= types.size()) {
+						buffer = buffer + " " + types.getValue(n - 1).name;
+						n = n + 1;
+					}
+					buffer = buffer + ")";
+				} else {
+					buffer = buffer + " " + value.toString();
+				}
 				j = j + 1;
 			}
 
