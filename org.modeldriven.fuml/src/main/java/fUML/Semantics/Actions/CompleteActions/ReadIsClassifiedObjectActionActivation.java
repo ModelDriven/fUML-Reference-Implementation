@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2015 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -70,26 +70,5 @@ public class ReadIsClassifiedObjectActionActivation extends
 
 		this.putTokens(action.result, values);
 	} // doAction
-
-	public boolean checkAllParents(fUML.Syntax.Classes.Kernel.Classifier type,
-			fUML.Syntax.Classes.Kernel.Classifier classifier) {
-		// Check if the given classifier matches any of the direct or indirect
-		// ancestors of a given type.
-
-		ClassifierList directParents = type.general;
-		boolean matched = false;
-		int i = 1;
-		while (!matched & i <= directParents.size()) {
-			Classifier directParent = directParents.getValue(i - 1);
-			if (directParent == classifier) {
-				matched = true;
-			} else {
-				matched = this.checkAllParents(directParent, classifier);
-			}
-			i = i + 1;
-		}
-
-		return matched;
-	} // checkAllParents
 
 } // ReadIsClassifiedObjectActionActivation

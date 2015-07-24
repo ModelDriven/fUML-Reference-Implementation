@@ -152,7 +152,12 @@ public class AcceptEventActionActivation extends
 		boolean matches = false;
 		int i = 1;
 		while (!matches & i <= triggers.size()) {
-			matches = ((SignalEvent) (triggers.getValue(i - 1).event)).signal == signal;
+			Signal triggerSignal = ((SignalEvent) (triggers.getValue(i - 1).event)).signal;
+			if (triggerSignal == signal) {
+				matches = true;
+			} else {
+				matches = this.checkAllParents(signal, triggerSignal);
+			}
 			i = i + 1;
 		}
 

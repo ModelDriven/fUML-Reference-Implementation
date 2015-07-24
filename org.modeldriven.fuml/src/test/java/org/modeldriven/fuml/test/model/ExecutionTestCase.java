@@ -1,4 +1,4 @@
-package org.modeldriven.fuml.test;
+package org.modeldriven.fuml.test.model;
 
 import java.io.File;
 
@@ -9,6 +9,8 @@ import org.apache.commons.logging.LogFactory;
 import org.modeldriven.fuml.Fuml;
 import org.modeldriven.fuml.environment.Environment;
 import org.modeldriven.fuml.environment.ExecutionEnvironment;
+import org.modeldriven.fuml.test.FUMLTest;
+import org.modeldriven.fuml.test.FUMLTestSetup;
 
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Syntax.Classes.Kernel.Class_;
@@ -130,6 +132,11 @@ public class ExecutionTestCase extends FUMLTest {
     
     public void testTestClassReclassifier() throws Exception {
     	execute("TestClassReclassifier");
+    	log.info("done");
+    }
+    
+    public void testTestSpecializedSignalSend() throws Exception {
+    	execute("TestSpecializedSignalSend");
     	log.info("done");
     }
     
