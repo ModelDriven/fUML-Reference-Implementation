@@ -14,16 +14,15 @@ package fUML.Semantics.Classes.Kernel;
 
 import fUML.Debug;
 import UMLPrimitiveTypes.*;
-
 import fUML.Syntax.*;
 import fUML.Syntax.Classes.Kernel.*;
-
 import fUML.Semantics.*;
 import fUML.Semantics.Loci.*;
 
 public abstract class ExtensionalValue extends
 		fUML.Semantics.Classes.Kernel.CompoundValue {
 
+	public String identifier = "";
 	public fUML.Semantics.Loci.LociL1.Locus locus = null;
 
 	public void destroy() {
@@ -43,9 +42,15 @@ public abstract class ExtensionalValue extends
 
 		if (this.locus != null) {
 			this.locus.add(newValue);
+		} else {
+			this.identifier = "";
 		}
 
 		return newValue;
 	} // copy
+	
+	public String toString() {
+		return this.identifier + super.toString();
+	}
 
 } // ExtensionalValue

@@ -128,13 +128,16 @@ public abstract class CompoundValue extends
 	} // getFeatureValues
 
 	public String toString() {
-		String buffer = "(" + this.objectId() + ":";
+		String buffer = "(";
 
 		ClassifierList types = this.getTypes();
 
 		int i = 1;
 		while (i <= types.size()) {
-			buffer = buffer + " " + types.getValue(i - 1).name;
+			if (i != 1) {
+				buffer = buffer + " ";
+			}
+			buffer = buffer + types.getValue(i - 1).name;
 			i = i + 1;
 		}
 
@@ -149,11 +152,14 @@ public abstract class CompoundValue extends
 				Value value = featureValue.values.getValue(j - 1);
 				if (value instanceof Reference) {
 					Object_ object = ((Reference)value).referent;
-					buffer = buffer + " Reference to (" + object.objectId() + ":";
+					buffer = buffer + " Reference to " + object.identifier + "(";
 					types = object.getTypes();
 					int n = 1;
 					while (n <= types.size()) {
-						buffer = buffer + " " + types.getValue(n - 1).name;
+						if (n != 1) {
+							buffer = buffer + " ";
+						}
+						buffer = buffer + types.getValue(n - 1).name;
 						n = n + 1;
 					}
 					buffer = buffer + ")";

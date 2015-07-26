@@ -30,7 +30,7 @@ public class Link extends fUML.Semantics.Classes.Kernel.ExtensionalValue {
 		// Shift the positions of the feature values of any remaining links in
 		// the extent of the same association, for ends that are ordered.
 
-		Debug.println("[destroy] link = " + this.objectId());
+		Debug.println("[destroy] link = " + this.identifier);
 
 		PropertyList ends = this.type.memberEnd;
 		ExtensionalValueList extent = this.locus.getExtent(this.type);
@@ -133,7 +133,7 @@ public class Link extends fUML.Semantics.Classes.Kernel.ExtensionalValue {
 		// Shift the positions of ends of other links, as appropriate, for ends
 		// that are ordered.
 
-		Debug.println("[addTo] link = " + this.objectId());
+		Debug.println("[addTo] link = " + this.identifier);
 
 		PropertyList ends = this.type.memberEnd;
 		ExtensionalValueList extent = locus.getExtent(this.type);

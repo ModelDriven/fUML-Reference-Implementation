@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2015 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -25,6 +25,8 @@ import fUML.Semantics.CommonBehaviors.BasicBehaviors.*;
 
 public class Locus extends org.modeldriven.fuml.FumlObject {
 
+	public String identifier = Integer.toHexString(this.hashCode());
+	public int nextValueId = 1;
 	public fUML.Semantics.Loci.LociL1.Executor executor = null;
 	public fUML.Semantics.Loci.LociL1.ExecutionFactory factory = null;
 	public fUML.Semantics.Classes.Kernel.ExtensionalValueList extensionalValues = new fUML.Semantics.Classes.Kernel.ExtensionalValueList();
@@ -75,6 +77,11 @@ public class Locus extends org.modeldriven.fuml.FumlObject {
 
 		value.locus = this;
 		this.extensionalValues.addValue(value);
+		
+		IntegerValue integerValue = new IntegerValue();
+		integerValue.value = this.nextValueId;
+		value.identifier = this.identifier + "#" + integerValue.toString();
+		this.nextValueId = this.nextValueId + 1;
 	} // add
 
 	public void remove(fUML.Semantics.Classes.Kernel.ExtensionalValue value) {
