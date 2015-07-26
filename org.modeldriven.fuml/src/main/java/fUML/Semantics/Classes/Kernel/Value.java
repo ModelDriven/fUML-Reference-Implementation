@@ -100,11 +100,4 @@ public abstract class Value extends fUML.Semantics.Loci.LociL1.SemanticVisitor {
 
 	public abstract String toString();
 
-	public String objectId() {
-		// Return an identifier for this object.
-		// [Non-normative.]
-
-		return super.toString();
-	} // objectId
-
 } // Value

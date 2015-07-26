@@ -70,7 +70,7 @@ public class Object_ extends fUML.Semantics.Classes.Kernel.ExtensionalValue {
 		// Stop the object activation (if any), clear all types and destroy the
 		// object as an extensional value.
 
-		Debug.println("[destroy] object = " + this.objectId());
+		Debug.println("[destroy] object = " + this.identifier);
 
 		if (this.objectActivation != null) {
 			this.objectActivation.stop();
