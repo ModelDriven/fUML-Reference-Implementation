@@ -14,9 +14,9 @@ package fUML.Semantics.CommonBehaviors.Communications;
 
 public class ClassifierBehaviorExecution_Behavior {
 
-	public ClassifierBehaviorExecution self = null;
+	public ClassifierBehaviorInvocationEventAccepter self = null;
 
-	public ClassifierBehaviorExecution_Behavior(ClassifierBehaviorExecution self) {
+	public ClassifierBehaviorExecution_Behavior(ClassifierBehaviorInvocationEventAccepter self) {
 		this.self = self;
 	}
 

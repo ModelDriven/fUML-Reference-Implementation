@@ -140,6 +140,11 @@ public class ExecutionTestCase extends FUMLTest {
     	log.info("done");
     }
     
+    public void testActiveClassBehaviorSender() throws Exception {
+    	execute("ActiveClassBehaviorSender");
+    	log.info("done");
+    }
+    
     private void execute(String activityName)
     {
         Behavior behavior = environment.findBehavior(activityName);

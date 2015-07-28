@@ -29,20 +29,20 @@ import fUML.Semantics.Loci.LociL1.*;
 
 public class ObjectActivation extends org.modeldriven.fuml.FumlObject {
 
-	public fUML.Semantics.CommonBehaviors.Communications.ClassifierBehaviorExecutionList classifierBehaviorExecutions = new fUML.Semantics.CommonBehaviors.Communications.ClassifierBehaviorExecutionList();
+	public fUML.Semantics.CommonBehaviors.Communications.ClassifierBehaviorInvocationEventAccepterList classifierBehaviorInvocations = new fUML.Semantics.CommonBehaviors.Communications.ClassifierBehaviorInvocationEventAccepterList();
 	public fUML.Semantics.CommonBehaviors.Communications.EventAccepterList waitingEventAccepters = new fUML.Semantics.CommonBehaviors.Communications.EventAccepterList();
-	public fUML.Semantics.CommonBehaviors.Communications.SignalInstanceList eventPool = new fUML.Semantics.CommonBehaviors.Communications.SignalInstanceList();
+	public fUML.Semantics.CommonBehaviors.Communications.EventOccurrenceList eventPool = new fUML.Semantics.CommonBehaviors.Communications.EventOccurrenceList();
 	public fUML.Semantics.Classes.Kernel.Object_ object = null;
 
 	public void stop() {
 		// Stop this object activation by terminating all classifier behavior
 		// executions.
 
-		ClassifierBehaviorExecutionList classifierBehaviorExecutions = this.classifierBehaviorExecutions;
-		for (int i = 0; i < classifierBehaviorExecutions.size(); i++) {
-			ClassifierBehaviorExecution classifierBehaviorExecution = classifierBehaviorExecutions
+		ClassifierBehaviorInvocationEventAccepterList classifierBehaviorInvocations = this.classifierBehaviorInvocations;
+		for (int i = 0; i < classifierBehaviorInvocations.size(); i++) {
+			ClassifierBehaviorInvocationEventAccepter classifierBehaviorInvocation = classifierBehaviorInvocations
 					.getValue(i);
-			classifierBehaviorExecution.terminate();
+			classifierBehaviorInvocation.terminate();
 		}
 
 	} // stop
@@ -79,22 +79,22 @@ public class ObjectActivation extends org.modeldriven.fuml.FumlObject {
 	} // unregister
 
 	public void dispatchNextEvent() {
-		// Get the next signal instance out of the event pool.
-		// If there is one or more waiting event accepters with triggers that
-		// match the signal instance, then dispatch it to exactly one of those
+		// Get the next event occurrence out of the event pool.
+		// If there are one or more waiting event accepters with triggers that
+		// match the event occurrence, then dispatch it to exactly one of those
 		// waiting accepters.
 
 		if (this.eventPool.size() > 0) {
-			SignalInstance signalInstance = this.getNextEvent();
+			EventOccurrence eventOccurrence = this.getNextEvent();
 
-			Debug.println("[dispatchNextEvent] signalInstance = "
-					+ signalInstance);
+			Debug.println("[dispatchNextEvent] eventOccurrence = "
+					+ eventOccurrence);
 
 			intList matchingEventAccepterIndexes = new intList();
 			EventAccepterList waitingEventAccepters = this.waitingEventAccepters;
 			for (int i = 0; i < waitingEventAccepters.size(); i++) {
 				EventAccepter eventAccepter = waitingEventAccepters.getValue(i);
-				if (eventAccepter.match(signalInstance)) {
+				if (eventAccepter.match(eventOccurrence)) {
 					matchingEventAccepterIndexes.addValue(i);
 				}
 			}
@@ -108,12 +108,12 @@ public class ObjectActivation extends org.modeldriven.fuml.FumlObject {
 				EventAccepter selectedEventAccepter = this.waitingEventAccepters
 						.getValue(matchingEventAccepterIndexes.getValue(j - 1));
 				this.waitingEventAccepters.removeValue(j - 1);
-				selectedEventAccepter.accept(signalInstance);
+				selectedEventAccepter.accept(eventOccurrence);
 			}
 		}
 	} // dispatchNextEvent
 
-	public fUML.Semantics.CommonBehaviors.Communications.SignalInstance getNextEvent() {
+	public fUML.Semantics.CommonBehaviors.Communications.EventOccurrence getNextEvent() {
 		// Get the next event from the event pool, using a get next event
 		// strategy.
 
@@ -123,10 +123,12 @@ public class ObjectActivation extends org.modeldriven.fuml.FumlObject {
 
 	public void send(
 			fUML.Semantics.CommonBehaviors.Communications.SignalInstance signalInstance) {
-		// Add the given signal instance to the event pool and signal that a new
-		// signal instance has arrived.
+		// Add a signal event occurrence for the given signal instance to the event pool 
+		// and signal that a new event occurrence has arrived.
 
-		this.eventPool.addValue((SignalInstance) (signalInstance.copy()));
+		SignalEventOccurrence eventOccurrence = new SignalEventOccurrence();
+		eventOccurrence.signalInstance = (SignalInstance) signalInstance.copy();
+		this.eventPool.addValue(eventOccurrence);
 		_send(new ArrivalSignal());
 	} // send
 
@@ -136,20 +138,20 @@ public class ObjectActivation extends org.modeldriven.fuml.FumlObject {
 		// Start the event dispatch loop for this object activation (if it has
 		// not already been started).
 		// If a classifier is given that is a type of the object of this object
-		// activation and there is not already a classifier behavior execution
+		// activation and there is not already a classifier behavior invocation
 		// for it,
-		// then create a classifier behavior execution for it.
-		// Otherwise, create a classifier behavior execution for each of the
+		// then create a classifier behavior invocation for it and add an invocation
+		// event occurrence to the event pool.
+		// Otherwise, create a classifier behavior invocation for each of the
 		// types of the object of this object activation which has a classifier
 		// behavior or which is a behavior itself
-		// and for which there is not currently a classifier behavior execution.
+		// and for which there is not currently a classifier behavior invocation.
 
 		// Start EventDispatchLoop
 		_startObjectBehavior();
 
 		if (classifier == null) {
-			Debug
-					.println("[startBehavior] Starting behavior for all classifiers...");
+			Debug.println("[startBehavior] Starting behavior for all classifiers...");
 			// *** Start all classifier behaviors concurrently. ***
 			Class_List types = this.object.types;
 			for (Iterator i = types.iterator(); i.hasNext();) {
@@ -162,21 +164,27 @@ public class ObjectActivation extends org.modeldriven.fuml.FumlObject {
 			Debug.println("[startBehavior] Starting behavior for "
 					+ classifier.name + "...");
 
+			_beginIsolation();
 			boolean notYetStarted = true;
 			int i = 1;
 			while (notYetStarted
-					& i <= this.classifierBehaviorExecutions.size()) {
-				notYetStarted = (this.classifierBehaviorExecutions
+					& i <= this.classifierBehaviorInvocations.size()) {
+				notYetStarted = (this.classifierBehaviorInvocations
 						.getValue(i - 1).classifier != classifier);
 				i = i + 1;
 			}
 
 			if (notYetStarted) {
-				ClassifierBehaviorExecution newExecution = new ClassifierBehaviorExecution();
-				newExecution.objectActivation = this;
-				this.classifierBehaviorExecutions.addValue(newExecution);
-				newExecution.execute(classifier, inputs);
+				ClassifierBehaviorInvocationEventAccepter newInvocation = new ClassifierBehaviorInvocationEventAccepter();
+				newInvocation.objectActivation = this;
+				this.classifierBehaviorInvocations.addValue(newInvocation);
+				newInvocation.invokeBehavior(classifier, inputs);
+				InvocationEventOccurrence eventOccurrence = new InvocationEventOccurrence();
+				eventOccurrence.execution = newInvocation.execution;
+				this.eventPool.addValue(eventOccurrence);
+				_send(new ArrivalSignal());
 			}
+			_endIsolation();
 		}
 	} // startBehavior
 
@@ -190,5 +198,13 @@ public class ObjectActivation extends org.modeldriven.fuml.FumlObject {
 	public void _startObjectBehavior() {
 		this.behavior._startObjectBehavior();
 	}
+	
+	public static void _endIsolation() {
+		Debug.println("[_endIsolation] End isolation.");
+	} // _endIsolation
+
+	public static void _beginIsolation() {
+		Debug.println("[_beginIsolation] Begin isolation.");
+	} // _beginIsolation
 
 } // ObjectActivation

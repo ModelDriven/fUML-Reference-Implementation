@@ -28,9 +28,9 @@ import fUML.Semantics.Loci.*;
 public abstract class EventAccepter extends org.modeldriven.fuml.FumlObject {
 
 	public abstract void accept(
-			fUML.Semantics.CommonBehaviors.Communications.SignalInstance signalInstance);
+			fUML.Semantics.CommonBehaviors.Communications.EventOccurrence eventOccurrence);
 
 	public abstract boolean match(
-			fUML.Semantics.CommonBehaviors.Communications.SignalInstance signalInstance);
+			fUML.Semantics.CommonBehaviors.Communications.EventOccurrence eventOccurrence);
 
 } // EventAccepter
