@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2015 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -25,28 +25,25 @@ import fUML.Semantics.Classes.Kernel.*;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.*;
 import fUML.Semantics.Loci.*;
 
-public class ClassifierBehaviorExecution extends
-		org.modeldriven.fuml.FumlObject {
+public class ClassifierBehaviorInvocationEventAccepter extends EventAccepter {
 
 	public fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution execution = null;
 	public fUML.Syntax.Classes.Kernel.Class_ classifier = null;
 	public fUML.Semantics.CommonBehaviors.Communications.ObjectActivation objectActivation = null;
 
-	public void execute(
+	public void invokeBehavior(
 			fUML.Syntax.Classes.Kernel.Class_ classifier,
 			fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList inputs) {
-		// Set the classifier for this classifier behavior execution to the
-		// given class.
+		// Set the classifier for this classifier behavior invocation event accepter 
+		// to the given class.
 		// If the given class is a behavior, set the execution to be the object
 		// of the object activation of the classifier behavior execution.
 		// Otherwise the class must be an active class, so get an execution
 		// object for the classifier behavior for the class.
 		// Set the input parameters for the execution to the given values.
-		// Then start the active behavior of this ClassifierBehaviorExecution
-		// object, which will execute the execution object on a separate thread
-		// of control.
+		// Then register this event accepter with the object activation.
 
-		// Debug.println("[execute] Executing behavior for " + classifier.name +
+		// Debug.println("[invokeBehavior] Invoking behavior for " + classifier.name +
 		// "...");
 
 		this.classifier = classifier;
@@ -65,10 +62,32 @@ public class ClassifierBehaviorExecution extends
 				this.execution.setParameterValue(input);
 			}
 		}
+		
+		this.objectActivation.register(this);
 
-		_startObjectBehavior();
-	} // execute
-
+	}
+	
+	public boolean match(EventOccurrence eventOccurrence) {
+		// Return true if the given event occurrence is an invocation event
+		// occurrence for the execution of this classifier behavior invocation
+		// event accepter.
+		
+		boolean matches = false;
+		if (eventOccurrence instanceof InvocationEventOccurrence) {
+			matches = ((InvocationEventOccurrence)eventOccurrence).execution == this.execution;
+		}
+		return matches;
+	}
+	
+	public void accept(EventOccurrence eventOccurrence) {
+		// Accept an invocation event occurrence. Execute the execution of this
+		// classifier behavior invocation event accepter.
+		
+		if (eventOccurrence instanceof InvocationEventOccurrence) {
+			this.execution.execute();
+		}
+	}
+	
 	public void terminate() {
 		// Terminate the associated execution.
 		// If the execution is not itself the object of the object activation,
@@ -84,12 +103,5 @@ public class ClassifierBehaviorExecution extends
 		}
 
 	} // terminate
-
-	private ClassifierBehaviorExecution_Behavior behavior = new ClassifierBehaviorExecution_Behavior(
-			this);
-
-	public void _startObjectBehavior() {
-		this.behavior._startObjectBehavior();
-	}
 
 } // ClassifierBehaviorExecution

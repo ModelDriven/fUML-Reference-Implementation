@@ -206,7 +206,7 @@ public class ExecutorTest extends fUML.Test.Test {
 			outputParameterValues = ((Execution) object)
 					.getOutputParameterValues();
 		} else {
-			outputParameterValues = object.objectActivation.classifierBehaviorExecutions
+			outputParameterValues = object.objectActivation.classifierBehaviorInvocations
 					.getValue(0).execution.getOutputParameterValues();
 		}
 
