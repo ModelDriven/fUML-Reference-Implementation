@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2015 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -14,10 +14,8 @@ package fUML.Semantics.Classes.Kernel;
 
 import fUML.Debug;
 import UMLPrimitiveTypes.*;
-
 import fUML.Syntax.*;
 import fUML.Syntax.Classes.Kernel.*;
-
 import fUML.Semantics.*;
 import fUML.Semantics.Loci.*;
 
@@ -31,10 +29,8 @@ public abstract class CompoundValue extends
 		// To be equal, the otherValue must also be a compund value with the
 		// same types and equal values for each feature.
 
-		// Debug.println("[equals] othervalue instanceof CompoundValue = " +
-		// (otherValue instanceof CompoundValue));
-		// Debug.println("[equals] super.equals(otherValue) = " +
-		// super.equals(otherValue));
+		// Debug.println("[equals] othervalue instanceof CompoundValue = " + (otherValue instanceof CompoundValue));
+		// Debug.println("[equals] super.equals(otherValue) = " + super.equals(otherValue));
 
 		boolean isEqual = otherValue instanceof CompoundValue;
 
@@ -131,21 +127,6 @@ public abstract class CompoundValue extends
 
 	} // getFeatureValues
 
-	public void removeFeatureValues(
-			fUML.Syntax.Classes.Kernel.Classifier classifier) {
-		// Remove all feature values for features whose type is the given
-		// classifier.
-
-		int i = 1;
-		while (i <= this.featureValues.size()) {
-			if (this.featureValues.getValue(i - 1).feature.typedElement.type == classifier) {
-				this.featureValues.remove(i - 1);
-			} else {
-				i = i + 1;
-			}
-		}
-	} // removeFeatureValues
-
 	public String toString() {
 		String buffer = "(" + this.objectId() + ":";
 
@@ -165,8 +146,20 @@ public abstract class CompoundValue extends
 
 			int j = 1;
 			while (j <= featureValue.values.size()) {
-				buffer = buffer + " "
-						+ featureValue.values.getValue(j - 1).toString();
+				Value value = featureValue.values.getValue(j - 1);
+				if (value instanceof Reference) {
+					Object_ object = ((Reference)value).referent;
+					buffer = buffer + " Reference to (" + object.objectId() + ":";
+					types = object.getTypes();
+					int n = 1;
+					while (n <= types.size()) {
+						buffer = buffer + " " + types.getValue(n - 1).name;
+						n = n + 1;
+					}
+					buffer = buffer + ")";
+				} else {
+					buffer = buffer + " " + value.toString();
+				}
 				j = j + 1;
 			}
 

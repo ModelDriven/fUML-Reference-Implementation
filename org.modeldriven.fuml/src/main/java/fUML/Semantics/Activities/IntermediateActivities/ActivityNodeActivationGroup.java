@@ -204,23 +204,14 @@ public class ActivityNodeActivationGroup extends
 
 		ActivityNodeActivation activation = (ActivityNodeActivation) (this
 				.getActivityExecution().locus.factory.instantiateVisitor(node));
-		activation.node = node;
-		activation.running = false;
+		activation.initialize(node, this);
 
-		this.addNodeActivation(activation);
+		this.nodeActivations.addValue(activation);
 
 		activation.createNodeActivations();
 
 		return activation;
 	} // createNodeActivation
-
-	public void addNodeActivation(
-			fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation activation) {
-		// Add the given node activation to this group.
-
-		activation.group = this;
-		this.nodeActivations.addValue(activation);
-	} // addNodeActivation
 
 	public fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation getNodeActivation(
 			fUML.Syntax.Activities.IntermediateActivities.ActivityNode node) {
@@ -265,8 +256,9 @@ public class ActivityNodeActivationGroup extends
 
 			ActivityEdgeInstance edgeInstance = new ActivityEdgeInstance();
 			edgeInstance.edge = edge;
+			edgeInstance.group = this;
 
-			this.addEdgeInstance(edgeInstance);
+			this.edgeInstances.addValue(edgeInstance);
 			this.getNodeActivation(edge.source).addOutgoingEdge(edgeInstance);
 			this.getNodeActivation(edge.target).addIncomingEdge(edgeInstance);
 
@@ -281,14 +273,6 @@ public class ActivityNodeActivationGroup extends
 
 		// Debug.println("[createEdgeInstances] Done creating edge instances.");
 	} // createEdgeInstances
-
-	public void addEdgeInstance(
-			fUML.Semantics.Activities.IntermediateActivities.ActivityEdgeInstance instance) {
-		// Add the given edge instance to this group.
-
-		instance.group = this;
-		this.edgeInstances.addValue(instance);
-	} // addEdgeInstance
 
 	public fUML.Semantics.Activities.IntermediateActivities.ActivityExecution getActivityExecution() {
 		// Return the activity execution to which this group belongs, directly

@@ -23,7 +23,6 @@ import fUML.Syntax.CommonBehaviors.BasicBehaviors.*;
 import fUML.Syntax.CommonBehaviors.Communications.*;
 import fUML.Syntax.Activities.IntermediateActivities.*;
 import fUML.Syntax.Actions.BasicActions.*;
-
 import fUML.Semantics.*;
 import fUML.Semantics.Classes.Kernel.*;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.*;
@@ -35,6 +34,13 @@ public abstract class ActionActivation extends
 
 	public fUML.Semantics.Actions.BasicActions.PinActivationList pinActivations = new fUML.Semantics.Actions.BasicActions.PinActivationList();
 	public boolean firing = false;
+	
+	public void initialize(ActivityNode node, ActivityNodeActivationGroup group) {
+		// Initialize this action activation to be not firing.
+		
+		super.initialize(node, group);
+		this.firing = false;
+	}
 
 	public void run() {
 		// Run this action activation and any outoging fork node attached to it.
@@ -254,6 +260,7 @@ public abstract class ActionActivation extends
 
 		if (this.outgoingEdges.size() == 0) {
 			forkNodeActivation = new ForkNodeActivation();
+			forkNodeActivation.running = false;
 			ActivityEdgeInstance newEdge = new ActivityEdgeInstance();
 			super.addOutgoingEdge(newEdge);
 			forkNodeActivation.addIncomingEdge(newEdge);

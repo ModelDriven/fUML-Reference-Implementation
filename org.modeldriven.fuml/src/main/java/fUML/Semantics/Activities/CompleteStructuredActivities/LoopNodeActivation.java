@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2013 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -54,10 +54,7 @@ public class LoopNodeActivation
 
 		LoopNode loopNode = (LoopNode) (this.node);
 		InputPinList loopVariableInputs = loopNode.loopVariableInput;
-		// OutputPinList loopVariables = loopNode.loopVariable;
-		// OutputPinList resultPins = loopNode.result;
 
-		// ValuesList bodyOutputLists = this.bodyOutputLists;
 		this.bodyOutputLists.clear();
 		for (int i = 0; i < loopVariableInputs.size(); i++) {
 			InputPin loopVariableInput = loopVariableInputs.getValue(i);

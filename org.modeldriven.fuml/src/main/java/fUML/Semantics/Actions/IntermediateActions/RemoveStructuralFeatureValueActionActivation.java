@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2015 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -67,8 +67,8 @@ public class RemoveStructuralFeatureValueActionActivation
 		}
 
 		if (association != null) {
-			LinkList links = this.getMatchingLinks(association, feature, value);
-
+			LinkList links = this.getMatchingLinksForEndValue(association, feature, value, inputValue);
+			
 			if (action.isRemoveDuplicates) {
 				for (int i = 0; i < links.size(); i++) {
 					Link link = links.getValue(i);
@@ -87,12 +87,13 @@ public class RemoveStructuralFeatureValueActionActivation
 			} else {
 				boolean notFound = true;
 				int i = 1;
-				while (notFound & i < links.size()) {
+				while (notFound & i <= links.size()) {
 					Link link = links.getValue(i - 1);
 					if (link.getFeatureValue(feature).position == removeAt) {
 						notFound = false;
 						link.destroy();
 					}
+					i = i + 1;
 				}
 			}
 
@@ -118,7 +119,7 @@ public class RemoveStructuralFeatureValueActionActivation
 				int j = this.position(inputValue, featureValue.values, 1);
 				while (j > 0) {
 					positions.addValue(j);
-					j = this.position(inputValue, featureValue.values, j);
+					j = this.position(inputValue, featureValue.values, j + 1);
 				}
 
 				if (positions.size() > 0) {
