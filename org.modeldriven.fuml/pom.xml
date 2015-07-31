@@ -5,7 +5,7 @@
     <artifactId>fuml</artifactId>
     <packaging>jar</packaging>
     <name>FUML Reference Implementation</name>
-    <version>1.1.2</version>
+    <version>1.1.3</version>
     <description>This open source software is a reference implementation, consisting of software and related files, for the OMG specification called the Semantics of a Foundational Subset for Executable UML Models (fUML). The reference implementation is intended to implement the execution semantics of UML activity models, accepting an XMI file from a conformant UML model as its input and providing an execution trace of the selected activity model(s) as its output. The core execution engine, which is directly generated from the normative syntactic and semantic models for fUML, may also be used as a library implementation of fUML in other software.</description>
     <url>http:/fuml.modeldriven.org</url>
     <licenses>
@@ -398,7 +398,7 @@
           Comment out the below GPG plugin if not set up with GPG
           and just want to install local locally. 
       -->
-      <!--     
+      <!-- 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-gpg-plugin</artifactId>
@@ -413,7 +413,7 @@
           </execution>
         </executions>
       </plugin>
-      --> 
+      -->
       <!--
           Release Plugin (Update version in POM before/after release, create
           tag, deploy) to try: mvn release:prepare -DdryRun=true && mvn
