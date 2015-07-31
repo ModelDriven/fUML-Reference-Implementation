@@ -174,7 +174,7 @@ public class LoopNodeActivation
 		this.activationGroup.runNodes(this
 				.makeActivityNodeList(loopNode.bodyPart));
 
-		if (!this.isSuspended()) {
+		if (!this.isTerminateAll & !this.isSuspended()) {
 			this.saveBodyOutputs();
 		}
 	} // runBody
@@ -229,12 +229,13 @@ public class LoopNodeActivation
 
 		this.isTerminateAll = true;
 		
-		OutputPinList resultPins = ((LoopNode) this.node).result;
-
-		for (int i = 0; i < bodyOutputLists.size(); i++) {
-			Values bodyOutputList = bodyOutputLists.getValue(i);
+		LoopNode loopNode = (LoopNode) this.node;
+		OutputPinList bodyOutputs = loopNode.bodyOutput;
+		OutputPinList resultPins = loopNode.result;
+		for (int i = 0; i < bodyOutputs.size(); i++) {
+			OutputPin bodyOutput = bodyOutputs.getValue(i);
 			OutputPin resultPin = resultPins.getValue(i);
-			this.putTokens(resultPin, bodyOutputList.values);
+			this.putTokens(resultPin, this.getPinValues(bodyOutput));
 		}
 
 		super.terminateAll();
