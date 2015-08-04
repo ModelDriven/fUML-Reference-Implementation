@@ -26,7 +26,6 @@ import fUML.Semantics.CommonBehaviors.BasicBehaviors.*;
 public class Locus extends org.modeldriven.fuml.FumlObject {
 
 	public String identifier = Integer.toHexString(this.hashCode());
-	public int nextValueId = 1;
 	public fUML.Semantics.Loci.LociL1.Executor executor = null;
 	public fUML.Semantics.Loci.LociL1.ExecutionFactory factory = null;
 	public fUML.Semantics.Classes.Kernel.ExtensionalValueList extensionalValues = new fUML.Semantics.Classes.Kernel.ExtensionalValueList();
@@ -76,13 +75,21 @@ public class Locus extends org.modeldriven.fuml.FumlObject {
 		// Add the given extensional value to this locus
 
 		value.locus = this;
+		value.identifier = this.identifier + "#" + this.makeIdentifier(value);
 		this.extensionalValues.addValue(value);
 		
-		IntegerValue integerValue = new IntegerValue();
-		integerValue.value = this.nextValueId;
-		value.identifier = this.identifier + "#" + integerValue.toString();
-		this.nextValueId = this.nextValueId + 1;
 	} // add
+	
+	public String makeIdentifier(fUML.Semantics.Classes.Kernel.ExtensionalValue value) {
+		// Return an identifier for the given (newly created) extensional value.
+		
+		// [No normative specification. A conforming implementation may create an identifier 
+		// an identifier in any way such that all identifiers for extensional values created
+		// at any one locus are unique.]
+		
+		// Non-normative Java implementation
+		return Integer.toHexString(value.hashCode());
+	} // makeIdentifier
 
 	public void remove(fUML.Semantics.Classes.Kernel.ExtensionalValue value) {
 		// Remove the given extensional value from this locus.
