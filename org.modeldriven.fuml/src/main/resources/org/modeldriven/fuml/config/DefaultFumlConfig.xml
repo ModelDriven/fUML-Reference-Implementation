@@ -152,6 +152,7 @@
 
     <BehaviorExecutionMapping className="FoundationalModelLibrary.PrimitiveBehaviors.ListFunctions.ListGet" executionClassName="org.modeldriven.fuml.library.listfunctions.ListGetFunctionBehaviorExecution"/>
     <BehaviorExecutionMapping className="FoundationalModelLibrary.PrimitiveBehaviors.ListFunctions.ListSize" executionClassName="org.modeldriven.fuml.library.listfunctions.ListSizeFunctionBehaviorExecution"/>
+    <BehaviorExecutionMapping className="FoundationalModelLibrary.PrimitiveBehaviors.ListFunctions.ListConcat" executionClassName="org.modeldriven.fuml.library.listfunctions.ListConcatFunctionBehaviorExecution"/>
 
   </MappingConfiguration>
 

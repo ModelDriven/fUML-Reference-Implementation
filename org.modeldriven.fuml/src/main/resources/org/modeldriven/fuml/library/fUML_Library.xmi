@@ -808,7 +808,7 @@
 						xmi:id="PrimitiveBehaviors-UnlimitedNaturalFunctions-ToInteger-result"
 						name="result" direction="return">
 						<type
-							href="http://www.omg.org/spec/UML/20110701/PrimitiveTypes.xmi#UnlimitedNatural"/>
+							href="http://www.omg.org/spec/UML/20110701/PrimitiveTypes.xmi#Integer"/>
 						<lowerValue xmi:type="uml:LiteralInteger"
 							xmi:id="PrimitiveBehaviors-UnlimitedNaturalFunctions-ToInteger-result-_lowerValue"
 						/>
@@ -1016,7 +1016,8 @@
 					xmi:id="PrimitiveBehaviors-ListFunctions-ListSize" name="ListSize"
 					isAbstract="true" isReentrant="false">
 					<ownedParameter xmi:type="uml:Parameter"
-						xmi:id="PrimitiveBehaviors-ListFunctions-ListSize-list" name="list">
+						xmi:id="PrimitiveBehaviors-ListFunctions-ListSize-list" name="list"
+						isUnique="false">
 						<lowerValue xmi:type="uml:LiteralInteger"
 							xmi:id="PrimitiveBehaviors-ListFunctions-ListSize-list-_lowerValue"/>
 						<upperValue xmi:type="uml:LiteralUnlimitedNatural"
@@ -1034,7 +1035,8 @@
 					xmi:id="PrimitiveBehaviors-ListFunctions-ListGet" name="ListGet"
 					isAbstract="true" isReentrant="false">
 					<ownedParameter xmi:type="uml:Parameter"
-						xmi:id="PrimitiveBehaviors-ListFunctions-ListGet-list" name="list">
+						xmi:id="PrimitiveBehaviors-ListFunctions-ListGet-list" name="list"
+						isOrdered="true" isUnique="false">
 						<lowerValue xmi:type="uml:LiteralInteger"
 							xmi:id="PrimitiveBehaviors-ListFunctions-ListGet-list-_lowerValue"/>
 						<upperValue xmi:type="uml:LiteralUnlimitedNatural"
@@ -1051,6 +1053,37 @@
 						xmi:id="PrimitiveBehaviors-ListFunctions-ListGet-index" name="index">
 						<type href="http://www.omg.org/spec/UML/20110701/PrimitiveTypes.xmi#Integer"
 						/>
+					</ownedParameter>
+				</packagedElement>
+				<packagedElement xmi:type="uml:FunctionBehavior"
+					xmi:id="PrimitiveBehaviors-ListFunctions-ListConcat" name="ListConcat"
+					isAbstract="true" isReentrant="false">
+					<ownedParameter xmi:type="uml:Parameter"
+						xmi:id="PrimitiveBehaviors-ListFunctions-ListConcat-list1" name="list1"
+						 isOrdered = "true" isUnique = "false">
+						<lowerValue xmi:type="uml:LiteralInteger"
+							xmi:id="PrimitiveBehaviors-ListFunctions-ListConcat-list1-_lowerValue"/>
+						<upperValue xmi:type="uml:LiteralUnlimitedNatural"
+							xmi:id="PrimitiveBehaviors-ListFunctions-ListConcat-list1-_upperValue"
+							value="*"/>
+					</ownedParameter>
+					<ownedParameter xmi:type="uml:Parameter"
+						xmi:id="PrimitiveBehaviors-ListFunctions-ListConcat-list2" name="list2"
+						 isOrdered = "true" isUnique = "false">
+						<lowerValue xmi:type="uml:LiteralInteger"
+							xmi:id="PrimitiveBehaviors-ListFunctions-ListConcat-list2-_lowerValue"/>
+						<upperValue xmi:type="uml:LiteralUnlimitedNatural"
+							xmi:id="PrimitiveBehaviors-ListFunctions-ListConcat-list2-_upperValue"
+							value="*"/>
+					</ownedParameter>
+					<ownedParameter xmi:type="uml:Parameter"
+						xmi:id="PrimitiveBehaviors-ListFunctions-ListConcat-result" name="result"
+						direction="return" isOrdered = "true" isUnique = "false">
+						<lowerValue xmi:type="uml:LiteralInteger"
+							xmi:id="PrimitiveBehaviors-ListFunctions-ListConcat-result-_lowerValue"/>
+						<upperValue xmi:type="uml:LiteralUnlimitedNatural"
+							xmi:id="PrimitiveBehaviors-ListFunctions-ListConcat-result-_upperValue"
+							value="*"/>
 					</ownedParameter>
 				</packagedElement>
 			</packagedElement>
@@ -1403,7 +1436,7 @@
 				</ownedParameter>
 				<ownedParameter xmi:type="uml:Parameter"
 					xmi:id="BasicInputOutput-WriteLine-errorStatus" name="errorStatus"
-					direction="out">
+					direction="out" type = "Common-Status">
 					<lowerValue xmi:type="uml:LiteralInteger"
 						xmi:id="BasicInputOutput-WriteLine-errorStatus-_lowerValue"/>
 				</ownedParameter>
@@ -1522,12 +1555,12 @@
 				name="ReadLine" isReentrant="false">
 				<ownedParameter xmi:type="uml:Parameter"
 					xmi:id="BasicInputOutput-ReadLine-errorStatus" name="errorStatus"
-					direction="out">
+					direction="out" type = "Common-Status">
 					<lowerValue xmi:type="uml:LiteralInteger"
 						xmi:id="BasicInputOutput-ReadLine-errorStatus-_lowerValue"/>
 				</ownedParameter>
 				<ownedParameter xmi:type="uml:Parameter" xmi:id="BasicInputOutput-ReadLine-result"
-					name="result" direction="out">
+					name="result" direction="return">
 					<type href="http://www.omg.org/spec/UML/20110701/PrimitiveTypes.xmi#String"/>
 				</ownedParameter>
 				<edge xmi:type="uml:ObjectFlow" xmi:id="BasicInputOutput-ReadLine-_edge.0"
@@ -1624,8 +1657,7 @@
 			</packagedElement>
 		</packagedElement>
 		<packagedElement xmi:type="uml:Package" xmi:id="Common" name="Common">
-			<packagedElement xmi:type="uml:Signal" xmi:id="Common-Notification" name="Notification"
-				visibility="private">
+			<packagedElement xmi:type="uml:Signal" xmi:id="Common-Notification" name="Notification">
 				<ownedAttribute xmi:type="uml:Property" xmi:id="Common-Notification-content"
 					name="content" visibility="public">
 					<lowerValue xmi:type="uml:LiteralInteger"
@@ -1634,8 +1666,8 @@
 			</packagedElement>
 			<packagedElement xmi:type="uml:Class" xmi:id="Common-Listener" name="Listener"
 				isAbstract="true" isActive="true">
-				<ownedReception xmi:type="uml:Reception" xmi:id="Common-Listener-_ownedReception.0"
-					signal="Common-Notification"/>
+				<ownedReception xmi:type="uml:Reception" xmi:id="Common-Listener-Notification"
+					name = "Notification" signal="Common-Notification"/>
 			</packagedElement>
 			<packagedElement xmi:type="uml:DataType" xmi:id="Common-Status" name="Status">
 				<ownedAttribute xmi:type="uml:Property" xmi:id="Common-Status-context"
