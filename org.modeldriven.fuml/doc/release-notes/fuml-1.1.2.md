@@ -12,7 +12,7 @@ in [v1.1.1](./fuml-1.1.1.md).
 
 The full list of open fUML issues is available at http://solitaire.omg.org/issues/task-force/FUML12.
 
-[FUML 12-14](http://solitaire.omg.org/issues/task-force/FUML12#issue-16439) (18508) EFoundationalModelLibrary, UnlimitedNaturalFunctions: inconsistencies between the spec and the normative xmi
+[FUML 12-14](http://solitaire.omg.org/issues/task-force/FUML12#issue-16439) (18508) FoundationalModelLibrary, UnlimitedNaturalFunctions: inconsistencies between the spec and the normative xmi
 
 [FUML 12-15](http://solitaire.omg.org/issues/task-force/FUML12#issue-16440) (18510) ListFunctions should have a ListConcat behavior
 
