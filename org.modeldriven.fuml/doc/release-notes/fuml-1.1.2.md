@@ -20,7 +20,7 @@ The full list of open fUML issues is available at http://solitaire.omg.org/issue
 
 [FUML 12-17](http://solitaire.omg.org/issues/task-force/FUML12#issue-16442) (18512) FoundationalModelLibrary::Common::Notification should be public
 
-[FUML 12-18](http://solitaire.omg.org/issues/task-force/FUML12#issue-16443) (18513) The Listener reception of Notification should have a nbame
+[FUML 12-18](http://solitaire.omg.org/issues/task-force/FUML12#issue-16443) (18513) The Listener reception of Notification should have a name
 
 [FUML 12-19](http://solitaire.omg.org/issues/task-force/FUML12#issue-16444) (18514) The types of the ReadLine::errorStatus and WriteLine::errorStatus parameters should be Status
 
