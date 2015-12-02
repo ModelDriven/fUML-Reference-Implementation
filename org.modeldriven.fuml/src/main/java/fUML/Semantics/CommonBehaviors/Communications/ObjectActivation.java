@@ -105,9 +105,10 @@ public class ObjectActivation extends org.modeldriven.fuml.FumlObject {
 				int j = ((ChoiceStrategy) this.object.locus.factory
 						.getStrategy("choice"))
 						.choose(matchingEventAccepterIndexes.size());
+				int k = matchingEventAccepterIndexes.getValue(j - 1);
 				EventAccepter selectedEventAccepter = this.waitingEventAccepters
-						.getValue(matchingEventAccepterIndexes.getValue(j - 1));
-				this.waitingEventAccepters.removeValue(j - 1);
+						.getValue(k);
+				this.waitingEventAccepters.removeValue(k);
 				selectedEventAccepter.accept(eventOccurrence);
 			}
 		}
