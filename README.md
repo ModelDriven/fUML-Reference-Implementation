@@ -110,14 +110,14 @@ drive's root directory. The deployment directory will be called:
 DEPLOYED implementation. The implementation can only be run from a DEPLOYED
 binary or source distribution (see above).
 
-2. To load a UML model file (XMI 2.1 or 2.4.1 format) and execute one or more behaviors
+2. To load a UML model file (XMI 2.1 or 2.4.1/2.5 format) and execute one or more behaviors
 (activities), use the following command:
 
         fuml <model-file> [<behavior-name> <behavior-name> <behavior-name> <...>]
 
    Where:
 
-   * `<model-file>` is UML model file (XMI 2.1 or 2.4.1 format)
+   * `<model-file>` is UML model file (XMI 2.1 or 2.4.1/2.5 format)
      
    * `<behavior-name>` is a named behavior within the model-file
 
