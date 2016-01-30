@@ -5,7 +5,7 @@ This is a base release of the fUML Reference Implementation, conforming to v1.2.
 
 ### fUML Execution Engine
 
-This is a new base release of the fUML Execution Engine. It includes all implementation updates from [v1.1.4](./fuml-1.1.3.md) and previous
+This is a new base release of the fUML Execution Engine. It includes all implementation updates from [v1.1.4](./fuml-1.1.4.md) and previous
 releases tracking the issues resolutions adopted by the fUML 1.2 Revision Task Force (RTF). The complete set of resolved issues implemented 
 since the v1.1.0 base release are listed below. The full list of remaining open fUML issues is available at http://solitaire.omg.org/issues/task-force/FUML13.
 
