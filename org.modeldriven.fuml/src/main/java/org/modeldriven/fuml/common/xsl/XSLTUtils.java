@@ -167,7 +167,7 @@ public class XSLTUtils
             XSLTUtils ut = new XSLTUtils();
             if (args.length == 3)
             {
-                ut.transform(new File(args[0]), new File(args[1]), (new File(args[2])).toURL()); 
+                ut.transform(new File(args[0]), new File(args[1]), (new File(args[2])).toURI().toURL()); 
             }
             else if (args.length == 4)
             {
@@ -175,7 +175,7 @@ public class XSLTUtils
                 StringTokenizer st = new StringTokenizer(args[3], " =");
                 while (st.hasMoreTokens())
                     params.put(st.nextToken(), st.nextToken());
-                ut.transform(new File(args[0]), new File(args[1]), (new File(args[2])).toURL(), params);
+                ut.transform(new File(args[0]), new File(args[1]), (new File(args[2])).toURI().toURL(), params);
             }
             else
                 throw new IllegalArgumentException("expected either 3 or 4 args"); 
