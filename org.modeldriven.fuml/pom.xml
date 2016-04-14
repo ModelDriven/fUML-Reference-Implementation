@@ -5,7 +5,7 @@
 	<artifactId>fuml</artifactId>
 	<packaging>jar</packaging>
 	<name>FUML Reference Implementation</name>
-	<version>1.2.0</version>
+	<version>1.2.0a</version>
 	<description>This open source software is a reference implementation, consisting of software and related files, for the OMG specification called the Semantics of a Foundational Subset for Executable UML Models (fUML). The reference implementation is intended to implement the execution semantics of UML activity models, accepting an XMI file from a conformant UML model as its input and providing an execution trace of the selected activity model(s) as its output. The core execution engine, which is directly generated from the normative syntactic and semantic models for fUML, may also be used as a library implementation of fUML in other software.</description>
 	<url>http:/fuml.modeldriven.org</url>
 	<licenses>
@@ -55,7 +55,12 @@
 		<dependency>
 			<groupId>xerces</groupId>
 			<artifactId>xerces</artifactId>
-			<version>1.4.4</version>
+			<version>2.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<version>2.11.0</version>
 		</dependency>
 		<dependency>
 			<groupId>xalan</groupId>
@@ -91,11 +96,33 @@
 	</dependencies>
 	<build>
 		<plugins>
-			<plugin>
+			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>jaxb2-maven-plugin</artifactId> 
+				<executions> <execution> <id>fuml-config</id> <phase>generate-sources</phase> 
+				<goals> <goal>xjc</goal> </goals> <configuration> <schemaDirectory>${basedir}/src/main/resources/org/modeldriven/fuml/config</schemaDirectory> 
+				<schemaFiles>FumlConfig.xsd</schemaFiles> <bindingDirectory>${basedir}/src/main/resources/org/modeldriven/fuml/config</bindingDirectory> 
+				<bindingFiles>jaxb-bindings.xml</bindingFiles> <staleFile>${project.build.directory}/jaxb2/.xjcStaleFlag-fuml-config</staleFile> 
+				</configuration> </execution> <execution> <id>repo-config</id> <phase>generate-sources</phase> 
+				<goals> <goal>xjc</goal> </goals> <configuration> <schemaDirectory>${basedir}/src/main/resources/org/modeldriven/fuml/repository</schemaDirectory> 
+				<schemaFiles>RepositoryConfig.xsd</schemaFiles> <bindingDirectory>${basedir}/src/main/resources/org/modeldriven/fuml/repository</bindingDirectory> 
+				<bindingFiles>jaxb-bindings.xml</bindingFiles> <staleFile>${project.build.directory}/jaxb2/.xjcStaleFlag-repo-config</staleFile> 
+				</configuration> </execution> </executions> <configuration> <!- - HACK: where 
+				is 'generated-sources' defined ?? - -> <outputDirectory>${project.build.directory}/generated-sources/java</outputDirectory> 
+				<clearOutputDir>false</clearOutputDir> <extension>true</extension> <target>2.0</target> 
+				<encoding>Cp1252</encoding> </configuration> </plugin> -->
 				<!-- jaxb2-maven-plugin does not work with latest version of java http://www.journaldev.com/1312/how-to-generate-java-classes-from-xsd-using-xjc-maven-plugin 
 					http://mojo.codehaus.org/jaxb2-maven-plugin/ -->
-				<groupId>org.apache.maven.plugins</groupId>
+			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<dependencies>
+					<dependency>
+						<groupId>sun.jdk</groupId>
+						<artifactId>tools</artifactId>
+						<version>1.5.0</version>
+						<scope>system</scope>
+						<systemPath>${java.home}/../lib/tools.jar</systemPath>
+					</dependency>
+				</dependencies>
 				<executions>
 					<execution>
 						<id>fuml-config</id>
@@ -135,52 +162,6 @@
 							</target>
 						</configuration>
 					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>add-source</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>${xjc.output.dir}</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>jaxb2-maven-plugin</artifactId> 
-				<executions> <execution> <id>fuml-config</id> <phase>generate-sources</phase> 
-				<goals> <goal>xjc</goal> </goals> <configuration> <schemaDirectory>${basedir}/src/main/resources/org/modeldriven/fuml/config</schemaDirectory> 
-				<schemaFiles>FumlConfig.xsd</schemaFiles> <bindingDirectory>${basedir}/src/main/resources/org/modeldriven/fuml/config</bindingDirectory> 
-				<bindingFiles>jaxb-bindings.xml</bindingFiles> <staleFile>${project.build.directory}/jaxb2/.xjcStaleFlag-fuml-config</staleFile> 
-				</configuration> </execution> <execution> <id>repo-config</id> <phase>generate-sources</phase> 
-				<goals> <goal>xjc</goal> </goals> <configuration> <schemaDirectory>${basedir}/src/main/resources/org/modeldriven/fuml/repository</schemaDirectory> 
-				<schemaFiles>RepositoryConfig.xsd</schemaFiles> <bindingDirectory>${basedir}/src/main/resources/org/modeldriven/fuml/repository</bindingDirectory> 
-				<bindingFiles>jaxb-bindings.xml</bindingFiles> <staleFile>${project.build.directory}/jaxb2/.xjcStaleFlag-repo-config</staleFile> 
-				</configuration> </execution> </executions> <configuration> <!- - HACK: where 
-				is 'generated-sources' defined ?? - -> <outputDirectory>${project.build.directory}/generated-sources/java</outputDirectory> 
-				<clearOutputDir>false</clearOutputDir> <extension>true</extension> <target>2.0</target> 
-				<encoding>Cp1252</encoding> </configuration> </plugin> -->
-			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.7</version>
-				<dependencies>
-					<dependency>
-						<groupId>sun.jdk</groupId>
-						<artifactId>tools</artifactId>
-						<version>1.5.0</version>
-						<scope>system</scope>
-						<systemPath>${java.home}/../lib/tools.jar</systemPath>
-					</dependency>
-				</dependencies>
-				<executions>
 					<execution>
 						<id>generate-model-factories</id>
 						<!-- use process-classes phase rather than generate-sources as have 
@@ -296,6 +277,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.3</version>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
@@ -312,7 +294,19 @@
 				<version>1.7</version>
 				<executions>
 					<execution>
-						<id>add-source</id>
+						<id>add-source-1</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${xjc.output.dir}</source>
+							</sources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>add-source-2</id>
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>add-source</goal>
