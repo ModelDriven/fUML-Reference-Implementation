@@ -342,7 +342,6 @@ Full-Width Styles
   text-indent: -5000px;
   overflow: hidden;
   background: url(../images/sprite_download.png) no-repeat bottom right;
-  margin-left: 10px;
 }
 
 .zip_download_link:hover {
