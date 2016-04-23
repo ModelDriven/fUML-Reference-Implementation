@@ -279,6 +279,9 @@
 						<goals>
 							<goal>jar</goal>
 						</goals>
+						<configuration>
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                        </configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -381,7 +384,7 @@
 			</plugin>
 			<!-- Comment out the below GPG plugin if not set up with GPG and just 
 				want to install local locally. -->
-            <!--  
+            <!--   
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
@@ -396,7 +399,7 @@
 					</execution>
 				</executions>
 			</plugin>
-             -->
+             -->   
 			<!-- Release Plugin (Update version in POM before/after release, create 
 				tag, deploy) to try: mvn release:prepare -DdryRun=true && mvn release:clean 
 				to perform: mvn release:prepare release:perform Read http://nexus.sonatype.org/oss-repository-hosting.html#3 
