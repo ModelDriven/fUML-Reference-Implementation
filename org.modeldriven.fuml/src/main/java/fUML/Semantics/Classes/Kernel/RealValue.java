@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2016 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -81,8 +81,8 @@ public class RealValue extends fUML.Semantics.Classes.Kernel.PrimitiveValue {
 					positiveValue = positiveValue * 10;
 					exponent = exponent - 1;
 				}
-			} else if (positiveValue > 1) {
-				while (positiveValue > 1) {
+			} else if (positiveValue >= 1) {
+				while (positiveValue >= 1) {
 					positiveValue = positiveValue / 10;
 					exponent = exponent + 1;
 				}
