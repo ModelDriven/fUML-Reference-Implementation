@@ -29,8 +29,7 @@ public abstract class OpaqueBehaviorExecution extends
 	public void execute() {
 		// Execute the body of the opaque behavior.
 
-		Debug.println("[execute] Opaque behavior " + this.getBehavior().name
-				+ "...");
+		Debug.println("[execute] Opaque behavior " + this.getBehavior().name + "...");
 
 		ParameterList parameters = this.getBehavior().ownedParameter;
 

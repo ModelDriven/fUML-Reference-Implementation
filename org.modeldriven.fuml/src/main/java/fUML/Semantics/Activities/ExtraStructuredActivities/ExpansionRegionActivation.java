@@ -266,8 +266,7 @@ public class ExpansionRegionActivation extends
 
 		if (this.isRunning()) {
 			Debug.println("[runGroup] groupInput[0] = "
-					+ this.inputExpansionTokens.getValue(0).tokens.getValue(
-							activationGroup.index - 1).getValue());
+					+ this.inputExpansionTokens.getValue(0).tokens.getValue(activationGroup.index - 1).getValue());
 
 			TokenSetList inputTokens = this.inputTokens;
 			for (int j = 0; j < inputTokens.size(); j++) {

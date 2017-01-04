@@ -60,7 +60,7 @@ public class ActivityNodeActivationGroup extends
 		for (int i = 0; i < activations.size(); i++) {
 			ActivityNodeActivation activation = activations.getValue(i);
 
-			Debug.println("[run] Checking node" + (activation.node.name == null? "": " " + activation.node.name) + "...");
+			Debug.println("[run] Checking node " + activation.node.name + "...");
 
 			if (activation instanceof ActionActivation
 					| activation instanceof ControlNodeActivation
@@ -85,8 +85,7 @@ public class ActivityNodeActivationGroup extends
 				}
 
 				if (isEnabled) {
-					Debug.println("[run] Node" + 
-							(activation.node.name == null? "": " " + activation.node.name) + " is enabled.");
+					Debug.println("[run] Node " + activation.node.name + " is enabled.");
 					if (activation instanceof ActivityParameterNodeActivation) {
 						enabledParameterNodeActivations.addValue(activation);
 					} else {
@@ -99,8 +98,7 @@ public class ActivityNodeActivationGroup extends
 		// *** Send offers to all enabled activity parameter nodes concurrently. ***
 		for (Iterator i = enabledParameterNodeActivations.iterator(); i.hasNext();) {
 			ActivityNodeActivation activation = (ActivityNodeActivation) i.next();
-			Debug.println("[run] Sending offer to activity parameter node" + 
-					(activation.node.name == null? "": " " + activation.node.name) + ".");
+			Debug.println("[run] Sending offer to activity parameter node " + activation.node.name + ".");
 			activation.receiveOffer();
 		}
 		
@@ -108,8 +106,7 @@ public class ActivityNodeActivationGroup extends
 		for (Iterator i = enabledOtherActivations.iterator(); i.hasNext();) {
 			ActivityNodeActivation activation = (ActivityNodeActivation) i
 					.next();
-			Debug.println("[run] Sending offer to node" +
-					(activation.node.name == null? "": " " + activation.node.name) + ".");
+			Debug.println("[run] Sending offer to node " + activation.node.name + ".");
 			activation.receiveOffer();
 		}
 	} // run
@@ -197,8 +194,7 @@ public class ActivityNodeActivationGroup extends
 		for (int i = 0; i < nodes.size(); i++) {
 			ActivityNode node = nodes.getValue(i);
 
-			Debug
-					.println("[createNodeActivations] Creating a node activation for "
+			Debug.println("[createNodeActivations] Creating a node activation for "
 							+ node.name + "...");
 			this.createNodeActivation(node);
 
@@ -256,12 +252,8 @@ public class ActivityNodeActivationGroup extends
 		for (int i = 0; i < edges.size(); i++) {
 			ActivityEdge edge = edges.getValue(i);
 
-			Debug
-					.println("[createEdgeInstances] Creating an edge instance from "
-							+ edge.source.name
-							+ " to "
-							+ edge.target.name
-							+ ".");
+			Debug.println("[createEdgeInstances] Creating an edge instance from "
+					+ edge.source.name + " to " + edge.target.name + ".");
 
 			ActivityEdgeInstance edgeInstance = new ActivityEdgeInstance();
 			edgeInstance.edge = edge;
@@ -289,12 +281,10 @@ public class ActivityNodeActivationGroup extends
 
 		ActivityExecution activityExecution = this.activityExecution;
 		if (activityExecution == null) {
-			activityExecution = this.containingNodeActivation.group
-					.getActivityExecution();
+			activityExecution = this.containingNodeActivation.group.getActivityExecution();
 		}
 
-		// Debug.println("[getActivityExecution] activityExecution = " +
-		// activityExecution);
+		// Debug.println("[getActivityExecution] activityExecution = " + activityExecution);
 
 		return activityExecution;
 	} // getActivityExecution
@@ -309,8 +299,7 @@ public class ActivityNodeActivationGroup extends
 			ActivityNodeActivation activation = nodeActivations.getValue(i);
 			if (activation instanceof ActivityParameterNodeActivation) {
 				if (activation.incomingEdges.size() > 0) {
-					parameterNodeActivations
-							.addValue((ActivityParameterNodeActivation) activation);
+					parameterNodeActivations.addValue((ActivityParameterNodeActivation) activation);
 				}
 			}
 		}
@@ -334,9 +323,8 @@ public class ActivityNodeActivationGroup extends
 	} // hasSourceFor
 
 	public boolean isSuspended() {
-		// Check if this activitation group has any suspended activations and
-		// is,
-		// therefore, itself suspended.
+		// Check if this activation group has any suspended activations and
+		// is, therefore, itself suspended.
 
 		return this.suspendedActivations.size() > 0;
 	} // isSuspended

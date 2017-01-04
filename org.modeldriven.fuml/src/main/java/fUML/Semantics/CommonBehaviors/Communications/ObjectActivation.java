@@ -87,8 +87,7 @@ public class ObjectActivation extends org.modeldriven.fuml.FumlObject {
 		if (this.eventPool.size() > 0) {
 			EventOccurrence eventOccurrence = this.getNextEvent();
 
-			Debug.println("[dispatchNextEvent] eventOccurrence = "
-					+ eventOccurrence);
+			Debug.println("[dispatchNextEvent] eventOccurrence = " + eventOccurrence);
 
 			intList matchingEventAccepterIndexes = new intList();
 			EventAccepterList waitingEventAccepters = this.waitingEventAccepters;
@@ -100,8 +99,7 @@ public class ObjectActivation extends org.modeldriven.fuml.FumlObject {
 			}
 
 			if (matchingEventAccepterIndexes.size() > 0) {
-				// *** Choose one matching event accepter non-deterministically.
-				// ***
+				// *** Choose one matching event accepter non-deterministically. ***
 				int j = ((ChoiceStrategy) this.object.locus.factory
 						.getStrategy("choice"))
 						.choose(matchingEventAccepterIndexes.size());
@@ -162,8 +160,7 @@ public class ObjectActivation extends org.modeldriven.fuml.FumlObject {
 				}
 			}
 		} else {
-			Debug.println("[startBehavior] Starting behavior for "
-					+ classifier.name + "...");
+			Debug.println("[startBehavior] Starting behavior for " + classifier.name + "...");
 
 			_beginIsolation();
 			boolean notYetStarted = true;

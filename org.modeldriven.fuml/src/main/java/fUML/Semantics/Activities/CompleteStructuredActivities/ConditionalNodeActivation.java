@@ -77,8 +77,7 @@ public class ConditionalNodeActivation
 		for (int i = 0; i < this.clauseActivations.size(); i++) {
 			ClauseActivation clauseActivation = this.clauseActivations
 					.getValue(i);
-			Debug.println("[doStructuredActivity] clauseActivations[" + i
-					+ "] = " + clauseActivation);
+			Debug.println("[doStructuredActivity] clauseActivations[" + i + "] = " + clauseActivation);
 			if (clauseActivation.isReady()) {
 				Debug
 						.println("[doStructuredActivity] Clause activation is ready.");
@@ -89,15 +88,13 @@ public class ConditionalNodeActivation
 		// *** Give control to all ready clauses concurrently. ***
 		for (Iterator i = readyClauseActivations.iterator(); i.hasNext();) {
 			ClauseActivation clauseActivation = (ClauseActivation) i.next();
-			Debug.println("[doStructuredActivity] Giving control to "
-					+ clauseActivation + "...");
+			Debug.println("[doStructuredActivity] Giving control to " + clauseActivation + "...");
 			clauseActivation.receiveControl();
 		}
 
 		this.selectedClause = null;
 		if (this.selectedClauses.size() > 0 & this.isRunning()) {
-			Debug.println("[doStructuredActivity] "
-					+ this.selectedClauses.size() + " clause(s) selected.");
+			Debug.println("[doStructuredActivity] " + this.selectedClauses.size() + " clause(s) selected.");
 
 			// *** If multiple clauses are selected, choose one
 			// non-deterministically. ***
@@ -105,8 +102,7 @@ public class ConditionalNodeActivation
 					.getStrategy("choice")).choose(this.selectedClauses.size());
 			this.selectedClause = this.selectedClauses.getValue(i - 1);
 
-			Debug.println("[doStructuredActivity] Running selectedClauses[" + i
-					+ "] = " + this.selectedClause);
+			Debug.println("[doStructuredActivity] Running selectedClauses[" + i + "] = " + this.selectedClause);
 
 			for (int j = 0; j < clauses.size(); j++) {
 				Clause clause = clauses.getValue(j);

@@ -125,8 +125,7 @@ public class LoopNodeActivation
 			}
 
 			Debug.println("[doStructuredActivity] "
-					+ (continuing ? "Continuing."
-							: this.isSuspended() ? "Suspended" : "Done."));
+					+ (continuing ? "Continuing.": this.isSuspended() ? "Suspended" : "Done."));
 
 		}
 
@@ -157,8 +156,7 @@ public class LoopNodeActivation
 			decision = ((BooleanValue) (values.getValue(0))).value;
 		}
 
-		Debug.println("[runTest] "
-				+ (decision ? "Test succeeded." : "Test failed."));
+		Debug.println("[runTest] " + (decision ? "Test succeeded." : "Test failed."));
 
 		return decision;
 	} // runTest

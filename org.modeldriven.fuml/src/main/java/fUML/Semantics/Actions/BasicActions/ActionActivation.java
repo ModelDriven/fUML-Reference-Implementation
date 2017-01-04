@@ -135,8 +135,7 @@ public abstract class ActionActivation extends
 
 		this.sendOffers();
 
-		Debug.println("[fire] Checking if " + this.node.name
-				+ " should fire again...");
+		Debug.println("[fire] Checking if " + this.node.name + " should fire again...");
 
 		_beginIsolation();
 		TokenList incomingTokens = new TokenList();
@@ -340,8 +339,7 @@ public abstract class ActionActivation extends
 		// input pin and return them
 		// (but leave the tokens on the pin).
 
-		Debug.println("[getTokens] node = " + this.node.name + ", pin = "
-				+ pin.name);
+		Debug.println("[getTokens] node = " + this.node.name + ", pin = " + pin.name);
 
 		PinActivation pinActivation = this.getPinActivation(pin);
 		TokenList tokens = pinActivation.getUnofferedTokens();
@@ -365,8 +363,7 @@ public abstract class ActionActivation extends
 		// Take any tokens held by the pin activation corresponding to the given
 		// input pin and return them.
 
-		Debug.println("[takeTokens] node = " + this.node.name + ", pin = "
-				+ pin.name);
+		Debug.println("[takeTokens] node = " + this.node.name + ", pin = " + pin.name);
 
 		PinActivation pinActivation = this.getPinActivation(pin);
 		TokenList tokens = pinActivation.takeUnofferedTokens();

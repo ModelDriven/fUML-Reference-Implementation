@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -51,12 +51,9 @@ public abstract class ActivityNodeActivation extends
 	public void run() {
 		// Run the activation of this node.
 
-		if (this.node != null) {
-			Debug.println("[run] node = " + this.node.name);
-		} else {
-			Debug.println("[run] Anonymous activation of type "
-					+ this.getClass().getName());
-		}
+		Debug.println(this.node == null? 
+			"[run] Anonymous activation of type " + this.getClass().getName(): 
+			"[run] node = " + this.node.name);
 
 		this.running = true;
 	} // run
@@ -65,8 +62,7 @@ public abstract class ActivityNodeActivation extends
 		// Receive an offer from an incoming edge.
 		// Check if all prerequisites have been satisfied. If so, fire.
 
-		Debug.println("[receiveOffer] "
-				+ (this.node == null ? "..." : "node = " + this.node.name));
+		Debug.println("[receiveOffer] " + (this.node == null ? "..." : "node = " + this.node.name));
 
 		_beginIsolation();
 
@@ -130,14 +126,9 @@ public abstract class ActivityNodeActivation extends
 	public void terminate() {
 		// Terminate the activation of this node.
 
-		if (this.running) {
-			if (this.node != null) {
-				Debug.println("[terminate] node = " + this.node.name);
-			} else {
-				Debug.println("[terminate] Anonymous activation of type "
-						+ this.getClass().getName());
-			}
-		}
+		Debug.println(this.running, this.node == null? 
+				"[terminate] Anonymous activation of type " + this.getClass().getName(): 
+				"[terminate] node = " + this.node.name);
 
 		this.running = false;
 	} // terminate
@@ -238,11 +229,7 @@ public abstract class ActivityNodeActivation extends
 			fUML.Semantics.Activities.IntermediateActivities.Token token) {
 		// Transfer the given token to be held by this node.
 
-		if (this.node == null) {
-			Debug.println("[addToken] ...");
-		} else {
-			Debug.println("[addToken] node = " + this.node.name);
-		}
+		Debug.println("[addToken] " + (this.node == null? "...": "node = " + this.node.name));
 
 		Token transferredToken = token.transfer(this);
 		// Debug.println("[addToken] Adding token with value = " +
@@ -260,11 +247,7 @@ public abstract class ActivityNodeActivation extends
 		int i = 1;
 		while (notFound & i <= this.heldTokens.size()) {
 			if (this.heldTokens.getValue(i - 1) == token) {
-				if (this.node == null) {
-					Debug.println("[removeToken] ...");
-				} else {
-					Debug.println("[removeToken] node = " + this.node.name);
-				}
+				Debug.println("[removeToken] " + (this.node == null? "...": "node = " + this.node.name));
 				this.heldTokens.remove(i - 1);
 				notFound = false;
 			}

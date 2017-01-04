@@ -39,15 +39,13 @@ public class ActivityParameterNodeActivation extends
 		// parameter node and offer those values as object tokens.
 
 		if (this.node.incoming.size() == 0) {
-			Debug.println("[fire] Input activity parameter node "
-					+ this.node.name + "...");
+			Debug.println("[fire] Input activity parameter node " + this.node.name + "...");
 			Parameter parameter = ((ActivityParameterNode) (this.node)).parameter;
 			ParameterValue parameterValue = this.getActivityExecution()
 					.getParameterValue(parameter);
 			// Debug.println("[fire] parameter = " + parameter.name);
 			if (parameterValue != null) {
-				Debug.println("[fire] Parameter has "
-						+ parameterValue.values.size() + " value(s).");
+				Debug.println("[fire] Parameter has " + parameterValue.values.size() + " value(s).");
 				TokenList tokens = new TokenList();
 				ValueList values = parameterValue.values;
 				for (int i = 0; i < values.size(); i++) {
@@ -68,8 +66,7 @@ public class ActivityParameterNodeActivation extends
 		// accumulating tokens offered to it.]
 
 		else {
-			Debug.println("[fire] Output activity parameter node "
-					+ this.node.name + "...");
+			Debug.println("[fire] Output activity parameter node " + this.node.name + "...");
 			this.addTokens(incomingTokens);
 		}
 

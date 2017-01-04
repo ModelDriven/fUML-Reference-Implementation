@@ -51,8 +51,7 @@ public class DestroyLinkActionActivation extends
 		DestroyLinkAction action = (DestroyLinkAction) (this.node);
 		LinkEndDestructionDataList destructionDataList = action.endData;
 
-		Debug.println("[doAction] end data size = "
-				+ destructionDataList.size());
+		Debug.println("[doAction] end data size = " + destructionDataList.size());
 
 		boolean destroyOnlyOne = false;
 		int j = 1;

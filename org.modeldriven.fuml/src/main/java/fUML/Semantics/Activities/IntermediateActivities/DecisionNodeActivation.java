@@ -101,8 +101,7 @@ public class DecisionNodeActivation extends
 		// " decision value(s):");
 		for (int i = 0; i < decisionValues.size(); i++) {
 			Value decisionValue = decisionValues.getValue(i);
-			Debug.println("[getDecisionValues] decisionValues[" + i + "] = "
-					+ decisionValue);
+			Debug.println("[getDecisionValues] decisionValues[" + i + "] = " + decisionValue);
 		}
 
 		return decisionValues;

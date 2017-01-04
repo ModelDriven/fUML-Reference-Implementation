@@ -37,8 +37,7 @@ public abstract class PinActivation extends
 			fUML.Semantics.Activities.IntermediateActivities.TokenList incomingTokens) {
 		// Add all incoming tokens to the pin.
 
-		Debug.println("[fire] Pin "
-				+ (this.node == null ? "" : this.node.name + "..."));
+		Debug.println("[fire] Pin " + (this.node == null ? "" : this.node.name + "..."));
 
 		this.addTokens(incomingTokens);
 

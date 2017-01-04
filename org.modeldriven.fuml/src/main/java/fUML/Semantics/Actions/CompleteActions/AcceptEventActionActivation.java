@@ -108,8 +108,7 @@ public class AcceptEventActionActivation extends
 		AcceptEventAction action = (AcceptEventAction) (this.node);
 		OutputPinList resultPins = action.result;
 
-		Debug.println("[accept] action = " + action.name
-				+ ", signalinstance = " + signalInstance);
+		Debug.println("[accept] action = " + action.name + ", signalinstance = " + signalInstance);
 
 		if (this.running) {
 			if (!action.isUnmarshall) {
@@ -131,8 +130,7 @@ public class AcceptEventActionActivation extends
 
 			this.waiting = false;
 
-			Debug.println("[fire] Checking if " + this.node.name
-					+ " should fire again...");
+			Debug.println("[fire] Checking if " + this.node.name + " should fire again...");
 			this.receiveOffer();
 
 			this.resume();
