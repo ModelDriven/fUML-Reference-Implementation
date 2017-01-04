@@ -1,7 +1,7 @@
-1.) Download and install Java 1.6.x JDK and set your JAVA_HOME
-environment variable to the JDK root diretory.
+1.) Download and install Java 8 JDK and set your JAVA_HOME
+environment variable to the JDK root directory.
 
-    See http://www.oracle.com/technetwork/java/javaee/downloads/java-ee-sdk-6u3-jdk-6u29-downloads-523388.html
+    See http://www.oracle.com/technetwork/java/javase/downloads/index.html
 
 2.) Download and install Maven 2.2.1 (not 3)
 
