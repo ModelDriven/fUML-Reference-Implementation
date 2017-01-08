@@ -118,6 +118,13 @@ public class Object_ extends fUML.Semantics.Classes.Kernel.ExtensionalValue {
 		return newObject;
 
 	} // copy
+	
+	public boolean equals(Value otherValue) {
+		// Test if this object is equal to the otherValue.
+		// To be equal, the otherValue must be the same object as this object.
+		
+		return this == otherValue;
+	} // equals
 
 	protected fUML.Semantics.Classes.Kernel.Value new_() {
 		// Create a new object with no type, feature values or locus.
