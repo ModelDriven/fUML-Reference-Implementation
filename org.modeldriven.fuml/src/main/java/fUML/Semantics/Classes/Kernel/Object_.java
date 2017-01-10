@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2015 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -13,14 +13,9 @@
 package fUML.Semantics.Classes.Kernel;
 
 import fUML.Debug;
-import UMLPrimitiveTypes.*;
-
-import fUML.Syntax.*;
 import fUML.Syntax.Classes.Kernel.*;
 
-import fUML.Semantics.*;
 import fUML.Semantics.CommonBehaviors.Communications.*;
-import fUML.Semantics.Loci.*;
 
 public class Object_ extends fUML.Semantics.Classes.Kernel.ExtensionalValue {
 
@@ -56,12 +51,12 @@ public class Object_ extends fUML.Semantics.Classes.Kernel.ExtensionalValue {
 	} // dispatch
 
 	public void send(
-			fUML.Semantics.CommonBehaviors.Communications.SignalInstance signalInstance) {
-		// If the object is active, add the given signal instance to the event
-		// pool and signal that a new signal instance has arrived.
+			fUML.Semantics.CommonBehaviors.Communications.EventOccurrence eventOccurrence) {
+		// If the object is active, add the given event occurrence to the event
+		// pool and signal that a new event occurrence has arrived.
 
 		if (this.objectActivation != null) {
-			this.objectActivation.send(signalInstance);
+			this.objectActivation.send(eventOccurrence);
 		}
 
 	} // send

@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2015 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -17,13 +17,8 @@ import UMLPrimitiveTypes.*;
 
 import java.util.Iterator;
 
-import fUML.Syntax.*;
 import fUML.Syntax.Classes.Kernel.*;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.*;
-import fUML.Syntax.CommonBehaviors.Communications.*;
-
-import fUML.Semantics.*;
-import fUML.Semantics.Classes.Kernel.*;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.*;
 import fUML.Semantics.Loci.LociL1.*;
 
@@ -121,12 +116,10 @@ public class ObjectActivation extends org.modeldriven.fuml.FumlObject {
 	} // getNextEvent
 
 	public void send(
-			fUML.Semantics.CommonBehaviors.Communications.SignalInstance signalInstance) {
-		// Add a signal event occurrence for the given signal instance to the event pool 
-		// and signal that a new event occurrence has arrived.
+			fUML.Semantics.CommonBehaviors.Communications.EventOccurrence eventOccurrence) {
+		// Add an event occurrence to the event pool and signal that a
+		// new event occurrence has arrived.
 
-		SignalEventOccurrence eventOccurrence = new SignalEventOccurrence();
-		eventOccurrence.signalInstance = (SignalInstance) signalInstance.copy();
 		this.eventPool.addValue(eventOccurrence);
 		_send(new ArrivalSignal());
 	} // send

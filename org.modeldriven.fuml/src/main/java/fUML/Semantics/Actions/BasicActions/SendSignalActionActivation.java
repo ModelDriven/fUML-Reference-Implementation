@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -12,21 +12,12 @@
 
 package fUML.Semantics.Actions.BasicActions;
 
-import fUML.Debug;
-import UMLPrimitiveTypes.*;
-
-import fUML.Syntax.*;
 import fUML.Syntax.Classes.Kernel.*;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.*;
 import fUML.Syntax.CommonBehaviors.Communications.*;
-import fUML.Syntax.Activities.IntermediateActivities.*;
 import fUML.Syntax.Actions.BasicActions.*;
 
-import fUML.Semantics.*;
 import fUML.Semantics.Classes.Kernel.*;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.*;
 import fUML.Semantics.CommonBehaviors.Communications.*;
-import fUML.Semantics.Loci.*;
 
 public class SendSignalActionActivation extends
 		fUML.Semantics.Actions.BasicActions.InvocationActionActivation {
@@ -55,7 +46,9 @@ public class SendSignalActionActivation extends
 				signalInstance.setFeatureValue(attribute, values, 0);
 			}
 
-			((Reference) target).send(signalInstance);
+			SignalEventOccurrence signalEventOccurrence = new SignalEventOccurrence();
+			signalEventOccurrence.signalInstance = (SignalInstance) signalInstance.copy();
+			((Reference) target).send(signalEventOccurrence);
 		}
 	} // doAction
 

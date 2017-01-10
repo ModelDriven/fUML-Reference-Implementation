@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -11,15 +11,6 @@
  */
 
 package fUML.Semantics.Classes.Kernel;
-
-import fUML.Debug;
-import UMLPrimitiveTypes.*;
-
-import fUML.Syntax.*;
-import fUML.Syntax.Classes.Kernel.*;
-
-import fUML.Semantics.*;
-import fUML.Semantics.Loci.*;
 
 public class Reference extends fUML.Semantics.Classes.Kernel.StructuredValue {
 
@@ -42,10 +33,10 @@ public class Reference extends fUML.Semantics.Classes.Kernel.StructuredValue {
 	} // dispatch
 
 	public void send(
-			fUML.Semantics.CommonBehaviors.Communications.SignalInstance signalInstance) {
-		// Send the given signal instance to the referent object.
+			fUML.Semantics.CommonBehaviors.Communications.EventOccurrence eventOccurrence) {
+		// Send the given event occurrence to the referent object.
 
-		this.referent.send(signalInstance);
+		this.referent.send(eventOccurrence);
 	} // send
 
 	public void destroy() {
