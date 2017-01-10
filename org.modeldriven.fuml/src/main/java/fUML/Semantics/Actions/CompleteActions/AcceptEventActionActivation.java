@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2015 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -13,25 +13,16 @@
 package fUML.Semantics.Actions.CompleteActions;
 
 import fUML.Debug;
-import UMLPrimitiveTypes.*;
-
-import java.util.Iterator;
-
-import fUML.Syntax.*;
-import fUML.Syntax.Classes.Kernel.*;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.*;
 import fUML.Syntax.CommonBehaviors.Communications.*;
 import fUML.Syntax.Activities.IntermediateActivities.*;
 import fUML.Syntax.Actions.BasicActions.*;
-import fUML.Syntax.Actions.IntermediateActions.*;
 import fUML.Syntax.Actions.CompleteActions.*;
-import fUML.Semantics.*;
 import fUML.Semantics.Classes.Kernel.*;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.*;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+import fUML.Semantics.CommonBehaviors.Communications.SignalEventOccurrence;
+import fUML.Semantics.CommonBehaviors.Communications.SignalInstance;
 import fUML.Semantics.Activities.IntermediateActivities.*;
-import fUML.Semantics.Actions.BasicActions.*;
-import fUML.Semantics.Actions.IntermediateActions.*;
-import fUML.Semantics.Loci.*;
 
 public class AcceptEventActionActivation extends
 		fUML.Semantics.Actions.BasicActions.ActionActivation {
@@ -93,12 +84,13 @@ public class AcceptEventActionActivation extends
 	} // doAction
 
 	public void accept(
-			fUML.Semantics.CommonBehaviors.Communications.SignalInstance signalInstance) {
-		// Accept a signal occurance for the given signal instance.
-		// If the action does not unmarshall, then place the signal instance on
-		// the result pin, if any.
-		// If the action does unmarshall, then get the feature values of the
-		// signal instance, and place the values for each feature on the
+			fUML.Semantics.CommonBehaviors.Communications.EventOccurrence eventOccurrence) {
+		// Accept the given event occurrence.
+		// If the action does not unmarshall, then, if the event occurrence is
+		// a signal event occurrence, place the signal instance of the signal
+		// event occurrence on the result pin, if any.
+		// If the action does unmarshall, then get the parameter values of the
+		// event occurrence, and place the values for each parameter on the
 		// corresponding output pin.
 		// Concurrently fire all output pins while offering a single control
 		// token.
@@ -107,22 +99,26 @@ public class AcceptEventActionActivation extends
 
 		AcceptEventAction action = (AcceptEventAction) (this.node);
 		OutputPinList resultPins = action.result;
-
-		Debug.println("[accept] action = " + action.name + ", signalinstance = " + signalInstance);
-
+		
+		Debug.println("[accept] action = " + action.name + ", eventOccurrence = " + eventOccurrence);
+		
 		if (this.running) {
 			if (!action.isUnmarshall) {
-				ValueList result = new ValueList();
-				result.addValue(signalInstance);
-				if (resultPins.size() > 0) {
-					this.putTokens(resultPins.getValue(0), result);
+				if (eventOccurrence instanceof SignalEventOccurrence) {
+					SignalInstance signalInstance = ((SignalEventOccurrence)eventOccurrence).signalInstance;
+					Debug.println("[accept] isUnmarshall = true, signalInstance = " + signalInstance);			
+					ValueList result = new ValueList();
+					result.addValue(signalInstance);
+					if (resultPins.size() > 0) {
+						this.putTokens(resultPins.getValue(0), result);
+					}
 				}
 			} else {
-				FeatureValueList featureValues = signalInstance.getMemberValues();
-				for (int i = 0; i < featureValues.size(); i++) {
-					FeatureValue featureValue = featureValues.getValue(i);
+				ParameterValueList parameterValues = eventOccurrence.getParameterValues();
+				for (int i = 0; i < parameterValues.size(); i++) {
+					ParameterValue parameterValue = parameterValues.getValue(i);
 					OutputPin resultPin = resultPins.getValue(i);
-					this.putTokens(resultPin, featureValue.values);
+					this.putTokens(resultPin, parameterValue.values);
 				}
 			}
 
@@ -130,36 +126,23 @@ public class AcceptEventActionActivation extends
 
 			this.waiting = false;
 
-			Debug.println("[fire] Checking if " + this.node.name + " should fire again...");
+			Debug.println("[accept] Checking if " + this.node.name + " should fire again...");
 			this.receiveOffer();
 
-			this.resume();
+			this.resume();		
 		}
 
 	} // accept
 
 	public boolean match(
-			fUML.Semantics.CommonBehaviors.Communications.SignalInstance signalInstance) {
-		// Return true if the given signal instance matches a trigger of the
-		// accept action of this activation.
+			fUML.Semantics.CommonBehaviors.Communications.EventOccurrence eventOccurrence) {
+		// Return true if the given event occurrence matches a trigger of the
+		// accept event action of this activation.
 
 		AcceptEventAction action = (AcceptEventAction) (this.node);
 		TriggerList triggers = action.trigger;
-		Signal signal = signalInstance.type;
-
-		boolean matches = false;
-		int i = 1;
-		while (!matches & i <= triggers.size()) {
-			Signal triggerSignal = ((SignalEvent) (triggers.getValue(i - 1).event)).signal;
-			if (triggerSignal == signal) {
-				matches = true;
-			} else {
-				matches = this.checkAllParents(signal, triggerSignal);
-			}
-			i = i + 1;
-		}
-
-		return matches;
+		
+		return eventOccurrence.matchAny(triggers);
 	} // match
 
 	public void terminate() {
