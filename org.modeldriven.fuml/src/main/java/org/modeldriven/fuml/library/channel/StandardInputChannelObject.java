@@ -1,3 +1,11 @@
+/*
+ * Copyright 2011-2017 Data Access Technologies, Inc. (Model Driven Solutions)
+ * 
+ * Licensed under the Academic Free License version 3.0 
+ * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
+ * in the file entitled Licensing-Information. 
+ */
+
 package org.modeldriven.fuml.library.channel;
 
 import java.io.BufferedReader;
@@ -225,6 +233,86 @@ public class StandardInputChannelObject extends TextInputChannelObject {
 	}
 
 	@Override
+	public Float readReal(Status errorStatus) {
+		if (!this.isOpen()) {
+			errorStatus.setStatus("StandardInputChannel", -1, "Not open");
+			return null;
+		} else {
+			try {
+				StringBuilder image = new StringBuilder();
+				
+				this.reader.mark(2);
+				int c = this.reader.read();
+				if (c == ((char)'+') || c == ((char)'-')) {
+					image.append((char)c);
+					c = this.reader.read();
+				}
+				
+				if (!readDigits(c, image)) {
+					if (c < 0) {
+						errorStatus.setStatus("StandardInputChannel", -2, "No Input");
+					} else {
+						errorStatus.setStatus("StandardInputChannel", -3, "Cannot convert");
+					}
+					this.reader.reset();
+					return null;
+				} else {
+					this.reader.mark(1);
+					c = this.reader.read();
+					if (c != ((char)'.')) {
+						this.reader.reset();
+					} else {
+						image.append('.');
+						this.reader.mark(2);
+						this.readDigits(this.reader.read(), image);
+					}
+					this.reader.mark(3);
+					c = this.reader.read();
+					if (c != ((char)'E') && c != ((char)'e')) {
+						this.reader.reset();
+					} else {
+						image.append('E');
+						c = this.reader.read();
+						if (c == ((char)'+') || c == ((char)'-')) {
+							image.append((char)c);
+							c = this.reader.read();
+						}
+						if (!readDigits(c, image)) {
+							image.append('0');
+						}
+					}
+					return Float.valueOf(image.toString());
+				}
+				
+			} catch (IOException e) {
+				errorStatus.setStatus("StandardInputChannel", -100, e.getMessage());
+				return null;
+			}
+		}
+	}
+	
+	private boolean readDigits(int c, StringBuilder s) throws IOException {
+		    if (c < ((int)'0') || c > ((int)'9')) {
+		    	this.reader.reset();
+		    	return false;
+		    } else {
+				s.append((char)c);
+				
+				while (true) {
+					this.reader.mark(1);
+					c = this.reader.read();
+					
+					if (c >= ((int)'0') && c <= ((int)'9')) {
+						s.append((char)c);
+					} else {
+						this.reader.reset();
+						return true;
+					}
+				}
+		    }
+	}
+
+	@Override
 	public UnlimitedNatural readUnlimitedNatural(Status errorStatus) {
 		UnlimitedNatural u = null;
 		
@@ -283,7 +371,7 @@ public class StandardInputChannelObject extends TextInputChannelObject {
 			return null;
 		}
 	}
-
+	
 	@Override
 	public Value new_() {
 		return (Value)new StandardInputChannelObject();

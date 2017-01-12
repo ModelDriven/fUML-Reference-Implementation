@@ -35,6 +35,10 @@ public class Status {
 		statusType = type;
 	}
 	
+	public Status() {
+		
+	}
+	
 	public Status(Locus locus, String context, int code, String description) {
 		this.setPrimitiveTypes(locus);
 		this.setStatus(context, code, description);
@@ -58,6 +62,18 @@ public class Status {
 		this.context = context;
 		this.code = code;
 		this.description = description;
+	}
+	
+	public String getContext() {
+		return this.context;
+	}
+	
+	public int getCode() {
+		return this.code;
+	}
+	
+	public String getDescription() {
+		return this.description;
 	}
 	
 	public Value getValue() {

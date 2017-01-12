@@ -1283,6 +1283,24 @@
 					</ownedParameter>
 				</ownedOperation>
 				<ownedOperation xmi:type="uml:Operation"
+					xmi:id="BasicInputOutput-TextInputChannel-readReal" name="readReal">
+					<ownedParameter xmi:type="uml:Parameter"
+						xmi:id="BasicInputOutput-TextInputChannel-readReal-ReturnResult"
+						name="ReturnResult" direction="return">
+						<type href="http://www.omg.org/spec/UML/20110701/PrimitiveTypes.xmi#Real"/>
+						<lowerValue xmi:type="uml:LiteralInteger"
+							xmi:id="BasicInputOutput-TextInputChannel-readReal-ReturnResult-_lowerValue"
+						/>
+					</ownedParameter>
+					<ownedParameter xmi:type="uml:Parameter"
+						xmi:id="BasicInputOutput-TextInputChannel-readReal-errorStatus"
+						name="errorStatus" direction="out" type="Common-Status">
+						<lowerValue xmi:type="uml:LiteralInteger"
+							xmi:id="BasicInputOutput-TextInputChannel-readReal-errorStatus-_lowerValue"
+						/>
+					</ownedParameter>
+				</ownedOperation>
+				<ownedOperation xmi:type="uml:Operation"
 					xmi:id="BasicInputOutput-TextInputChannel-readBoolean" name="readBoolean">
 					<ownedParameter xmi:type="uml:Parameter"
 						xmi:id="BasicInputOutput-TextInputChannel-readBoolean-ReturnResult"
@@ -1379,6 +1397,21 @@
 						name="errorStatus" direction="out" type="Common-Status">
 						<lowerValue xmi:type="uml:LiteralInteger"
 							xmi:id="BasicInputOutput-TextOutputChannel-writeInteger-errorStatus-_lowerValue"
+						/>
+					</ownedParameter>
+				</ownedOperation>
+				<ownedOperation xmi:type="uml:Operation"
+					xmi:id="BasicInputOutput-TextOutputChannel-writeReal" name="writeReal">
+					<ownedParameter xmi:type="uml:Parameter"
+						xmi:id="BasicInputOutput-TextOutputChannel-writeReal-value" name="value">
+						<type href="http://www.omg.org/spec/UML/20110701/PrimitiveTypes.xmi#Real"
+						/>
+					</ownedParameter>
+					<ownedParameter xmi:type="uml:Parameter"
+						xmi:id="BasicInputOutput-TextOutputChannel-writeReal-errorStatus"
+						name="errorStatus" direction="out" type="Common-Status">
+						<lowerValue xmi:type="uml:LiteralInteger"
+							xmi:id="BasicInputOutput-TextOutputChannel-writeReal-errorStatus-_lowerValue"
 						/>
 					</ownedParameter>
 				</ownedOperation>

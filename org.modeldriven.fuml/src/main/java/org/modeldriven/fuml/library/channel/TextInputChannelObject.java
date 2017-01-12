@@ -1,5 +1,6 @@
 /*
- * Copyright 2011 Data Access Technologies, Inc. (Model Driven Solutions)
+ * Copyright 2011-2017 Data Access Technologies, Inc. (Model Driven Solutions)
+ * 
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
  * in the file entitled Licensing-Information. 
@@ -15,6 +16,7 @@ import UMLPrimitiveTypes.UnlimitedNatural;
 import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
 import fUML.Semantics.Classes.Kernel.PrimitiveValue;
+import fUML.Semantics.Classes.Kernel.RealValue;
 import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Semantics.Classes.Kernel.UnlimitedNaturalValue;
 
@@ -24,6 +26,7 @@ public abstract class TextInputChannelObject extends InputChannelObject {
 	public abstract String peekCharacter(Status errorStatus);
 	public abstract String readLine(Status errorStatus);
 	public abstract Integer readInteger(Status errorStatus);
+	public abstract Float readReal(Status errorStatus);
 	public abstract Boolean readBoolean(Status errorStatus);
 	public abstract UnlimitedNatural readUnlimitedNatural(Status errorStatus);
 
@@ -63,6 +66,14 @@ public abstract class TextInputChannelObject extends InputChannelObject {
 	            resultValue = new IntegerValue();
 	            resultValue.type = this.locus.factory.getBuiltInType("Integer");
 	            ((IntegerValue)resultValue).value = result;
+            }
+            this.updateStatus(execution, status);
+        } else if (name.equals("readReal")) {
+            Float result = this.readReal(status);
+            if (result != null) {
+	            resultValue = new RealValue();
+	            resultValue.type = this.locus.factory.getBuiltInType("Real");
+	            ((RealValue)resultValue).value = result;
             }
             this.updateStatus(execution, status);
         } else if (name.equals("readBoolean")) {

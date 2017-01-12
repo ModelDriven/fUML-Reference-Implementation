@@ -1,14 +1,12 @@
 /*
  * Copyright 2008 Lockheed Martin Corporation, except as stated in the file 
  * entitled Licensing-Information. 
- * All modifications copyright 2009-2011 Data Access Technologies, Inc. 
+ * 
+ * All modifications copyright 2009-2017 Data Access Technologies, Inc. 
+ * 
  * Licensed under the Academic Free License 
  * version 3.0 (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
  * in the file entitled Licensing-Information. 
- *
- * Contributors:
- *   MDS - initial API and implementation
- *
  */
 
 package org.modeldriven.fuml.library.channel;
@@ -18,6 +16,7 @@ import org.modeldriven.fuml.library.libraryclass.OperationExecution;
 
 import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
+import fUML.Semantics.Classes.Kernel.RealValue;
 import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Semantics.Classes.Kernel.UnlimitedNaturalValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
@@ -34,6 +33,10 @@ public abstract class TextOutputChannelObject extends OutputChannelObject {
 
     public void writeInteger(int value, Status errorStatus) {
         this.writeString(Integer.toString(value), errorStatus);
+    }
+
+    public void writeReal(float value, Status errorStatus) {
+        this.writeString(Float.toString(value), errorStatus);
     }
 
     public void writeBoolean(boolean value, Status errorStatus) {
@@ -74,6 +77,9 @@ public abstract class TextOutputChannelObject extends OutputChannelObject {
             this.updateStatus(execution, status);
         } else if (name.equals("writeInteger")) {
             this.writeInteger(((IntegerValue) (parameterValue.values.getValue(0))).value, status);
+            this.updateStatus(execution, status);
+        } else if (name.equals("writeReal")) {
+            this.writeReal(((RealValue) (parameterValue.values.getValue(0))).value, status);
             this.updateStatus(execution, status);
         } else if (name.equals("writeBoolean")) {
             this.writeBoolean(((BooleanValue) (parameterValue.values.getValue(0))).value, status);
