@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -13,13 +13,9 @@
 package org.modeldriven.fuml.test.builtin.environment;
 
 import fUML.Debug;
-import UMLPrimitiveTypes.*;
-
-import fUML.Syntax.*;
 import fUML.Syntax.Classes.Kernel.*;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.*;
 
-import fUML.Semantics.*;
 import fUML.Semantics.Classes.Kernel.*;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.*;
 
@@ -103,7 +99,7 @@ public class ExecutorTest extends org.modeldriven.fuml.test.builtin.environment.
 
 	} // testEvaluate
 
-	public void testExecute(String behaviorName) {
+	public ParameterValueList testExecute(String behaviorName) {
 		Debug.println("");
 
 		NamedElement element = this.environment.getElement(behaviorName);
@@ -111,7 +107,7 @@ public class ExecutorTest extends org.modeldriven.fuml.test.builtin.environment.
 		if ((element == null) || !(element instanceof Behavior)) {
 			Debug.println("[testExecute] " + behaviorName
 					+ " not found or is not a behavior.");
-			return;
+			return null;
 		}
 
 		Behavior behavior = (Behavior) element;
@@ -120,11 +116,10 @@ public class ExecutorTest extends org.modeldriven.fuml.test.builtin.environment.
 				.createDefaultInputValues(parameters);
 
 		if (parameterValues == null)
-			return;
+			return null;
 
 		Debug.println("[testExecute] Executing the behavior...");
 
-		// try {
 		ParameterValueList outputParameterValues = this.environment.locus.executor
 				.execute(behavior, null, parameterValues);
 
@@ -139,16 +134,10 @@ public class ExecutorTest extends org.modeldriven.fuml.test.builtin.environment.
 						+ outputParameterValue.values.getValue(j));
 			}
 		}
-		// }
-		// catch (Throwable e) {
-		// Debug.println("[testExecute] Execution terminated due to " +
-		// e.getClass().getName() + "...");
-		// StackTraceElement [] stackTrace = e.getStackTrace();
-		// if (stackTrace.length > 0) Debug.println(stackTrace[0] + ".");
-		// throw e;
-		// }
 
 		Debug.println("");
+		
+		return outputParameterValues;
 	} // testExecute
 
 	public void testStart(String typeName) {

@@ -15,6 +15,11 @@ import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import fUML.Semantics.Classes.Kernel.IntegerValue;
+import fUML.Semantics.Classes.Kernel.Value;
+import fUML.Semantics.Classes.Kernel.ValueList;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
+
 /**
   */
 public abstract class FUMLTest extends TestCase {
@@ -75,6 +80,26 @@ public abstract class FUMLTest extends TestCase {
         return hostName;
     }
 
+    public static void assertIntegerValues(String label, ParameterValue parameterValue, int... expectedValues) throws Exception {
+    	assertIntegerValues(label, parameterValue.values, expectedValues);
+    }
+    
+    public static void assertIntegerValues(String label, ValueList values, int... expectedValues) throws Exception {
+    	assertEquals(label + ": values.size()", expectedValues.length, values.size());
+    	for (int i = 0; i < values.size(); i++) {
+    		Value value = values.get(i);
+    		assertTrue(label + ": value[" + i + "] instanceof IntegerValue", value instanceof IntegerValue);
+    		assertEquals(label + ": value[" + i + "]", expectedValues[i], ((IntegerValue)value).value);
+    	}
+    }
+    
+    public static void assertAllEquals(String label, Value expectedValue, ValueList values) {
+    	for (int i = 0; i < values.size(); i++) {
+    		// NOTE: Uses fUML-specific Value::equals method.
+    		assertTrue(label + "value[" + i + "]", values.get(i).equals(expectedValue));
+    	}
+    }
+    
     public static void assertEquals(Object exp, Object was) {
         if (exp instanceof Object[] && was instanceof Object[])
             assertEqualsArray((Object[]) exp, (Object[]) was);

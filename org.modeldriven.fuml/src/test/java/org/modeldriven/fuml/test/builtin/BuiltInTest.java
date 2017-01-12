@@ -1,27 +1,10 @@
 package org.modeldriven.fuml.test.builtin;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Hashtable;
-import java.util.Iterator;
-
-import javax.management.MBeanServerConnection;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
-import junit.framework.TestCase;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.modeldriven.fuml.test.FUMLTest;
 import org.modeldriven.fuml.test.builtin.environment.InitTestEnvironment;
 
-import fUML.Debug;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Syntax.Classes.Kernel.Classifier;
 import fUML.Syntax.Classes.Kernel.Element;

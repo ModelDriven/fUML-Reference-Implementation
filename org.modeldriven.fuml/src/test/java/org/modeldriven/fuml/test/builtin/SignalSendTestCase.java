@@ -1,15 +1,14 @@
 package org.modeldriven.fuml.test.builtin;
 
-
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.modeldriven.fuml.test.FUMLTestSetup;
-import org.modeldriven.fuml.test.builtin.environment.InitTestEnvironment;
 
-import fUML.Syntax.Activities.IntermediateActivities.Activity;
-import fUML.Syntax.Classes.Kernel.Element;
-import fUML.Syntax.CommonBehaviors.Communications.Signal;
+import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
+import fUML.Semantics.Classes.Kernel.ExtensionalValue;
+import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
+import fUML.Semantics.Classes.Kernel.FeatureValueList;
+import fUML.Syntax.Classes.Kernel.Classifier;
 import junit.framework.Test;
 
 /**
@@ -24,29 +23,24 @@ public class SignalSendTestCase extends BuiltInTest {
     }
     
     public void setUp() throws Exception {
+    	initTestEnv.environment.locus.extensionalValues.clear();
     }
 
     public void testSignalSend() throws Exception {
         log.info("testSignalSend");
-        initTestEnv.testSuite.testSignalSend();
-        
-        initTestEnv.environment.printElements();
-
-        // see if there is one
-        Element element = findElement("TestSignal");
-        assertTrue(element != null);
-        assertTrue(element instanceof Signal);
-        Signal signal = (Signal)element;
-        this.assertTrue("TestSignal".equals(signal.name));
-
-        
-        element = findElement("TestSignalAccepter");
-        assertTrue(element != null);
-        assertTrue(element instanceof Activity);
-        Activity accepter = (Activity)element;
-         
-        
+        initTestEnv.testSuite.testSignalSend();        
         log.info("done");
+        
+        ExtensionalValueList extent = initTestEnv.environment.locus.getExtent(
+				(Classifier)initTestEnv.environment.getElement("TestSignalAccepter"));
+        
+        assertEquals("extent.size()", 1, extent.size());
+        ExtensionalValue accepterExecution = extent.get(0);
+        assertTrue("accepterExecution instanceof ActivityExecution", 
+        		accepterExecution instanceof ActivityExecution);
+        FeatureValueList featureValues = accepterExecution.getFeatureValues();
+        assertEquals("featureValues.size()", 1, featureValues.size());
+        assertEquals("featureValues[0].values.size()", 1, featureValues.get(0).values.size());
     }
     
 }

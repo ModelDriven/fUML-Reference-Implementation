@@ -1,15 +1,11 @@
 package org.modeldriven.fuml.test.builtin;
 
-
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.modeldriven.fuml.test.FUMLTestSetup;
-import org.modeldriven.fuml.test.builtin.environment.InitTestEnvironment;
 
-import fUML.Syntax.Activities.IntermediateActivities.Activity;
-import fUML.Syntax.Classes.Kernel.Element;
-import fUML.Syntax.CommonBehaviors.Communications.Signal;
+import fUML.Semantics.Classes.Kernel.BooleanValue;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import junit.framework.Test;
 
 /**
@@ -28,9 +24,16 @@ public class IsClassifiedTestCase extends BuiltInTest {
 
     public void testIsClassified() throws Exception {
         log.info("testIsClassified");
-        initTestEnv.testSuite.testIsClassified();
-        
+        ParameterValueList output = initTestEnv.testSuite.testIsClassified();       
         log.info("done");
+        
+        assertNotNull(output);
+        assertEquals("output.size()", 1, output.size());
+        assertEquals("TestIsSignal.output: values.size()", 1, output.get(0).values.size());
+        assertTrue("TestIsSignal.output: value instanceof BooleanValue", 
+        		output.get(0).values.get(0) instanceof BooleanValue);
+        assertTrue("TestIsSignal.output: value", 
+        		((BooleanValue)output.get(0).values.get(0)).value);
     }
     
 }

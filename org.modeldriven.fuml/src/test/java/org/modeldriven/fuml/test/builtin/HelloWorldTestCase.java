@@ -1,19 +1,13 @@
 package org.modeldriven.fuml.test.builtin;
 
-
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.modeldriven.fuml.test.FUMLTestSetup;
-import org.modeldriven.fuml.test.builtin.environment.InitTestEnvironment;
-
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
-import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Classes.Kernel.Element;
 import fUML.Syntax.Classes.Kernel.LiteralString;
-import fUML.Syntax.Classes.Kernel.ValueSpecification;
 import junit.framework.Test;
 
 /**
@@ -34,11 +28,7 @@ public class HelloWorldTestCase extends BuiltInTest {
         log.info("testHelloWorld");
         initTestEnv.testSuite.testHelloWorld();
         
-        //initTestEnv.environment.printElements();
-        //initTestEnv.environment.printExtent(
-        //		"UnlimitedNatural");
-        
-        // ensure standard output channel has 1 instance
+         // ensure standard output channel has 1 instance
         ExtensionalValueList extent = findExtent("StandardOutputChannel");
         assertTrue(extent != null);
         assertTrue(extent.size() == 1);

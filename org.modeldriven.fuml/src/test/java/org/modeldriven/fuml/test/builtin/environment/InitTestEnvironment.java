@@ -12,9 +12,6 @@
 
 package org.modeldriven.fuml.test.builtin.environment;
 
-import fUML.Debug;
-import UMLPrimitiveTypes.*;
-
 public class InitTestEnvironment extends org.modeldriven.fuml.FumlObject {
 
 	public org.modeldriven.fuml.test.builtin.environment.TestEnvironment environment = null;

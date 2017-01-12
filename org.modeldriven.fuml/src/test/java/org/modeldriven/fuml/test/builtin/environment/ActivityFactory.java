@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -13,9 +13,6 @@
 package org.modeldriven.fuml.test.builtin.environment;
 
 import fUML.Debug;
-import UMLPrimitiveTypes.*;
-
-import fUML.Syntax.*;
 import fUML.Syntax.Classes.Kernel.*;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.*;
 import fUML.Syntax.CommonBehaviors.Communications.*;
@@ -442,8 +439,6 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 	} // createCaller
 
 	public void createSimpleDecision(int testValue) {
-		Activity copierActivity = this.getCopier();
-
 		Activity simpleDecisionActivity = new Activity();
 		simpleDecisionActivity.setName("SimpleDecision" + testValue);
 
@@ -461,11 +456,8 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 				1, 1));
 		this.addNode(simpleDecisionActivity, valueAction);
 
-		// UnlimitedNatural unlimitedNatural1 = new UnlimitedNatural(1);
-
 		DecisionNode decisionNode = new DecisionNode();
 		decisionNode.setName("DecisionNode");
-		// decisionNode.setDecisionInput(copierActivity);
 		this.addNode(simpleDecisionActivity, decisionNode);
 
 		ActivityParameterNode parameterNode0 = new ActivityParameterNode();
@@ -1627,6 +1619,8 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 		Activity accepterActivity = new Activity();
 		accepterActivity.setName(signal.name + "Accepter");
 		accepterActivity.setIsActive(true);
+		
+		Property property = this.addProperty(accepterActivity, "signal", null, 0, 1);
 
 		Reception reception = new Reception();
 		reception.setSignal(signal);
@@ -1645,15 +1639,34 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 		acceptEventAction.addResult(this.makeOutputPin(acceptEventAction.name
 				+ ".result", 1, 1));
 		this.addNode(accepterActivity, acceptEventAction);
+		
+		ReadSelfAction readSelfAction = new ReadSelfAction();
+		readSelfAction.setName("ReadSelf");
+		readSelfAction.setResult(this.makeOutputPin(
+				readSelfAction.name + ".result", 1, 1));
+		this.addNode(accepterActivity, readSelfAction);
+		
+		AddStructuralFeatureValueAction writeAction = new AddStructuralFeatureValueAction();
+		writeAction.setName("Write(signal)");
+		writeAction.setStructuralFeature(property);
+		writeAction.setObject(this.makeInputPin(
+				writeAction.name + ".object", 1, 1));
+		writeAction.setValue(this.makeInputPin(
+				writeAction.name + ".value", 1, 1));
+		writeAction.setResult(this.makeOutputPin(
+				writeAction.name + ".result", 1, 1));
+		accepterActivity.addNode(writeAction);
+		
+		InitialNode initialNode = new InitialNode();
+		this.addNode(accepterActivity, initialNode);
 
-		ActivityParameterNode outputNode = new ActivityParameterNode();
-		outputNode.setName("Output(signal)");
-		outputNode.setParameter(this.addParameter(accepterActivity, "signal",
-				ParameterDirectionKind.out, signal));
-		this.addNode(accepterActivity, outputNode);
-
+		this.addEdge(accepterActivity, new ControlFlow(), 
+				initialNode, acceptEventAction, null);
 		this.addEdge(accepterActivity, new ObjectFlow(),
-				acceptEventAction.result.getValue(0), outputNode, null);
+				acceptEventAction.result.getValue(0), 
+				writeAction.value, null);
+		this.addEdge(accepterActivity, new ObjectFlow(), 
+				readSelfAction.result, writeAction.object, null);
 
 		this.environment.addElement(accepterActivity);
 	} // createAccepter
@@ -1707,25 +1720,15 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 				1));
 		this.addNode(senderActivity, sendAction);
 
-		DestroyObjectAction destroyObjectAction = new DestroyObjectAction();
-		destroyObjectAction.setName("Destroy(" + signalName + "Accepter)");
-		destroyObjectAction.setTarget(this.makeInputPin(
-				destroyObjectAction.name + ".target", 1, 1));
-		this.addNode(senderActivity, destroyObjectAction);
-
 		this.addEdge(senderActivity, new ObjectFlow(),
 				createObjectAction.result, forkNode, null);
 		this.addEdge(senderActivity, new ObjectFlow(), forkNode,
 				startAction.object, null);
 		this.addEdge(senderActivity, new ObjectFlow(), forkNode,
 				sendAction.target, null);
-		this.addEdge(senderActivity, new ObjectFlow(), forkNode,
-				destroyObjectAction.target, null);
 
 		this.addEdge(senderActivity, new ControlFlow(), startAction,
 				sendAction, null);
-		this.addEdge(senderActivity, new ControlFlow(), sendAction,
-				destroyObjectAction, null);
 
 		this.environment.addElement(senderActivity);
 	} // createSender

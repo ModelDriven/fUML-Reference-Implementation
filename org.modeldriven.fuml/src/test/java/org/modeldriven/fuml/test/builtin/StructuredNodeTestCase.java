@@ -3,8 +3,8 @@ package org.modeldriven.fuml.test.builtin;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.modeldriven.fuml.test.FUMLTestSetup;
-import org.modeldriven.fuml.test.builtin.environment.InitTestEnvironment;
 
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import junit.framework.Test;
 
 /**
@@ -22,8 +22,12 @@ public class StructuredNodeTestCase extends BuiltInTest {
 
     public void testStructuredNode() throws Exception {
         log.info("testStructuredNode");
-        initTestEnv.testSuite.testStructuredNode();
+        ParameterValueList output = initTestEnv.testSuite.testStructuredNode();
         log.info("done");
+        
+        assertNotNull(output);
+        assertEquals("output.size()", 1, output.size());
+        assertIntegerValues("StructuredForkMergeInput.output", output.get(0), 0, 0);
     }
     
 }

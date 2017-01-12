@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -13,34 +13,23 @@
 package org.modeldriven.fuml.test.builtin.environment;
 
 import fUML.Debug;
-import UMLPrimitiveTypes.*;
-
-import fUML.Syntax.*;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Classes.Kernel.*;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.*;
-import fUML.Syntax.CommonBehaviors.Communications.*;
-import fUML.Syntax.Activities.IntermediateActivities.*;
-import fUML.Syntax.Activities.CompleteStructuredActivities.*;
-import fUML.Syntax.Actions.BasicActions.*;
-import fUML.Syntax.Actions.IntermediateActions.*;
-import fUML.Syntax.Actions.CompleteActions.*;
 
 public class TestSuite extends org.modeldriven.fuml.test.builtin.environment.Test {
 
 	private org.modeldriven.fuml.test.builtin.environment.ActivityFactory activityFactory = null;
 	private org.modeldriven.fuml.test.builtin.environment.ClassifierFactory classifierFactory = null;
 	private org.modeldriven.fuml.test.builtin.environment.ExecutorTest executorTest = null;
-	private org.modeldriven.fuml.test.builtin.environment.VariableUtility variableUtility = null;
-
+	
 	public TestSuite(org.modeldriven.fuml.test.builtin.environment.InitTestEnvironment init) {
 		this.environment = init.environment;
 		this.activityFactory = init.activityFactory;
 		this.classifierFactory = init.classifierFactory;
 		this.executorTest = init.executorTest;
-		this.variableUtility = init.variableUtility;
 	} // TestSuite
 
-	public void testSimpleActivites() {
+	public ParameterValueList testSimpleActivites() {
 		Debug.println("");
 		Debug.println("[testSimpleActivites] Setting up...");
 
@@ -53,23 +42,40 @@ public class TestSuite extends org.modeldriven.fuml.test.builtin.environment.Tes
 		this.activityFactory.createForkMerge();
 		this.activityFactory.createForkMergeData();
 		this.activityFactory.createFlowFinal();
-		this.activityFactory.createSelfReader();
 
 		Debug.println("[testSimpleActivities] Testing...");
 
-		this.executorTest.testExecute("Copier");
-		this.executorTest.testExecute("CopierCaller");
-		this.executorTest.testExecute("SimpleDecision0");
-		this.executorTest.testExecute("SimpleDecision1");
-		this.executorTest.testExecute("ForkJoin");
-		this.executorTest.testExecute("DecisionJoin");
-		this.executorTest.testExecute("ForkMerge");
-		this.executorTest.testExecute("ForkMergeData");
-		this.executorTest.testExecute("FlowFinal");
-		this.executorTest.testExecute("SelfReader");
+		ParameterValueList output = new ParameterValueList();
+				
+		output.addAll(this.executorTest.testExecute("Copier"));		
+		output.addAll(this.executorTest.testExecute("CopierCaller"));		
+		output.addAll(this.executorTest.testExecute("SimpleDecision0"));		
+		output.addAll(this.executorTest.testExecute("SimpleDecision1"));		
+		output.addAll(this.executorTest.testExecute("ForkJoin"));		
+		output.addAll(this.executorTest.testExecute("DecisionJoin"));		
+		output.addAll(this.executorTest.testExecute("ForkMerge"));		
+		output.addAll(this.executorTest.testExecute("ForkMergeData"));		
+		output.addAll(this.executorTest.testExecute("FlowFinal"));		
 
 		Debug.println("[testSimpleActivities] Done!");
+		
+		return output;
 	} // testSimpleActivites
+	
+	public ParameterValueList testSelfReader() {
+		Debug.println("");
+		Debug.println("[testSelfReader] Setting up...");
+		
+		this.activityFactory.createSelfReader();
+
+		Debug.println("[testSelfReader] Testing...");
+		
+		ParameterValueList output = this.executorTest.testExecute("SelfReader");
+		
+		Debug.println("[testSelfReader] Done!");
+		
+		return output;
+	}
 
 	public void testHelloWorld() {
 		Debug.println("");
@@ -201,22 +207,25 @@ public class TestSuite extends org.modeldriven.fuml.test.builtin.environment.Tes
 		Debug.println("[testSignalSend] Testing...");
 
 		executorTest.testExecute("TestSignalSender");
+		this.environment.printExtent("TestSignalAccepter");
 
 		Debug.println("[testSignalSend] Done!");
 	} // testSignalSend
 
-	public void testStructuredNode() {
+	public ParameterValueList testStructuredNode() {
 		Debug.println("");
 		Debug.println("[testStructuredNode] Setting up...");
 		this.activityFactory.createStructuredNodeTester("ForkMergeInput");
 
 		Debug.println("[testStructuredNode] Testing...");
-		this.executorTest.testExecute("StructuredForkMergeInput");
+		ParameterValueList output = this.executorTest.testExecute("StructuredForkMergeInput");
 
 		Debug.println("[testStructuredNode] Done!");
+		
+		return output;
 	} // testStructuredNode
 
-	public void testConditionalNode() {
+	public ParameterValueList testConditionalNode() {
 		Debug.println("");
 		Debug.println("[testConditionalNode] Setting up...");
 		this.activityFactory.createConditionalNodeTester(0);
@@ -224,14 +233,17 @@ public class TestSuite extends org.modeldriven.fuml.test.builtin.environment.Tes
 		this.activityFactory.createConditionalNodeTester(2);
 
 		Debug.println("[testConditionalNode] Testing...");
-		this.executorTest.testExecute("ConditionalNodeTester_0");
-		this.executorTest.testExecute("ConditionalNodeTester_1");
-		this.executorTest.testExecute("ConditionalNodeTester_2");
+		ParameterValueList output = new ParameterValueList();
+		output.addAll(this.executorTest.testExecute("ConditionalNodeTester_0"));
+		output.addAll(this.executorTest.testExecute("ConditionalNodeTester_1"));
+		output.addAll(this.executorTest.testExecute("ConditionalNodeTester_2"));
 
 		Debug.println("[testConditionalNode] Done!");
+		
+		return output;
 	} // testConditionalNode
 
-	public void testLoopNode() {
+	public ParameterValueList testLoopNode() {
 		Debug.println("");
 		Debug.println("[testLoopNode] Setting up...");
 		this.activityFactory.createLoopNodeTester(0);
@@ -239,14 +251,17 @@ public class TestSuite extends org.modeldriven.fuml.test.builtin.environment.Tes
 		this.activityFactory.createLoopNodeTester(2);
 
 		Debug.println("[testLoopNode] Testing...");
-		this.executorTest.testExecute("LoopNodeTester_0");
-		this.executorTest.testExecute("LoopNodeTester_1");
-		this.executorTest.testExecute("LoopNodeTester_2");
+		ParameterValueList output = new ParameterValueList();
+		output.addAll(this.executorTest.testExecute("LoopNodeTester_0"));
+		output.addAll(this.executorTest.testExecute("LoopNodeTester_1"));
+		output.addAll(this.executorTest.testExecute("LoopNodeTester_2"));
 
 		Debug.println("[testLoopNode] Done!");
+		
+		return output;
 	} // testLoopNode
 
-	public void testExpansionRegion() {
+	public ParameterValueList testExpansionRegion() {
 		Debug.println("");
 		Debug.println("[testExpansionRegion] Setting up...");
 		this.activityFactory.createExpansionRegionTester(0);
@@ -254,14 +269,17 @@ public class TestSuite extends org.modeldriven.fuml.test.builtin.environment.Tes
 		this.activityFactory.createExpansionRegionTester(2);
 
 		Debug.println("[testExpansionRegion] Testing...");
-		this.executorTest.testExecute("ExpansionRegionTester_0");
-		this.executorTest.testExecute("ExpansionRegionTester_1");
-		this.executorTest.testExecute("ExpansionRegionTester_2");
+		ParameterValueList output = new ParameterValueList();
+		output.addAll(this.executorTest.testExecute("ExpansionRegionTester_0"));
+		output.addAll(this.executorTest.testExecute("ExpansionRegionTester_1"));
+		output.addAll(this.executorTest.testExecute("ExpansionRegionTester_2"));
 
 		Debug.println("[testExpansionRegion] Done!");
+		
+		return output;
 	} // testExpansionRegion
 
-	public void testLinkCreator() {
+	public ParameterValueList testLinkCreator() {
 		Debug.println("[testLinkCreator] Setting up...");
 
 		classifierFactory.createClass("A");
@@ -277,13 +295,15 @@ public class TestSuite extends org.modeldriven.fuml.test.builtin.environment.Tes
 
 		Debug.println("[testLinkCreator] Testing...");
 
-		executorTest.testExecute("ABLinkCreator");
+		ParameterValueList output = executorTest.testExecute("ABLinkCreator");
 		this.environment.printExtent("AB");
 
 		Debug.println("[testLinkCreator] Done!");
+		
+		return output;
 	} // testLinkCreator
 
-	public void testLinkDestroyer() {
+	public ParameterValueList testLinkDestroyer() {
 		Debug.println("[testLinkDestroyer] Setting up...");
 
 		classifierFactory.createClass("A");
@@ -299,13 +319,15 @@ public class TestSuite extends org.modeldriven.fuml.test.builtin.environment.Tes
 
 		Debug.println("[testLinkDestroyer] Testing...");
 
-		executorTest.testExecute("ABLinkDestroyer");
+		ParameterValueList output = executorTest.testExecute("ABLinkDestroyer");
 		this.environment.printExtent("AB");
 
 		Debug.println("[testLinkDestroyer] Done!");
+		
+		return output;
 	} // testLinkDestroyer
 
-	public void testLinkReader() {
+	public ParameterValueList testLinkReader() {
 		Debug.println("[testLinkReader] Setting up...");
 
 		classifierFactory.createClass("A");
@@ -323,13 +345,15 @@ public class TestSuite extends org.modeldriven.fuml.test.builtin.environment.Tes
 
 		Debug.println("[testLinkReader] Testing...");
 
-		executorTest.testExecute("ABLinkReader");
+		ParameterValueList output = executorTest.testExecute("ABLinkReader");
 		this.environment.printExtent("AB");
 
 		Debug.println("[testLinkReader] Done!");
+		
+		return output;
 	} // testLinkReader
 
-	public void testLinkWriter() {
+	public ParameterValueList testLinkWriter() {
 		Debug.println("[testLinkWriter] Setting up...");
 
 		classifierFactory.createClass("A");
@@ -347,13 +371,15 @@ public class TestSuite extends org.modeldriven.fuml.test.builtin.environment.Tes
 
 		Debug.println("[testLinkWriter] Testing...");
 
-		executorTest.testExecute("ABLinkWriter");
+		ParameterValueList output = executorTest.testExecute("ABLinkWriter");
 		this.environment.printExtent("AB");
 
 		Debug.println("[testLinkWriter] Done!");
+		
+		return output;
 	} // testLinkWriter
 
-	public void testLinkRemover() {
+	public ParameterValueList testLinkRemover() {
 		Debug.println("[testLinkRemover] Setting up (unordered end)...");
 
 		classifierFactory.createClass("A");
@@ -386,13 +412,15 @@ public class TestSuite extends org.modeldriven.fuml.test.builtin.environment.Tes
 
 		Debug.println("[testLinkRemover] Testing (ordered end)...");
 
-		executorTest.testExecute("ABLinkRemover");
+		ParameterValueList output = executorTest.testExecute("ABLinkRemover");
 		this.environment.printExtent("AB");
 
 		Debug.println("[testLinkRemover] Done!");
+		
+		return output;
 	} // testLinkRemover
 
-	public void testWriterReader() {
+	public ParameterValueList testWriterReader() {
 		Debug.println("[testWriterReader] Setting up...");
 
 		this.environment.removeElement("TestClass");
@@ -403,42 +431,41 @@ public class TestSuite extends org.modeldriven.fuml.test.builtin.environment.Tes
 
 		Debug.println("[testWriterReader] Testing...");
 
-		executorTest.testExecute("TestClass_x_WriterReader");
+		ParameterValueList output = executorTest.testExecute("TestClass_x_WriterReader");
 		this.environment.printExtent("TestClass");
 
 		Debug.println("[testWriterReader] Done!");
+		
+		return output;
 	} // testWriterReader
 
-	public void testIsClassified() {
+	public ParameterValueList testIsClassified() {
 		Debug.println("[testIsClassified] Setting up...");
 
 		classifierFactory.createSignal("Signal");
 		activityFactory.createIsClassifiedTester("Signal");
-		// activityFactory.createAttributedCaller("TestIsSignal");
-
-		// variableUtility.setDefaultValue("caller",
-		// "AttributedTestIsSignalCaller");
-		// variableUtility.setAttributeValue("caller", "input",
-		// environment.makeValue(environment.getType("Signal")));
 
 		Debug.println("[testIsClassified] Testing...");
 
-		executorTest.testExecute("TestIsSignal");
-		// variableUtility.run("caller");
+		ParameterValueList output = executorTest.testExecute("TestIsSignal");
 
 		Debug.println("[testIsClassified] Done!");
+		
+		return output;
 	} // testIsClassified
 
-	public void testFireAgain() {
+	public ParameterValueList testFireAgain() {
 		Debug.println("[testFireAgain] Setting up...");
 
 		activityFactory.createFireAgainTester();
 
 		Debug.println("[testFireAgain] Testing...");
 
-		executorTest.testExecute("FireAgainTester");
+		ParameterValueList output = executorTest.testExecute("FireAgainTester");
 
 		Debug.println("[testFireAgain] Done!");
+		
+		return output;
 
 	} // testFireAgain
 

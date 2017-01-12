@@ -1,11 +1,8 @@
 package org.modeldriven.fuml.test.builtin;
 
-
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.modeldriven.fuml.test.FUMLTestSetup;
-import org.modeldriven.fuml.test.builtin.environment.InitTestEnvironment;
 
 import junit.framework.Test;
 

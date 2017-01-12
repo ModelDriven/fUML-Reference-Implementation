@@ -3,8 +3,8 @@ package org.modeldriven.fuml.test.builtin;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.modeldriven.fuml.test.FUMLTestSetup;
-import org.modeldriven.fuml.test.builtin.environment.InitTestEnvironment;
 
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import junit.framework.Test;
 
 /**
@@ -22,8 +22,14 @@ public class ConditionalNodeTestCase extends BuiltInTest {
 
     public void testConditionalNode() throws Exception {
         log.info("testConditionalNode");
-        initTestEnv.testSuite.testConditionalNode();
+        ParameterValueList output = initTestEnv.testSuite.testConditionalNode();
         log.info("done");
+        
+        assertNotNull(output);
+        assertEquals("output.size()", 3, output.size());
+        assertIntegerValues("ConditionalNodeTester_1.output", output.get(0), 0);
+        assertIntegerValues("ConditionalNodeTester_2.output", output.get(1), 1);
+        assertIntegerValues("ConditionalNodeTester_3.output", output.get(2), 2);
     }
     
 }

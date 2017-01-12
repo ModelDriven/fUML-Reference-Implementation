@@ -16,11 +16,9 @@ import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.FeatureValueList;
-import fUML.Semantics.Classes.Kernel.IntegerValue;
 import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Classes.Kernel.ValueList;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
@@ -52,26 +50,6 @@ public class ExecutionTestCase extends FUMLTest {
     
     public void tearDown() throws Exception {
     	environment.locus.extensionalValues.clear();
-    }
-    
-    private static void assertIntegerValues(String label, ParameterValue parameterValue, int... expectedValues) throws Exception {
-    	assertIntegerValues(label, parameterValue.values, expectedValues);
-    }
-    
-    private static void assertIntegerValues(String label, ValueList values, int... expectedValues) throws Exception {
-    	assertEquals(label + ": values.size()", expectedValues.length, values.size());
-    	for (int i = 0; i < values.size(); i++) {
-    		Value value = values.get(i);
-    		assertTrue(label + ": value[" + i + "] instanceof IntegerValue", value instanceof IntegerValue);
-    		assertEquals(label + ": value[" + i + "]", expectedValues[i], ((IntegerValue)value).value);
-    	}
-    }
-    
-    private static void assertAllEquals(String label, Value expectedValue, ValueList values) {
-    	for (int i = 0; i < values.size(); i++) {
-    		// NOTE: Uses fUML-specific Value::equals method.
-    		assertTrue(label + "value[" + i + "]", values.get(i).equals(expectedValue));
-    	}
     }
     
     public void testCopier() throws Exception {
@@ -109,7 +87,7 @@ public class ExecutionTestCase extends FUMLTest {
         log.info("done");
 
         assertEquals("output.size()", 1, output.size());
-        assertIntegerValues("output", output.get(0), 1, 0);
+        assertIntegerValues("output", output.get(0), 0, 1);
 }
     
     public void testForkMerge() throws Exception {
@@ -218,7 +196,7 @@ public class ExecutionTestCase extends FUMLTest {
         assertIntegerValues("SimpleDecision_0.output_1", output.get(3));
         assertIntegerValues("SimpleDecision_1.output_0", output.get(4));
         assertIntegerValues("SimpleDecision_1.output_1", output.get(5), 1);
-        assertIntegerValues("DecisionJoin.output", output.get(6), 1, 0);
+        assertIntegerValues("DecisionJoin.output", output.get(6), 0, 1);
         assertIntegerValues("ForkMerge", output.get(7), 0, 0);
         assertIntegerValues("ForkMergeData", output.get(8), 0, 0);
     }

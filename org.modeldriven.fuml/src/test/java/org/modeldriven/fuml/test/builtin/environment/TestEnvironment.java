@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -14,9 +14,6 @@ package org.modeldriven.fuml.test.builtin.environment;
 
 import fUML.Debug;
 
-import org.modeldriven.fuml.library.channel.StandardOutputChannelObject;
-import org.modeldriven.fuml.library.common.Status;
-
 import UMLPrimitiveTypes.*;
 
 import fUML.Syntax.Classes.Kernel.*;
@@ -24,8 +21,12 @@ import fUML.Syntax.CommonBehaviors.Communications.*;
 
 import fUML.Semantics.Classes.Kernel.*;
 import fUML.Semantics.CommonBehaviors.Communications.*;
-import fUML.Semantics.Loci.LociL1.*;
-import fUML.Semantics.Loci.LociL3.ExecutionFactoryL3;
+import fUML.Semantics.Loci.LociL1.Executor;
+import fUML.Semantics.Loci.LociL1.Locus;
+
+import org.modeldriven.fuml.environment.ExecutionFactory;
+import org.modeldriven.fuml.library.channel.StandardOutputChannelObject;
+import org.modeldriven.fuml.library.common.Status;
 
 public class TestEnvironment extends org.modeldriven.fuml.FumlObject {
 
@@ -41,7 +42,7 @@ public class TestEnvironment extends org.modeldriven.fuml.FumlObject {
 		try {
 
 			this.locus = new Locus();
-			this.locus.setFactory(new ExecutionFactoryL3());
+			this.locus.setFactory(new ExecutionFactory());
 			this.locus.setExecutor(new Executor());
 
 			this.locus.factory
@@ -150,7 +151,6 @@ public class TestEnvironment extends org.modeldriven.fuml.FumlObject {
 	public fUML.Semantics.Classes.Kernel.StructuredValue makeStructuredValue(
 			fUML.Syntax.Classes.Kernel.Classifier classifier) {
 		StructuredValue structuredValue = null;
-		PropertyList attributes = null;
 
 		if (classifier instanceof DataType) {
 			structuredValue = new DataValue();
