@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2015 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -12,25 +12,9 @@
 
 package fUML.Semantics.Actions.CompleteActions;
 
-import fUML.Debug;
-import UMLPrimitiveTypes.*;
-
-import fUML.Syntax.*;
-import fUML.Syntax.Classes.Kernel.*;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.*;
-import fUML.Syntax.CommonBehaviors.Communications.*;
-import fUML.Syntax.Activities.IntermediateActivities.*;
-import fUML.Syntax.Actions.BasicActions.*;
-import fUML.Syntax.Actions.IntermediateActions.*;
 import fUML.Syntax.Actions.CompleteActions.*;
 
-import fUML.Semantics.*;
 import fUML.Semantics.Classes.Kernel.*;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.*;
-import fUML.Semantics.Activities.IntermediateActivities.*;
-import fUML.Semantics.Actions.BasicActions.*;
-import fUML.Semantics.Actions.IntermediateActions.*;
-import fUML.Semantics.Loci.*;
 
 public class ReadIsClassifiedObjectActionActivation extends
 		fUML.Semantics.Actions.BasicActions.ActionActivation {
@@ -49,20 +33,12 @@ public class ReadIsClassifiedObjectActionActivation extends
 		ReadIsClassifiedObjectAction action = (ReadIsClassifiedObjectAction) (this.node);
 
 		Value input = this.takeTokens(action.object).getValue(0);
-		ClassifierList types = input.getTypes();
 
-		boolean result = false;
-		int i = 1;
-		while (!result & i <= types.size()) {
-			Classifier type = types.getValue(i - 1);
-
-			if (type == action.classifier) {
-				result = true;
-			} else if (!action.isDirect) {
-				result = this.checkAllParents(type, action.classifier);
-			}
-
-			i = i + 1;
+		boolean result = false;		
+		if (action.isDirect) {
+			result = input.hasType(action.classifier);
+		} else {
+			result = input.isInstanceOf(action.classifier);
 		}
 
 		ValueList values = new ValueList();

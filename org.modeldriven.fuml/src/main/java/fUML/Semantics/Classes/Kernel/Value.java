@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -12,14 +12,7 @@
 
 package fUML.Semantics.Classes.Kernel;
 
-import fUML.Debug;
-import UMLPrimitiveTypes.*;
-
-import fUML.Syntax.*;
 import fUML.Syntax.Classes.Kernel.*;
-
-import fUML.Semantics.*;
-import fUML.Semantics.Loci.*;
 
 public abstract class Value extends fUML.Semantics.Loci.LociL1.SemanticVisitor {
 
@@ -97,7 +90,45 @@ public abstract class Value extends fUML.Semantics.Loci.LociL1.SemanticVisitor {
 
 		return found;
 	} // hasType
+	
+	public boolean isInstanceOf(fUML.Syntax.Classes.Kernel.Classifier classifier) {
+		// Check if this value has the given classifier as its type
+		// or as an ancestor of one of its types.
+		
+		ClassifierList types = this.getTypes();
 
+		boolean isInstance = this.hasType(classifier);		
+		int i = 1;
+		while (!isInstance & i <= types.size()) {
+			isInstance = this.checkAllParents(types.getValue(i-1), classifier);
+			i = i + 1;
+		}
+		
+		return isInstance;
+	}
+
+	public boolean checkAllParents(fUML.Syntax.Classes.Kernel.Classifier type,
+			fUML.Syntax.Classes.Kernel.Classifier classifier) {
+		// Check if the given classifier matches any of the direct or indirect
+		// ancestors of a given type.
+
+		ClassifierList directParents = type.general;
+		boolean matched = false;
+		int i = 1;
+		while (!matched & i <= directParents.size()) {
+			Classifier directParent = directParents.getValue(i - 1);
+			if (directParent == classifier) {
+				matched = true;
+			} else {
+				matched = this.checkAllParents(directParent, classifier);
+			}
+			i = i + 1;
+		}
+
+		return matched;
+
+	}
+	
 	public abstract String toString();
 
 } // Value

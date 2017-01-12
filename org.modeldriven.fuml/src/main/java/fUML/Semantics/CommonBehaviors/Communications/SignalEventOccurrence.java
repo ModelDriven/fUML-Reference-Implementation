@@ -12,8 +12,6 @@ import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.FeatureValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import fUML.Syntax.Classes.Kernel.Classifier;
-import fUML.Syntax.Classes.Kernel.ClassifierList;
 import fUML.Syntax.CommonBehaviors.Communications.SignalEvent;
 
 public class SignalEventOccurrence extends EventOccurrence {
@@ -28,36 +26,11 @@ public class SignalEventOccurrence extends EventOccurrence {
 		boolean matches = false;
 		if(trigger.event instanceof SignalEvent){
 			SignalEvent event = (SignalEvent) trigger.event;
-			if(event.signal == this.signalInstance.type) {
-				matches = true;
-			} else {
-				matches = this.checkAllParents(this.signalInstance.type, event.signal);
-			}
+			matches = this.signalInstance.isInstanceOf(event.signal);
 		}
 		return matches;
 	}
 	
-	public boolean checkAllParents(fUML.Syntax.Classes.Kernel.Classifier type,
-			fUML.Syntax.Classes.Kernel.Classifier classifier) {
-		// Check if the given classifier matches any of the direct or indirect
-		// ancestors of a given type.
-
-		ClassifierList directParents = type.general;
-		boolean matched = false;
-		int i = 1;
-		while (!matched & i <= directParents.size()) {
-			Classifier directParent = directParents.getValue(i - 1);
-			if (directParent == classifier) {
-				matched = true;
-			} else {
-				matched = this.checkAllParents(directParent, classifier);
-			}
-			i = i + 1;
-		}
-
-		return matched;
-	}
-
 	@Override
 	public fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList getParameterValues() {
 		// Return parameter values for feature of the signal instance, in order.
