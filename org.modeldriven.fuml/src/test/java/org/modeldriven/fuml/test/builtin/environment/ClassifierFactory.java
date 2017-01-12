@@ -10,7 +10,7 @@
  * in the file entitled Licensing-Information. 
  */
 
-package fUML.Test;
+package org.modeldriven.fuml.test.builtin.environment;
 
 import fUML.Debug;
 import UMLPrimitiveTypes.*;
@@ -25,9 +25,9 @@ import fUML.Syntax.Actions.BasicActions.*;
 import fUML.Syntax.Actions.IntermediateActions.*;
 import fUML.Syntax.Actions.CompleteActions.*;
 
-public class ClassifierFactory extends fUML.Test.Test {
+public class ClassifierFactory extends org.modeldriven.fuml.test.builtin.environment.Test {
 
-	public ClassifierFactory(fUML.Test.TestEnvironment environment) {
+	public ClassifierFactory(org.modeldriven.fuml.test.builtin.environment.TestEnvironment environment) {
 		this.environment = environment;
 	} // ClassifierFactory
 

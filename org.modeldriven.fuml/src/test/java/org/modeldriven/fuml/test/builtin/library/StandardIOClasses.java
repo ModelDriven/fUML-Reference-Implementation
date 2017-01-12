@@ -10,14 +10,14 @@
  * in the file entitled Licensing-Information. 
  */
 
-package fUML.Library;
+package org.modeldriven.fuml.test.builtin.library;
 
 import fUML.Debug;
 import UMLPrimitiveTypes.*;
 
 import fUML.Syntax.Classes.Kernel.*;
 
-public class StandardIOClasses extends fUML.Library.Classes {
+public class StandardIOClasses extends org.modeldriven.fuml.test.builtin.library.Classes {
 
 	public fUML.Syntax.Classes.Kernel.Class_ Channel = null;
 	public fUML.Syntax.Classes.Kernel.Class_ OutputChannel = null;
@@ -25,7 +25,7 @@ public class StandardIOClasses extends fUML.Library.Classes {
 	public fUML.Syntax.Classes.Kernel.Class_ StandardOutputChannel = null;
 	public fUML.Syntax.Classes.Kernel.Class_ InputChannel = null;
 
-	public StandardIOClasses(fUML.Library.PrimitiveTypes primitiveTypes) {
+	public StandardIOClasses(org.modeldriven.fuml.test.builtin.library.PrimitiveTypes primitiveTypes) {
 		this.createChannelClass(primitiveTypes);
 		this.createOutputChannelClass(primitiveTypes);
 		this.createTextOutputChannelClass(primitiveTypes);
@@ -34,7 +34,7 @@ public class StandardIOClasses extends fUML.Library.Classes {
 
 	} // StandardIOClasses
 
-	public void createChannelClass(fUML.Library.PrimitiveTypes primitiveTypes) {
+	public void createChannelClass(org.modeldriven.fuml.test.builtin.library.PrimitiveTypes primitiveTypes) {
 		// MexSystem.println("[createChannelClass] Start...");
 
 		this.Channel = this.createClass("Channel", true);
@@ -55,7 +55,7 @@ public class StandardIOClasses extends fUML.Library.Classes {
 	} // createChannelClass
 
 	public void createOutputChannelClass(
-			fUML.Library.PrimitiveTypes primitiveTypes) {
+			org.modeldriven.fuml.test.builtin.library.PrimitiveTypes primitiveTypes) {
 		// MexSystem.println("[createOutputChannelClass] Start...");
 
 		this.OutputChannel = this.createClass("OutputChannel", true);
@@ -73,7 +73,7 @@ public class StandardIOClasses extends fUML.Library.Classes {
 	} // createOutputChannelClass
 
 	public void createTextOutputChannelClass(
-			fUML.Library.PrimitiveTypes primitiveTypes) {
+			org.modeldriven.fuml.test.builtin.library.PrimitiveTypes primitiveTypes) {
 		// MexSystem.println("[createTextOutputChannelClass] Start...");
 
 		this.TextOutputChannel = this.createClass("TextOutputChannel", true);
@@ -109,7 +109,7 @@ public class StandardIOClasses extends fUML.Library.Classes {
 	} // createTextOutputChannelClass
 
 	public void createStandardOutputChannelClass(
-			fUML.Library.PrimitiveTypes primitiveTypes) {
+			org.modeldriven.fuml.test.builtin.library.PrimitiveTypes primitiveTypes) {
 		// MexSystem.println("[createStandardOutputChannelClass] Start...");
 
 		this.StandardOutputChannel = this.createClass("StandardOutputChannel",
@@ -119,7 +119,7 @@ public class StandardIOClasses extends fUML.Library.Classes {
 	} // createStandardOutputChannelClass
 
 	public void createInputChannelClass(
-			fUML.Library.PrimitiveTypes primitiveTypes) {
+			org.modeldriven.fuml.test.builtin.library.PrimitiveTypes primitiveTypes) {
 		this.InputChannel = this.createClass("InputChannel", true);
 		this.addGeneralization(this.InputChannel, this.Channel);
 

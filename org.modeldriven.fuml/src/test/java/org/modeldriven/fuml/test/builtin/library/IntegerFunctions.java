@@ -3,19 +3,19 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
  * in the file entitled Licensing-Information. 
  */
 
-package fUML.Library;
+package org.modeldriven.fuml.test.builtin.library;
 
 import fUML.Debug;
 import UMLPrimitiveTypes.*;
 
-public class IntegerFunctions extends fUML.Library.PrimitiveFunctions {
+public class IntegerFunctions extends org.modeldriven.fuml.test.builtin.library.PrimitiveFunctions {
 
 	public fUML.Syntax.CommonBehaviors.BasicBehaviors.FunctionBehavior integerPlus = null;
 	public fUML.Syntax.CommonBehaviors.BasicBehaviors.FunctionBehavior integerMinus = null;
@@ -32,38 +32,38 @@ public class IntegerFunctions extends fUML.Library.PrimitiveFunctions {
 				.createBinaryOperator(
 						"IntegerPlus",
 						integerType,
-						new fUML.Library.IntegerFunctionImplementation.IntegerPlusFunctionBehaviorExecution(),
+						new org.modeldriven.fuml.library.integerfunctions.IntegerPlusFunctionBehaviorExecution(),
 						factory);
 		this.integerMinus = this
 				.createBinaryOperator(
 						"IntegerMinus",
 						integerType,
-						new fUML.Library.IntegerFunctionImplementation.IntegerMinusFunctionBehaviorExecution(),
+						new org.modeldriven.fuml.library.integerfunctions.IntegerMinusFunctionBehaviorExecution(),
 						factory);
 		this.integerTimes = this
 				.createBinaryOperator(
 						"IntegerTimes",
 						integerType,
-						new fUML.Library.IntegerFunctionImplementation.IntegerTimesFunctionBehaviorExecution(),
+						new org.modeldriven.fuml.library.integerfunctions.IntegerTimesFunctionBehaviorExecution(),
 						factory);
 		this.integerDivide = this
 				.createBinaryOperator(
 						"IntegerDivide",
 						integerType,
-						new fUML.Library.IntegerFunctionImplementation.IntegerDivideFunctionBehaviorExecution(),
+						new org.modeldriven.fuml.library.integerfunctions.IntegerDivideFunctionBehaviorExecution(),
 						factory);
 		this.integerNegate = this
 				.createUnaryOperator(
 						"IntegerNegate",
 						integerType,
-						new fUML.Library.IntegerFunctionImplementation.IntegerNegateFunctionBehaviorExecution(),
+						new org.modeldriven.fuml.library.integerfunctions.IntegerNegateFunctionBehaviorExecution(),
 						factory);
 		this.integerGreater = this
 				.createComparisonOperator(
 						"IntegerGreater",
 						integerType,
 						booleanType,
-						new fUML.Library.IntegerFunctionImplementation.IntegerGreaterFunctionBehaviorExecution(),
+						new org.modeldriven.fuml.library.integerfunctions.IntegerGreaterThanFunctionBehaviorExecution(),
 						factory);
 	} // IntegerFunctions
 

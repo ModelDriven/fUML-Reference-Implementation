@@ -10,14 +10,14 @@
  * in the file entitled Licensing-Information. 
  */
 
-package fUML.Test;
+package org.modeldriven.fuml.test.builtin.environment;
 
 import fUML.Debug;
 import UMLPrimitiveTypes.*;
 
 public class Test extends org.modeldriven.fuml.FumlObject {
 
-	public fUML.Test.TestEnvironment environment = null;
+	public org.modeldriven.fuml.test.builtin.environment.TestEnvironment environment = null;
 
 	public Test() {
 		return;

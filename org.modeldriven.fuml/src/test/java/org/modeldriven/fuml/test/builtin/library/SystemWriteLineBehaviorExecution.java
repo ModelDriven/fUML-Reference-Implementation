@@ -3,16 +3,20 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
  * in the file entitled Licensing-Information. 
  */
 
-package fUML.Library.SystemIOImplementation;
+package org.modeldriven.fuml.test.builtin.library;
 
 import fUML.Debug;
+
+import org.modeldriven.fuml.library.channel.StandardOutputChannelObject;
+import org.modeldriven.fuml.library.common.Status;
+
 import UMLPrimitiveTypes.*;
 
 public class SystemWriteLineBehaviorExecution extends
@@ -29,9 +33,10 @@ public class SystemWriteLineBehaviorExecution extends
 
 		for (int i = 0; i < values.size(); i++) {
 			// Debug.println(">>>>>>>> " + values.getValue(i));
-			fUML.Library.ChannelImplementation.StandardOutputChannelObject standardOutput = new fUML.Library.ChannelImplementation.StandardOutputChannelObject();
-			standardOutput.open();
-			standardOutput.writeLine(values.getValue(i).toString());
+			StandardOutputChannelObject standardOutput = new StandardOutputChannelObject();
+			Status status = new Status(this.locus, "");
+			standardOutput.open(status);
+			standardOutput.writeLine(values.getValue(i).toString(), status);
 		}
 	} // doBody
 

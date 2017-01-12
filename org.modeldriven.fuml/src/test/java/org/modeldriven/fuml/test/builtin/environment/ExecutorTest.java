@@ -10,7 +10,7 @@
  * in the file entitled Licensing-Information. 
  */
 
-package fUML.Test;
+package org.modeldriven.fuml.test.builtin.environment;
 
 import fUML.Debug;
 import UMLPrimitiveTypes.*;
@@ -23,9 +23,9 @@ import fUML.Semantics.*;
 import fUML.Semantics.Classes.Kernel.*;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.*;
 
-public class ExecutorTest extends fUML.Test.Test {
+public class ExecutorTest extends org.modeldriven.fuml.test.builtin.environment.Test {
 
-	public ExecutorTest(fUML.Test.TestEnvironment environment) {
+	public ExecutorTest(org.modeldriven.fuml.test.builtin.environment.TestEnvironment environment) {
 		this.environment = environment;
 	} // ExecutorTest
 

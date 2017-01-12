@@ -10,7 +10,7 @@
  * in the file entitled Licensing-Information. 
  */
 
-package fUML.Library;
+package org.modeldriven.fuml.test.builtin.library;
 
 import fUML.Debug;
 import UMLPrimitiveTypes.*;

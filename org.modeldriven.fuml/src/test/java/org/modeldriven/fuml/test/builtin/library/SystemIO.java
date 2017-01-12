@@ -10,12 +10,12 @@
  * in the file entitled Licensing-Information. 
  */
 
-package fUML.Library;
+package org.modeldriven.fuml.test.builtin.library;
 
 import fUML.Debug;
 import UMLPrimitiveTypes.*;
 
-public class SystemIO extends fUML.Library.PrimitiveBehaviors {
+public class SystemIO extends org.modeldriven.fuml.test.builtin.library.PrimitiveBehaviors {
 
 	public fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior WriteLine = null;
 
@@ -26,7 +26,7 @@ public class SystemIO extends fUML.Library.PrimitiveBehaviors {
 				.createPrimitiveBehavior(
 						"WriteLine",
 						parameters,
-						new fUML.Library.SystemIOImplementation.SystemWriteLineBehaviorExecution(),
+						new org.modeldriven.fuml.test.builtin.library.SystemWriteLineBehaviorExecution(),
 						factory);
 	} // SystemIO
 

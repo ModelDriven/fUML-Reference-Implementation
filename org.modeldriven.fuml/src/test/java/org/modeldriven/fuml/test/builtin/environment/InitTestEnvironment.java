@@ -10,19 +10,19 @@
  * in the file entitled Licensing-Information. 
  */
 
-package fUML.Test;
+package org.modeldriven.fuml.test.builtin.environment;
 
 import fUML.Debug;
 import UMLPrimitiveTypes.*;
 
 public class InitTestEnvironment extends org.modeldriven.fuml.FumlObject {
 
-	public fUML.Test.TestEnvironment environment = null;
-	public fUML.Test.ExecutorTest executorTest = null;
-	public fUML.Test.ActivityFactory activityFactory = null;
-	public fUML.Test.VariableUtility variableUtility = null;
-	public fUML.Test.ClassifierFactory classifierFactory = null;
-	public fUML.Test.TestSuite testSuite = null;
+	public org.modeldriven.fuml.test.builtin.environment.TestEnvironment environment = null;
+	public org.modeldriven.fuml.test.builtin.environment.ExecutorTest executorTest = null;
+	public org.modeldriven.fuml.test.builtin.environment.ActivityFactory activityFactory = null;
+	public org.modeldriven.fuml.test.builtin.environment.VariableUtility variableUtility = null;
+	public org.modeldriven.fuml.test.builtin.environment.ClassifierFactory classifierFactory = null;
+	public org.modeldriven.fuml.test.builtin.environment.TestSuite testSuite = null;
 
 	public InitTestEnvironment() {
 		// Debug.println("[InitTestEnvironment] Start...");

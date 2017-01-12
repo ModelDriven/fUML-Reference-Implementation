@@ -10,7 +10,7 @@
  * in the file entitled Licensing-Information. 
  */
 
-package fUML.Test;
+package org.modeldriven.fuml.test.builtin.environment;
 
 import fUML.Debug;
 import UMLPrimitiveTypes.*;
@@ -25,14 +25,14 @@ import fUML.Syntax.Actions.BasicActions.*;
 import fUML.Syntax.Actions.IntermediateActions.*;
 import fUML.Syntax.Actions.CompleteActions.*;
 
-public class TestSuite extends fUML.Test.Test {
+public class TestSuite extends org.modeldriven.fuml.test.builtin.environment.Test {
 
-	private fUML.Test.ActivityFactory activityFactory = null;
-	private fUML.Test.ClassifierFactory classifierFactory = null;
-	private fUML.Test.ExecutorTest executorTest = null;
-	private fUML.Test.VariableUtility variableUtility = null;
+	private org.modeldriven.fuml.test.builtin.environment.ActivityFactory activityFactory = null;
+	private org.modeldriven.fuml.test.builtin.environment.ClassifierFactory classifierFactory = null;
+	private org.modeldriven.fuml.test.builtin.environment.ExecutorTest executorTest = null;
+	private org.modeldriven.fuml.test.builtin.environment.VariableUtility variableUtility = null;
 
-	public TestSuite(fUML.Test.InitTestEnvironment init) {
+	public TestSuite(org.modeldriven.fuml.test.builtin.environment.InitTestEnvironment init) {
 		this.environment = init.environment;
 		this.activityFactory = init.activityFactory;
 		this.classifierFactory = init.classifierFactory;

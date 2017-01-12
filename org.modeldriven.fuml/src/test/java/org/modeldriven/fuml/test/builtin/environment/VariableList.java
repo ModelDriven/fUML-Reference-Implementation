@@ -10,11 +10,11 @@
  * in the file entitled Licensing-Information. 
  */
 
-package fUML.Test;
+package org.modeldriven.fuml.test.builtin.environment;
 
 import java.util.ArrayList;
 
-public class VariableList extends ArrayList<fUML.Test.Variable> {
+public class VariableList extends ArrayList<org.modeldriven.fuml.test.builtin.environment.Variable> {
 	public VariableList() {
 		super();
 	}

@@ -342,7 +342,7 @@
 							not excluded -->
 						<!-- <exclude>**/load/**</exclude> -->
 						<exclude>**/load/*MagicDrawProfile*</exclude> <!-- needs work -->
-						<exclude>**/builtin/*LoopNode*</exclude>
+						<!-- <exclude>**/builtin/*LoopNode*</exclude> -->
 						<!-- <exclude>**/model/**</exclude> -->
 						<!-- <exclude>**/builtin/**</exclude> -->
 						<!-- <exclude>**/library/**</exclude> -->

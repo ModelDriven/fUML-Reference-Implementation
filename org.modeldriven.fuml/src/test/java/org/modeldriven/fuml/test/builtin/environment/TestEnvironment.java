@@ -10,9 +10,13 @@
  * in the file entitled Licensing-Information. 
  */
 
-package fUML.Test;
+package org.modeldriven.fuml.test.builtin.environment;
 
 import fUML.Debug;
+
+import org.modeldriven.fuml.library.channel.StandardOutputChannelObject;
+import org.modeldriven.fuml.library.common.Status;
+
 import UMLPrimitiveTypes.*;
 
 import fUML.Syntax.Classes.Kernel.*;
@@ -25,13 +29,13 @@ import fUML.Semantics.Loci.LociL3.ExecutionFactoryL3;
 
 public class TestEnvironment extends org.modeldriven.fuml.FumlObject {
 
-	public fUML.Test.VariableList variables = new fUML.Test.VariableList();
-	public fUML.Library.PrimitiveTypes primitiveTypes = null;
+	public org.modeldriven.fuml.test.builtin.environment.VariableList variables = new org.modeldriven.fuml.test.builtin.environment.VariableList();
+	public org.modeldriven.fuml.test.builtin.library.PrimitiveTypes primitiveTypes = null;
 	public fUML.Syntax.Classes.Kernel.NamedElementList elements = new fUML.Syntax.Classes.Kernel.NamedElementList();
 	public fUML.Semantics.Loci.LociL1.Locus locus = null;
-	public fUML.Library.IntegerFunctions integerFunctions = null;
-	public fUML.Library.SystemIO systemIO = null;
-	public fUML.Library.StandardIOClasses standardIO = null;
+	public org.modeldriven.fuml.test.builtin.library.IntegerFunctions integerFunctions = null;
+	public org.modeldriven.fuml.test.builtin.library.SystemIO systemIO = null;
+	public org.modeldriven.fuml.test.builtin.library.StandardIOClasses standardIO = null;
 
 	public TestEnvironment() {
 		try {
@@ -47,14 +51,14 @@ public class TestEnvironment extends org.modeldriven.fuml.FumlObject {
 			this.locus.factory
 					.setStrategy(new fUML.Semantics.Loci.LociL1.FirstChoiceStrategy());
 
-			this.primitiveTypes = new fUML.Library.PrimitiveTypes(
+			this.primitiveTypes = new org.modeldriven.fuml.test.builtin.library.PrimitiveTypes(
 					this.locus.factory);
 			this.addElement(this.primitiveTypes.Boolean);
 			this.addElement(this.primitiveTypes.Integer);
 			this.addElement(this.primitiveTypes.String);
 			this.addElement(this.primitiveTypes.UnlimitedNatural);
 
-			this.integerFunctions = new fUML.Library.IntegerFunctions(
+			this.integerFunctions = new org.modeldriven.fuml.test.builtin.library.IntegerFunctions(
 					this.primitiveTypes.Integer, this.primitiveTypes.Boolean,
 					this.locus.factory);
 			this.addElement(this.integerFunctions.integerPlus);
@@ -64,33 +68,33 @@ public class TestEnvironment extends org.modeldriven.fuml.FumlObject {
 			this.addElement(this.integerFunctions.integerNegate);
 			this.addElement(this.integerFunctions.integerGreater);
 
-			this.systemIO = new fUML.Library.SystemIO(this.locus.factory);
+			this.systemIO = new org.modeldriven.fuml.test.builtin.library.SystemIO(this.locus.factory);
 			this.addElement(this.systemIO.WriteLine);
 
-			this.standardIO = new fUML.Library.StandardIOClasses(
+			this.standardIO = new org.modeldriven.fuml.test.builtin.library.StandardIOClasses(
 					this.primitiveTypes);
 			this.addElement(this.standardIO.Channel);
 			this.addElement(this.standardIO.OutputChannel);
 			this.addElement(this.standardIO.TextOutputChannel);
 			this.addElement(this.standardIO.StandardOutputChannel);
 
-			fUML.Library.ChannelImplementation.StandardOutputChannelObject standardOutputChannel = new fUML.Library.ChannelImplementation.StandardOutputChannelObject();
+			StandardOutputChannelObject standardOutputChannel = new StandardOutputChannelObject();
 			standardOutputChannel.types
 					.addValue(this.standardIO.StandardOutputChannel);
-			standardOutputChannel.open();
+			standardOutputChannel.open(new Status(this.locus, ""));
 			this.locus.add(standardOutputChannel);
 
-			fUML.Library.PipeImplementation.PipeInputChannelObject pipeInputChannel = new fUML.Library.PipeImplementation.PipeInputChannelObject(
-					"PipedInput");
-			pipeInputChannel.types.addValue(this.standardIO.InputChannel);
-			pipeInputChannel.open();
-			this.locus.add(pipeInputChannel);
-
-			fUML.Library.PipeImplementation.PipeOutputChannelObject pipeOutputChannel = new fUML.Library.PipeImplementation.PipeOutputChannelObject(
-					"PipedOutput", pipeInputChannel);
-			pipeOutputChannel.types.addValue(this.standardIO.OutputChannel);
-			pipeOutputChannel.open();
-			this.locus.add(pipeOutputChannel);
+//			fUML.Library.PipeImplementation.PipeInputChannelObject pipeInputChannel = new fUML.Library.PipeImplementation.PipeInputChannelObject(
+//					"PipedInput");
+//			pipeInputChannel.types.addValue(this.standardIO.InputChannel);
+//			pipeInputChannel.open();
+//			this.locus.add(pipeInputChannel);
+//
+//			fUML.Library.PipeImplementation.PipeOutputChannelObject pipeOutputChannel = new fUML.Library.PipeImplementation.PipeOutputChannelObject(
+//					"PipedOutput", pipeInputChannel);
+//			pipeOutputChannel.types.addValue(this.standardIO.OutputChannel);
+//			pipeOutputChannel.open();
+//			this.locus.add(pipeOutputChannel);
 
 		} catch (Throwable e) {
 			Debug.println("[TestEnvironment] Terminated due to "
@@ -238,7 +242,7 @@ public class TestEnvironment extends org.modeldriven.fuml.FumlObject {
 		variable.value = value;
 	} // setVariable
 
-	public fUML.Test.Variable getVariable(String name) {
+	public org.modeldriven.fuml.test.builtin.environment.Variable getVariable(String name) {
 		for (int i = 0; i < this.variables.size(); i++) {
 			if (this.variables.getValue(i).name.equals(name)) {
 				return this.variables.getValue(i);

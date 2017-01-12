@@ -10,7 +10,7 @@
  * in the file entitled Licensing-Information. 
  */
 
-package fUML.Library;
+package org.modeldriven.fuml.test.builtin.library;
 
 import fUML.Debug;
 import UMLPrimitiveTypes.*;
@@ -19,7 +19,7 @@ import fUML.Syntax.Classes.Kernel.*;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.*;
 
 public abstract class PrimitiveFunctions extends
-		fUML.Library.PrimitiveBehaviors {
+		org.modeldriven.fuml.test.builtin.library.PrimitiveBehaviors {
 
 	protected fUML.Syntax.CommonBehaviors.BasicBehaviors.FunctionBehavior createBinaryOperator(
 			String name,

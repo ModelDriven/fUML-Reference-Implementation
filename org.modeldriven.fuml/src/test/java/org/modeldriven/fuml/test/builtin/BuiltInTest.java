@@ -19,12 +19,12 @@ import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.modeldriven.fuml.test.FUMLTest;
+import org.modeldriven.fuml.test.builtin.environment.InitTestEnvironment;
 
 import fUML.Debug;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Syntax.Classes.Kernel.Classifier;
 import fUML.Syntax.Classes.Kernel.Element;
-import fUML.Test.InitTestEnvironment;
 
 
 /**
