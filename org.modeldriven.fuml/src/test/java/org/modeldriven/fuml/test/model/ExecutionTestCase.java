@@ -13,6 +13,7 @@ import org.modeldriven.fuml.test.FUMLTest;
 import org.modeldriven.fuml.test.FUMLTestSetup;
 
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 
@@ -140,19 +141,27 @@ public class ExecutionTestCase extends FUMLTest {
     	log.info("done");
     }
     
-    public void testActiveClassBehaviorSender() throws Exception {
+    public void testNodeEnabler() throws Exception {
+    	ParameterValueList parameterValues = execute("TestNodeEnabler");
+    	log.info("done");
+    	
+    	assertTrue("Should be one output parameter value", parameterValues.size() == 1);
+    	assertTrue("Output parameter should have a single value", parameterValues.get(0).values.size() == 1);
+    }
+    
+   public void testActiveClassBehaviorSender() throws Exception {
     	execute("ActiveClassBehaviorSender");
     	log.info("done");
     }
     
-    private void execute(String activityName)
+    private ParameterValueList execute(String activityName)
     {
         Behavior behavior = environment.findBehavior(activityName);
         if (behavior == null)
             throw new RuntimeException("invalid behavior, " + activityName);
         log.info("executing behavior: " + behavior.name);
         ExecutionEnvironment execution = new ExecutionEnvironment(environment);
-        execution.execute(behavior);
+        return execution.execute(behavior);
     }
     
 }

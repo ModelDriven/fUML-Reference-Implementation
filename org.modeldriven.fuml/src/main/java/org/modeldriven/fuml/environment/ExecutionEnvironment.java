@@ -1,13 +1,10 @@
 /*
  * Copyright 2008 Lockheed Martin Corporation, except as stated in the file 
  * entitled Licensing-Information. 
- * All modifications copyright 2009-2011 Data Access Technologies, Inc. 
+ * All modifications copyright 2009-2016 Data Access Technologies, Inc. 
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
  * in the file entitled Licensing-Information. 
- *
- * Contributors:
- *   MDS - initial API and implementation
  *
  */
 package org.modeldriven.fuml.environment;
@@ -36,12 +33,12 @@ public class ExecutionEnvironment {
         this.environment = environment;
     }
 
-    public void execute(Behavior behavior) {
+    public ParameterValueList execute(Behavior behavior) {
         ParameterList parameters = behavior.ownedParameter;
         ParameterValueList parameterValues = this.createDefaultInputValues(parameters);
 
         if (parameterValues == null)
-            return;
+            return null;
 
         if (log.isDebugEnabled())
             log.debug("executing the behavior...");
@@ -60,6 +57,8 @@ public class ExecutionEnvironment {
                         + outputParameterValue.values.getValue(j));
             }
         }
+        
+        return outputParameterValues;
     }
     
     protected ParameterValueList createDefaultInputValues(ParameterList parameters) {

@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2016 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -42,10 +42,11 @@ public class ActivityNodeActivationGroup extends
 
 	public void run(
 			fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivationList activations) {
-		// Run the given node activations and then (concurrently) send an offer
-		// to all activations for nodes with no incoming edges within the given
-		// set.
-
+		// Run the given node activations. 
+		// Then concurrently send offers to all input activity parameter node activations (if any). 
+		// Finally, concurrently send offers to all activations of other kinds of nodes that have 
+		// no incoming edges with the given set (if any).
+		
 		for (int i = 0; i < activations.size(); i++) {
 			ActivityNodeActivation activation = activations.getValue(i);
 			activation.run();
@@ -53,14 +54,13 @@ public class ActivityNodeActivationGroup extends
 
 		Debug.println("[run] Checking for enabled nodes...");
 
-		ActivityNodeActivationList enabledActivations = new ActivityNodeActivationList();
+		ActivityNodeActivationList enabledParameterNodeActivations = new ActivityNodeActivationList();
+		ActivityNodeActivationList enabledOtherActivations = new ActivityNodeActivationList();
 
 		for (int i = 0; i < activations.size(); i++) {
 			ActivityNodeActivation activation = activations.getValue(i);
 
-			Debug
-					.println("[run] Checking node " + activation.node.name
-							+ "...");
+			Debug.println("[run] Checking node" + (activation.node.name == null? "": " " + activation.node.name) + "...");
 
 			if (activation instanceof ActionActivation
 					| activation instanceof ControlNodeActivation
@@ -85,22 +85,31 @@ public class ActivityNodeActivationGroup extends
 				}
 
 				if (isEnabled) {
-					Debug.println("[run] Node " + activation.node.name
-							+ " is enabled.");
-					enabledActivations.addValue(activation);
+					Debug.println("[run] Node" + 
+							(activation.node.name == null? "": " " + activation.node.name) + " is enabled.");
+					if (activation instanceof ActivityParameterNodeActivation) {
+						enabledParameterNodeActivations.addValue(activation);
+					} else {
+						enabledOtherActivations.addValue(activation);
+					}
 				}
 			}
 		}
 
-		// Debug.println("[run] " + enabledActivations.size() +
-		// " node(s) are enabled.");
-
-		// *** Send offers to all enabled nodes concurrently. ***
-		for (Iterator i = enabledActivations.iterator(); i.hasNext();) {
+		// *** Send offers to all enabled activity parameter nodes concurrently. ***
+		for (Iterator i = enabledParameterNodeActivations.iterator(); i.hasNext();) {
+			ActivityNodeActivation activation = (ActivityNodeActivation) i.next();
+			Debug.println("[run] Sending offer to activity parameter node" + 
+					(activation.node.name == null? "": " " + activation.node.name) + ".");
+			activation.receiveOffer();
+		}
+		
+		// *** Send offers to all other enabled nodes concurrently. ***
+		for (Iterator i = enabledOtherActivations.iterator(); i.hasNext();) {
 			ActivityNodeActivation activation = (ActivityNodeActivation) i
 					.next();
-			Debug.println("[run] Sending offer to node " + activation.node.name
-					+ ".");
+			Debug.println("[run] Sending offer to node" +
+					(activation.node.name == null? "": " " + activation.node.name) + ".");
 			activation.receiveOffer();
 		}
 	} // run
