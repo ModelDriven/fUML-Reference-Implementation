@@ -466,7 +466,34 @@ public class TestSuite extends org.modeldriven.fuml.test.builtin.environment.Tes
 		Debug.println("[testFireAgain] Done!");
 		
 		return output;
-
 	} // testFireAgain
+	
+	public ParameterValueList testCentralBuffer() {
+		Debug.println("[testCentralBuffer] Setting up...");
+
+		activityFactory.createCentralBuffer();
+
+		Debug.println("[testCentralBuffer] Testing...");
+
+		ParameterValueList output = executorTest.testExecute("CentralBuffer");
+
+		Debug.println("[testCentralBuffer] Done!");
+		
+		return output;
+	}
+
+	public ParameterValueList testDataStore() {
+		Debug.println("[testDataStore] Setting up...");
+
+		activityFactory.createDataStore();
+
+		Debug.println("[testDataStore] Testing...");
+
+		ParameterValueList output = executorTest.testExecute("DataStore");
+
+		Debug.println("[testDataStore] Done!");
+		
+		return output;
+	}
 
 } // TestSuite

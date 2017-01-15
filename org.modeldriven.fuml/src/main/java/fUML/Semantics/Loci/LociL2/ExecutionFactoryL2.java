@@ -3,7 +3,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -12,15 +12,10 @@
 
 package fUML.Semantics.Loci.LociL2;
 
-import fUML.Debug;
-import UMLPrimitiveTypes.*;
-
-import fUML.Syntax.*;
 import fUML.Syntax.Activities.IntermediateActivities.*;
 import fUML.Syntax.Actions.BasicActions.*;
 import fUML.Syntax.Actions.IntermediateActions.*;
 
-import fUML.Semantics.*;
 import fUML.Semantics.Activities.IntermediateActivities.*;
 import fUML.Semantics.Actions.BasicActions.*;
 import fUML.Semantics.Actions.IntermediateActions.*;
@@ -42,6 +37,10 @@ public class ExecutionFactoryL2 extends
 
 		else if (element instanceof ActivityParameterNode) {
 			visitor = new ActivityParameterNodeActivation();
+		}
+		
+		else if (element instanceof CentralBufferNode) {
+			visitor = new CentralBufferNodeActivation();
 		}
 
 		else if (element instanceof InitialNode) {

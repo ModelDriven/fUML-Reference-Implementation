@@ -17,6 +17,7 @@ import fUML.Syntax.Classes.Kernel.*;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.*;
 import fUML.Syntax.CommonBehaviors.Communications.*;
 import fUML.Syntax.Activities.IntermediateActivities.*;
+import fUML.Syntax.Activities.CompleteActivities.DataStoreNode;
 import fUML.Syntax.Activities.CompleteStructuredActivities.*;
 import fUML.Syntax.Activities.ExtraStructuredActivities.*;
 import fUML.Syntax.Actions.BasicActions.*;
@@ -3006,5 +3007,183 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 
 		this.environment.addElement(flowFinalActivity);
 	} // createFlowFinal
+	
+	public void createCentralBuffer() {
+		Activity activity = new Activity();
+		activity.setName("CentralBuffer");
+		
+		InitialNode initialNode = new InitialNode();
+		initialNode.setName("InitialNode");
+		activity.addNode(initialNode);
+		
+		StructuredActivityNode structuredNode = new StructuredActivityNode();
+		structuredNode.setName("StructuredActivityNode");
+		activity.addNode(structuredNode);
+		
+		CentralBufferNode bufferNode = new CentralBufferNode();
+		bufferNode.setName("CentralBufferNode");
+		structuredNode.addNode(bufferNode);
+		
+		ActivityParameterNode inputNode1 = new ActivityParameterNode();
+		inputNode1.setName("Parameter(input1)");
+		inputNode1.setParameter(this.addParameter(activity, "input1",
+				ParameterDirectionKind.in, this.environment.primitiveTypes.Integer));
+		activity.addNode(inputNode1);
+
+		ActivityParameterNode inputNode2 = new ActivityParameterNode();
+		inputNode2.setName("Parameter(input2)");
+		inputNode2.setParameter(this.addParameter(activity, "input2",
+				ParameterDirectionKind.in, this.environment.primitiveTypes.Integer));
+		activity.addNode(inputNode2);
+
+		ActivityParameterNode outputNode = new ActivityParameterNode();
+		outputNode.setName("Parameter(output)");
+		Parameter parameter = this.addParameter(activity, "output",
+				ParameterDirectionKind.out, null);
+		parameter.setLower(0);
+		parameter.setUpper(-1);
+		outputNode.setParameter(parameter);
+		activity.addNode(outputNode);
+		
+		this.addEdge(activity, new ControlFlow(), initialNode, structuredNode, null);
+		this.addEdge(activity, new ObjectFlow(), inputNode1, bufferNode, null);
+		this.addEdge(activity, new ObjectFlow(), inputNode2, bufferNode, null);
+		this.addEdge(activity, new ObjectFlow(), bufferNode, outputNode, null);
+		
+		this.environment.addElement(activity);
+	}
+	
+	public void createDataStore() {
+		Activity activity = new Activity();
+		activity.setName("DataStore");
+		
+		InitialNode initialNode = new InitialNode();
+		initialNode.setName("InitialNode");
+		activity.addNode(initialNode);
+		
+		MergeNode mergeNode1 = new MergeNode();
+		mergeNode1.setName("MergeNode1");
+		activity.addNode(mergeNode1);
+		
+		ValueSpecificationAction initAction1 = new ValueSpecificationAction();
+		initAction1.setName("Value(1)-Init-1");
+		initAction1.setValue(this.createLiteralInteger("", 1));
+		initAction1.setResult(this.makeOutputPin(
+				initAction1.name + ".result", 1, 1));
+		activity.addNode(initAction1);
+		
+		ValueSpecificationAction initAction2 = new ValueSpecificationAction();
+		initAction2.setName("Value(1)-Init-2");
+		initAction2.setValue(this.createLiteralInteger("", 1));
+		initAction2.setResult(this.makeOutputPin(
+				initAction1.name + ".result", 1, 1));
+		activity.addNode(initAction2);
+		
+		ValueSpecificationAction initAction3 = new ValueSpecificationAction();
+		initAction3.setName("Value(2)-Init-3");
+		initAction3.setValue(this.createLiteralInteger("", 2));
+		initAction3.setResult(this.makeOutputPin(
+				initAction1.name + ".result", 1, 1));
+		activity.addNode(initAction3);
+		
+		ValueSpecificationAction valueAction1 = new ValueSpecificationAction();
+		valueAction1.setName("Value(1)");
+		valueAction1.setValue(this.createLiteralInteger("", 1));
+		valueAction1.setResult(this.makeOutputPin(
+				valueAction1.name + ".result", 1, 1));
+		activity.addNode(valueAction1);
+		
+		ValueSpecificationAction valueAction2 = new ValueSpecificationAction();
+		valueAction2.setName("Value(2)");
+		valueAction2.setValue(this.createLiteralInteger("", 2));
+		valueAction2.setResult(this.makeOutputPin(
+				valueAction2.name + ".result", 1, 1));
+		activity.addNode(valueAction2);
+		
+		ValueSpecificationAction valueAction3 = new ValueSpecificationAction();
+		valueAction3.setName("Value(3)");
+		valueAction3.setValue(this.createLiteralInteger("", 3));
+		valueAction3.setResult(this.makeOutputPin(
+				valueAction3.name + ".result", 1, 1));
+		activity.addNode(valueAction3);
+		
+		ForkNode forkNode1 = new ForkNode();
+		forkNode1.setName("ForkNode1");
+		activity.addNode(forkNode1);
+		
+		ForkNode forkNode2 = new ForkNode();
+		forkNode2.setName("ForkNode2");
+		activity.addNode(forkNode2);
+		
+		DataStoreNode dataStoreNode = new DataStoreNode();
+		dataStoreNode.setName("DataStoreNode");
+		activity.addNode(dataStoreNode);
+		
+		MergeNode mergeNode2 = new MergeNode();
+		mergeNode2.setName("MergeNode2");
+		activity.addNode(mergeNode2);
+		
+		DecisionNode decisionNode = new DecisionNode();
+		decisionNode.setName("DecisionNode");
+		decisionNode.setDecisionInputFlow(new ObjectFlow());
+		activity.addNode(decisionNode);
+		
+		CallBehaviorAction callAction1 = new CallBehaviorAction();
+		callAction1.setName("Call(Copier)-1");
+		callAction1.setBehavior(this.getActivity("Copier"));
+		callAction1.addArgument(this.makeInputPin(
+				callAction1.name + ".argument", 1, 1));
+		callAction1.addResult(this.makeOutputPin(
+				callAction1.name + ".result", 1, 1));
+		activity.addNode(callAction1);
+
+		CallBehaviorAction callAction2 = new CallBehaviorAction();
+		callAction2.setName("Call(Copier)-2");
+		callAction2.setBehavior(this.getActivity("Copier"));
+		callAction2.addArgument(this.makeInputPin(
+				callAction2.name + ".argument", 1, 1));
+		callAction2.addResult(this.makeOutputPin(
+				callAction2.name + ".result", 1, 1));
+		activity.addNode(callAction2);
+
+		ActivityFinalNode finalNode = new ActivityFinalNode();
+		finalNode.setName("FinalNode");
+		activity.addNode(finalNode);
+		
+		ActivityParameterNode outputNode = new ActivityParameterNode();
+		outputNode.setName("Parameter(output)");
+		Parameter parameter = this.addParameter(activity, "output",
+				ParameterDirectionKind.out, null);
+		parameter.setLower(0);
+		parameter.setUpper(-1);
+		outputNode.setParameter(parameter);
+		activity.addNode(outputNode);
+		
+		this.addEdge(activity, new ControlFlow(), initAction1, initAction2, null);
+		this.addEdge(activity, new ControlFlow(), initAction2, initAction3, null);
+		this.addEdge(activity, new ControlFlow(), initAction3, mergeNode1, null);
+		this.addEdge(activity, new ControlFlow(), mergeNode1, decisionNode, null);
+		this.addEdge(activity, new ControlFlow(), decisionNode, callAction1, this.createLiteralInteger("", 1));
+		this.addEdge(activity, new ControlFlow(), decisionNode, callAction2, this.createLiteralInteger("", 2));
+		this.addEdge(activity, new ControlFlow(), decisionNode, finalNode, this.createLiteralInteger("", 3));
+		this.addEdge(activity, new ControlFlow(), callAction1, valueAction2, null);
+		this.addEdge(activity, new ControlFlow(), valueAction2, mergeNode1, null);
+		this.addEdge(activity, new ControlFlow(), callAction2, valueAction3, null);
+		this.addEdge(activity, new ControlFlow(), valueAction3, mergeNode1, null);
+
+		this.addEdge(activity, new ObjectFlow(), initAction1.result, dataStoreNode, null);
+		this.addEdge(activity, new ObjectFlow(), initAction2.result, dataStoreNode, null);
+		this.addEdge(activity, new ObjectFlow(), initAction3.result, dataStoreNode, null);
+		
+		this.addEdge(activity, new ObjectFlow(), valueAction1.result, mergeNode2, null);
+		this.addEdge(activity, decisionNode.decisionInputFlow, mergeNode2, decisionNode, null);
+		this.addEdge(activity, new ObjectFlow(), valueAction2.result, mergeNode2, null);
+		this.addEdge(activity, new ObjectFlow(), dataStoreNode, callAction1.argument.get(0), null);
+		this.addEdge(activity, new ObjectFlow(), callAction1.result.get(0), outputNode, null);
+		this.addEdge(activity, new ObjectFlow(), dataStoreNode, callAction2.argument.get(0), null);
+		this.addEdge(activity, new ObjectFlow(), callAction2.result.get(0), outputNode, null);
+
+		this.environment.addElement(activity);
+	}
 
 } // ActivityFactory

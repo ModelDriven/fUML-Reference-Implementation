@@ -1,9 +1,8 @@
-
 /*
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -12,20 +11,15 @@
 
 package fUML.Semantics.Loci.LociL3;
 
-import fUML.Debug;
-import UMLPrimitiveTypes.*;
-
-import fUML.Syntax.*;
+import fUML.Syntax.Activities.CompleteActivities.DataStoreNode;
 import fUML.Syntax.Activities.CompleteStructuredActivities.*;
 import fUML.Syntax.Activities.ExtraStructuredActivities.*;
 import fUML.Syntax.Actions.CompleteActions.*;
-
-import fUML.Semantics.*;
+import fUML.Semantics.Activities.CompleteActivities.DataStoreNodeActivation;
 import fUML.Semantics.Activities.CompleteStructuredActivities.*;
 import fUML.Semantics.Activities.ExtraStructuredActivities.*;
 import fUML.Semantics.Actions.CompleteActions.*;
 import fUML.Semantics.Loci.LociL1.*;
-import fUML.Semantics.Loci.LociL2.*;
 
 public class ExecutionFactoryL3 extends
 		fUML.Semantics.Loci.LociL2.ExecutionFactoryL2 {
@@ -36,8 +30,12 @@ public class ExecutionFactoryL3 extends
 		// Level 3)
 
 		SemanticVisitor visitor = null;
-
-		if (element instanceof ConditionalNode) {
+		
+		if (element instanceof DataStoreNode) {
+			visitor = new DataStoreNodeActivation();
+		} 
+		
+		else if (element instanceof ConditionalNode) {
 			visitor = new ConditionalNodeActivation();
 		}
 
