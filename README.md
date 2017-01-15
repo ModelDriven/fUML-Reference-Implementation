@@ -34,7 +34,7 @@ associated files [Common-Public-License-1.0.txt](https://github.com/ModelDriven/
 
 The implementation build requires the following to be installed:
 
-* Oracle Java Version 6 or above - see http://java.oracle.com/
+* Oracle Java Version 8 or above - see http://java.oracle.com/
 * Apache Maven Version 2.2 or above - see http://maven.apache.org/
 
 To build from the command line:
@@ -52,7 +52,7 @@ be displayed. Generated and compiled code can be found under the 'target'
 directory.
 
 To build using Eclipse:
-    The implementation build requires Eclipse Kepler or above with the M2E plugin and dependencies:
+    The implementation build requires Eclipse Mars or above with the M2E plugin and dependencies:
 
 1. Start Eclipse
 
