@@ -10,7 +10,7 @@ includes implementation of resolutions to the following OMG issues, which have
 been approved by the fUML Revision Task Force for fUML 1.3 but have not yet been
 formally adopted. 
 
-The full list of open fUML issues is available at http://solitaire.omg.org/issues/task-force/FUML13.
+The full list of open fUML issues is available at http://issues.omg.org/issues/task-force/FUML13.
 
 [FUML 13-20](http://issues.omg.org/issues/task-force/FUML13#issue-39953) 
 Error in RealValue::toString
