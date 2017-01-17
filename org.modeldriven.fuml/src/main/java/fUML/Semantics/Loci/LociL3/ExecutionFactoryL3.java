@@ -48,10 +48,8 @@ public class ExecutionFactoryL3 extends
 		}
 
 		// Note: Since ConditionalNode, LoopNode and ExpansionRegion are
-		// subclasses of
-		// StructuredActivityNode, element must be tested against the three
-		// subclasses before
-		// the superclass
+		// subclasses of StructuredActivityNode, element must be tested 
+		// against the three subclasses before the superclass.
 		else if (element instanceof StructuredActivityNode) {
 			visitor = new StructuredActivityNodeActivation();
 		}
@@ -80,8 +78,19 @@ public class ExecutionFactoryL3 extends
 			visitor = new StartClassifierBehaviorActionActivation();
 		}
 
+		// Note: Since AcceptCallAction is a subclass of AcceptEventAction,
+		// element must be tested against AcceptCallAction before
+		// AcceptEventAction.
+		else if (element instanceof AcceptCallAction) {
+			visitor = new AcceptCallActionActivation();
+		}
+
 		else if (element instanceof AcceptEventAction) {
 			visitor = new AcceptEventActionActivation();
+		}
+
+		else if (element instanceof ReplyAction) {
+			visitor = new ReplyActionActivation();
 		}
 
 		else if (element instanceof ReduceAction) {

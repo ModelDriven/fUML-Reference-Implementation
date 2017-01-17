@@ -1,9 +1,8 @@
-
 /*
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -12,40 +11,34 @@
 
 package fUML.Semantics.Classes.Kernel;
 
-import fUML.Debug;
-import UMLPrimitiveTypes.*;
-
-import fUML.Syntax.*;
-import fUML.Syntax.Classes.Kernel.*;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.*;
-
-import fUML.Semantics.*;
-import fUML.Semantics.CommonBehaviors.Communications.*;
-import fUML.Semantics.Loci.*;
+import fUML.Syntax.Classes.Kernel.Class_;
+import fUML.Syntax.Classes.Kernel.NamedElement;
+import fUML.Syntax.Classes.Kernel.NamedElementList;
+import fUML.Syntax.Classes.Kernel.Operation;
 
 public class RedefinitionBasedDispatchStrategy extends
 		fUML.Semantics.Classes.Kernel.DispatchStrategy {
 
-	public fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior getMethod(
+	public fUML.Syntax.Classes.Kernel.Operation getActualOperation(
 			fUML.Semantics.Classes.Kernel.Object_ object,
 			fUML.Syntax.Classes.Kernel.Operation operation) {
-		// Get the method that corresponds to the given operation for the given
+		// Get the redefinition, if any, of the given operation for the given
 		// object.
-		// [If there is more than one type with a method for the operation, then
-		// the first one is arbitrarily chosen.]
+		// [If the object has more than one type with the given operation or
+		// a redefinition for it, then the first one is arbitrarily chosen.]
 
-		Behavior method = null;
+		Operation actualOperation = null;
 		int i = 1;
-		while (method == null & i <= object.types.size()) {
+		while (actualOperation == null & i <= object.types.size()) {
 			Class_ type = object.types.getValue(i - 1);
 			NamedElementList members = type.member;
 			int j = 1;
-			while (method == null & j <= members.size()) {
+			while (actualOperation == null & j <= members.size()) {
 				NamedElement member = members.getValue(j - 1);
 				if (member instanceof Operation) {
 					Operation memberOperation = (Operation) member;
 					if (this.operationsMatch(memberOperation, operation)) {
-						method = memberOperation.method.getValue(0);
+						actualOperation = memberOperation;
 					}
 				}
 				j = j + 1;
@@ -53,7 +46,7 @@ public class RedefinitionBasedDispatchStrategy extends
 			i = i + 1;
 		}
 
-		return method;
+		return actualOperation;
 	} // getMethod
 
 	public boolean operationsMatch(

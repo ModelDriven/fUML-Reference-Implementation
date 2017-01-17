@@ -212,6 +212,20 @@ public class TestSuite extends org.modeldriven.fuml.test.builtin.environment.Tes
 		Debug.println("[testSignalSend] Done!");
 	} // testSignalSend
 
+	public ParameterValueList testCallSend() {
+		Debug.println("[testCallSend] Setting up...");
+
+		activityFactory.createCallSender("Test");
+
+		Debug.println("[testCallSend] Testing...");
+
+		ParameterValueList output = executorTest.testExecute("TestCallSender");
+
+		Debug.println("[testCallSend] Done!");
+		
+		return output;
+	} // testCallSend
+
 	public ParameterValueList testStructuredNode() {
 		Debug.println("");
 		Debug.println("[testStructuredNode] Setting up...");

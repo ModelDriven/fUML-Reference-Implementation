@@ -2,8 +2,7 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * Modifications copyright 2009-2012 Data Access Technologies, Inc.
- * Modifications copyright 2013 Ivar Jacobson International SA.
+ * Modifications copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -22,15 +21,22 @@ public class ExecutionQueue {
 	private ArrayList<Execution> queue = new ArrayList<Execution>();
 
 	private void run() {
-		while (queue.size() > 0) {
-			Execution execution = queue.get(0);
-			queue.remove(0);
+		while (this.runNext());
+	}
+	
+    private boolean runNext() {
+		if (this.queue.size() == 0) {
+			return false;
+		} else {
+			Execution execution = this.queue.get(0);
+			this.queue.remove(0);
 			if (execution.context.getTypes().size() > 0) {
-				Debug.println("[run] execution = " + execution);
+				Debug.println("[runNext] execution = " + execution);
 				execution.execute();
 			}
+			return true;
 		}
-	}
+    }
 	
 	private void add(Execution execution) {
 		queue.add(execution);
@@ -48,6 +54,10 @@ public class ExecutionQueue {
 		executionQueue.add(execution);
 		executionQueue.run();
 		executionQueue = null;
+	}
+	
+	public static boolean step() {
+		return executionQueue.runNext();
 	}
 	
 	public static void enqueue(Execution execution) {

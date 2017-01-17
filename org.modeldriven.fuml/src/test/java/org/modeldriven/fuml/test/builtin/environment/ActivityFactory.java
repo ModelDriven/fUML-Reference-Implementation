@@ -1676,7 +1676,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 		NamedElement element = this.environment.getElement(signalName);
 
 		if (element == null || !(element instanceof Signal)) {
-			Debug.println("[createSignaler] " + signalName
+			Debug.println("[createSender] " + signalName
 					+ " does not exist or is not a signal.");
 			return;
 		}
@@ -1687,7 +1687,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 		element = this.environment.getElement(signalName + "Accepter");
 
 		if (!(element instanceof Activity)) {
-			Debug.println("[createSignaler] " + signalName
+			Debug.println("[createSender] " + signalName
 					+ "Accepter is not an activity.");
 			return;
 		}
@@ -1733,6 +1733,156 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 
 		this.environment.addElement(senderActivity);
 	} // createSender
+
+	public void createCallAccepter(String operationName) {
+		Activity accepterActivity = new Activity();
+		accepterActivity.setName(operationName + "CallAccepter");
+		accepterActivity.setIsActive(true);
+		
+		Operation operation = new Operation();
+		operation.setName(operationName);
+		accepterActivity.addOwnedOperation(operation);
+
+		Parameter parameter = new Parameter();
+		parameter.setName("input");
+		parameter.setType(this.environment.primitiveTypes.Integer);
+		parameter.setLower(1);
+		parameter.setUpper(1);
+		parameter.setDirection(ParameterDirectionKind.in);
+		operation.addOwnedParameter(parameter);
+		
+		parameter = new Parameter();
+		parameter.setName("output");
+		parameter.setType(this.environment.primitiveTypes.Integer);
+		parameter.setLower(1);
+		parameter.setUpper(1);
+		parameter.setDirection(ParameterDirectionKind.out);
+		operation.addOwnedParameter(parameter);
+
+		CallEvent callEvent = new CallEvent();
+		callEvent.setOperation(operation);
+
+		Trigger trigger = new Trigger();
+		trigger.setEvent(callEvent);
+
+		AcceptCallAction acceptCallAction = new AcceptCallAction();
+		acceptCallAction.setName("Accept(" + operationName + ")");
+		acceptCallAction.addTrigger(trigger);
+		acceptCallAction.setIsUnmarshall(true);
+		acceptCallAction.addResult(this.makeOutputPin(
+				acceptCallAction.name + ".result", 1, 1));
+		acceptCallAction.setReturnInformation(this.makeOutputPin(
+				acceptCallAction.name + ".returnInfo", 1, 1));
+		this.addNode(accepterActivity, acceptCallAction);
+		
+		ReplyAction replyAction = new ReplyAction();
+		replyAction.setName("Reply(" + operation.name + ")");
+		replyAction.setReplyToCall(trigger);
+		replyAction.addReplyValue(this.makeInputPin(
+				replyAction.name + ".replyValue", 1, 1));
+		replyAction.setReturnInformation(this.makeInputPin(
+				replyAction.name + ".returnInfo", 1, 1));
+		this.addNode(accepterActivity, replyAction);
+		
+		InitialNode initialNode = new InitialNode();
+		this.addNode(accepterActivity, initialNode);
+
+		this.addEdge(accepterActivity, new ControlFlow(), 
+				initialNode, acceptCallAction, null);
+		this.addEdge(accepterActivity, new ControlFlow(), 
+				acceptCallAction, replyAction, null);
+		
+		this.addEdge(accepterActivity, new ObjectFlow(),
+				acceptCallAction.result.getValue(0), 
+				replyAction.replyValue.get(0), null);
+		this.addEdge(accepterActivity, new ObjectFlow(), 
+				acceptCallAction.returnInformation, replyAction.returnInformation, null);
+
+		this.environment.addElement(accepterActivity);
+	}
+
+	public void createCallSender(String operationName) {
+		this.createCallAccepter(operationName);
+		Element element = this.environment.getElement(
+				operationName + "CallAccepter");
+
+		if (!(element instanceof Activity)) {
+			Debug.println("[createCallSender] " + operationName
+					+ "CallAccepter is not an activity.");
+			return;
+		}
+
+		Activity accepterActivity = (Activity) element;
+		
+		if (accepterActivity.ownedOperation.size() == 0) {
+			Debug.println("[createCallSender] " + operationName
+					+ "CallAccepter has no owned operations.");
+			return;
+		}
+		
+		Operation operation = accepterActivity.ownedOperation.get(0);
+
+		Activity senderActivity = new Activity();
+		senderActivity.setName(operationName + "CallSender");
+		Parameter input = this.addParameter(senderActivity, 
+				"input", ParameterDirectionKind.in, this.environment.primitiveTypes.Integer);
+		Parameter output = this.addParameter(senderActivity, 
+				"output", ParameterDirectionKind.out, this.environment.primitiveTypes.Integer);
+
+		CreateObjectAction createObjectAction = new CreateObjectAction();
+		createObjectAction.setName("Create(" + accepterActivity.name + ")");
+		createObjectAction.setClassifier(accepterActivity);
+		createObjectAction.setResult(this.makeOutputPin(
+				createObjectAction.name + ".result", 1, 1));
+		this.addNode(senderActivity, createObjectAction);
+
+		ForkNode forkNode = new ForkNode();
+		forkNode.setName("Fork(accepterActivity)");
+		this.addNode(senderActivity, forkNode);
+
+		StartObjectBehaviorAction startAction = new StartObjectBehaviorAction();
+		startAction.setName("Start");
+		startAction.setObject(this.makeInputPin(
+				startAction.name + ".object", 1, 1));
+		this.addNode(senderActivity, startAction);
+
+		CallOperationAction callAction = new CallOperationAction();
+		callAction.setName("Call(" + operationName + ")");
+		callAction.setOperation(operation);
+		callAction.setTarget(this.makeInputPin(
+				callAction.name + ".target", 1, 1));
+		callAction.addArgument(this.makeInputPin(
+				callAction.name + ".argument", 1, 1));
+		callAction.addResult(this.makeOutputPin(
+				callAction.name + ".result", 1, 1));
+		this.addNode(senderActivity, callAction);
+		
+		ActivityParameterNode inputNode = new ActivityParameterNode();
+		inputNode.setName("Input");
+		inputNode.setParameter(input);
+		this.addNode(senderActivity, inputNode);
+
+		ActivityParameterNode outputNode = new ActivityParameterNode();
+		outputNode.setName("Output");
+		outputNode.setParameter(output);
+		this.addNode(senderActivity, outputNode);
+
+		this.addEdge(senderActivity, new ObjectFlow(),
+				createObjectAction.result, forkNode, null);
+		this.addEdge(senderActivity, new ObjectFlow(), 
+				forkNode, startAction.object, null);
+		this.addEdge(senderActivity, new ObjectFlow(), 
+				forkNode, callAction.target, null);
+		this.addEdge(senderActivity, new ObjectFlow(), 
+				inputNode, callAction.argument.get(0), null);
+		this.addEdge(senderActivity, new ObjectFlow(), 
+				callAction.result.get(0), outputNode, null);
+
+		this.addEdge(senderActivity, new ControlFlow(), 
+				startAction, callAction, null);
+
+		this.environment.addElement(senderActivity);
+	}
 
 	public void createStructuredNodeTester(String activityName) {
 		// Note that the named activity is actually modified in place.
