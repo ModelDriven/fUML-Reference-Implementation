@@ -1,4 +1,3 @@
-
 /*
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
@@ -179,8 +178,8 @@ public class ObjectActivation extends org.modeldriven.fuml.FumlObject {
 		}
 	} // startBehavior
 
-	private ObjectActivation_Behavior behavior = new ObjectActivation_Behavior(
-			this);
+	private ObjectActivation_EventDispatchLoopExecution behavior = 
+			new ObjectActivation_EventDispatchLoopExecution(this);
 
 	public void _send(ArrivalSignal signal) {
 		this.behavior._send(signal);
@@ -192,10 +191,10 @@ public class ObjectActivation extends org.modeldriven.fuml.FumlObject {
 	
 	public static void _endIsolation() {
 		Debug.println("[_endIsolation] End isolation.");
-	} // _endIsolation
+	} 
 
 	public static void _beginIsolation() {
 		Debug.println("[_beginIsolation] Begin isolation.");
-	} // _beginIsolation
+	} 
 
 } // ObjectActivation

@@ -1,9 +1,8 @@
-
 /*
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2016 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -12,23 +11,23 @@
 
 package fUML.Semantics.CommonBehaviors.Communications;
 
-public class ObjectActivation_Behavior {
+import fUML.Semantics.Classes.Kernel.Value;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
+
+public class ObjectActivation_EventDispatchLoopExecution extends Execution {
 
 	public ObjectActivation self = null;
 
-	public ObjectActivation_Behavior(ObjectActivation self) {
+	public ObjectActivation_EventDispatchLoopExecution(ObjectActivation self) {
 		this.self = self;
 	}
 
 	public int signalCount = 0;
-	public ObjectActivationExecution execution = null;
 	
 	public void _startObjectBehavior() {
 		// *** This should start the EventDispatchLoop ***
 
-		if (this.execution == null) {
-			this.execution = new ObjectActivationExecution(this);
-		}
+		this.context = self.object;
 		
 	} // _startObjectBehavior
 
@@ -39,20 +38,27 @@ public class ObjectActivation_Behavior {
 		
 		this.signalCount = this.signalCount + 1;
 		if (this.signalCount == 1) {
-			this.enqueue();
+			ExecutionQueue.enqueue(this);
 		}
 	} // _send
 	
-	public void dispatchNextEvent() {
+	@Override
+	public void execute() {
 		this.self.dispatchNextEvent();
 		signalCount = signalCount - 1;
 		if (this.signalCount > 0) {
-			this.enqueue();
+			ExecutionQueue.enqueue(this);
 		}
 	}
 	
-	private void enqueue() {
-		ExecutionQueue.enqueue(this.execution);
+	@Override
+	public Value new_() {
+		return new ObjectActivation_EventDispatchLoopExecution(self);
+	}
+	
+	@Override
+	public String toString() {
+		return "EventDispatchLoopExecution(" + this.self.object + ")";
 	}
 
 }
