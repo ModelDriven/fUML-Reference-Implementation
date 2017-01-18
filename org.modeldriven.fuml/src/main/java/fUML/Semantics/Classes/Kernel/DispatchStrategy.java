@@ -11,11 +11,6 @@
 
 package fUML.Semantics.Classes.Kernel;
 
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
-import fUML.Semantics.CommonBehaviors.Communications.CallEventExecution;
-import fUML.Syntax.Classes.Kernel.Operation;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
-
 public abstract class DispatchStrategy extends
 		fUML.Semantics.Loci.LociL1.SemanticStrategy {
 
@@ -28,31 +23,19 @@ public abstract class DispatchStrategy extends
 	public fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution dispatch(
 			fUML.Semantics.Classes.Kernel.Object_ object,
 			fUML.Syntax.Classes.Kernel.Operation operation) {
-		// Determine the actual operation corresponding to the operation being
-		// called, taking into account any operation overriding as determined
-		// by the type(s) of the given object. Then, if that operation has a
-		// method, create an execution for it at the locus of the object.
-		// Otherwise, create a CallEventExecution so that the call may be
-		// transmitted using a CallEventOccurrence.
-		
-		Operation actualOperation = this.getActualOperation(object, operation);
-		Execution execution = null;
-		
-		if (actualOperation.method.size() > 0) {
-			Behavior method = actualOperation.method.getValue(0);
-			execution = object.locus.factory.createExecution(method, object);
-		} else {
-			execution = new CallEventExecution();
-			execution.context = object;
-			((CallEventExecution)execution).operation = actualOperation;
-			object.locus.add(execution);
-		}
+		// Get the behavior for the given operation as determined by the type(s)
+		// of the given object, compile the behavior at the locus of the object,
+		// and return the resulting execution object.
 
-		return execution;
+		return object.locus.factory.createExecution(this.getMethod(object, operation), object);
 	} // dispatch
 
-	public abstract fUML.Syntax.Classes.Kernel.Operation getActualOperation(
+	public fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior getMethod(
 			fUML.Semantics.Classes.Kernel.Object_ object,
-			fUML.Syntax.Classes.Kernel.Operation operation);
+			fUML.Syntax.Classes.Kernel.Operation operation) {
+		CallEventBehavior method = new CallEventBehavior();
+		method.setOperation(operation);
+		return method;
+	}
 	
 } // DispatchStrategy

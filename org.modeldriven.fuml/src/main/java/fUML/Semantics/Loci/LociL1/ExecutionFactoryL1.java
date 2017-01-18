@@ -1,9 +1,8 @@
-
 /*
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -12,14 +11,10 @@
 
 package fUML.Semantics.Loci.LociL1;
 
-import fUML.Debug;
-import UMLPrimitiveTypes.*;
-
-import fUML.Syntax.*;
 import fUML.Syntax.Classes.Kernel.*;
 
-import fUML.Semantics.*;
 import fUML.Semantics.Classes.Kernel.*;
+import fUML.Semantics.CommonBehaviors.Communications.CallEventExecution;
 
 public class ExecutionFactoryL1 extends
 		fUML.Semantics.Loci.LociL1.ExecutionFactory {
@@ -35,28 +30,32 @@ public class ExecutionFactoryL1 extends
 			visitor = new LiteralBooleanEvaluation();
 		}
 
-		else if (element instanceof fUML.Syntax.Classes.Kernel.LiteralString) {
+		else if (element instanceof LiteralString) {
 			visitor = new LiteralStringEvaluation();
 		}
 
-		else if (element instanceof fUML.Syntax.Classes.Kernel.LiteralNull) {
+		else if (element instanceof LiteralNull) {
 			visitor = new LiteralNullEvaluation();
 		}
 
-		else if (element instanceof fUML.Syntax.Classes.Kernel.InstanceValue) {
+		else if (element instanceof InstanceValue) {
 			visitor = new InstanceValueEvaluation();
 		}
 
-		else if (element instanceof fUML.Syntax.Classes.Kernel.LiteralUnlimitedNatural) {
+		else if (element instanceof LiteralUnlimitedNatural) {
 			visitor = new LiteralUnlimitedNaturalEvaluation();
 		}
 
-		else if (element instanceof fUML.Syntax.Classes.Kernel.LiteralInteger) {
+		else if (element instanceof LiteralInteger) {
 			visitor = new LiteralIntegerEvaluation();
 		}
 
 		else if (element instanceof LiteralReal) {
 			visitor = new LiteralRealEvaluation();
+		}
+		
+		else if (element instanceof CallEventBehavior) {
+			visitor = new CallEventExecution();
 		}
 
 		return visitor;

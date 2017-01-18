@@ -11,34 +11,39 @@
 
 package fUML.Semantics.Classes.Kernel;
 
-import fUML.Syntax.Classes.Kernel.Class_;
-import fUML.Syntax.Classes.Kernel.NamedElement;
-import fUML.Syntax.Classes.Kernel.NamedElementList;
-import fUML.Syntax.Classes.Kernel.Operation;
+import fUML.Syntax.Classes.Kernel.*;
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.*;
 
 public class RedefinitionBasedDispatchStrategy extends
 		fUML.Semantics.Classes.Kernel.DispatchStrategy {
 
-	public fUML.Syntax.Classes.Kernel.Operation getActualOperation(
+	public fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior getMethod(
 			fUML.Semantics.Classes.Kernel.Object_ object,
 			fUML.Syntax.Classes.Kernel.Operation operation) {
-		// Get the redefinition, if any, of the given operation for the given
-		// object.
-		// [If the object has more than one type with the given operation or
-		// a redefinition for it, then the first one is arbitrarily chosen.]
+		// Find the member operation of a type of the given object that
+		// is the same as or a redefinition of the given operation. Then
+		// return the method of that operation, if it has one, otherwise
+		// return a CallEventBehavior as the effective method for the
+		// matching operation.
+		// [If there is more than one type with a matching operation, then
+		// the first one is arbitrarily chosen.]
 
-		Operation actualOperation = null;
+		Behavior method = null;
 		int i = 1;
-		while (actualOperation == null & i <= object.types.size()) {
+		while (method == null & i <= object.types.size()) {
 			Class_ type = object.types.getValue(i - 1);
 			NamedElementList members = type.member;
 			int j = 1;
-			while (actualOperation == null & j <= members.size()) {
+			while (method == null & j <= members.size()) {
 				NamedElement member = members.getValue(j - 1);
 				if (member instanceof Operation) {
 					Operation memberOperation = (Operation) member;
 					if (this.operationsMatch(memberOperation, operation)) {
-						actualOperation = memberOperation;
+						if (memberOperation.method.size() == 0) {
+							method = super.getMethod(object, memberOperation);
+						} else {
+							method = memberOperation.method.getValue(0);
+						}
 					}
 				}
 				j = j + 1;
@@ -46,7 +51,7 @@ public class RedefinitionBasedDispatchStrategy extends
 			i = i + 1;
 		}
 
-		return actualOperation;
+		return method;
 	} // getMethod
 
 	public boolean operationsMatch(

@@ -23,7 +23,7 @@ public class CallEventOccurrence extends EventOccurrence {
 	public CallEventExecution execution = null;
 	
 	public Operation getOperation() {
-		return this.execution.operation;
+		return this.execution.getOperation();
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class CallEventOccurrence extends EventOccurrence {
 	}
 	
 	public void setOutputParameterValues(ParameterValueList parameterValues) {
-		ParameterList parameters = this.execution.behavior.ownedParameter;
+		ParameterList parameters = this.execution.getBehavior().ownedParameter;
 		int i = 1;
 		int j = 1;
 		while (i <= parameters.size()) {

@@ -9,27 +9,16 @@
 package fUML.Semantics.CommonBehaviors.Communications;
 
 import fUML.Debug;
+import fUML.Semantics.Classes.Kernel.CallEventBehavior;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Classes.Kernel.Operation;
-import fUML.Syntax.Classes.Kernel.Parameter;
 import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 public class CallEventExecution extends Execution {
 
-	// Called operation
-	public Operation operation;
-	
-	// Behavior signature associated with the operation
-	public Behavior behavior;
-	
-	// Object from which the call was emitted (possibly blocked)
-	// public Object_ callerContext;
-	
 	public boolean callerSuspended = false;
 	
 	public boolean isCallerSuspended() {
@@ -61,7 +50,7 @@ public class CallEventExecution extends Execution {
 		this.setCallerSuspended(true);
 		
 		while(this.isCallerSuspended()) {
-			ExecutionQueue.step();
+			_wait();
 		}
 		
 	}
@@ -81,23 +70,8 @@ public class CallEventExecution extends Execution {
 		this.suspend();		
 	}
 	
-	@Override
-	public Behavior getBehavior() {
-		// Compute a behavior signature corresponding to the operation
-		if(this.behavior == null){
-			this.behavior = new OpaqueBehavior();
-			for(int i = 0; i < this.operation.ownedParameter.size(); i++){
-				Parameter operationParameter = this.operation.ownedParameter.get(i);
-				Parameter parameter = new Parameter();
-				parameter.setName(operationParameter.name);
-				parameter.setType(operationParameter.type);
-				parameter.setLower(operationParameter.multiplicityElement.lower);
-				parameter.setUpper(operationParameter.multiplicityElement.upper.naturalValue);
-				parameter.setDirection(operationParameter.direction);
-				this.behavior.addOwnedParameter(parameter);
-			}
-		}
-		return this.behavior;
+	public Operation getOperation() {
+		return ((CallEventBehavior)this.getBehavior()).operation;
 	}
 	
 	public ParameterValueList getInputParameterValues(){
@@ -121,10 +95,12 @@ public class CallEventExecution extends Execution {
 	@Override
 	public Value copy() {
 		CallEventExecution copy = (CallEventExecution)super.copy();
-		copy.operation = this.operation;
-		copy.behavior = this.behavior;
 		copy.callerSuspended = false;
 		return copy;
 	}
 	
+	 public static void _wait() {
+			ExecutionQueue.step();
+	 }
+
 }
