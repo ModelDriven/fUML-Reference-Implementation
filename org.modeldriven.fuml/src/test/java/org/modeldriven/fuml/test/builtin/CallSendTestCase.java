@@ -4,7 +4,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.modeldriven.fuml.test.FUMLTestSetup;
 
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
+import fUML.Semantics.Classes.Kernel.ExtensionalValue;
+import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
+import fUML.Semantics.Classes.Kernel.FeatureValueList;
 import junit.framework.Test;
 
 public class CallSendTestCase extends BuiltInTest {
@@ -21,12 +24,18 @@ public class CallSendTestCase extends BuiltInTest {
 
     public void testCallSend() throws Exception {
         log.info("testCallSend");
-        ParameterValueList output = this.testSuite.testCallSend();        
+        this.testSuite.testCallSend();        
         log.info("done");
         
-        assertNotNull(output);
-        assertEquals("output.size()", 1, output.size());
-        assertIntegerValues("output", output.get(0), 0);
+        ExtensionalValueList extent = this.findExtent("TestCallSender");
+        
+        assertEquals("extent.size()", 1, extent.size());
+        ExtensionalValue accepterExecution = extent.get(0);
+        assertTrue("accepterExecution instanceof ActivityExecution", 
+        		accepterExecution instanceof ActivityExecution);
+        FeatureValueList featureValues = accepterExecution.getFeatureValues();
+        assertEquals("featureValues.size()", 1, featureValues.size());
+        assertEquals("featureValues[0].values.size()", 1, featureValues.get(0).values.size());
     }
     
 }

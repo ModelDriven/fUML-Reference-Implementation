@@ -213,18 +213,18 @@ public class TestSuite {
 		Debug.println("[testSignalSend] Done!");
 	} // testSignalSend
 
-	public ParameterValueList testCallSend() {
+	public void testCallSend() {
 		Debug.println("[testCallSend] Setting up...");
-
-		activityFactory.createCallSender("Test");
+		
+		classifierFactory.createSignal("ContinueSignal");
+		activityFactory.createCallSender("Test", "ContinueSignal");
 
 		Debug.println("[testCallSend] Testing...");
 
-		ParameterValueList output = executorTest.testExecute("TestCallSender");
+		executorTest.testExecute("DoTestCallSender");
+		this.environment.printExtent("TestCallSender");
 
 		Debug.println("[testCallSend] Done!");
-		
-		return output;
 	} // testCallSend
 
 	public ParameterValueList testStructuredNode() {

@@ -261,6 +261,19 @@ public class ExecutionTestCase extends FUMLTest {
         assertEquals("signal: values.size()", 1, featureValues.get(0).values.size());
     }
     
+    public void testTestCallSend() throws Exception {
+    	execute("TestCallSend");
+    	log.info("done");
+    	
+        Class_ callSenderClass = (Class_)environment.findElementById("TestCallSender");
+        ExtensionalValueList extent = environment.locus.getExtent(callSenderClass);
+        
+        assertEquals("extent.size()", 1, extent.size());
+        FeatureValueList featureValues = extent.get(0).getFeatureValues();
+        assertEquals("featureValues.size()", 1, featureValues.size());
+        assertIntegerValues("value", featureValues.get(0).values, 0);
+    }
+    
     public void testNodeEnabler() throws Exception {
     	ParameterValueList output = execute("TestNodeEnabler");
     	log.info("done");

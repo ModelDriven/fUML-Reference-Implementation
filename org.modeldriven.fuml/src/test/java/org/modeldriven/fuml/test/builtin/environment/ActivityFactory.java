@@ -1810,10 +1810,19 @@ public class ActivityFactory {
 		this.environment.addElement(accepterActivity);
 	}
 
-	public void createCallSender(String operationName) {
+	public void createCallSender(String operationName, String signalName) {
+		NamedElement element = this.environment.getElement(signalName);
+
+		if (element == null || !(element instanceof Signal)) {
+			Debug.println("[createSender] " + signalName
+					+ " does not exist or is not a signal.");
+			return;
+		}
+
+		Signal signal = (Signal) element;
+		
 		this.createCallAccepter(operationName);
-		Element element = this.environment.getElement(
-				operationName + "CallAccepter");
+		element = this.environment.getElement(operationName + "CallAccepter");
 
 		if (!(element instanceof Activity)) {
 			Debug.println("[createCallSender] " + operationName
@@ -1833,24 +1842,22 @@ public class ActivityFactory {
 
 		Activity senderActivity = new Activity();
 		senderActivity.setName(operationName + "CallSender");
-		Parameter input = this.addParameter(senderActivity, 
-				"input", ParameterDirectionKind.in, PrimitiveTypes.Integer);
-		Parameter output = this.addParameter(senderActivity, 
-				"output", ParameterDirectionKind.out, PrimitiveTypes.Integer);
+		senderActivity.setIsActive(true);
+		Property property = this.addProperty(senderActivity, "value", null, 0, 1);
 
-		CreateObjectAction createObjectAction = new CreateObjectAction();
-		createObjectAction.setName("Create(" + accepterActivity.name + ")");
-		createObjectAction.setClassifier(accepterActivity);
-		createObjectAction.setResult(this.makeOutputPin(
-				createObjectAction.name + ".result", 1, 1));
-		this.addNode(senderActivity, createObjectAction);
+		CreateObjectAction createAction = new CreateObjectAction();
+		createAction.setName("Create(" + accepterActivity.name + ")");
+		createAction.setClassifier(accepterActivity);
+		createAction.setResult(this.makeOutputPin(
+				createAction.name + ".result", 1, 1));
+		this.addNode(senderActivity, createAction);
 
 		ForkNode forkNode = new ForkNode();
-		forkNode.setName("Fork(accepterActivity)");
+		forkNode.setName("ForkNode");
 		this.addNode(senderActivity, forkNode);
 
 		StartObjectBehaviorAction startAction = new StartObjectBehaviorAction();
-		startAction.setName("Start");
+		startAction.setName("Start(" + accepterActivity.name + ")");
 		startAction.setObject(this.makeInputPin(
 				startAction.name + ".object", 1, 1));
 		this.addNode(senderActivity, startAction);
@@ -1866,31 +1873,100 @@ public class ActivityFactory {
 				callAction.name + ".result", 1, 1));
 		this.addNode(senderActivity, callAction);
 		
-		ActivityParameterNode inputNode = new ActivityParameterNode();
-		inputNode.setName("Input");
-		inputNode.setParameter(input);
-		this.addNode(senderActivity, inputNode);
+		ValueSpecificationAction valueAction = new ValueSpecificationAction();
+		valueAction.setName("Value(0)");
+		valueAction.setValue(this.createLiteralInteger("", 0));
+		valueAction.setResult(this.makeOutputPin(
+				valueAction.name + ".result", 1, 1));
+		this.addNode(senderActivity, valueAction);
+		
+		SignalEvent signalEvent = new SignalEvent();
+		signalEvent.signal = signal;
+		
+		Trigger trigger = new Trigger();
+		trigger.event = signalEvent;
+		
+		AcceptEventAction acceptAction = new AcceptEventAction();
+		acceptAction.setName("Accept(" + signal.name + ")");
+		acceptAction.addTrigger(trigger);
+		this.addNode(senderActivity, acceptAction);
+		
+		ActivityFinalNode finalNode = new ActivityFinalNode();
+		finalNode.setName("FinalNode");
+		this.addNode(senderActivity, finalNode);
+		
+		ReadSelfAction readSelfAction = new ReadSelfAction();
+		readSelfAction.setName("ReadSelf");
+		readSelfAction.setResult(this.makeOutputPin(
+				readSelfAction.name + ".result", 1, 1));
+		this.addNode(senderActivity, readSelfAction);
+		
+		AddStructuralFeatureValueAction writeAction = new AddStructuralFeatureValueAction();
+		writeAction.setName("Write(" + property.name + ")");
+		writeAction.setStructuralFeature(property);
+		writeAction.setObject(this.makeInputPin(
+				writeAction.name + ".object", 1, 1));
+		writeAction.setValue(this.makeInputPin(
+				writeAction.name + ".value", 1, 1));
+		this.addNode(senderActivity, writeAction);
 
-		ActivityParameterNode outputNode = new ActivityParameterNode();
-		outputNode.setName("Output");
-		outputNode.setParameter(output);
-		this.addNode(senderActivity, outputNode);
+		this.addEdge(senderActivity, new ControlFlow(), 
+				startAction, callAction, null);
+		this.addEdge(senderActivity, new ControlFlow(), 
+				acceptAction, finalNode, null);
 
 		this.addEdge(senderActivity, new ObjectFlow(),
-				createObjectAction.result, forkNode, null);
+				createAction.result, forkNode, null);
 		this.addEdge(senderActivity, new ObjectFlow(), 
 				forkNode, startAction.object, null);
 		this.addEdge(senderActivity, new ObjectFlow(), 
 				forkNode, callAction.target, null);
 		this.addEdge(senderActivity, new ObjectFlow(), 
-				inputNode, callAction.argument.get(0), null);
+				valueAction.result, callAction.argument.get(0), null);
 		this.addEdge(senderActivity, new ObjectFlow(), 
-				callAction.result.get(0), outputNode, null);
-
-		this.addEdge(senderActivity, new ControlFlow(), 
-				startAction, callAction, null);
+				readSelfAction.result, writeAction.object, null);
+		this.addEdge(senderActivity, new ObjectFlow(), 
+				callAction.result.get(0), writeAction.value, null);
 
 		this.environment.addElement(senderActivity);
+		
+		Activity driverActivity = new Activity();
+		driverActivity.setName("Do" + senderActivity.name);
+		
+		createAction = new CreateObjectAction();
+		createAction.setName("Create(" + senderActivity.name + ")");
+		createAction.setClassifier(senderActivity);
+		createAction.setResult(this.makeOutputPin(
+				createAction.name + ".result", 1, 1));
+		this.addNode(driverActivity, createAction);
+		
+		forkNode = new ForkNode();
+		forkNode.setName("ForkNode");
+		this.addNode(driverActivity, forkNode);
+		
+		startAction = new StartObjectBehaviorAction();
+		startAction.setName("Start(" + senderActivity.name + ")");
+		startAction.setObject(this.makeInputPin(
+				startAction.name + ".object", 1, 1));
+		this.addNode(driverActivity, startAction);
+		
+		SendSignalAction sendAction = new SendSignalAction();
+		sendAction.signal = signal;
+		sendAction.setTarget(this.makeInputPin(
+				sendAction.name + ".target", 1, 1));
+		this.addNode(driverActivity, sendAction);
+		
+		this.addEdge(driverActivity, new ControlFlow(), 
+				startAction, sendAction, null);
+		
+		this.addEdge(driverActivity, new ObjectFlow(), 
+				createAction.result, forkNode, null);
+		this.addEdge(driverActivity, new ObjectFlow(), 
+				forkNode, startAction.object, null);
+		this.addEdge(driverActivity, new ObjectFlow(), 
+				forkNode, sendAction.target, null);
+		
+		this.environment.addElement(driverActivity);		
 	}
 
 	public void createStructuredNodeTester(String activityName) {

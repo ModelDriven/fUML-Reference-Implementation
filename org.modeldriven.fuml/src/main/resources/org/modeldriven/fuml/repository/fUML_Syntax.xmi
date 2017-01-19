@@ -402,6 +402,24 @@
                             </ownedComment>
                         </ownedAttribute>
                     </packagedElement>
+         			<packagedElement xmi:type="uml:Class" 
+         				xmi:id="Syntax-CommonBehaviors-Communications-CallEvent" 
+         				name="CallEvent">
+						<generalization xmi:type="uml:Generalization" 
+							xmi:id="Syntax-CommonBehaviors-Communications-CallEvent-_generalization.0" 
+							general="Syntax-CommonBehaviors-Communications-MessageEvent"/>
+          				<ownedAttribute xmi:type="uml:Property" 
+          					xmi:id="Syntax-CommonBehaviors-Communications-CallEvent-operation" 
+          					name="operation" visibility="public" 
+          					type="Syntax-Classes-Kernel-Operation" 
+          					association="Syntax-CommonBehaviors-Communications-A_operation_callEvent">
+            				<ownedComment xmi:type="uml:Comment" 
+            					xmi:id="Syntax-CommonBehaviors-Communications-CallEvent-operation-_ownedComment.0" 
+            					annotatedElement="Syntax-CommonBehaviors-Communications-CallEvent-operation">
+              					<body>Designates the operation whose invocation raised the call event.</body>
+            				</ownedComment>
+          				</ownedAttribute>
+        			</packagedElement>
                     <packagedElement xmi:type="uml:Class"
                         xmi:id="Syntax-CommonBehaviors-Communications-Reception" name="Reception">
                         <ownedRule xmi:type="uml:Constraint"
@@ -545,6 +563,22 @@
                             type="Syntax-CommonBehaviors-Communications-Trigger"
                             association="Syntax-CommonBehaviors-Communications-A_event_trigger"/>
                     </packagedElement>
+        			<packagedElement xmi:type="uml:Association" 
+        				xmi:id="Syntax-CommonBehaviors-Communications-A_operation_callEvent" 
+        				name="A_operation_callEvent" 
+        				memberEnd="Syntax-CommonBehaviors-Communications-CallEvent-operation Syntax-CommonBehaviors-Communications-A_operation_callEvent-callEvent">
+          				<ownedEnd xmi:type="uml:Property" 
+          					xmi:id="Syntax-CommonBehaviors-Communications-A_operation_callEvent-callEvent" 
+          					name="callEvent" visibility="public" 
+          					type="Syntax-CommonBehaviors-Communications-CallEvent" 
+          					association="Syntax-CommonBehaviors-Communications-A_operation_callEvent">
+            				<upperValue xmi:type="uml:LiteralUnlimitedNatural" 
+            					xmi:id="Syntax-CommonBehaviors-Communications-A_operation_callEvent-callEvent-_upperValue" 
+            					value="*"/>
+            				<lowerValue xmi:type="uml:LiteralInteger" 
+            					xmi:id="Syntax-CommonBehaviors-Communications-A_operation_callEvent-callEvent-_lowerValue"/>
+          				</ownedEnd>
+        			</packagedElement>
                 </packagedElement>
             </packagedElement>
             <packagedElement xmi:type="uml:Package" xmi:id="Syntax-Classes" name="Classes">
@@ -7205,6 +7239,24 @@ classes.ownedReception.signal-&gt;includesAll(self.trigger.event-&gt;collect(ocl
                                 value="*"/>
                         </ownedAttribute>
                     </packagedElement>
+        			<packagedElement xmi:type="uml:Class" 
+        				xmi:id="Syntax-Actions-CompleteActions-AcceptCallAction" 
+        				name="AcceptCallAction">
+          				<generalization xmi:type="uml:Generalization" 
+          					xmi:id="Syntax-Actions-CompleteActions-AcceptCallAction-_generalization.0" 
+          					general="Syntax-Actions-CompleteActions-AcceptEventAction"/>
+          				<ownedAttribute xmi:type="uml:Property" 
+          					xmi:id="Syntax-Actions-CompleteActions-AcceptCallAction-returnInformation" 
+          					name="returnInformation" visibility="public" type="Syntax-Actions-BasicActions-OutputPin" 
+          					aggregation="composite" subsettedProperty="Syntax-Actions-BasicActions-Action-output" 
+          					association="Syntax-Actions-CompleteActions-A_returnInformation_acceptCallAction">
+            				<ownedComment xmi:type="uml:Comment" 
+            					xmi:id="Syntax-Actions-CompleteActions-AcceptCallAction-returnInformation-_ownedComment.0" 
+            					annotatedElement="Syntax-Actions-CompleteActions-AcceptCallAction-returnInformation">
+              					<body>Pin where a value is placed containing sufficient information to perform a subsequent reply and return control to the caller. The contents of this value are opaque. It can be passed and copied but it cannot be manipulated by the model.</body>
+            				</ownedComment>
+          				</ownedAttribute>
+        			</packagedElement>
                     <packagedElement xmi:type="uml:Association"
                         xmi:id="Syntax-Actions-CompleteActions-A_result_acceptEventAction"
                         name="A_result_acceptEventAction" visibility="private">
@@ -7242,6 +7294,20 @@ classes.ownedReception.signal-&gt;includesAll(self.trigger.event-&gt;collect(ocl
                             />
                         </ownedEnd>
                     </packagedElement>
+        			<packagedElement xmi:type="uml:Association" 
+        				xmi:id="Syntax-Actions-CompleteActions-A_returnInformation_acceptCallAction" 
+        				name="A_returnInformation_acceptCallAction" 
+        				memberEnd="Syntax-Actions-CompleteActions-AcceptCallAction-returnInformation Syntax-Actions-CompleteActions-A_returnInformation_acceptCallAction-acceptCallAction">
+          				<ownedEnd xmi:type="uml:Property" 
+          					xmi:id="Syntax-Actions-CompleteActions-A_returnInformation_acceptCallAction-acceptCallAction" 
+          					name="acceptCallAction" visibility="public" 
+          					type="Syntax-Actions-CompleteActions-AcceptCallAction" 
+          					subsettedProperty="Syntax-Actions-BasicActions-A_output_action-action" 
+          					association="Syntax-Actions-CompleteActions-A_returnInformation_acceptCallAction">
+            				<lowerValue xmi:type="uml:LiteralInteger" 
+            					xmi:id="Syntax-Actions-CompleteActions-A_returnInformation_acceptCallAction-acceptCallAction-_lowerValue"/>
+          				</ownedEnd>
+        			</packagedElement>
                     <packagedElement xmi:type="uml:Association"
                         xmi:id="Syntax-Actions-CompleteActions-A_reclassifyObjectAction_object"
                         name="A_reclassifyObjectAction_object" visibility="private">
@@ -7389,6 +7455,53 @@ classes.ownedReception.signal-&gt;includesAll(self.trigger.event-&gt;collect(ocl
                             />
                         </ownedEnd>
                     </packagedElement>
+			        <packagedElement xmi:type="uml:Class" 
+			        	xmi:id="Syntax-Actions-CompleteActions-ReplyAction" 
+			        	name="ReplyAction">
+          				<generalization xmi:type="uml:Generalization" 
+          					xmi:id="Syntax-Actions-CompleteActions-ReplyAction-_generalization.0" 
+          					general="Syntax-Actions-BasicActions-Action"/>
+          				<ownedAttribute xmi:type="uml:Property" 
+          					xmi:id="Syntax-Actions-CompleteActions-ReplyAction-replyToCall" 
+          					name="replyToCall" visibility="public" 
+          					type="CommonBehaviors-Communications-Trigger" 
+          					association="Syntax-Actions-CompleteActions-A_replyToCall_replyAction">
+            				<ownedComment xmi:type="uml:Comment" 
+            					xmi:id="Syntax-Actions-CompleteActions-ReplyAction-replyToCall-_ownedComment.0" 
+            					annotatedElement="Syntax-Actions-CompleteActions-ReplyAction-replyToCall">
+              					<body>The trigger specifying the operation whose call is being replied to.</body>
+            				</ownedComment>
+          				</ownedAttribute>
+          				<ownedAttribute xmi:type="uml:Property" 
+          					xmi:id="Syntax-Actions-CompleteActions-ReplyAction-replyValue" 
+          					name="replyValue" visibility="public" 
+          					type="Syntax-Actions-BasicActions-InputPin" 
+          					aggregation="composite" 
+          					subsettedProperty="Syntax-Actions-BasicActions-Action-input" 
+          					association="Syntax-Actions-CompleteActions-A_replyValue_replyAction">
+            				<ownedComment xmi:type="uml:Comment" xmi:id="Syntax-Actions-CompleteActions-ReplyAction-replyValue-_ownedComment.0" 
+            					annotatedElement="Syntax-Actions-CompleteActions-ReplyAction-replyValue">
+              					<body>A list of pins containing the reply values of the operation. These values are returned to the caller.</body>
+            				</ownedComment>
+            				<upperValue xmi:type="uml:LiteralUnlimitedNatural" 
+            					xmi:id="Syntax-Actions-CompleteActions-ReplyAction-replyValue-_upperValue" 
+            					value="*"/>
+            				<lowerValue xmi:type="uml:LiteralInteger" 
+            					xmi:id="Syntax-Actions-CompleteActions-ReplyAction-replyValue-_lowerValue"/>
+          				</ownedAttribute>
+          				<ownedAttribute xmi:type="uml:Property" 
+          					xmi:id="Syntax-Actions-CompleteActions-ReplyAction-returnInformation" 
+          					name="returnInformation" visibility="public" 
+          					type="Syntax-Actions-BasicActions-InputPin" aggregation="composite" 
+          					subsettedProperty="Syntax-Actions-BasicActions-Action-input" 
+          					association="Syntax-Actions-CompleteActions-A_returnInformation_replyAction">
+            				<ownedComment xmi:type="uml:Comment" 
+            					xmi:id="Syntax-Actions-CompleteActions-ReplyAction-returnInformation-_ownedComment.0" 
+            					annotatedElement="Syntax-Actions-CompleteActions-ReplyAction-returnInformation">
+              					<body>A pin containing the return information value produced by an earlier AcceptCallAction.</body>
+            				</ownedComment>
+          				</ownedAttribute>
+        			</packagedElement>
                     <packagedElement xmi:type="uml:Association"
                         xmi:id="Syntax-Actions-CompleteActions-A_collection_reduceAction"
                         name="A_collection_reduceAction" visibility="private">
@@ -7424,6 +7537,46 @@ classes.ownedReception.signal-&gt;includesAll(self.trigger.event-&gt;collect(ocl
                                 value="*"/>
                         </ownedEnd>
                     </packagedElement>
+        			<packagedElement xmi:type="uml:Association" 
+        				xmi:id="Syntax-Actions-CompleteActions-A_replyToCall_replyAction" 
+        				name="A_replyToCall_replyAction" 
+        				memberEnd="Syntax-Actions-CompleteActions-ReplyAction-replyToCall Syntax-Actions-CompleteActions-A_replyToCall_replyAction-replyAction">
+          				<ownedEnd xmi:type="uml:Property" 
+          					xmi:id="Syntax-Actions-CompleteActions-A_replyToCall_replyAction-replyAction" 
+          					name="replyAction" visibility="public" 
+          					type="Syntax-Actions-CompleteActions-ReplyAction" 
+          					association="Syntax-Actions-CompleteActions-A_replyToCall_replyAction">
+            				<lowerValue xmi:type="uml:LiteralInteger" 
+            					xmi:id="Syntax-Actions-CompleteActions-A_replyToCall_replyAction-replyAction-_lowerValue"/>
+          				</ownedEnd>
+        			</packagedElement>
+        			<packagedElement xmi:type="uml:Association" 
+        				xmi:id="Syntax-Actions-CompleteActions-A_replyValue_replyAction" 
+        				name="A_replyValue_replyAction" 
+        				memberEnd="Syntax-Actions-CompleteActions-ReplyAction-replyValue Syntax-Actions-CompleteActions-A_replyValue_replyAction-replyAction">
+          				<ownedEnd xmi:type="uml:Property" 
+          					xmi:id="Syntax-Actions-CompleteActions-A_replyValue_replyAction-replyAction" 
+          					name="replyAction" visibility="public" 
+          					type="Syntax-Actions-CompleteActions-ReplyAction" 
+          					subsettedProperty="Syntax-Actions-BasicActions-A_input_action-action" 
+          					association="Syntax-Actions-CompleteActions-A_replyValue_replyAction">
+            				<lowerValue xmi:type="uml:LiteralInteger" 
+            					xmi:id="Syntax-Actions-CompleteActions-A_replyValue_replyAction-replyAction-_lowerValue"/>
+          				</ownedEnd>
+        			</packagedElement>
+        			<packagedElement xmi:type="uml:Association" 
+        				xmi:id="Syntax-Actions-CompleteActions-A_returnInformation_replyAction" 
+        				name="A_returnInformation_replyAction" 
+        				memberEnd="Syntax-Actions-CompleteActions-ReplyAction-returnInformation Syntax-Actions-CompleteActions-A_returnInformation_replyAction-replyAction">
+          				<ownedEnd xmi:type="uml:Property" 
+          					xmi:id="Syntax-Actions-CompleteActions-A_returnInformation_replyAction-replyAction" 
+          					name="replyAction" visibility="public" 
+          					type="Syntax-Actions-CompleteActions-ReplyAction" 
+          					subsettedProperty="Syntax-Actions-BasicActions-A_input_action-action" 
+          					association="Syntax-Actions-CompleteActions-A_returnInformation_replyAction">
+            				<lowerValue xmi:type="uml:LiteralInteger" xmi:id="Syntax-Actions-CompleteActions-A_returnInformation_replyAction-replyAction-_lowerValue"/>
+          				</ownedEnd>
+        			</packagedElement>
                     <packagedElement xmi:type="uml:Association"
                         xmi:id="Syntax-Actions-CompleteActions-A_object_startObjectBehaviorAction"
                         name="A_object_startObjectBehaviorAction" visibility="private">
