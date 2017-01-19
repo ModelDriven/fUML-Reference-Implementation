@@ -28,7 +28,8 @@ public class CallEventExecution extends Execution {
 		
 		_beginIsolation();
 		boolean isSuspended = this.callerSuspended;
-		Debug.println("[isCallerSuspended] isSuspended = " + isSuspended);
+		Debug.println("[isCallerSuspended] operation = " + this.getOperation().name + 
+				", isSuspended = " + isSuspended);
 		_endIsolation();
 		return isSuspended;
 	}
@@ -40,7 +41,8 @@ public class CallEventExecution extends Execution {
 		
 		_beginIsolation();
 		this.callerSuspended = callerSuspended;
-		Debug.println("[setCallerSuspended] callSuspended = " + callerSuspended);
+		Debug.println("[setCallerSuspended] operation = " + this.getOperation().name + 
+				", callSuspended = " + callerSuspended);
 		_endIsolation();
 	}
 	
@@ -49,9 +51,9 @@ public class CallEventExecution extends Execution {
 		
 		this.setCallerSuspended(true);
 		
-		while(this.isCallerSuspended()) {
+		do {
 			_wait();
-		}
+		} while(this.isCallerSuspended());
 		
 	}
 	
