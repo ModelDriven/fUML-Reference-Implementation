@@ -6,9 +6,7 @@
  * in the file entitled Licensing-Information. 
  */
 
-package fUML.Syntax.Actions.IntermediateActions;
-
-import fUML.Syntax.Activities.IntermediateActivities.ObjectNode;
+package fUML.Syntax.Activities.IntermediateActivities;
 
 public class CentralBufferNode extends ObjectNode {
 

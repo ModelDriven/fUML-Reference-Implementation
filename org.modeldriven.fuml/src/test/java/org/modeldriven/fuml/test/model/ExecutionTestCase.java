@@ -268,20 +268,38 @@ public class ExecutionTestCase extends FUMLTest {
     	assertTrue("One output value", output.size() == 1 && output.get(0).values.size() == 1);
     }
     
-   public void testActiveClassBehaviorSender() throws Exception {
+    public void testActiveClassBehaviorSender() throws Exception {
     	execute("ActiveClassBehaviorSender");
     	log.info("done");
 
-        Class_ activeClass = (Class_)environment.findElementById("ActiveClass");
-        ExtensionalValueList extent = environment.locus.getExtent(activeClass);
-        
-        assertEquals("extent.size()", 1, extent.size());
-        FeatureValueList featureValues = extent.get(0).getFeatureValues();
-        assertEquals("featureValues.size()", 2, featureValues.size());
-        assertEquals("signal1: values.size()", 1, featureValues.get(0).values.size());
-        assertEquals("signal2: values.size()", 1, featureValues.get(1).values.size());
-   }
+    	Class_ activeClass = (Class_)environment.findElementById("ActiveClass");
+    	ExtensionalValueList extent = environment.locus.getExtent(activeClass);
+
+    	assertEquals("extent.size()", 1, extent.size());
+    	FeatureValueList featureValues = extent.get(0).getFeatureValues();
+    	assertEquals("featureValues.size()", 2, featureValues.size());
+    	assertEquals("signal1: values.size()", 1, featureValues.get(0).values.size());
+    	assertEquals("signal2: values.size()", 1, featureValues.get(1).values.size());
+    }
     
+    public void testTestCentralBuffer() throws Exception {
+    	ParameterValueList output = execute("TestCentralBuffer");
+    	log.info("done");
+    	
+    	assertNotNull(output);
+    	assertEquals("output.size()", 1, output.size());
+    	assertIntegerValues("output", output.get(0), 0, 0);
+    }
+
+    public void testTestDataStore() throws Exception {
+    	ParameterValueList output = execute("TestDataStore");
+    	log.info("done");
+    	
+    	assertNotNull(output);
+    	assertEquals("output.size()", 1, output.size());
+    	assertIntegerValues("output", output.get(0), 1, 2);
+    }
+
     private ParameterValueList execute(String activityName)
     {
         Behavior behavior = environment.findBehavior(activityName);

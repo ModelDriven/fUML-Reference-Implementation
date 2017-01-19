@@ -8,7 +8,7 @@
 
 package fUML.Syntax.Activities.CompleteActivities;
 
-import fUML.Syntax.Actions.IntermediateActions.CentralBufferNode;
+import fUML.Syntax.Activities.IntermediateActivities.CentralBufferNode;
 
 public class DataStoreNode extends CentralBufferNode {
 

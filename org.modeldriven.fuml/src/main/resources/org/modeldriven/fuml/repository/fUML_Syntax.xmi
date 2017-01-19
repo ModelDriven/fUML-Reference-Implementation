@@ -3488,6 +3488,13 @@ nestedPackage.nestingPackage = this;
                             xmi:id="Syntax-Activities-IntermediateActivities-ObjectNode-_generalization.1"
                             general="Syntax-Classes-Kernel-TypedElement"/>
                     </packagedElement>
+    				<packagedElement xmi:type="uml:Class" 
+    					xmi:id="Syntax-Activities-IntermediateActivities-CentralBufferNode" 
+    					name="CentralBufferNode">
+          				<generalization xmi:type="uml:Generalization" 
+          					xmi:id="Syntax-Activities-IntermediateActivities-CentralBufferNode-_generalization.0" 
+          					general="Syntax-Activities-IntermediateActivities-ObjectNode"/>
+        			</packagedElement>
                     <packagedElement xmi:type="uml:Class"
                         xmi:id="Syntax-Activities-IntermediateActivities-MergeNode" name="MergeNode">
                         <generalization xmi:type="uml:Generalization"
@@ -3987,6 +3994,15 @@ nestedPackage.nestingPackage = this;
                             xmi:id="Syntax-Activities-IntermediateActivities-FlowFinalNode-_generalization.0"
                             general="Syntax-Activities-IntermediateActivities-FinalNode"/>
                     </packagedElement>
+                </packagedElement>
+                <packagedElement xmi:type="uml:Package"
+                    xmi:id="Syntax-Activities-CompleteActivities" name="CompleteActivities">
+        			<packagedElement xmi:type="uml:Class" 
+        				xmi:id="Syntax-Activities-CompleteActivities-DataStoreNode" name="DataStoreNode">
+          				<generalization xmi:type="uml:Generalization" 
+          					xmi:id="Syntax-Activities-CompleteActivities-DataStoreNode-_generalization.0" 
+          					general="Syntax-Activities-IntermediateActivities-CentralBufferNode"/>
+        			</packagedElement>
                 </packagedElement>
                 <packagedElement xmi:type="uml:Package"
                     xmi:id="Syntax-Activities-CompleteStructuredActivities"
