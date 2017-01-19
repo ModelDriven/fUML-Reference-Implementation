@@ -24,7 +24,7 @@ public class IsClassifiedTestCase extends BuiltInTest {
 
     public void testIsClassified() throws Exception {
         log.info("testIsClassified");
-        ParameterValueList output = initTestEnv.testSuite.testIsClassified();       
+        ParameterValueList output = this.testSuite.testIsClassified();       
         log.info("done");
         
         assertNotNull(output);

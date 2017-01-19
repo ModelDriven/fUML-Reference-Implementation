@@ -6,9 +6,6 @@ import org.modeldriven.fuml.test.FUMLTestSetup;
 
 import junit.framework.Test;
 
-/**
- * 
- */
 public class SuperCallTestCase extends BuiltInTest {
     private static Log log = LogFactory.getLog(SuperCallTestCase.class);
     
@@ -21,8 +18,7 @@ public class SuperCallTestCase extends BuiltInTest {
 
     public void testSuperCall() throws Exception {
         log.info("testSuperCall");
-        initTestEnv.testSuite.testSuperCall("ForkJoin", 
-        		"HelloWorld2");
+        this.testSuite.testSuperCall("ForkJoin", "HelloWorld2");
         log.info("done");
     }
     

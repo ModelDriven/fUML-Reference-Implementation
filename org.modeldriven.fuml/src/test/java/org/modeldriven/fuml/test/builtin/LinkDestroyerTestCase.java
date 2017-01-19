@@ -9,7 +9,6 @@ import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import fUML.Syntax.Classes.Kernel.Classifier;
 import junit.framework.Test;
 
 /**
@@ -23,12 +22,12 @@ public class LinkDestroyerTestCase extends BuiltInTest {
     }
     
     public void setUp() throws Exception {
-    	initTestEnv.environment.locus.extensionalValues.clear();
+    	this.clearExtents();
     }
 
     public void testLinkDestroyer() throws Exception {
         log.info("testLinkDestroyer");
-        ParameterValueList output = initTestEnv.testSuite.testLinkDestroyer();
+        ParameterValueList output = this.testSuite.testLinkDestroyer();
         log.info("done");
         
         assertNotNull(output);
@@ -39,9 +38,8 @@ public class LinkDestroyerTestCase extends BuiltInTest {
         Value output1 = output.get(0).values.get(0);
         Value output2 = output.get(1).values.get(0);
         
-        ExtensionalValueList extent = initTestEnv.environment.locus.getExtent(
-				(Classifier)initTestEnv.environment.getElement("AB"));
-        
+        ExtensionalValueList extent = this.findExtent("AB");
+                
         assertEquals("extent.size()", 1, extent.size());
         
         ExtensionalValue link = extent.get(0);

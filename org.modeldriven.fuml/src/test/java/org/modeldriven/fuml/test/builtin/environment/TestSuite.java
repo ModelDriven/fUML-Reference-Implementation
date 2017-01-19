@@ -1,4 +1,3 @@
-
 /*
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
@@ -16,17 +15,19 @@ import fUML.Debug;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Classes.Kernel.*;
 
-public class TestSuite extends org.modeldriven.fuml.test.builtin.environment.Test {
+public class TestSuite {
 
-	private org.modeldriven.fuml.test.builtin.environment.ActivityFactory activityFactory = null;
-	private org.modeldriven.fuml.test.builtin.environment.ClassifierFactory classifierFactory = null;
-	private org.modeldriven.fuml.test.builtin.environment.ExecutorTest executorTest = null;
+	public TestEnvironment environment = null;
+
+	private ActivityFactory activityFactory = null;
+	private ClassifierFactory classifierFactory = null;
+	private ExecutorTest executorTest = null;
 	
-	public TestSuite(org.modeldriven.fuml.test.builtin.environment.InitTestEnvironment init) {
-		this.environment = init.environment;
-		this.activityFactory = init.activityFactory;
-		this.classifierFactory = init.classifierFactory;
-		this.executorTest = init.executorTest;
+	public TestSuite(TestEnvironment environment) {
+		this.environment = environment;
+		this.activityFactory = environment.activityFactory;
+		this.classifierFactory = environment.classifierFactory;
+		this.executorTest = environment.executorTest;
 	} // TestSuite
 
 	public ParameterValueList testSimpleActivites() {

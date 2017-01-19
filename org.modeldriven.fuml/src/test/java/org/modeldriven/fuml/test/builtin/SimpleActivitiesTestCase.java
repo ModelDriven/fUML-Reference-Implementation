@@ -22,7 +22,7 @@ public class SimpleActivitiesTestCase extends BuiltInTest {
 
     public void testSimpleActivities() throws Exception {
         log.info("testSimpleActivities");        
-        ParameterValueList output = initTestEnv.testSuite.testSimpleActivites();        
+        ParameterValueList output = this.testSuite.testSimpleActivites();        
         log.info("done");
         
         assertNotNull(output);

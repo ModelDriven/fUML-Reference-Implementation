@@ -21,8 +21,7 @@ public class PolymorphicCallTestCase extends BuiltInTest {
 
     public void testPolymorphicCall() throws Exception {
         log.info("testPolymorphicCall");
-        initTestEnv.testSuite.testPolymorphicOperationCall("ForkJoin", 
-        		"HelloWorld2");
+        this.testSuite.testPolymorphicOperationCall("ForkJoin", "HelloWorld2");
         log.info("done");
     }
     

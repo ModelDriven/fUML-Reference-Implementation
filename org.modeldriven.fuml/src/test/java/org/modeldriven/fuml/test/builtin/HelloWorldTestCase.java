@@ -26,7 +26,7 @@ public class HelloWorldTestCase extends BuiltInTest {
 
     public void testHelloWorld() throws Exception {
         log.info("testHelloWorld");
-        initTestEnv.testSuite.testHelloWorld();
+        this.testSuite.testHelloWorld();
         
          // ensure standard output channel has 1 instance
         ExtensionalValueList extent = findExtent("StandardOutputChannel");

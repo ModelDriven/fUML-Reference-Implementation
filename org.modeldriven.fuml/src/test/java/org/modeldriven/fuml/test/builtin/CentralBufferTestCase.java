@@ -19,7 +19,7 @@ public class CentralBufferTestCase extends BuiltInTest {
 
     public void testCentralBuffer() throws Exception {
         log.info("testCentralBuffer");
-        ParameterValueList output = initTestEnv.testSuite.testCentralBuffer();
+        ParameterValueList output = this.testSuite.testCentralBuffer();
         log.info("done");
         
         assertNotNull(output);

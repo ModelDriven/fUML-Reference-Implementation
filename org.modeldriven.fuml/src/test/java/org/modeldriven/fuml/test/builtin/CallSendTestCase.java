@@ -7,9 +7,6 @@ import org.modeldriven.fuml.test.FUMLTestSetup;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import junit.framework.Test;
 
-/**
- * 
- */
 public class CallSendTestCase extends BuiltInTest {
     private static Log log = LogFactory.getLog(CallSendTestCase.class);
     
@@ -19,12 +16,12 @@ public class CallSendTestCase extends BuiltInTest {
     }
     
     public void setUp() throws Exception {
-    	initTestEnv.environment.locus.extensionalValues.clear();
+    	this.clearExtents();;
     }
 
     public void testCallSend() throws Exception {
         log.info("testCallSend");
-        ParameterValueList output = initTestEnv.testSuite.testCallSend();        
+        ParameterValueList output = this.testSuite.testCallSend();        
         log.info("done");
         
         assertNotNull(output);

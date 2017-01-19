@@ -1,4 +1,3 @@
-
 /*
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
@@ -22,21 +21,25 @@ import fUML.Syntax.CommonBehaviors.Communications.*;
 import fUML.Semantics.Classes.Kernel.*;
 import fUML.Semantics.CommonBehaviors.Communications.*;
 import fUML.Semantics.Loci.LociL1.Executor;
+import fUML.Semantics.Loci.LociL1.FirstChoiceStrategy;
 import fUML.Semantics.Loci.LociL1.Locus;
 
 import org.modeldriven.fuml.environment.ExecutionFactory;
 import org.modeldriven.fuml.library.channel.StandardOutputChannelObject;
 import org.modeldriven.fuml.library.common.Status;
+import org.modeldriven.fuml.test.builtin.library.IntegerFunctions;
+import org.modeldriven.fuml.test.builtin.library.PrimitiveTypes;
+import org.modeldriven.fuml.test.builtin.library.StandardIOClasses;
+import org.modeldriven.fuml.test.builtin.library.SystemIO;
 
-public class TestEnvironment extends org.modeldriven.fuml.FumlObject {
+public class TestEnvironment {
 
-	public org.modeldriven.fuml.test.builtin.environment.VariableList variables = new org.modeldriven.fuml.test.builtin.environment.VariableList();
-	public org.modeldriven.fuml.test.builtin.library.PrimitiveTypes primitiveTypes = null;
-	public fUML.Syntax.Classes.Kernel.NamedElementList elements = new fUML.Syntax.Classes.Kernel.NamedElementList();
-	public fUML.Semantics.Loci.LociL1.Locus locus = null;
-	public org.modeldriven.fuml.test.builtin.library.IntegerFunctions integerFunctions = null;
-	public org.modeldriven.fuml.test.builtin.library.SystemIO systemIO = null;
-	public org.modeldriven.fuml.test.builtin.library.StandardIOClasses standardIO = null;
+	public ActivityFactory activityFactory = new ActivityFactory(this);
+	public ClassifierFactory classifierFactory = new ClassifierFactory(this);
+	public ExecutorTest executorTest = new ExecutorTest(this);
+	
+	public NamedElementList elements = new NamedElementList();
+	public Locus locus = null;
 
 	public TestEnvironment() {
 		try {
@@ -45,58 +48,36 @@ public class TestEnvironment extends org.modeldriven.fuml.FumlObject {
 			this.locus.setFactory(new ExecutionFactory());
 			this.locus.setExecutor(new Executor());
 
-			this.locus.factory
-					.setStrategy(new fUML.Semantics.Classes.Kernel.RedefinitionBasedDispatchStrategy());
-			this.locus.factory
-					.setStrategy(new fUML.Semantics.CommonBehaviors.Communications.FIFOGetNextEventStrategy());
-			this.locus.factory
-					.setStrategy(new fUML.Semantics.Loci.LociL1.FirstChoiceStrategy());
+			this.locus.factory.setStrategy(new RedefinitionBasedDispatchStrategy());
+			this.locus.factory.setStrategy(new FIFOGetNextEventStrategy());
+			this.locus.factory.setStrategy(new FirstChoiceStrategy());
 
-			this.primitiveTypes = new org.modeldriven.fuml.test.builtin.library.PrimitiveTypes(
-					this.locus.factory);
-			this.addElement(this.primitiveTypes.Boolean);
-			this.addElement(this.primitiveTypes.Integer);
-			this.addElement(this.primitiveTypes.String);
-			this.addElement(this.primitiveTypes.UnlimitedNatural);
+			this.addElement(PrimitiveTypes.Boolean);
+			this.addElement(PrimitiveTypes.Integer);
+			this.addElement(PrimitiveTypes.String);
+			this.addElement(PrimitiveTypes.UnlimitedNatural);
 
-			this.integerFunctions = new org.modeldriven.fuml.test.builtin.library.IntegerFunctions(
-					this.primitiveTypes.Integer, this.primitiveTypes.Boolean,
-					this.locus.factory);
-			this.addElement(this.integerFunctions.integerPlus);
-			this.addElement(this.integerFunctions.integerMinus);
-			this.addElement(this.integerFunctions.integerTimes);
-			this.addElement(this.integerFunctions.integerDivide);
-			this.addElement(this.integerFunctions.integerNegate);
-			this.addElement(this.integerFunctions.integerGreater);
+			IntegerFunctions.addFunctions(this.locus.factory);
+			this.addElement(IntegerFunctions.integerPlus);
+			this.addElement(IntegerFunctions.integerMinus);
+			this.addElement(IntegerFunctions.integerTimes);
+			this.addElement(IntegerFunctions.integerDivide);
+			this.addElement(IntegerFunctions.integerNegate);
+			this.addElement(IntegerFunctions.integerGreater);
 
-			this.systemIO = new org.modeldriven.fuml.test.builtin.library.SystemIO(this.locus.factory);
-			this.addElement(this.systemIO.WriteLine);
+			this.addElement(SystemIO.WriteLine);
 
-			this.standardIO = new org.modeldriven.fuml.test.builtin.library.StandardIOClasses(
-					this.primitiveTypes);
-			this.addElement(this.standardIO.Channel);
-			this.addElement(this.standardIO.OutputChannel);
-			this.addElement(this.standardIO.TextOutputChannel);
-			this.addElement(this.standardIO.StandardOutputChannel);
+			this.addElement(StandardIOClasses.Channel);
+			this.addElement(StandardIOClasses.OutputChannel);
+			this.addElement(StandardIOClasses.TextOutputChannel);
+			this.addElement(StandardIOClasses.StandardOutputChannel);
 
 			StandardOutputChannelObject standardOutputChannel = new StandardOutputChannelObject();
 			standardOutputChannel.types
-					.addValue(this.standardIO.StandardOutputChannel);
+					.addValue(StandardIOClasses.StandardOutputChannel);
 			standardOutputChannel.open(new Status(this.locus, ""));
 			this.locus.add(standardOutputChannel);
-
-//			fUML.Library.PipeImplementation.PipeInputChannelObject pipeInputChannel = new fUML.Library.PipeImplementation.PipeInputChannelObject(
-//					"PipedInput");
-//			pipeInputChannel.types.addValue(this.standardIO.InputChannel);
-//			pipeInputChannel.open();
-//			this.locus.add(pipeInputChannel);
-//
-//			fUML.Library.PipeImplementation.PipeOutputChannelObject pipeOutputChannel = new fUML.Library.PipeImplementation.PipeOutputChannelObject(
-//					"PipedOutput", pipeInputChannel);
-//			pipeOutputChannel.types.addValue(this.standardIO.OutputChannel);
-//			pipeOutputChannel.open();
-//			this.locus.add(pipeOutputChannel);
-
+			
 		} catch (Throwable e) {
 			Debug.println("[TestEnvironment] Terminated due to "
 					+ e.getClass().getName() + "...");
@@ -107,20 +88,19 @@ public class TestEnvironment extends org.modeldriven.fuml.FumlObject {
 
 	} // TestEnvironment
 
-	public fUML.Semantics.Classes.Kernel.PrimitiveValue makePrimitiveValue(
-			fUML.Syntax.Classes.Kernel.Classifier classifier) {
+	public PrimitiveValue makePrimitiveValue(Classifier classifier) {
 		PrimitiveType type = (PrimitiveType) classifier;
 		PrimitiveValue primitiveValue = null;
 
 		// Debug.println("[makePrimitiveValue] type = " + type.name);
 
-		if (type == this.primitiveTypes.Boolean) {
+		if (type == PrimitiveTypes.Boolean) {
 			primitiveValue = new BooleanValue();
-		} else if (type == this.primitiveTypes.Integer) {
+		} else if (type == PrimitiveTypes.Integer) {
 			primitiveValue = new IntegerValue();
-		} else if (type == this.primitiveTypes.String) {
+		} else if (type == PrimitiveTypes.String) {
 			primitiveValue = new StringValue();
-		} else if (type == this.primitiveTypes.UnlimitedNatural) {
+		} else if (type == PrimitiveTypes.UnlimitedNatural) {
 			primitiveValue = new UnlimitedNaturalValue();
 			((UnlimitedNaturalValue) primitiveValue).value = new UnlimitedNatural();
 		}
@@ -137,8 +117,7 @@ public class TestEnvironment extends org.modeldriven.fuml.FumlObject {
 		return primitiveValue;
 	} // makePrimitiveValue
 
-	public fUML.Semantics.Classes.Kernel.EnumerationValue makeEnumerationValue(
-			fUML.Syntax.Classes.Kernel.Classifier classifier) {
+	public EnumerationValue makeEnumerationValue(Classifier classifier) {
 		Enumeration type = (Enumeration) classifier;
 		EnumerationValue enumerationValue = new EnumerationValue();
 
@@ -148,8 +127,7 @@ public class TestEnvironment extends org.modeldriven.fuml.FumlObject {
 		return enumerationValue;
 	} // makeEnumerationValue
 
-	public fUML.Semantics.Classes.Kernel.StructuredValue makeStructuredValue(
-			fUML.Syntax.Classes.Kernel.Classifier classifier) {
+	public StructuredValue makeStructuredValue(Classifier classifier) {
 		StructuredValue structuredValue = null;
 
 		if (classifier instanceof DataType) {
@@ -184,8 +162,7 @@ public class TestEnvironment extends org.modeldriven.fuml.FumlObject {
 
 	} // makeStructuredValue
 
-	public fUML.Semantics.Classes.Kernel.Value makeValue(
-			fUML.Syntax.Classes.Kernel.Classifier type) {
+	public Value makeValue(Classifier type) {
 		// if (type == null) {
 		// Debug.println("[makeValue} type is null");
 		// } else {
@@ -193,7 +170,7 @@ public class TestEnvironment extends org.modeldriven.fuml.FumlObject {
 		// }
 
 		if (type == null) {
-			return this.makePrimitiveValue(this.primitiveTypes.String);
+			return this.makePrimitiveValue(PrimitiveTypes.String);
 		} else if (type instanceof PrimitiveType) {
 			return this.makePrimitiveValue(type);
 		} else if (type instanceof Enumeration) {
@@ -212,7 +189,7 @@ public class TestEnvironment extends org.modeldriven.fuml.FumlObject {
 		}
 	} // addElement
 
-	public fUML.Syntax.Classes.Kernel.NamedElement getElement(String name) {
+	public NamedElement getElement(String name) {
 		for (int i = 0; i < elements.size(); i++) {
 			if (elements.getValue(i).name.equals(name))
 				return elements.getValue(i);
@@ -220,7 +197,7 @@ public class TestEnvironment extends org.modeldriven.fuml.FumlObject {
 		return null;
 	} // getElement
 
-	public void removeElement(fUML.Syntax.Classes.Kernel.NamedElement element) {
+	public void removeElement(NamedElement element) {
 		for (int i = 0; i < this.elements.size(); i++) {
 			if (this.elements.getValue(i) == element) {
 				this.elements.remove(i);
@@ -229,30 +206,7 @@ public class TestEnvironment extends org.modeldriven.fuml.FumlObject {
 		}
 	} // removeElement
 
-	public void setVariable(String name,
-			fUML.Semantics.Classes.Kernel.Value value) {
-		Variable variable = this.getVariable(name);
-
-		if (variable == null) {
-			variable = new Variable();
-			variable.name = name;
-			this.variables.addValue(variable);
-		}
-
-		variable.value = value;
-	} // setVariable
-
-	public org.modeldriven.fuml.test.builtin.environment.Variable getVariable(String name) {
-		for (int i = 0; i < this.variables.size(); i++) {
-			if (this.variables.getValue(i).name.equals(name)) {
-				return this.variables.getValue(i);
-			}
-		}
-
-		return null;
-	} // getVariable
-
-	public fUML.Syntax.Classes.Kernel.Classifier getType(String typeName) {
+	public Classifier getType(String typeName) {
 		NamedElement element = this.getElement(typeName);
 
 		if ((element == null) || !(element instanceof Classifier)) {
@@ -305,9 +259,8 @@ public class TestEnvironment extends org.modeldriven.fuml.FumlObject {
 		if (element != null) {
 			this.removeElement(element);
 		} else {
-			Debug
-					.println("[removeElement] " + elementName
-							+ " does not exist.");
+			Debug.println("[removeElement] " + elementName 
+					+ " does not exist.");
 		}
 	} // removeElement
 

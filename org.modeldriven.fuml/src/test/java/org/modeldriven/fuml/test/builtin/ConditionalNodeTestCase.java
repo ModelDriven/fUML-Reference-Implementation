@@ -22,7 +22,7 @@ public class ConditionalNodeTestCase extends BuiltInTest {
 
     public void testConditionalNode() throws Exception {
         log.info("testConditionalNode");
-        ParameterValueList output = initTestEnv.testSuite.testConditionalNode();
+        ParameterValueList output = this.testSuite.testConditionalNode();
         log.info("done");
         
         assertNotNull(output);

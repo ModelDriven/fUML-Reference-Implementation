@@ -1,4 +1,3 @@
-
 /*
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
@@ -12,59 +11,50 @@
 
 package org.modeldriven.fuml.test.builtin.library;
 
-import fUML.Debug;
-import UMLPrimitiveTypes.*;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution;
+import fUML.Semantics.Loci.LociL1.ExecutionFactory;
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.FunctionBehavior;
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
-public class IntegerFunctions extends org.modeldriven.fuml.test.builtin.library.PrimitiveFunctions {
+import org.modeldriven.fuml.library.Library;
 
-	public fUML.Syntax.CommonBehaviors.BasicBehaviors.FunctionBehavior integerPlus = null;
-	public fUML.Syntax.CommonBehaviors.BasicBehaviors.FunctionBehavior integerMinus = null;
-	public fUML.Syntax.CommonBehaviors.BasicBehaviors.FunctionBehavior integerTimes = null;
-	public fUML.Syntax.CommonBehaviors.BasicBehaviors.FunctionBehavior integerDivide = null;
-	public fUML.Syntax.CommonBehaviors.BasicBehaviors.FunctionBehavior integerNegate = null;
-	public fUML.Syntax.CommonBehaviors.BasicBehaviors.FunctionBehavior integerGreater = null;
+public class IntegerFunctions {
 
-	public IntegerFunctions(
-			fUML.Syntax.Classes.Kernel.PrimitiveType integerType,
-			fUML.Syntax.Classes.Kernel.PrimitiveType booleanType,
-			fUML.Semantics.Loci.LociL1.ExecutionFactory factory) {
-		this.integerPlus = this
-				.createBinaryOperator(
-						"IntegerPlus",
-						integerType,
-						new org.modeldriven.fuml.library.integerfunctions.IntegerPlusFunctionBehaviorExecution(),
-						factory);
-		this.integerMinus = this
-				.createBinaryOperator(
-						"IntegerMinus",
-						integerType,
-						new org.modeldriven.fuml.library.integerfunctions.IntegerMinusFunctionBehaviorExecution(),
-						factory);
-		this.integerTimes = this
-				.createBinaryOperator(
-						"IntegerTimes",
-						integerType,
-						new org.modeldriven.fuml.library.integerfunctions.IntegerTimesFunctionBehaviorExecution(),
-						factory);
-		this.integerDivide = this
-				.createBinaryOperator(
-						"IntegerDivide",
-						integerType,
-						new org.modeldriven.fuml.library.integerfunctions.IntegerDivideFunctionBehaviorExecution(),
-						factory);
-		this.integerNegate = this
-				.createUnaryOperator(
-						"IntegerNegate",
-						integerType,
-						new org.modeldriven.fuml.library.integerfunctions.IntegerNegateFunctionBehaviorExecution(),
-						factory);
-		this.integerGreater = this
-				.createComparisonOperator(
-						"IntegerGreater",
-						integerType,
-						booleanType,
-						new org.modeldriven.fuml.library.integerfunctions.IntegerGreaterThanFunctionBehaviorExecution(),
-						factory);
-	} // IntegerFunctions
+	public static final FunctionBehavior integerPlus = (FunctionBehavior)Library.getInstance().lookup("PrimitiveBehaviors-IntegerFunctions-plus");
+	public static final FunctionBehavior integerMinus = (FunctionBehavior)Library.getInstance().lookup("PrimitiveBehaviors-IntegerFunctions-minus");
+	public static final FunctionBehavior integerTimes = (FunctionBehavior)Library.getInstance().lookup("PrimitiveBehaviors-IntegerFunctions-times");
+	public static final FunctionBehavior integerDivide = (FunctionBehavior)Library.getInstance().lookup("PrimitiveBehaviors-IntegerFunctions-Div");
+	public static final FunctionBehavior integerNegate = (FunctionBehavior)Library.getInstance().lookup("PrimitiveBehaviors-IntegerFunctions-Neg");
+	public static final FunctionBehavior integerGreater = (FunctionBehavior)Library.getInstance().lookup("PrimitiveBehaviors-IntegerFunctions-gt");
+
+	public static void addFunctions(ExecutionFactory factory) {
+		addPrimitiveBehavior(integerPlus, 
+				new org.modeldriven.fuml.library.integerfunctions.IntegerPlusFunctionBehaviorExecution(),
+				factory);
+		addPrimitiveBehavior(integerMinus, 
+				new org.modeldriven.fuml.library.integerfunctions.IntegerMinusFunctionBehaviorExecution(),
+				factory);
+		addPrimitiveBehavior(integerTimes, 
+				new org.modeldriven.fuml.library.integerfunctions.IntegerTimesFunctionBehaviorExecution(),
+				factory);
+		addPrimitiveBehavior(integerDivide, 
+				new org.modeldriven.fuml.library.integerfunctions.IntegerDivideFunctionBehaviorExecution(),
+				factory);
+		addPrimitiveBehavior(integerNegate, 
+				new org.modeldriven.fuml.library.integerfunctions.IntegerNegateFunctionBehaviorExecution(),
+				factory);
+		addPrimitiveBehavior(integerGreater, 
+				new org.modeldriven.fuml.library.integerfunctions.IntegerGreaterThanFunctionBehaviorExecution(),
+				factory);
+	}
+	
+	public static void addPrimitiveBehavior(
+			OpaqueBehavior type,
+			OpaqueBehaviorExecution implementation,
+			ExecutionFactory factory) {
+		implementation.types.addValue(type);
+		factory.addPrimitiveBehaviorPrototype(implementation);
+
+	}
 
 } // IntegerFunctions

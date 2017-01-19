@@ -9,12 +9,8 @@ import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import fUML.Syntax.Classes.Kernel.Classifier;
 import junit.framework.Test;
 
-/**
- * 
- */
 public class WriterReaderTestCase extends BuiltInTest {
     private static Log log = LogFactory.getLog(WriterReaderTestCase.class);
     
@@ -23,12 +19,12 @@ public class WriterReaderTestCase extends BuiltInTest {
     }
     
     public void setUp() throws Exception {
-    	initTestEnv.environment.locus.extensionalValues.clear();
+    	this.clearExtents();
    }
 
     public void testWriterReader() throws Exception {
         log.info("testWriterReader");
-        ParameterValueList output = initTestEnv.testSuite.testWriterReader();
+        ParameterValueList output = this.testSuite.testWriterReader();
         log.info("done");
         
         assertNotNull(output);
@@ -37,8 +33,7 @@ public class WriterReaderTestCase extends BuiltInTest {
         
         int x = ((IntegerValue)output.get(0).values.get(0)).value;
         
-        ExtensionalValueList extent = initTestEnv.environment.locus.getExtent(
-				(Classifier)initTestEnv.environment.getElement("TestClass"));
+        ExtensionalValueList extent = this.findExtent("TestClass");
         
         assertEquals("extent.size()", 1, extent.size());
         

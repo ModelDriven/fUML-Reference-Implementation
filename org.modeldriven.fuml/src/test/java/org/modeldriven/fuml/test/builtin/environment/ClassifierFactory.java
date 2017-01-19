@@ -1,4 +1,3 @@
-
 /*
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
@@ -13,19 +12,13 @@
 package org.modeldriven.fuml.test.builtin.environment;
 
 import fUML.Debug;
-import UMLPrimitiveTypes.*;
-
-import fUML.Syntax.*;
 import fUML.Syntax.Classes.Kernel.*;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.*;
 import fUML.Syntax.CommonBehaviors.Communications.*;
-import fUML.Syntax.Activities.IntermediateActivities.*;
-import fUML.Syntax.Activities.CompleteStructuredActivities.*;
-import fUML.Syntax.Actions.BasicActions.*;
-import fUML.Syntax.Actions.IntermediateActions.*;
-import fUML.Syntax.Actions.CompleteActions.*;
 
-public class ClassifierFactory extends org.modeldriven.fuml.test.builtin.environment.Test {
+public class ClassifierFactory {
+
+	public TestEnvironment environment = null;
 
 	public ClassifierFactory(org.modeldriven.fuml.test.builtin.environment.TestEnvironment environment) {
 		this.environment = environment;

@@ -22,7 +22,7 @@ public class StructuredNodeTestCase extends BuiltInTest {
 
     public void testStructuredNode() throws Exception {
         log.info("testStructuredNode");
-        ParameterValueList output = initTestEnv.testSuite.testStructuredNode();
+        ParameterValueList output = this.testSuite.testStructuredNode();
         log.info("done");
         
         assertNotNull(output);

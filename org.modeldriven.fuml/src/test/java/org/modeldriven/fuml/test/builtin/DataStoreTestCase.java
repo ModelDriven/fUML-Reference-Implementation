@@ -19,7 +19,7 @@ public class DataStoreTestCase extends BuiltInTest {
 
     public void testDataStore() throws Exception {
         log.info("testDataStore");
-        ParameterValueList output = initTestEnv.testSuite.testDataStore();
+        ParameterValueList output = this.testSuite.testDataStore();
         log.info("done");
         
         assertNotNull(output);

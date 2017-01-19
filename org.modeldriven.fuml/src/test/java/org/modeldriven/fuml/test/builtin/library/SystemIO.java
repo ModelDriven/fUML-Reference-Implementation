@@ -1,9 +1,8 @@
-
 /*
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * All modifications copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -12,22 +11,14 @@
 
 package org.modeldriven.fuml.test.builtin.library;
 
-import fUML.Debug;
-import UMLPrimitiveTypes.*;
+import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 
-public class SystemIO extends org.modeldriven.fuml.test.builtin.library.PrimitiveBehaviors {
+import org.modeldriven.fuml.library.Library;
 
-	public fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior WriteLine = null;
+public class SystemIO {
 
-	public SystemIO(fUML.Semantics.Loci.LociL1.ExecutionFactory factory) {
-		fUML.Syntax.Classes.Kernel.ParameterList parameters = new fUML.Syntax.Classes.Kernel.ParameterList();
-		parameters.addValue(this.createInputParameter("value", null, 1, 1));
-		this.WriteLine = this
-				.createPrimitiveBehavior(
-						"WriteLine",
-						parameters,
-						new org.modeldriven.fuml.test.builtin.library.SystemWriteLineBehaviorExecution(),
-						factory);
-	} // SystemIO
+	public static final Behavior WriteLine = 
+			(Activity)Library.getInstance().lookup("BasicInputOutput-WriteLine");
 
 } // SystemIO

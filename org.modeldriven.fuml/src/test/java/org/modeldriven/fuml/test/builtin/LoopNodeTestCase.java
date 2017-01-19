@@ -22,7 +22,7 @@ public class LoopNodeTestCase extends BuiltInTest {
 
     public void testLoopNode() throws Exception {
         log.info("testLoopNode");
-        ParameterValueList output = initTestEnv.testSuite.testLoopNode();
+        ParameterValueList output = this.testSuite.testLoopNode();
         log.info("done");
         
         assertNotNull(output);

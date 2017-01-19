@@ -8,7 +8,6 @@ import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Classes.Kernel.ExtensionalValue;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.FeatureValueList;
-import fUML.Syntax.Classes.Kernel.Classifier;
 import junit.framework.Test;
 
 /**
@@ -23,16 +22,15 @@ public class SignalSendTestCase extends BuiltInTest {
     }
     
     public void setUp() throws Exception {
-    	initTestEnv.environment.locus.extensionalValues.clear();
+    	this.clearExtents();
     }
 
     public void testSignalSend() throws Exception {
         log.info("testSignalSend");
-        initTestEnv.testSuite.testSignalSend();        
+        this.testSuite.testSignalSend();        
         log.info("done");
         
-        ExtensionalValueList extent = initTestEnv.environment.locus.getExtent(
-				(Classifier)initTestEnv.environment.getElement("TestSignalAccepter"));
+        ExtensionalValueList extent = this.findExtent("TestSignalAccepter");
         
         assertEquals("extent.size()", 1, extent.size());
         ExtensionalValue accepterExecution = extent.get(0);

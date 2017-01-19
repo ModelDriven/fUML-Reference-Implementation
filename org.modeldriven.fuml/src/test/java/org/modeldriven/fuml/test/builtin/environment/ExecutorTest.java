@@ -1,4 +1,3 @@
-
 /*
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
@@ -19,7 +18,9 @@ import fUML.Syntax.CommonBehaviors.BasicBehaviors.*;
 import fUML.Semantics.Classes.Kernel.*;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.*;
 
-public class ExecutorTest extends org.modeldriven.fuml.test.builtin.environment.Test {
+public class ExecutorTest {
+
+	public TestEnvironment environment = null;
 
 	public ExecutorTest(org.modeldriven.fuml.test.builtin.environment.TestEnvironment environment) {
 		this.environment = environment;
@@ -38,9 +39,8 @@ public class ExecutorTest extends org.modeldriven.fuml.test.builtin.environment.
 			ParameterDirectionKind direction = parameters.getValue(i).direction;
 			if (direction.equals(ParameterDirectionKind.in)
 					|| direction.equals(ParameterDirectionKind.inout)) {
-				Debug
-						.println("[createDefaultParameterValues] Creating parameter value for parameter "
-								+ parameters.getValue(i).name + "...");
+				Debug.println("[createDefaultParameterValues] Creating parameter value for parameter "
+						+ parameters.getValue(i).name + "...");
 				ParameterValue parameterValue = new ParameterValue();
 				parameterValue.parameter = parameters.getValue(i);
 
@@ -48,14 +48,11 @@ public class ExecutorTest extends org.modeldriven.fuml.test.builtin.environment.
 						.makeValue((Classifier) (parameters.getValue(i).type));
 
 				if (value == null) {
-					Debug
-							.println("[createDefaultParameterValues] Error creating parameter value.");
+					Debug.println("[createDefaultParameterValues] Error creating parameter value.");
 					return null;
 				}
 
-				Debug
-						.println("[createDefaultParameterValues] value = "
-								+ value);
+				Debug.println("[createDefaultParameterValues] value = " + value);
 				parameterValue.values.addValue(value);
 				parameterValues.addValue(parameterValue);
 			}

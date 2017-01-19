@@ -1,4 +1,3 @@
-
 /*
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
@@ -11,6 +10,10 @@
  */
 
 package org.modeldriven.fuml.test.builtin.environment;
+
+import org.modeldriven.fuml.test.builtin.library.IntegerFunctions;
+import org.modeldriven.fuml.test.builtin.library.PrimitiveTypes;
+import org.modeldriven.fuml.test.builtin.library.StandardIOClasses;
 
 import fUML.Debug;
 import fUML.Syntax.Classes.Kernel.*;
@@ -26,7 +29,9 @@ import fUML.Syntax.Actions.CompleteActions.*;
 
 import fUML.Semantics.Classes.Kernel.*;
 
-public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environment.Test {
+public class ActivityFactory {
+
+	public TestEnvironment environment = null;
 
 	public ActivityFactory(org.modeldriven.fuml.test.builtin.environment.TestEnvironment environment) {
 		this.environment = environment;
@@ -182,7 +187,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 	protected fUML.Syntax.Classes.Kernel.LiteralInteger createLiteralInteger(
 			String name, int value) {
 		LiteralInteger literal = (LiteralInteger) (this.environment
-				.makeValue((Classifier) (this.environment.primitiveTypes.Integer))
+				.makeValue((Classifier) (PrimitiveTypes.Integer))
 				.specify());
 		literal.setName(name);
 		literal.setValue(value);
@@ -194,7 +199,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 	protected fUML.Syntax.Classes.Kernel.LiteralString createLiteralString(
 			String name, String value) {
 		LiteralString literal = (LiteralString) (this.environment
-				.makeValue((Classifier) (this.environment.primitiveTypes.String))
+				.makeValue((Classifier) (PrimitiveTypes.String))
 				.specify());
 		literal.setName(name);
 		literal.setValue(value);
@@ -206,7 +211,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 	protected fUML.Syntax.Classes.Kernel.LiteralBoolean createLiteralBoolean(
 			String name, boolean value) {
 		LiteralBoolean literal = (LiteralBoolean) (this.environment
-				.makeValue((Classifier) (this.environment.primitiveTypes.Boolean))
+				.makeValue((Classifier) (PrimitiveTypes.Boolean))
 				.specify());
 		literal.setName(name);
 		literal.setValue(value);
@@ -218,7 +223,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 	protected fUML.Syntax.Classes.Kernel.LiteralUnlimitedNatural createLiteralUnlimitedNatural(
 			String name, int value) {
 		LiteralUnlimitedNatural literal = (LiteralUnlimitedNatural) (this.environment
-				.makeValue((Classifier) (this.environment.primitiveTypes.UnlimitedNatural))
+				.makeValue((Classifier) (PrimitiveTypes.UnlimitedNatural))
 				.specify());
 		literal.setName(name);
 		literal.value.naturalValue = value;
@@ -237,7 +242,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 				ParameterDirectionKind.in, classifier);
 		Parameter testOutput = this.addParameter(testActivity, "testOutput",
 				ParameterDirectionKind.out,
-				this.environment.primitiveTypes.Boolean);
+				PrimitiveTypes.Boolean);
 
 		ActivityParameterNode testInputNode = new ActivityParameterNode();
 		testInputNode.setName("TestInputNode");
@@ -356,10 +361,10 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 
 		Parameter inputParameter = this.addParameter(activity, "input",
 				ParameterDirectionKind.in,
-				this.environment.primitiveTypes.Integer);
+				PrimitiveTypes.Integer);
 		Parameter outputParameter = this.addParameter(activity, "output",
 				ParameterDirectionKind.out,
-				this.environment.primitiveTypes.Integer);
+				PrimitiveTypes.Integer);
 
 		// Debug.println("[createCopier] Creating input node...");
 
@@ -445,10 +450,10 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 
 		Parameter parameter0 = this.addParameter(simpleDecisionActivity,
 				"output_0", ParameterDirectionKind.out,
-				this.environment.primitiveTypes.Integer);
+				PrimitiveTypes.Integer);
 		Parameter parameter1 = this.addParameter(simpleDecisionActivity,
 				"output_1", ParameterDirectionKind.out,
-				this.environment.primitiveTypes.Integer);
+				PrimitiveTypes.Integer);
 
 		ValueSpecificationAction valueAction = new ValueSpecificationAction();
 		valueAction.setName("ValueAction_" + testValue);
@@ -567,7 +572,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 		outputNode.setName("OutputNode");
 		outputNode.setParameter(this.addParameter(decisionJoinActivity,
 				"output", ParameterDirectionKind.out,
-				this.environment.primitiveTypes.Integer));
+				PrimitiveTypes.Integer));
 		this.addNode(decisionJoinActivity, outputNode);
 
 		this.addEdge(decisionJoinActivity, new ControlFlow(), valueAction0,
@@ -618,7 +623,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 		outputNode.setName("OutputNode");
 		outputNode.setParameter(this.addParameter(forkMergeActivity, "output",
 				ParameterDirectionKind.out,
-				this.environment.primitiveTypes.Integer));
+				PrimitiveTypes.Integer));
 		this.addNode(forkMergeActivity, outputNode);
 
 		this.addEdge(forkMergeActivity, new ControlFlow(), initialNode,
@@ -667,7 +672,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 		outputNode.setName("OutputNode");
 		outputNode.setParameter(this.addParameter(forkMergeActivity, "output",
 				ParameterDirectionKind.out,
-				this.environment.primitiveTypes.Integer));
+				PrimitiveTypes.Integer));
 		this.addNode(forkMergeActivity, outputNode);
 
 		this.addEdge(forkMergeActivity, new ObjectFlow(), actionA.result,
@@ -744,69 +749,69 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 		this.environment.addElement(selfReaderActivity);
 	} // createSelfReader
 
-	public void createIdentityTester(String nameSuffix, String variableName1,
-			String variableName2) {
-		Variable variable1 = this.environment.getVariable(variableName1);
-		Variable variable2 = this.environment.getVariable(variableName2);
-
-		if (variable1 == null) {
-			Debug.println("[createIdentityTester] " + variableName1
-					+ " does not exist.");
-			return;
-		}
-
-		if (variable2 == null) {
-			Debug.println("[createIdentityTester] " + variableName2
-					+ " does not exist.");
-			return;
-		}
-
-		Value value1 = variable1.value;
-		Value value2 = variable2.value;
-
-		Activity identityTesterActivity = new Activity();
-		identityTesterActivity.setName("IdentityTester_" + nameSuffix);
-
-		ValueSpecificationAction valueAction1 = new ValueSpecificationAction();
-		valueAction1.setName("ValueAction_1");
-		valueAction1.setValue(value1.specify());
-		valueAction1.setResult(this.makeOutputPin(
-				valueAction1.name + ".result", 1, 1));
-		this.addNode(identityTesterActivity, valueAction1);
-
-		ValueSpecificationAction valueAction2 = new ValueSpecificationAction();
-		valueAction2.setName("ValueAction_2");
-		valueAction2.setValue(value2.specify());
-		valueAction2.setResult(this.addOutputPin(valueAction2,
-				valueAction2.name + ".result", 1, 1));
-		this.addNode(identityTesterActivity, valueAction2);
-
-		TestIdentityAction testIdentityAction = new TestIdentityAction();
-		testIdentityAction.setName("TestIdentityAction");
-		testIdentityAction.setFirst(this.makeInputPin(testIdentityAction.name
-				+ ".first", 1, 1));
-		testIdentityAction.setSecond(this.makeInputPin(testIdentityAction.name
-				+ ".second", 1, 1));
-		testIdentityAction.setResult(this.makeOutputPin(testIdentityAction.name
-				+ ".result", 1, 1));
-		this.addNode(identityTesterActivity, testIdentityAction);
-
-		ActivityParameterNode outputNode = new ActivityParameterNode();
-		outputNode.setName("outputNode");
-		outputNode.setParameter(this.addParameter(identityTesterActivity,
-				"result", ParameterDirectionKind.out,
-				this.environment.primitiveTypes.Boolean));
-		this.addNode(identityTesterActivity, outputNode);
-
-		this.addEdge(identityTesterActivity, new ObjectFlow(),
-				valueAction1.result, testIdentityAction.first, null);
-		this.addEdge(identityTesterActivity, new ObjectFlow(),
-				valueAction2.result, testIdentityAction.second, null);
-		this.addEdge(identityTesterActivity, new ObjectFlow(),
-				testIdentityAction.result, outputNode, null);
-
-		this.environment.addElement(identityTesterActivity);
-	} // createIdentityTester
+//	public void createIdentityTester(String nameSuffix, String variableName1,
+//			String variableName2) {
+//		Variable variable1 = this.environment.getVariable(variableName1);
+//		Variable variable2 = this.environment.getVariable(variableName2);
+//
+//		if (variable1 == null) {
+//			Debug.println("[createIdentityTester] " + variableName1
+//					+ " does not exist.");
+//			return;
+//		}
+//
+//		if (variable2 == null) {
+//			Debug.println("[createIdentityTester] " + variableName2
+//					+ " does not exist.");
+//			return;
+//		}
+//
+//		Value value1 = variable1.value;
+//		Value value2 = variable2.value;
+//
+//		Activity identityTesterActivity = new Activity();
+//		identityTesterActivity.setName("IdentityTester_" + nameSuffix);
+//
+//		ValueSpecificationAction valueAction1 = new ValueSpecificationAction();
+//		valueAction1.setName("ValueAction_1");
+//		valueAction1.setValue(value1.specify());
+//		valueAction1.setResult(this.makeOutputPin(
+//				valueAction1.name + ".result", 1, 1));
+//		this.addNode(identityTesterActivity, valueAction1);
+//
+//		ValueSpecificationAction valueAction2 = new ValueSpecificationAction();
+//		valueAction2.setName("ValueAction_2");
+//		valueAction2.setValue(value2.specify());
+//		valueAction2.setResult(this.addOutputPin(valueAction2,
+//				valueAction2.name + ".result", 1, 1));
+//		this.addNode(identityTesterActivity, valueAction2);
+//
+//		TestIdentityAction testIdentityAction = new TestIdentityAction();
+//		testIdentityAction.setName("TestIdentityAction");
+//		testIdentityAction.setFirst(this.makeInputPin(testIdentityAction.name
+//				+ ".first", 1, 1));
+//		testIdentityAction.setSecond(this.makeInputPin(testIdentityAction.name
+//				+ ".second", 1, 1));
+//		testIdentityAction.setResult(this.makeOutputPin(testIdentityAction.name
+//				+ ".result", 1, 1));
+//		this.addNode(identityTesterActivity, testIdentityAction);
+//
+//		ActivityParameterNode outputNode = new ActivityParameterNode();
+//		outputNode.setName("outputNode");
+//		outputNode.setParameter(this.addParameter(identityTesterActivity,
+//				"result", ParameterDirectionKind.out,
+//				PrimitiveTypes.Boolean));
+//		this.addNode(identityTesterActivity, outputNode);
+//
+//		this.addEdge(identityTesterActivity, new ObjectFlow(),
+//				valueAction1.result, testIdentityAction.first, null);
+//		this.addEdge(identityTesterActivity, new ObjectFlow(),
+//				valueAction2.result, testIdentityAction.second, null);
+//		this.addEdge(identityTesterActivity, new ObjectFlow(),
+//				testIdentityAction.result, outputNode, null);
+//
+//		this.environment.addElement(identityTesterActivity);
+//	} // createIdentityTester
 
 	public void createObjectCreater(String className) {
 		NamedElement element = this.environment.getElement(className);
@@ -1083,7 +1088,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 			insertAtNode.setParameter(this.addParameter(
 					attributeWriterActivity, "insertAt",
 					ParameterDirectionKind.in,
-					this.environment.primitiveTypes.UnlimitedNatural));
+					PrimitiveTypes.UnlimitedNatural));
 			this.addNode(attributeWriterActivity, insertAtNode);
 		}
 
@@ -1209,7 +1214,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 	} // createAttributedCaller
 
 	public void createHelloWorld1() {
-		Class_ standardOutputChannelClass = this.environment.standardIO.StandardOutputChannel;
+		Class_ standardOutputChannelClass = StandardIOClasses.StandardOutputChannel;
 
 		Activity helloWorldActivity = new Activity();
 		helloWorldActivity.setName("HelloWorld1");
@@ -1233,6 +1238,8 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 		callAction.setTarget(this.makeInputPin(callAction.name + ".target", 1,
 				1));
 		callAction.addArgument(this.makeInputPin(callAction.name + ".argument",
+				1, 1));
+		callAction.addResult(this.makeOutputPin(callAction.name + ".result",
 				1, 1));
 		callAction.setOperation(this.getOperation(standardOutputChannelClass,
 				"writeLine"));
@@ -1270,6 +1277,8 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 		callAction.setBehavior(this.getActivity("WriteLine"));
 		callAction.addArgument(this.makeInputPin(callAction.name + ".argument",
 				1, 1));
+		callAction.addResult(this.makeOutputPin(callAction.name + ".result",
+				1, 1));
 		this.addNode(helloWorldActivity, callAction);
 
 		if (callAction.behavior == null) {
@@ -1283,7 +1292,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 	} // createHelloWorld2
 
 	public void createChannelReader(String channelName) {
-		Class_ inputChannelClass = this.environment.standardIO.InputChannel;
+		Class_ inputChannelClass = StandardIOClasses.InputChannel;
 		Operation getNameOperation = this.getOperation(inputChannelClass,
 				"getName");
 
@@ -1336,7 +1345,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 	} // createChannelReader
 
 	public void createChannelWriter(String channelName) {
-		Class_ outputChannelClass = this.environment.standardIO.OutputChannel;
+		Class_ outputChannelClass = StandardIOClasses.OutputChannel;
 		Operation getNameOperation = this.getOperation(outputChannelClass,
 				"getName");
 
@@ -1354,7 +1363,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 
 		Parameter input = this.addParameter(channelWriterActivity, "value",
 				ParameterDirectionKind.in,
-				this.environment.primitiveTypes.String);
+				PrimitiveTypes.String);
 
 		ActivityParameterNode inputNode = new ActivityParameterNode();
 		inputNode.setName("InputNode(" + input.name + ")");
@@ -1391,7 +1400,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 	} // createChannelWriter
 
 	public void createWriteLine() {
-		Class_ standardOutputChannelClass = this.environment.standardIO.StandardOutputChannel;
+		Class_ standardOutputChannelClass = StandardIOClasses.StandardOutputChannel;
 
 		Activity writeLineActivity = new Activity();
 		writeLineActivity.setName("WriteLine");
@@ -1745,7 +1754,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 
 		Parameter parameter = new Parameter();
 		parameter.setName("input");
-		parameter.setType(this.environment.primitiveTypes.Integer);
+		parameter.setType(PrimitiveTypes.Integer);
 		parameter.setLower(1);
 		parameter.setUpper(1);
 		parameter.setDirection(ParameterDirectionKind.in);
@@ -1753,7 +1762,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 		
 		parameter = new Parameter();
 		parameter.setName("output");
-		parameter.setType(this.environment.primitiveTypes.Integer);
+		parameter.setType(PrimitiveTypes.Integer);
 		parameter.setLower(1);
 		parameter.setUpper(1);
 		parameter.setDirection(ParameterDirectionKind.out);
@@ -1825,9 +1834,9 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 		Activity senderActivity = new Activity();
 		senderActivity.setName(operationName + "CallSender");
 		Parameter input = this.addParameter(senderActivity, 
-				"input", ParameterDirectionKind.in, this.environment.primitiveTypes.Integer);
+				"input", ParameterDirectionKind.in, PrimitiveTypes.Integer);
 		Parameter output = this.addParameter(senderActivity, 
-				"output", ParameterDirectionKind.out, this.environment.primitiveTypes.Integer);
+				"output", ParameterDirectionKind.out, PrimitiveTypes.Integer);
 
 		CreateObjectAction createObjectAction = new CreateObjectAction();
 		createObjectAction.setName("Create(" + accepterActivity.name + ")");
@@ -1984,7 +1993,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 		inputNode.setName("InputNode");
 		inputNode.setParameter(this.addParameter(forkMergeActivity, "input",
 				ParameterDirectionKind.in,
-				this.environment.primitiveTypes.Integer));
+				PrimitiveTypes.Integer));
 		this.addNode(forkMergeActivity, inputNode);
 
 		ForkNode forkNode = new ForkNode();
@@ -2006,7 +2015,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 		outputNode.setName("OutputNode");
 		outputNode.setParameter(this.addParameter(forkMergeActivity, "output",
 				ParameterDirectionKind.out,
-				this.environment.primitiveTypes.Integer));
+				PrimitiveTypes.Integer));
 		this.setMultiplicity(outputNode.parameter.multiplicityElement, 1, -1);
 		this.addNode(forkMergeActivity, outputNode);
 
@@ -2143,7 +2152,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 		outputNode.setName("OutputNode");
 		outputNode.setParameter(this.addParameter(conditionalNodeActivity,
 				"output", ParameterDirectionKind.out,
-				this.environment.primitiveTypes.Integer));
+				PrimitiveTypes.Integer));
 		conditionalNodeActivity.addNode(outputNode);
 
 		this.addEdge(conditionalNodeActivity, new ObjectFlow(),
@@ -2191,14 +2200,14 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 		outputNode0.setName("Output(i)");
 		outputNode0.setParameter(this.addParameter(loopNodeActivity, "i",
 				ParameterDirectionKind.out,
-				this.environment.primitiveTypes.Integer));
+				PrimitiveTypes.Integer));
 		loopNodeActivity.addNode(outputNode0);
 
 		ActivityParameterNode outputNode1 = new ActivityParameterNode();
 		outputNode1.setName("Output(n)");
 		outputNode1.setParameter(this.addParameter(loopNodeActivity, "n",
 				ParameterDirectionKind.out,
-				this.environment.primitiveTypes.Integer));
+				PrimitiveTypes.Integer));
 		loopNodeActivity.addNode(outputNode1);
 
 		this.addEdge(loopNodeActivity, new ObjectFlow(), valueAction.result,
@@ -2225,7 +2234,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 		CallBehaviorAction greaterCall = new CallBehaviorAction();
 		greaterCall.setName("Call(Greater)");
 		greaterCall
-				.setBehavior(this.environment.integerFunctions.integerGreater);
+				.setBehavior(IntegerFunctions.integerGreater);
 		greaterCall.addArgument(this.makeInputPin(greaterCall.name
 				+ ".argument(first)", 1, 1));
 		greaterCall.addArgument(this.makeInputPin(greaterCall.name
@@ -2261,7 +2270,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 
 		CallBehaviorAction minusCall = new CallBehaviorAction();
 		minusCall.setName("Call(Minus)");
-		minusCall.setBehavior(this.environment.integerFunctions.integerMinus);
+		minusCall.setBehavior(IntegerFunctions.integerMinus);
 		minusCall.addArgument(this.makeInputPin(minusCall.name
 				+ ".argument(first)", 1, 1));
 		minusCall.addArgument(this.makeInputPin(minusCall.name
@@ -2274,7 +2283,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 
 		CallBehaviorAction timesCall = new CallBehaviorAction();
 		timesCall.setName("Call(Times)");
-		timesCall.setBehavior(this.environment.integerFunctions.integerTimes);
+		timesCall.setBehavior(IntegerFunctions.integerTimes);
 		timesCall.addArgument(this.makeInputPin(timesCall.name
 				+ ".argument(first)", 1, 1));
 		timesCall.addArgument(this.makeInputPin(timesCall.name
@@ -2357,14 +2366,14 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 		outputNode0.setName("Output(list)");
 		outputNode0.setParameter(this.addParameter(expansionRegionActivity,
 				"list", ParameterDirectionKind.out,
-				this.environment.primitiveTypes.Integer));
+				PrimitiveTypes.Integer));
 		expansionRegionActivity.addNode(outputNode0);
 
 		ActivityParameterNode outputNode1 = new ActivityParameterNode();
 		outputNode1.setName("Output(list*10)");
 		outputNode1.setParameter(this.addParameter(expansionRegionActivity,
 				"list*10", ParameterDirectionKind.out,
-				this.environment.primitiveTypes.Integer));
+				PrimitiveTypes.Integer));
 		expansionRegionActivity.addNode(outputNode1);
 
 		for (int i = 0; i < n; i++) {
@@ -2391,7 +2400,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 
 		CallBehaviorAction timesCall = new CallBehaviorAction();
 		timesCall.setName("Call(Times)");
-		timesCall.setBehavior(this.environment.integerFunctions.integerTimes);
+		timesCall.setBehavior(IntegerFunctions.integerTimes);
 		timesCall.addArgument(this
 				.makeInputPin(timesCall.name + ".first", 1, 1));
 		timesCall.addArgument(this.makeInputPin(timesCall.name + ".second", 1,
@@ -3063,7 +3072,7 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 		outputNode.setName("Parameter(output)");
 		outputNode.setParameter(this.addParameter(activity, "output",
 				ParameterDirectionKind.out,
-				this.environment.primitiveTypes.Boolean));
+				PrimitiveTypes.Boolean));
 		activity.addNode(outputNode);
 
 		this.addEdge(activity, new ObjectFlow(), inputNode, testAction.object,
@@ -3177,13 +3186,13 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 		ActivityParameterNode inputNode1 = new ActivityParameterNode();
 		inputNode1.setName("Parameter(input1)");
 		inputNode1.setParameter(this.addParameter(activity, "input1",
-				ParameterDirectionKind.in, this.environment.primitiveTypes.Integer));
+				ParameterDirectionKind.in, PrimitiveTypes.Integer));
 		activity.addNode(inputNode1);
 
 		ActivityParameterNode inputNode2 = new ActivityParameterNode();
 		inputNode2.setName("Parameter(input2)");
 		inputNode2.setParameter(this.addParameter(activity, "input2",
-				ParameterDirectionKind.in, this.environment.primitiveTypes.Integer));
+				ParameterDirectionKind.in, PrimitiveTypes.Integer));
 		activity.addNode(inputNode2);
 
 		ActivityParameterNode outputNode = new ActivityParameterNode();
@@ -3206,10 +3215,6 @@ public class ActivityFactory extends org.modeldriven.fuml.test.builtin.environme
 	public void createDataStore() {
 		Activity activity = new Activity();
 		activity.setName("DataStore");
-		
-		InitialNode initialNode = new InitialNode();
-		initialNode.setName("InitialNode");
-		activity.addNode(initialNode);
 		
 		MergeNode mergeNode1 = new MergeNode();
 		mergeNode1.setName("MergeNode1");

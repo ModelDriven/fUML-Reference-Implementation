@@ -22,7 +22,7 @@ public class FireAgainTestCase extends BuiltInTest {
 
     public void testFireAgain() throws Exception {
         log.info("testFireAgain");
-        ParameterValueList output = initTestEnv.testSuite.testFireAgain();
+        ParameterValueList output = this.testSuite.testFireAgain();
         log.info("done");
         
         assertNotNull(output);

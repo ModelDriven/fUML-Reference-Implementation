@@ -22,7 +22,7 @@ public class ExpansionRegionTestCase extends BuiltInTest {
 
     public void testExpansionRegion() throws Exception {
         log.info("testExpansionRegion");
-        ParameterValueList output = initTestEnv.testSuite.testExpansionRegion();
+        ParameterValueList output = this.testSuite.testExpansionRegion();
         log.info("done");
         
         assertNotNull(output);
