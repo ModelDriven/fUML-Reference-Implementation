@@ -5,7 +5,6 @@ import fUML.Semantics.Actions.BasicActions.ActionActivation;
 import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import fUML.Semantics.CommonBehaviors.Communications.ReturnInformation;
 import fUML.Syntax.Actions.BasicActions.InputPin;
 import fUML.Syntax.Actions.BasicActions.InputPinList;
 import fUML.Syntax.Actions.CompleteActions.ReplyAction;

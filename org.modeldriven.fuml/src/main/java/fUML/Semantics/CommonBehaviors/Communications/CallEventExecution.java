@@ -9,13 +9,14 @@
 package fUML.Semantics.CommonBehaviors.Communications;
 
 import fUML.Debug;
-import fUML.Semantics.Classes.Kernel.CallEventBehavior;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Classes.Kernel.Operation;
+import fUML.Syntax.Classes.Kernel.Parameter;
 import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
+import fUML.Syntax.Classes.Kernel.ParameterList;
 
 public class CallEventExecution extends Execution {
 
@@ -23,21 +24,20 @@ public class CallEventExecution extends Execution {
 	
 	public boolean isCallerSuspended() {
 		// Check if the caller is still suspended.
-		// This is done in isolation from possible concurrent
-		// updates to this flag;
+		// This is done in isolation from possible concurrent updates to this flag.
 		
 		_beginIsolation();
 		boolean isSuspended = this.callerSuspended;
 		Debug.println("[isCallerSuspended] operation = " + this.getOperation().name + 
 				", isSuspended = " + isSuspended);
 		_endIsolation();
+		
 		return isSuspended;
 	}
 	
 	public void setCallerSuspended(boolean callerSuspended) {
 		// Set the caller suspended flag to the given value.
-	    // This is done in isolation from possible concurrent
-		// queries to this flag.
+	    // This is done in isolation from possible concurrent queries to this flag.
 		
 		_beginIsolation();
 		this.callerSuspended = callerSuspended;
@@ -52,7 +52,7 @@ public class CallEventExecution extends Execution {
 		this.setCallerSuspended(true);
 		
 		do {
-			_wait();
+			this.wait_();
 		} while(this.isCallerSuspended());
 		
 	}
@@ -73,11 +73,14 @@ public class CallEventExecution extends Execution {
 	}
 	
 	public Operation getOperation() {
+		// Return the operation being called by this call event execution.
+
 		return ((CallEventBehavior)this.getBehavior()).operation;
 	}
 	
 	public ParameterValueList getInputParameterValues(){
 		// Return input parameter values for this execution
+		
 		ParameterValueList parameterValues = new ParameterValueList();
 		for(int i=0; i < this.parameterValues.size(); i++){
 			ParameterValue parameterValue = this.parameterValues.get(i);
@@ -89,20 +92,49 @@ public class CallEventExecution extends Execution {
 		return parameterValues;
 	}
 
+	public void setOutputParameterValues(ParameterValueList parameterValues) {
+		// Set the output parameter values for this execution.
+		
+		ParameterList parameters = this.getBehavior().ownedParameter;
+		int i = 1;
+		int j = 1;
+		while (i <= parameters.size()) {
+            Parameter parameter = parameters.get(i-1);
+            if (parameter.direction == ParameterDirectionKind.inout | 
+            		parameter.direction == ParameterDirectionKind.out | 
+            		parameter.direction == ParameterDirectionKind.return_ ) {
+				ParameterValue parameterValue = parameterValues.get(j-1);
+				parameterValue.parameter = parameter;
+				this.setParameterValue(parameterValue);
+				j = j + 1;
+            }
+			i = i + 1;
+		}
+	}
+	
 	@Override
 	public Value new_() {
+		// Create a new call event execution.
+		
 		return new CallEventExecution();
 	}
 	
 	@Override
 	public Value copy() {
+		// Create a new call event execution that is a copy of this execution, with the
+		// caller initially not suspended.
+		
 		CallEventExecution copy = (CallEventExecution)super.copy();
 		copy.callerSuspended = false;
 		return copy;
 	}
 	
-	 public static void _wait() {
-			ExecutionQueue.step();
+	 public void wait_() {
+		 // Wait for an indeterminate amount of time to allow other concurrent
+		 // executions to proceed.
+		 // [There is no further formal specification for this operation.]
+		 
+		 Debug.println(!ExecutionQueue.step(), "[wait] Stuck!");
 	 }
 
 }

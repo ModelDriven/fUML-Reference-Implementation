@@ -14,6 +14,7 @@ package fUML.Semantics.Loci.LociL1;
 import fUML.Syntax.Classes.Kernel.*;
 
 import fUML.Semantics.Classes.Kernel.*;
+import fUML.Semantics.CommonBehaviors.Communications.CallEventBehavior;
 import fUML.Semantics.CommonBehaviors.Communications.CallEventExecution;
 
 public class ExecutionFactoryL1 extends

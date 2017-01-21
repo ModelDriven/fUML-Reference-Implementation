@@ -11,6 +11,8 @@
 
 package fUML.Semantics.Classes.Kernel;
 
+import fUML.Semantics.CommonBehaviors.Communications.CallEventBehavior;
+
 public abstract class DispatchStrategy extends
 		fUML.Semantics.Loci.LociL1.SemanticStrategy {
 
@@ -33,6 +35,11 @@ public abstract class DispatchStrategy extends
 	public fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior getMethod(
 			fUML.Semantics.Classes.Kernel.Object_ object,
 			fUML.Syntax.Classes.Kernel.Operation operation) {
+		// Get the method that corresponds to the given operation for the given object.
+		// By default, the operation is treated as being called via a call event occurrence,
+		// with a call even behavior as its effective method. Concrete dispatch strategy
+		// subclasses may override this default to provide other dispatching behavior.
+
 		CallEventBehavior method = new CallEventBehavior();
 		method.setOperation(operation);
 		return method;

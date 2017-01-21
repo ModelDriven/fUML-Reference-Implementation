@@ -10,7 +10,6 @@ package fUML.Semantics.Actions.CompleteActions;
 
 import fUML.Debug;
 import fUML.Semantics.CommonBehaviors.Communications.CallEventOccurrence;
-import fUML.Semantics.CommonBehaviors.Communications.ReturnInformation;
 import fUML.Semantics.CommonBehaviors.Communications.EventOccurrence;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Actions.CompleteActions.AcceptCallAction;

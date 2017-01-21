@@ -9,12 +9,8 @@
 
 package fUML.Semantics.CommonBehaviors.Communications;
 
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Classes.Kernel.Operation;
-import fUML.Syntax.Classes.Kernel.Parameter;
-import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
-import fUML.Syntax.Classes.Kernel.ParameterList;
 import fUML.Syntax.CommonBehaviors.Communications.CallEvent;
 import fUML.Syntax.CommonBehaviors.Communications.Trigger;
 
@@ -23,11 +19,16 @@ public class CallEventOccurrence extends EventOccurrence {
 	public CallEventExecution execution = null;
 	
 	public Operation getOperation() {
+		// Get the operation being called by this call event occurrence.
+		
 		return this.execution.getOperation();
 	}
 
 	@Override
 	public boolean match(Trigger trigger) {
+		// Match a trigger if it references a call event whose operation is the
+		// operation of this call event occurrence.
+		
 		boolean matches = false;
 		if (trigger.event instanceof CallEvent) {
 			CallEvent callEvent = (CallEvent)trigger.event;
@@ -38,6 +39,10 @@ public class CallEventOccurrence extends EventOccurrence {
 
 	@Override
 	public ParameterValueList getParameterValues() {
+		// Return the input parameter values from the call event execution for
+		// this call event occurrence, which correspond to the values of the
+		// operation input parameters for the call.
+		
 		ParameterValueList parameterValues = new ParameterValueList();
 		if (this.execution != null) {
 			parameterValues = this.execution.getInputParameterValues();
@@ -46,24 +51,18 @@ public class CallEventOccurrence extends EventOccurrence {
 	}
 	
 	public void setOutputParameterValues(ParameterValueList parameterValues) {
-		ParameterList parameters = this.execution.getBehavior().ownedParameter;
-		int i = 1;
-		int j = 1;
-		while (i <= parameters.size()) {
-            Parameter parameter = parameters.get(i-1);
-            if (parameter.direction == ParameterDirectionKind.inout | 
-            		parameter.direction == ParameterDirectionKind.out | 
-            		parameter.direction == ParameterDirectionKind.return_ ) {
-				ParameterValue parameterValue = parameterValues.get(j-1);
-				parameterValue.parameter = parameter;
-				this.execution.setParameterValue(parameterValue);
-				j = j + 1;
-            }
-			i = i + 1;
-		}
+		// Set the output parameter values of the call event execution for
+		// this call event occurrence, which correspond to the values of the
+		// operation output parameters for the call.
+
+		if (this.execution != null) {
+			this.execution.setOutputParameterValues(parameterValues);
+		}			
 	}
 	
 	public void releaseCaller() {
+		// Release the caller on return from the call.
+		
 		this.execution.setCallerSuspended(false);
 	}
 
