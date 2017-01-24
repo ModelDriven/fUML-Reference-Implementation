@@ -12,11 +12,19 @@ import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Semantics.CommonBehaviors.Communications.CallEventOccurrence;
 import fUML.Syntax.Classes.Kernel.ClassifierList;
+import fUML.Syntax.Classes.Kernel.Operation;
 import fUML.Syntax.Classes.Kernel.ValueSpecification;
 
 public class ReturnInformation extends Value {
 	
 	public CallEventOccurrence callEventOccurrence = null;
+	
+	public Operation getOperation() {
+		// Return the operation associated with the call event occurrence of this
+		// return information.
+
+		return this.callEventOccurrence.getOperation();
+	}
 	
 	public void reply(ParameterValueList outputParameterValues) {
 		// Reply to the call by setting the output parameters and
