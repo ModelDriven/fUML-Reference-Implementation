@@ -106,7 +106,7 @@ public class AcceptEventActionActivation extends
 			if (!action.isUnmarshall) {
 				if (eventOccurrence instanceof SignalEventOccurrence) {
 					SignalInstance signalInstance = ((SignalEventOccurrence)eventOccurrence).signalInstance;
-					Debug.println("[accept] isUnmarshall = true, signalInstance = " + signalInstance);			
+					Debug.println("[accept] isUnmarshall = false, signalInstance = " + signalInstance);			
 					ValueList result = new ValueList();
 					result.addValue(signalInstance);
 					if (resultPins.size() > 0) {
