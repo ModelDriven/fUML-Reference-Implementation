@@ -1,4 +1,3 @@
-
 /*
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
@@ -48,7 +47,7 @@ public class SendSignalActionActivation extends
 
 			SignalEventOccurrence signalEventOccurrence = new SignalEventOccurrence();
 			signalEventOccurrence.signalInstance = (SignalInstance) signalInstance.copy();
-			((Reference) target).send(signalEventOccurrence);
+			signalEventOccurrence.sendTo(((Reference)target).referent);
 		}
 	} // doAction
 

@@ -10,7 +10,17 @@ package fUML.Semantics.CommonBehaviors.Communications;
 
 import org.modeldriven.fuml.FumlObject;
 
+import fUML.Semantics.Classes.Kernel.Object_;
+
 public abstract class EventOccurrence extends FumlObject {
+	
+	public Object_ target = null;
+	
+	public void sendTo(Object_ target) {
+		this.target = target;
+		_startObjectBehavior();
+		_send(new SendSignal());
+	}
 	
 	public abstract boolean match(fUML.Syntax.CommonBehaviors.Communications.Trigger trigger);
 
@@ -31,5 +41,15 @@ public abstract class EventOccurrence extends FumlObject {
 	}
 	
 	public abstract fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList getParameterValues();
+	
+	private EventOccurrence_SendingBehaviorExecution behavior = new EventOccurrence_SendingBehaviorExecution(this);
+
+	public void _send(SendSignal signal) {
+		this.behavior._send(signal);
+	}
+
+	public void _startObjectBehavior() {
+		this.behavior._startObjectBehavior();
+	}
 
 }

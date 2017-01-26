@@ -53,7 +53,7 @@ public class ObjectActivation_EventDispatchLoopExecution extends Execution {
 	
 	@Override
 	public Value new_() {
-		return new ObjectActivation_EventDispatchLoopExecution(self);
+		return new ObjectActivation_EventDispatchLoopExecution(this.self);
 	}
 	
 	@Override

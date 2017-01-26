@@ -9,6 +9,7 @@
 package fUML.Semantics.CommonBehaviors.Communications;
 
 import fUML.Debug;
+import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
@@ -20,6 +21,7 @@ import fUML.Syntax.Classes.Kernel.ParameterList;
 
 public class CallEventExecution extends Execution {
 
+	public Object_ caller = null;
 	public boolean callerSuspended = false;
 	
 	public boolean isCallerSuspended() {
@@ -68,7 +70,7 @@ public class CallEventExecution extends Execution {
 
 		CallEventOccurrence eventOccurrence = new CallEventOccurrence();
 		eventOccurrence.execution = this;
-		this.context.send(eventOccurrence);
+		eventOccurrence.sendTo(this.context);
 		this.suspend();		
 	}
 	
