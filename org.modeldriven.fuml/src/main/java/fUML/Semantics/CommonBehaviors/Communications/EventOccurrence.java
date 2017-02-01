@@ -44,11 +44,11 @@ public abstract class EventOccurrence extends FumlObject {
 	
 	private EventOccurrence_SendingBehaviorExecution behavior = new EventOccurrence_SendingBehaviorExecution(this);
 
-	public void _send(SendSignal signal) {
+	private void _send(SendSignal signal) {
 		this.behavior._send(signal);
 	}
 
-	public void _startObjectBehavior() {
+	private void _startObjectBehavior() {
 		this.behavior._startObjectBehavior();
 	}
 

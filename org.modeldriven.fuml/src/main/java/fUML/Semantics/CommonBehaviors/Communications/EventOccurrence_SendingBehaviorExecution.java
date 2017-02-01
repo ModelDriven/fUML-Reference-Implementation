@@ -29,7 +29,7 @@ public class EventOccurrence_SendingBehaviorExecution extends Execution {
 
 	@Override
 	public void execute() {
-		this.self.target.send(self);
+		this.self.target.send(this.self);
 	}
 
 	@Override
