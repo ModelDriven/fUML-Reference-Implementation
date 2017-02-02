@@ -47,7 +47,7 @@ public class SendSignalActionActivation extends
 
 			SignalEventOccurrence signalEventOccurrence = new SignalEventOccurrence();
 			signalEventOccurrence.signalInstance = (SignalInstance) signalInstance.copy();
-			signalEventOccurrence.sendTo(((Reference)target).referent);
+			signalEventOccurrence.sendTo((Reference)target);
 		}
 	} // doAction
 

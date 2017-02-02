@@ -10,13 +10,13 @@ package fUML.Semantics.CommonBehaviors.Communications;
 
 import org.modeldriven.fuml.FumlObject;
 
-import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.Reference;
 
 public abstract class EventOccurrence extends FumlObject {
 	
-	public Object_ target = null;
+	public Reference target = null;
 	
-	public void sendTo(Object_ target) {
+	public void sendTo(Reference target) {
 		this.target = target;
 		_startObjectBehavior();
 		_send(new SendSignal());

@@ -20,7 +20,7 @@ public class EventOccurrence_SendingBehaviorExecution extends Execution {
 	}
 	
 	public void _startObjectBehavior() {
-		this.context = self.target;
+		this.context = self.target.referent;
 	}
 	
 	public void _send(SendSignal signal) {
@@ -39,7 +39,7 @@ public class EventOccurrence_SendingBehaviorExecution extends Execution {
 	
 	@Override
 	public String toString() {
-		return "SendExecution(" + this.self + ")";
+		return "SendingBehaviorExecution(" + this.self + ")";
 	}
 
 }

@@ -10,6 +10,7 @@ package fUML.Semantics.CommonBehaviors.Communications;
 
 import fUML.Debug;
 import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
@@ -67,10 +68,13 @@ public class CallEventExecution extends Execution {
 		// call will never be completed if the target is not an active
 		// object, since then the object would then have no event
 		// pool in which the event occurrence could be placed.
+		
+		Reference reference = new Reference();
+		reference.referent = this.context;
 
 		CallEventOccurrence eventOccurrence = new CallEventOccurrence();
 		eventOccurrence.execution = this;
-		eventOccurrence.sendTo(this.context);
+		eventOccurrence.sendTo(reference);
 		this.suspend();		
 	}
 	
