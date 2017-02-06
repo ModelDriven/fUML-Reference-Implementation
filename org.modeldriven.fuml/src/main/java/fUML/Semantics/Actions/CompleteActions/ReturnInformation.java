@@ -31,7 +31,7 @@ public class ReturnInformation extends Value {
 		// releasing the caller.
 		
 		this.callEventOccurrence.setOutputParameterValues(outputParameterValues);
-		this.callEventOccurrence.releaseCaller();
+		this.callEventOccurrence.returnFromCall();
 	}
 
 	@Override
@@ -84,7 +84,12 @@ public class ReturnInformation extends Value {
 	public String toString() {
 		// Return a string representation of the return information.
 		
-		return "ReturnInformation(" + callEventOccurrence.getOperation().name + ")";
+		String s = "ReturnInformation";
+		String name = callEventOccurrence.getOperation().name;
+		if (name != null) {
+			s = s + "(" + name + ")";
+		}
+		return s;
 	}
 
 }

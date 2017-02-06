@@ -43,11 +43,7 @@ public class CallEventOccurrence extends EventOccurrence {
 		// this call event occurrence, which correspond to the values of the
 		// operation input parameters for the call.
 		
-		ParameterValueList parameterValues = new ParameterValueList();
-		if (this.execution != null) {
-			parameterValues = this.execution.getInputParameterValues();
-		}			
-		return parameterValues;
+		return this.execution.getInputParameterValues();
 	}
 	
 	public void setOutputParameterValues(ParameterValueList parameterValues) {
@@ -55,15 +51,13 @@ public class CallEventOccurrence extends EventOccurrence {
 		// this call event occurrence, which correspond to the values of the
 		// operation output parameters for the call.
 
-		if (this.execution != null) {
-			this.execution.setOutputParameterValues(parameterValues);
-		}			
+		this.execution.setOutputParameterValues(parameterValues);
 	}
 	
-	public void releaseCaller() {
+	public void returnFromCall() {
 		// Release the caller on return from the call.
 		
-		this.execution.setCallerSuspended(false);
+		this.execution.releaseCaller();
 	}
 
 }

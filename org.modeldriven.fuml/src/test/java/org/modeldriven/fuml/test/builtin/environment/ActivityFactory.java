@@ -1814,7 +1814,7 @@ public class ActivityFactory {
 		NamedElement element = this.environment.getElement(signalName);
 
 		if (element == null || !(element instanceof Signal)) {
-			Debug.println("[createSender] " + signalName
+			Debug.println("[createCallSender] " + signalName
 					+ " does not exist or is not a signal.");
 			return;
 		}

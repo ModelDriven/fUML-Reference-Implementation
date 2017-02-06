@@ -43,7 +43,11 @@ public class CallEventBehavior extends Behavior {
 			this.member.addValue(parameter);
 			this.ownedParameter.addValue(parameter);
 		}
-		this.isReentrant = true;		
+		this.isReentrant = true;
+		this.name = "CallEventBehavior";
+		if (operation.name != null) {
+			this.name = this.name + "(" + operation.name + ")";
+		}
 	}
 
 }

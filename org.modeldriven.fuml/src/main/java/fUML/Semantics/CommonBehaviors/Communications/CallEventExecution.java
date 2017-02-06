@@ -9,7 +9,6 @@
 package fUML.Semantics.CommonBehaviors.Communications;
 
 import fUML.Debug;
-import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
@@ -22,7 +21,6 @@ import fUML.Syntax.Classes.Kernel.ParameterList;
 
 public class CallEventExecution extends Execution {
 
-	public Object_ caller = null;
 	public boolean callerSuspended = false;
 	
 	public boolean isCallerSuspended() {
@@ -49,33 +47,54 @@ public class CallEventExecution extends Execution {
 		_endIsolation();
 	}
 	
-	public void suspend(){
+	public void suspendCaller() {
 		// Suspend the caller until the caller is released.
 		
-		this.setCallerSuspended(true);
-		
-		do {
+		while(this.isCallerSuspended()) {
 			this.wait_();
-		} while(this.isCallerSuspended());
+		}
 		
+	}
+	
+	public void releaseCaller() {
+		// Release the caller, if suspended.
+		
+		this.setCallerSuspended(false);
 	}
 	
 	@Override
 	public void execute() {
-		// Send a new CallEventOccurrence to the target of this call
-		// (which is the context of this execution) and suspend the
-		// caller until the call is completed. Note that the
-		// call will never be completed if the target is not an active
-		// object, since then the object would then have no event
-		// pool in which the event occurrence could be placed.
+		// Make the call on the target object (which is the context of this execution) 
+		// and suspend the caller until the call is completed. 
+		
+		// Note: The callerSuspended flag needs to be set before the call is made,
+		// in case the call is immediately handled and returned, even before the
+		// suspend loop is started.
+		this.setCallerSuspended(true);
+		
+		this.makeCall();		
+		this.suspendCaller();		
+	}
+	
+	public void makeCall() {
+		// Make the call on the target object (which is the context of this execution)
+		// by sending a call event occurrence. (Note that the call will never be 
+		// completed if the target is not an active object, since then the object 
+		// would then have no event pool in which the event occurrence could be placed.)
 		
 		Reference reference = new Reference();
-		reference.referent = this.context;
-
+		reference.referent = this.context;		
+		this.createEventOccurrence().sendTo(reference);		
+	}
+	
+	public EventOccurrence createEventOccurrence() {
+		// Create a call event occurrence associated with this call event execution.
+		// (This operation may be overridden in subclasses to alter how the event
+		// occurrence is create, e.g., if it is necessary to wrap it.)
+		
 		CallEventOccurrence eventOccurrence = new CallEventOccurrence();
 		eventOccurrence.execution = this;
-		eventOccurrence.sendTo(reference);
-		this.suspend();		
+		return eventOccurrence;
 	}
 	
 	public Operation getOperation() {
