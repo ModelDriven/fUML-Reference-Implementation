@@ -21,15 +21,12 @@ public class EventOccurrence_SendingBehaviorExecution extends Execution {
 	
 	public void _startObjectBehavior() {
 		this.context = self.target.referent;
-	}
-	
-	public void _send(SendSignal signal) {
 		ExecutionQueue.enqueue(this);
 	}
-
+	
 	@Override
 	public void execute() {
-		this.self.target.send(this.self);
+		this.self.doSend();
 	}
 
 	@Override

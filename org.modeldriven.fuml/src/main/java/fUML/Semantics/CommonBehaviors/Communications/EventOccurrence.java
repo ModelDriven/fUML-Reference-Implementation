@@ -17,9 +17,17 @@ public abstract class EventOccurrence extends FumlObject {
 	public Reference target = null;
 	
 	public void sendTo(Reference target) {
+		// Set the target reference and start the SendingBehavior, which
+		// will send this event occurrence to the target.
+		
 		this.target = target;
 		_startObjectBehavior();
-		_send(new SendSignal());
+	}
+	
+	protected void doSend() {
+		// Send this event occurrence to the target.
+		
+		this.target.send(this);
 	}
 	
 	public abstract boolean match(fUML.Syntax.CommonBehaviors.Communications.Trigger trigger);
@@ -43,10 +51,6 @@ public abstract class EventOccurrence extends FumlObject {
 	public abstract fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList getParameterValues();
 	
 	private EventOccurrence_SendingBehaviorExecution behavior = new EventOccurrence_SendingBehaviorExecution(this);
-
-	private void _send(SendSignal signal) {
-		this.behavior._send(signal);
-	}
 
 	private void _startObjectBehavior() {
 		this.behavior._startObjectBehavior();
