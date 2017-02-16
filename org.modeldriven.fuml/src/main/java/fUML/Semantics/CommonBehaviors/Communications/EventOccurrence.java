@@ -32,14 +32,14 @@ public abstract class EventOccurrence extends FumlObject {
 	
 	public abstract boolean match(fUML.Syntax.CommonBehaviors.Communications.Trigger trigger);
 
-	public boolean matchAny(fUML.Syntax.CommonBehaviors.Communications.TriggerList triggers) {		
+	public boolean matchAny(fUML.Syntax.CommonBehaviors.Communications.TriggerList triggers) {
 		// Check that at least one of the given triggers is matched by this 
 		// event occurrence.
 		
 		boolean matches = false;
 		int i = 1;
-		while(!matches & i <= triggers.size()){
-			if(this.match(triggers.get(i-1))){
+		while(!matches & i <= triggers.size()) {
+			if(this.match(triggers.get(i-1))) {
 				matches = true;
 			}
 			i = i + 1;
