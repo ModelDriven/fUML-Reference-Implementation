@@ -27,12 +27,12 @@ public class ExpansionRegionTestCase extends BuiltInTest {
         
         assertNotNull(output);
         assertEquals("output.size()", 6, output.size());
-        assertIntegerValues("ExpansionRegionTester_0.list", output.get(0));
-        assertIntegerValues("ExpansionRegionTester_0.list*10", output.get(1));
-        assertIntegerValues("ExpansionRegionTester_1.list", output.get(2), 1);
-        assertIntegerValues("ExpansionRegionTester_1.list*10", output.get(3), 10);
-        assertIntegerValues("ExpansionRegionTester_2.list", output.get(4), 1, 2);
-        assertIntegerValues("ExpansionRegionTester_2.list*10", output.get(5), 10, 20);
+        assertEqualValues("ExpansionRegionTester_0.list", output.get(0));
+        assertEqualValues("ExpansionRegionTester_0.list*10", output.get(1));
+        assertEqualValues("ExpansionRegionTester_1.list", output.get(2), 1);
+        assertEqualValues("ExpansionRegionTester_1.list*10", output.get(3), 10);
+        assertEqualValues("ExpansionRegionTester_2.list", output.get(4), 1, 2);
+        assertEqualValues("ExpansionRegionTester_2.list*10", output.get(5), 10, 20);
     }
     
 }

@@ -27,7 +27,7 @@ public class StructuredNodeTestCase extends BuiltInTest {
         
         assertNotNull(output);
         assertEquals("output.size()", 1, output.size());
-        assertIntegerValues("StructuredForkMergeInput.output", output.get(0), 0, 0);
+        assertEqualValues("StructuredForkMergeInput.output", output.get(0), 0, 0);
     }
     
 }

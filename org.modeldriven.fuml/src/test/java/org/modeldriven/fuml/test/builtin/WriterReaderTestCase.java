@@ -29,7 +29,7 @@ public class WriterReaderTestCase extends BuiltInTest {
         
         assertNotNull(output);
         assertEquals("output.size()", 1, output.size());
-        assertIntegerValues("TestClass_x_WriterReader.x", output.get(0), 0);
+        assertEqualValues("TestClass_x_WriterReader.x", output.get(0), 0);
         
         int x = ((IntegerValue)output.get(0).values.get(0)).value;
         
@@ -40,7 +40,7 @@ public class WriterReaderTestCase extends BuiltInTest {
         ExtensionalValue object = extent.get(0);
         assertEquals("object.featureValues.size()", 1, object.getFeatureValues().size());
         FeatureValue featureValue = object.getFeatureValues().get(0);
-        assertIntegerValues("object.x", featureValue.values, x);
+        assertEqualValues("object.x", featureValue.values, x);
     }
     
 }

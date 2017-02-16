@@ -27,15 +27,15 @@ public class SimpleActivitiesTestCase extends BuiltInTest {
         
         assertNotNull(output);
         assertEquals("output.size()", 9, output.size());        
-        assertIntegerValues("Coper.output", output.get(0), 0);
-        assertIntegerValues("CoperCaller.output", output.get(1), 0);
-        assertIntegerValues("SimpleDecision0.output_0", output.get(2), 0);
-        assertIntegerValues("SimpleDecision0.output_1", output.get(3));
-        assertIntegerValues("SimpleDecision1.output_0", output.get(4));
-        assertIntegerValues("SimpleDecision1.output_1", output.get(5), 1);
-        assertIntegerValues("DecisionJoin.output", output.get(6), 0, 1);
-        assertIntegerValues("ForkMerge", output.get(7), 0, 0);
-        assertIntegerValues("ForkMergeData", output.get(8), 0, 0);        
+        assertEqualValues("Coper.output", output.get(0), 0);
+        assertEqualValues("CoperCaller.output", output.get(1), 0);
+        assertEqualValues("SimpleDecision0.output_0", output.get(2), 0);
+        assertEqualValues("SimpleDecision0.output_1", output.get(3));
+        assertEqualValues("SimpleDecision1.output_0", output.get(4));
+        assertEqualValues("SimpleDecision1.output_1", output.get(5), 1);
+        assertEqualValues("DecisionJoin.output", output.get(6), 0, 1);
+        assertEqualValues("ForkMerge", output.get(7), 0, 0);
+        assertEqualValues("ForkMergeData", output.get(8), 0, 0);        
     }
     
 }

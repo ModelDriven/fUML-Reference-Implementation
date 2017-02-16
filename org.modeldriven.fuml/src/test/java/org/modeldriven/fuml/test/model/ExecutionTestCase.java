@@ -57,7 +57,7 @@ public class ExecutionTestCase extends FUMLTest {
         log.info("done");
         
         assertEquals("output.size()", 1, output.size());
-        assertIntegerValues("output", output.get(0), 0);
+        assertEqualValues("output", output.get(0), 0);
     }
     
     public void testCopierCaller() throws Exception {
@@ -65,7 +65,7 @@ public class ExecutionTestCase extends FUMLTest {
         log.info("done");
         
         assertEquals("output.size()", 1, output.size());
-        assertIntegerValues("output", output.get(0), 888);
+        assertEqualValues("output", output.get(0), 888);
      }
   
     public void testSimpleDecision() throws Exception {
@@ -73,8 +73,8 @@ public class ExecutionTestCase extends FUMLTest {
         log.info("done");
         
         assertEquals("output.size()", 2, output.size());
-        assertIntegerValues("output_0", output.get(0), 0);
-        assertIntegerValues("output_1", output.get(1));
+        assertEqualValues("output_0", output.get(0), 0);
+        assertEqualValues("output_1", output.get(1));
      }
        
     public void testForkJoin() throws Exception {
@@ -87,7 +87,7 @@ public class ExecutionTestCase extends FUMLTest {
         log.info("done");
 
         assertEquals("output.size()", 1, output.size());
-        assertIntegerValues("output", output.get(0), 0, 1);
+        assertEqualValues("output", output.get(0), 0, 1);
 }
     
     public void testForkMerge() throws Exception {
@@ -95,7 +95,7 @@ public class ExecutionTestCase extends FUMLTest {
         log.info("done");
 
         assertEquals("output.size()", 1, output.size());
-        assertIntegerValues("output", output.get(0), 0, 0);
+        assertEqualValues("output", output.get(0), 0, 0);
     }
 
     public void testTestClassExtentReader() throws Exception {
@@ -159,7 +159,7 @@ public class ExecutionTestCase extends FUMLTest {
         log.info("done");
         
         assertEquals("output.size()", 1, output.size());
-        assertIntegerValues("output", output.get(0), 999);
+        assertEqualValues("output", output.get(0), 999);
    }
 
     public void testTestClassAttributeWriter() throws Exception {
@@ -171,7 +171,7 @@ public class ExecutionTestCase extends FUMLTest {
         assertTrue("value instanceof Reference", value instanceof Reference);
         FeatureValueList featureValues = ((Reference)value).getFeatureValues();
         assertEquals("featureValues.size()", 2, featureValues.size());
-        assertIntegerValues("y", featureValues.get(1).values, 0, 0);
+        assertEqualValues("y", featureValues.get(1).values, 0, 0);
     }
     
     public void testTestGeneralizationAssembly() throws Exception {
@@ -190,15 +190,15 @@ public class ExecutionTestCase extends FUMLTest {
         log.info("done");
         
         assertEquals("output.size()", 9, output.size());        
-        assertIntegerValues("Coper.output", output.get(0), 0);
-        assertIntegerValues("CoperCaller.output", output.get(1), 888);
-        assertIntegerValues("SimpleDecision_0.output_0", output.get(2), 0);
-        assertIntegerValues("SimpleDecision_0.output_1", output.get(3));
-        assertIntegerValues("SimpleDecision_1.output_0", output.get(4));
-        assertIntegerValues("SimpleDecision_1.output_1", output.get(5), 1);
-        assertIntegerValues("DecisionJoin.output", output.get(6), 0, 1);
-        assertIntegerValues("ForkMerge", output.get(7), 0, 0);
-        assertIntegerValues("ForkMergeData", output.get(8), 0, 0);
+        assertEqualValues("Coper.output", output.get(0), 0);
+        assertEqualValues("CoperCaller.output", output.get(1), 888);
+        assertEqualValues("SimpleDecision_0.output_0", output.get(2), 0);
+        assertEqualValues("SimpleDecision_0.output_1", output.get(3));
+        assertEqualValues("SimpleDecision_1.output_0", output.get(4));
+        assertEqualValues("SimpleDecision_1.output_1", output.get(5), 1);
+        assertEqualValues("DecisionJoin.output", output.get(6), 0, 1);
+        assertEqualValues("ForkMerge", output.get(7), 0, 0);
+        assertEqualValues("ForkMergeData", output.get(8), 0, 0);
     }
     
     public void testTestClassValueRemover() throws Exception {
@@ -212,7 +212,7 @@ public class ExecutionTestCase extends FUMLTest {
         FeatureValueList featureValues = ((Reference)values.get(0)).getFeatureValues();
         assertEquals("featureValues.size()", 2, featureValues.size());
         ValueList yValues = featureValues.get(1).values;
-        assertIntegerValues("y", yValues, 2, 0);
+        assertEqualValues("y", yValues, 2, 0);
     }
 
     public void testTestAssociationEndWriterReader() throws Exception {
@@ -244,8 +244,8 @@ public class ExecutionTestCase extends FUMLTest {
         FeatureValueList featureValues = ((Reference)values.get(0)).getFeatureValues();
         assertEquals("featureValues.size()", 3, featureValues.size());
         assertEquals("b: values.size()", 0, featureValues.get(0).values.size());
-        assertIntegerValues("x", featureValues.get(1).values, 1);
-        assertIntegerValues("y", featureValues.get(2).values, 2);
+        assertEqualValues("x", featureValues.get(1).values, 1);
+        assertEqualValues("y", featureValues.get(2).values, 2);
     }
     
     public void testTestSpecializedSignalSend() throws Exception {
@@ -271,7 +271,7 @@ public class ExecutionTestCase extends FUMLTest {
         assertEquals("extent.size()", 1, extent.size());
         FeatureValueList featureValues = extent.get(0).getFeatureValues();
         assertEquals("featureValues.size()", 1, featureValues.size());
-        assertIntegerValues("value", featureValues.get(0).values, 0);
+        assertEqualValues("value", featureValues.get(0).values, 0);
     }
     
     public void testNodeEnabler() throws Exception {
@@ -301,7 +301,7 @@ public class ExecutionTestCase extends FUMLTest {
     	
     	assertNotNull(output);
     	assertEquals("output.size()", 1, output.size());
-    	assertIntegerValues("output", output.get(0), 0, 0);
+    	assertEqualValues("output", output.get(0), 0, 0);
     }
 
     public void testTestDataStore() throws Exception {
@@ -310,7 +310,7 @@ public class ExecutionTestCase extends FUMLTest {
     	
     	assertNotNull(output);
     	assertEquals("output.size()", 1, output.size());
-    	assertIntegerValues("output", output.get(0), 1, 2);
+    	assertEqualValues("output", output.get(0), 1, 2);
     }
 
     private ParameterValueList execute(String activityName)

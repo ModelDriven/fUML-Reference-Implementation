@@ -27,12 +27,12 @@ public class LoopNodeTestCase extends BuiltInTest {
         
         assertNotNull(output);
         assertEquals("output.size()", 6, output.size());
-        assertIntegerValues("LoopNodeTester_0.i", output.get(0), 0);
-        assertIntegerValues("LoopNodeTester_0.n", output.get(1), 1);
-        assertIntegerValues("LoopNodeTester_1.i", output.get(2), 0);
-        assertIntegerValues("LoopNodeTester_1.n", output.get(3), 1);
-        assertIntegerValues("LoopNodeTester_2.i", output.get(4), 0);
-        assertIntegerValues("LoopNodeTester_2.n", output.get(5), 2);
+        assertEqualValues("LoopNodeTester_0.i", output.get(0), 0);
+        assertEqualValues("LoopNodeTester_0.n", output.get(1), 1);
+        assertEqualValues("LoopNodeTester_1.i", output.get(2), 0);
+        assertEqualValues("LoopNodeTester_1.n", output.get(3), 1);
+        assertEqualValues("LoopNodeTester_2.i", output.get(4), 0);
+        assertEqualValues("LoopNodeTester_2.n", output.get(5), 2);
     }
     
 }

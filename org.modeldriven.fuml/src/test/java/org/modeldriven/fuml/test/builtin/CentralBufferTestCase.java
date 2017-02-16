@@ -24,7 +24,7 @@ public class CentralBufferTestCase extends BuiltInTest {
         
         assertNotNull(output);
         assertEquals("output.size()", 1, output.size());
-        assertIntegerValues("testCentralBuffer.output", output.get(0), 0, 0);
+        assertEqualValues("testCentralBuffer.output", output.get(0), 0, 0);
     }
     
 }

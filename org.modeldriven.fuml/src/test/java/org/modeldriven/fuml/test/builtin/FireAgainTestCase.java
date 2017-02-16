@@ -27,7 +27,7 @@ public class FireAgainTestCase extends BuiltInTest {
         
         assertNotNull(output);
         assertEquals("output.size()", 1, output.size());
-        assertIntegerValues("FireAgainTester.output", output.get(0), 1, 2);
+        assertEqualValues("FireAgainTester.output", output.get(0), 1, 2);
     }
     
 }

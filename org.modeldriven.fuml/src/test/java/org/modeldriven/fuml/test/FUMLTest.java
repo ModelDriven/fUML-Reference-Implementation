@@ -15,10 +15,16 @@ import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
+import fUML.Semantics.Classes.Kernel.RealValue;
+import fUML.Semantics.Classes.Kernel.StringValue;
+import fUML.Semantics.Classes.Kernel.UnlimitedNaturalValue;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+import fUML.Syntax.Classes.Kernel.Parameter;
 
 /**
   */
@@ -79,17 +85,43 @@ public abstract class FUMLTest extends TestCase {
         String hostName = System.getProperty("jbosstest.host.name", "localhost");
         return hostName;
     }
+    
+    public static void assertEqualValues(String label, ParameterValueList parameterValues, String parameterName, Object...expectedValues) throws Exception {
+    	for (ParameterValue parameterValue: parameterValues) {
+    		Parameter parameter = parameterValue.parameter;
+    		if (parameter != null && parameterName.equals(parameter.name)) {
+    			assertEqualValues(label, parameterValue, expectedValues);
+    			return;
+    		}
+    	}
+    	fail(label + ": No such parameter.");
+    }
 
-    public static void assertIntegerValues(String label, ParameterValue parameterValue, int... expectedValues) throws Exception {
-    	assertIntegerValues(label, parameterValue.values, expectedValues);
+    public static void assertEqualValues(String label, ParameterValue parameterValue, Object... expectedValues) throws Exception {
+    	assertEqualValues(label, parameterValue.values, expectedValues);
     }
     
-    public static void assertIntegerValues(String label, ValueList values, int... expectedValues) throws Exception {
+    public static void assertEqualValues(String label, ValueList values, Object... expectedValues) throws Exception {
     	assertEquals(label + ": values.size()", expectedValues.length, values.size());
     	for (int i = 0; i < values.size(); i++) {
     		Value value = values.get(i);
-    		assertTrue(label + ": value[" + i + "] instanceof IntegerValue", value instanceof IntegerValue);
-    		assertEquals(label + ": value[" + i + "]", expectedValues[i], ((IntegerValue)value).value);
+    		assertEquals(label + ": value[" + i + "]", expectedValues[i], valueOf(value));
+    	}
+    }
+    
+    public static Object valueOf(Value value) {
+    	if (value instanceof BooleanValue) {
+    		return ((BooleanValue)value).value;
+    	} else if (value instanceof IntegerValue) {
+    		return ((IntegerValue)value).value;
+    	} else if (value instanceof RealValue) {
+    		return ((RealValue)value).value;
+    	} else if (value instanceof UnlimitedNaturalValue) {
+    		return ((UnlimitedNaturalValue)value).value.naturalValue;
+    	} else if (value instanceof StringValue) {
+    		return ((StringValue)value).value;
+    	} else {
+    		return null;
     	}
     }
     

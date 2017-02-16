@@ -24,7 +24,7 @@ public class DataStoreTestCase extends BuiltInTest {
         
         assertNotNull(output);
         assertEquals("output.size()", 1, output.size());
-        assertIntegerValues("testDataStore.output", output.get(0), 1, 2);
+        assertEqualValues("testDataStore.output", output.get(0), 1, 2);
     }
     
 }

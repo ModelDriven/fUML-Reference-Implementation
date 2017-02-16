@@ -27,9 +27,9 @@ public class ConditionalNodeTestCase extends BuiltInTest {
         
         assertNotNull(output);
         assertEquals("output.size()", 3, output.size());
-        assertIntegerValues("ConditionalNodeTester_1.output", output.get(0), 0);
-        assertIntegerValues("ConditionalNodeTester_2.output", output.get(1), 1);
-        assertIntegerValues("ConditionalNodeTester_3.output", output.get(2), 2);
+        assertEqualValues("ConditionalNodeTester_1.output", output.get(0), 0);
+        assertEqualValues("ConditionalNodeTester_2.output", output.get(1), 1);
+        assertEqualValues("ConditionalNodeTester_3.output", output.get(2), 2);
     }
     
 }
