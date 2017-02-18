@@ -1,7 +1,7 @@
 ### fUML Reference Implementation
 ### v1.2.3 Release Notes
 
-This is a production release of the fUML Reference Implementation tracking the issue resolutions approved in Ballots 3 and 4 of the fUML 1.3 Revision Task Force.
+This is a production release of the fUML Reference Implementation tracking the issue resolutions approved in Ballots 4 and 5 of the fUML 1.3 Revision Task Force.
 
 ### fUML Execution Engine
 
