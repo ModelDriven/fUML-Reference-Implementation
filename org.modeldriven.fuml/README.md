@@ -25,12 +25,12 @@ execution trace
 4. support evaluation and evolution of the the specification to support UML
 execution semantics and the execution semantics of its profiles suchas SysML.
 
-###Licensing
+### Licensing
 
 For licensing information, please see the file [Licensing-Information.txt](https://github.com/ModelDriven/fUML-Reference-Implementation/blob/master/org.modeldriven.fuml/Licensing-Information.txt) and the
 associated files [Common-Public-License-1.0.txt](https://github.com/ModelDriven/fUML-Reference-Implementation/blob/master/org.modeldriven.fuml/Common-Public-License-1.0.txt) and [Apache-License-2.0.txt](https://github.com/ModelDriven/fUML-Reference-Implementation/blob/master/org.modeldriven.fuml/Apache-License-2.0.txt).
 
-###Building
+### Building
 
 The implementation build requires the following to be installed:
 
@@ -69,7 +69,7 @@ To build using Eclipse:
  * Right click the project root (fuml)
  * Run As->Maven install
 
-###Testing
+### Testing
 
 1. In a Windows/DOS command window, navigate to the 'root' reference
 implementation directory. This directory is where the Apache Maven 'pom.xml'
@@ -90,7 +90,7 @@ Testing individual JUnit tests in Eclipse:
 2. Run As->JUnit Test.
 3. The test should execute and display output.
 
-###Deploying
+### Deploying
 
 1. In a Windows/DOS command window, navigate to the 'root' reference
 implementation directory. This directory is where the Apache Maven 'pom.xml' 
@@ -104,7 +104,7 @@ A binary deployment 'zip' file will be created and expanded onto the current
 drive's root directory. The deployment directory will be called: 
 'fuml-[version string]-distribution' 
 
-###Running
+### Running
 
 1. In a Windows/DOS command window, navigate to the 'bin' directory for the
 DEPLOYED implementation. The implementation can only be run from a DEPLOYED
