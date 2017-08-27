@@ -53,10 +53,10 @@ as tracked in our issue management system on GitHub (see https://github.com/Mode
 
 #### Bugs
 
-[Issue #28] - Problem starting the behaviors of a multiply classified active object
+[Issue #28](https://github.com/ModelDriven/fUML-Reference-Implementation/issues/28) - Problem starting the behaviors of a multiply classified active object
 
 #### Improvements
 
-[Issue #26] - Problems with SAXParser when building with Java 8 JDK
+[Issue #26](https://github.com/ModelDriven/fUML-Reference-Implementation/issues/26) - Problems with SAXParser when building with Java 8 JDK
 
-[Issue #29] - fUML.Library and fUML.Test packages are only used for builtin tests
+[Issue #29](https://github.com/ModelDriven/fUML-Reference-Implementation/issues/29) - fUML.Library and fUML.Test packages are only used for builtin tests
