@@ -17,9 +17,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.modeldriven.fuml.xmi.stream.StreamNode;
 
-
-import fUML.Syntax.Classes.Kernel.Enumeration;
-import fUML.Syntax.Classes.Kernel.PrimitiveType;
+import fuml.syntax.simpleclassifiers.Enumeration;
+import fuml.syntax.simpleclassifiers.PrimitiveType;
 
 import org.modeldriven.fuml.repository.Class_;
 import org.modeldriven.fuml.repository.Classifier;

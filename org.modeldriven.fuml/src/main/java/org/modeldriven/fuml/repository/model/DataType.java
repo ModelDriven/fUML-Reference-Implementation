@@ -6,15 +6,15 @@ import org.modeldriven.fuml.repository.RepositoryArtifact;
 public class DataType extends Classifier 
     implements org.modeldriven.fuml.repository.DataType {
 
-	private fUML.Syntax.Classes.Kernel.DataType dataType;
+	private fuml.syntax.simpleclassifiers.DataType dataType;
 	    
-    public DataType(fUML.Syntax.Classes.Kernel.DataType dataType,
+    public DataType(fuml.syntax.simpleclassifiers.DataType dataType,
     		RepositoryArtifact artifact) {
     	super(dataType, artifact);
     	this.dataType = dataType;
     }
     
-	public fUML.Syntax.Classes.Kernel.DataType getDelegate() {
+	public fuml.syntax.simpleclassifiers.DataType getDelegate() {
 		return this.dataType;
 	}    
     

@@ -12,14 +12,14 @@ package org.modeldriven.fuml.environment;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import fUML.Semantics.Classes.Kernel.Value;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import fUML.Syntax.Classes.Kernel.Classifier;
-import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
-import fUML.Syntax.Classes.Kernel.ParameterList;
-import fUML.Syntax.Classes.Kernel.Type;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
+import fuml.semantics.classification.Value;
+import fuml.semantics.commonbehavior.ParameterValue;
+import fuml.semantics.commonbehavior.ParameterValueList;
+import fuml.syntax.classification.Classifier;
+import fuml.syntax.classification.ParameterDirectionKind;
+import fuml.syntax.classification.ParameterList;
+import fuml.syntax.commonbehavior.Behavior;
+import fuml.syntax.commonstructure.Type;
 
 public class ExecutionEnvironment {
     

@@ -11,10 +11,10 @@
 
 package org.modeldriven.fuml.test.builtin.library;
 
-import fUML.Syntax.Activities.IntermediateActivities.Activity;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
-
 import org.modeldriven.fuml.library.Library;
+
+import fuml.syntax.activities.Activity;
+import fuml.syntax.commonbehavior.Behavior;
 
 public class SystemIO {
 

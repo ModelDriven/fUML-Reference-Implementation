@@ -14,15 +14,15 @@
 
 package org.modeldriven.fuml.library.libraryclass;
 
-import fUML.Semantics.Classes.Kernel.Value;
-import fUML.Semantics.Classes.Kernel.ValueList;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
-import fUML.Syntax.Classes.Kernel.Operation;
-import fUML.Syntax.Classes.Kernel.Parameter;
-import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
+import fuml.semantics.classification.Value;
+import fuml.semantics.classification.ValueList;
+import fuml.semantics.commonbehavior.Execution;
+import fuml.semantics.commonbehavior.ParameterValue;
+import fuml.syntax.classification.Operation;
+import fuml.syntax.classification.Parameter;
+import fuml.syntax.classification.ParameterDirectionKind;
+import fuml.syntax.commonbehavior.Behavior;
+import fuml.syntax.commonbehavior.OpaqueBehavior;
 
 public class OperationExecution extends Execution {
 
@@ -101,7 +101,7 @@ public class OperationExecution extends Execution {
         this.setParameterValue(this.getParameter(parameterName), values);
     }
 
-    public void setParameterValue(String parameterName, fUML.Semantics.Classes.Kernel.Value value) {
+    public void setParameterValue(String parameterName, fuml.semantics.classification.Value value) {
         ValueList valueList = new ValueList();
         valueList.addValue(value);
         this.setParameterValue(parameterName, valueList);

@@ -32,7 +32,7 @@ public interface Repository {
 	public RepositoryMapping getMapping();
 	public void loadClass(Class_ clss);
 		
-	public int getElementCount(Class<? extends fUML.Syntax.Classes.Kernel.Element> clss);
-	public String[] getElementNames(Class<? extends fUML.Syntax.Classes.Kernel.Element> clss);
+	public int getElementCount(Class<? extends fuml.syntax.commonstructure.Element> clss);
+	public String[] getElementNames(Class<? extends fuml.syntax.commonstructure.Element> clss);
 
 }

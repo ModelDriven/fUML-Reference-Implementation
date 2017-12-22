@@ -13,7 +13,7 @@ package org.modeldriven.fuml.test.builtin.library;
 
 import org.modeldriven.fuml.library.Library;
 
-import fUML.Syntax.Classes.Kernel.*;
+import fuml.syntax.structuredclassifiers.Class_;
 
 public class StandardIOClasses {
 

@@ -1,6 +1,6 @@
 package org.modeldriven.fuml.assembly;
 
-import fUML.Syntax.Classes.Kernel.Element;
+import fuml.syntax.commonstructure.Element;
 
 public class ElementAssemblerEvent {
 

@@ -21,17 +21,17 @@ import org.modeldriven.fuml.xmi.validation.ValidationErrorEvent;
 import org.modeldriven.fuml.xmi.validation.ValidationEvent;
 import org.modeldriven.fuml.xmi.validation.ValidationEventListener;
 
-import fUML.Syntax.Activities.IntermediateActivities.Activity;
-import fUML.Syntax.Classes.Kernel.Class_;
-import fUML.Syntax.Classes.Kernel.EnumerationLiteral;
-import fUML.Syntax.Classes.Kernel.PrimitiveType;
-import fUML.Syntax.Classes.Kernel.Enumeration;
-import fUML.Syntax.Classes.Kernel.DataType;
-import fUML.Syntax.Classes.Kernel.Element;
-import fUML.Syntax.Classes.Kernel.NamedElement;
-import fUML.Syntax.Classes.Kernel.Property;
-import fUML.Syntax.Classes.Kernel.Package;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
+import fuml.syntax.activities.Activity;
+import fuml.syntax.classification.Property;
+import fuml.syntax.commonbehavior.OpaqueBehavior;
+import fuml.syntax.commonstructure.Element;
+import fuml.syntax.commonstructure.NamedElement;
+import fuml.syntax.packages.Package;
+import fuml.syntax.simpleclassifiers.DataType;
+import fuml.syntax.simpleclassifiers.Enumeration;
+import fuml.syntax.simpleclassifiers.EnumerationLiteral;
+import fuml.syntax.simpleclassifiers.PrimitiveType;
+import fuml.syntax.structuredclassifiers.Class_;
 
 public class ArtifactLoader 
     implements ValidationEventListener, ElementAssemblerEventListener, 
@@ -317,9 +317,9 @@ public class ArtifactLoader
     		
 	}
 	
-	private String getQualifiedPackageName(fUML.Syntax.Classes.Kernel.Package pkg) {
-		List<fUML.Syntax.Classes.Kernel.Package> list = new ArrayList<fUML.Syntax.Classes.Kernel.Package>();
-		fUML.Syntax.Classes.Kernel.Package p = pkg;
+	private String getQualifiedPackageName(fuml.syntax.packages.Package pkg) {
+		List<fuml.syntax.packages.Package> list = new ArrayList<fuml.syntax.packages.Package>();
+		fuml.syntax.packages.Package p = pkg;
 		while (p != null) {
 			list.add(p);
 			p = p.nestingPackage;

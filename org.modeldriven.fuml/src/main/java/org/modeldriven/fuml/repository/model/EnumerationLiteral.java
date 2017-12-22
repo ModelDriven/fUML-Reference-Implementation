@@ -6,10 +6,10 @@ import org.modeldriven.fuml.repository.RepositoryArtifact;
 public class EnumerationLiteral extends InstanceSpecification 
     implements org.modeldriven.fuml.repository.EnumerationLiteral {
 
-	private fUML.Syntax.Classes.Kernel.EnumerationLiteral enumerationLiteral;
+	private fuml.syntax.simpleclassifiers.EnumerationLiteral enumerationLiteral;
 	private org.modeldriven.fuml.repository.Enumeration enumeration;
 	
-    public EnumerationLiteral(fUML.Syntax.Classes.Kernel.EnumerationLiteral enumerationLiteral,
+    public EnumerationLiteral(fuml.syntax.simpleclassifiers.EnumerationLiteral enumerationLiteral,
     		RepositoryArtifact artifact) {
     	super(enumerationLiteral, artifact);
     	this.enumerationLiteral = enumerationLiteral;

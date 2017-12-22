@@ -11,10 +11,10 @@
 
 package org.modeldriven.fuml.library.listfunctions;
 
-import fUML.Debug;
-import fUML.Semantics.Classes.Kernel.ValueList;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+import fuml.Debug;
+import fuml.semantics.classification.ValueList;
+import fuml.semantics.commonbehavior.OpaqueBehaviorExecution;
+import fuml.semantics.commonbehavior.ParameterValueList;
 
 public class ListConcatFunctionBehaviorExecution extends OpaqueBehaviorExecution {
 
@@ -35,7 +35,7 @@ public class ListConcatFunctionBehaviorExecution extends OpaqueBehaviorExecution
 		outputParameters.get(0).values = result;
     }
     
-    public fUML.Semantics.Classes.Kernel.Value new_() {
+    public fuml.semantics.classification.Value new_() {
         // Create a new instance of this kind of function behavior execution.
         return new ListConcatFunctionBehaviorExecution();
     }   

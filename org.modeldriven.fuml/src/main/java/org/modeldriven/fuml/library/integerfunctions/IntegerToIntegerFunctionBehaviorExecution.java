@@ -17,16 +17,16 @@ package org.modeldriven.fuml.library.integerfunctions;
 
 import org.modeldriven.fuml.library.LibraryFunctions;
 
-import fUML.Debug;
-import fUML.Semantics.Classes.Kernel.IntegerValue;
-import fUML.Semantics.Classes.Kernel.StringValue;
+import fuml.Debug;
+import fuml.semantics.simpleclassifiers.StringValue;
+import fuml.syntax.simpleclassifiers.IntegerValue;
 
 public class IntegerToIntegerFunctionBehaviorExecution extends
-        fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution {
+        fuml.semantics.commonbehavior.OpaqueBehaviorExecution {
 
     public void doBody(
-            fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList inputParameters,
-            fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList outputParameters) {
+            fuml.semantics.commonbehavior.ParameterValueList inputParameters,
+            fuml.semantics.commonbehavior.ParameterValueList outputParameters) {
         // Extract integer arguments and perform an integer function on them.
 
     	StringValue sv = (StringValue) inputParameters.getValue(0).values.getValue(0);
@@ -54,7 +54,7 @@ public class IntegerToIntegerFunctionBehaviorExecution extends
 		LibraryFunctions.addValueToOutputList(result, outputParameters);
     }
     
-    public fUML.Semantics.Classes.Kernel.Value new_() {
+    public fuml.semantics.classification.Value new_() {
         // Create a new instance of this kind of function behavior execution.
         return new IntegerToIntegerFunctionBehaviorExecution();
     }   

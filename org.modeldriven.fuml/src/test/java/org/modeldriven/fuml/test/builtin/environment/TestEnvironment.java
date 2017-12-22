@@ -11,19 +11,38 @@
 
 package org.modeldriven.fuml.test.builtin.environment;
 
-import fUML.Debug;
-
 import UMLPrimitiveTypes.*;
 
-import fUML.Syntax.Classes.Kernel.*;
-import fUML.Syntax.CommonBehaviors.Communications.*;
-
-import fUML.Semantics.Classes.Kernel.*;
-import fUML.Semantics.CommonBehaviors.Communications.*;
-import fUML.Semantics.Loci.LociL1.Executor;
-import fUML.Semantics.Loci.LociL1.FirstChoiceStrategy;
-import fUML.Semantics.Loci.LociL1.Locus;
-
+import fuml.Debug;
+import fuml.semantics.classification.Value;
+import fuml.semantics.classification.ValueList;
+import fuml.semantics.commonbehavior.FIFOGetNextEventStrategy;
+import fuml.semantics.loci.Executor;
+import fuml.semantics.loci.FirstChoiceStrategy;
+import fuml.semantics.loci.Locus;
+import fuml.semantics.simpleclassifiers.BooleanValue;
+import fuml.semantics.simpleclassifiers.DataValue;
+import fuml.semantics.simpleclassifiers.EnumerationValue;
+import fuml.semantics.simpleclassifiers.FeatureValueList;
+import fuml.semantics.simpleclassifiers.PrimitiveValue;
+import fuml.semantics.simpleclassifiers.SignalInstance;
+import fuml.semantics.simpleclassifiers.StringValue;
+import fuml.semantics.simpleclassifiers.StructuredValue;
+import fuml.semantics.simpleclassifiers.UnlimitedNaturalValue;
+import fuml.semantics.structuredclassifiers.ExtensionalValueList;
+import fuml.semantics.structuredclassifiers.RedefinitionBasedDispatchStrategy;
+import fuml.semantics.structuredclassifiers.Reference;
+import fuml.syntax.classification.Classifier;
+import fuml.syntax.classification.StructuralFeature;
+import fuml.syntax.commonstructure.Element;
+import fuml.syntax.commonstructure.NamedElement;
+import fuml.syntax.commonstructure.NamedElementList;
+import fuml.syntax.simpleclassifiers.DataType;
+import fuml.syntax.simpleclassifiers.Enumeration;
+import fuml.syntax.simpleclassifiers.IntegerValue;
+import fuml.syntax.simpleclassifiers.PrimitiveType;
+import fuml.syntax.simpleclassifiers.Signal;
+import fuml.syntax.structuredclassifiers.Class_;
 import org.modeldriven.fuml.environment.ExecutionFactory;
 import org.modeldriven.fuml.library.channel.StandardOutputChannelObject;
 import org.modeldriven.fuml.library.common.Status;
@@ -180,7 +199,7 @@ public class TestEnvironment {
 		}
 	} // makeValue
 
-	public void addElement(fUML.Syntax.Classes.Kernel.NamedElement element) {
+	public void addElement(fuml.syntax.commonstructure.NamedElement element) {
 		if (this.getElement(element.name) == null) {
 			this.elements.addValue(element);
 		} else {

@@ -11,12 +11,12 @@
 
 package org.modeldriven.fuml.test.builtin.library;
 
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution;
-import fUML.Semantics.Loci.LociL1.ExecutionFactory;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.FunctionBehavior;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
-
 import org.modeldriven.fuml.library.Library;
+
+import fuml.semantics.commonbehavior.OpaqueBehaviorExecution;
+import fuml.semantics.loci.ExecutionFactory;
+import fuml.syntax.commonbehavior.FunctionBehavior;
+import fuml.syntax.commonbehavior.OpaqueBehavior;
 
 public class IntegerFunctions {
 

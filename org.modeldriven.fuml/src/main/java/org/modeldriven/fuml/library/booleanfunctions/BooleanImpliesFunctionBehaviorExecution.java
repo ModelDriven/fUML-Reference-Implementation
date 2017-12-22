@@ -17,7 +17,7 @@ package org.modeldriven.fuml.library.booleanfunctions;
 
 import java.util.List;
 
-import fUML.Debug;
+import fuml.Debug;
 
 public class BooleanImpliesFunctionBehaviorExecution extends
 	BooleanFunctionBehaviorExecution {
@@ -31,7 +31,7 @@ public class BooleanImpliesFunctionBehaviorExecution extends
     }
     
     @Override
-	public fUML.Semantics.Classes.Kernel.Value new_() {
+	public fuml.semantics.classification.Value new_() {
         // Create a new instance of this kind of function behavior execution.
         return new BooleanImpliesFunctionBehaviorExecution();
     }	    

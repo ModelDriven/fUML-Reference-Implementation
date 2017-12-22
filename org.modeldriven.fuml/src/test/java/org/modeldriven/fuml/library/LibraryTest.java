@@ -16,10 +16,10 @@ import junit.framework.TestCase;
 
 import org.modeldriven.fuml.environment.Environment;
 
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import fUML.Semantics.Loci.LociL1.Locus;
+import fuml.semantics.commonbehavior.OpaqueBehaviorExecution;
+import fuml.semantics.commonbehavior.ParameterValue;
+import fuml.semantics.commonbehavior.ParameterValueList;
+import fuml.semantics.loci.Locus;
 
 /**
  * Base test fixture for the Foundational Model Library JUnit tests.

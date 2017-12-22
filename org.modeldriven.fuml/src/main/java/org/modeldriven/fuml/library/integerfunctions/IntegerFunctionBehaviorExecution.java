@@ -18,16 +18,16 @@ package org.modeldriven.fuml.library.integerfunctions;
 import org.modeldriven.fuml.library.LibraryFunctions;
 
 import UMLPrimitiveTypes.intList;
-import fUML.Debug;
-import fUML.Semantics.Classes.Kernel.IntegerValue;
+import fuml.Debug;
+import fuml.syntax.simpleclassifiers.IntegerValue;
 
 public abstract class IntegerFunctionBehaviorExecution extends
-        fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution {
+        fuml.semantics.commonbehavior.OpaqueBehaviorExecution {
 
 	@Override
     public void doBody(
-            fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList inputParameters,
-            fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList outputParameters) {
+            fuml.semantics.commonbehavior.ParameterValueList inputParameters,
+            fuml.semantics.commonbehavior.ParameterValueList outputParameters) {
         // Extract integer arguments and perform an integer function on them.
 
         intList integerArguments = new intList();

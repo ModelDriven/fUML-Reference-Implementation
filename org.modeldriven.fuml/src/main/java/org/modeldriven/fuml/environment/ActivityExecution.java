@@ -12,12 +12,12 @@ import java.util.Iterator;
 
 import org.modeldriven.fuml.assembly.ElementStubAssembler;
 
-import fUML.Debug;
-import fUML.Semantics.CommonBehaviors.Communications.ExecutionQueue;
-import fUML.Syntax.Activities.IntermediateActivities.Activity;
-import fUML.Syntax.Classes.Kernel.Comment;
+import fuml.Debug;
+import fuml.semantics.commonbehavior.ExecutionQueue;
+import fuml.syntax.activities.Activity;
+import fuml.syntax.commonstructure.Comment;
 
-public class ActivityExecution extends fUML.Semantics.Activities.IntermediateActivities.ActivityExecution {
+public class ActivityExecution extends fuml.semantics.activities.ActivityExecution {
 	
     public void execute() {
         Activity activity = (Activity) (this.getTypes().getValue(0));

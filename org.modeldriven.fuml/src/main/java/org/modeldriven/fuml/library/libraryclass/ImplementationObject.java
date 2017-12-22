@@ -15,13 +15,13 @@
 
 package org.modeldriven.fuml.library.libraryclass;
 
-public abstract class ImplementationObject extends fUML.Semantics.Classes.Kernel.Object_ {
+public abstract class ImplementationObject extends fuml.semantics.structuredclassifiers.Object_ {
 
     public abstract void execute(OperationExecution execution);
 
     @Override
-    public fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution dispatch(
-            fUML.Syntax.Classes.Kernel.Operation operation) {
+    public fuml.semantics.commonbehavior.Execution dispatch(
+            fuml.syntax.classification.Operation operation) {
         OperationExecution execution = new OperationExecution();
         this.locus.add(execution);
         execution.set(this, operation);

@@ -2,11 +2,11 @@ package org.modeldriven.fuml.repository.ext;
 
 
 
-public class Profile extends fUML.Syntax.Classes.Kernel.Package {
-	public fUML.Syntax.Classes.Kernel.ElementImportList metaclassReference = new fUML.Syntax.Classes.Kernel.ElementImportList();
+public class Profile extends fuml.syntax.packages.Package {
+	public fuml.syntax.commonstructure.ElementImportList metaclassReference = new fuml.syntax.commonstructure.ElementImportList();
 
 	public void addMetaclassReference(
-			fUML.Syntax.Classes.Kernel.ElementImport elementImport) {
+			fuml.syntax.commonstructure.ElementImport elementImport) {
 
 		this.metaclassReference.addValue(elementImport);
 	} // addMetaclassReference

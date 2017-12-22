@@ -10,9 +10,9 @@ public class OpaqueBehavior extends NamedElement
     implements org.modeldriven.fuml.repository.OpaqueBehavior {
 
     private static Log log = LogFactory.getLog(OpaqueBehavior.class);
-	private fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior behavior;
+	private fuml.syntax.commonbehavior.OpaqueBehavior behavior;
 	
-	public OpaqueBehavior(fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior behavior,
+	public OpaqueBehavior(fuml.syntax.commonbehavior.OpaqueBehavior behavior,
 			RepositoryArtifact artifact) {
 		super(behavior, artifact);
 		this.behavior = behavior;

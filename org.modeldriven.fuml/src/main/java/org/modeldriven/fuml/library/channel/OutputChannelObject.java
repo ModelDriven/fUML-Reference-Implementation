@@ -16,11 +16,11 @@ package org.modeldriven.fuml.library.channel;
 import org.modeldriven.fuml.library.common.Status;
 import org.modeldriven.fuml.library.libraryclass.OperationExecution;
 
-import fUML.Semantics.Classes.Kernel.BooleanValue;
+import fuml.semantics.simpleclassifiers.BooleanValue;
 
 public abstract class OutputChannelObject extends ChannelObject {
 
-    public abstract void write(fUML.Semantics.Classes.Kernel.Value value, Status errorStatus);
+    public abstract void write(fuml.semantics.classification.Value value, Status errorStatus);
     public abstract boolean isFull();
 
     public void execute(OperationExecution execution) {

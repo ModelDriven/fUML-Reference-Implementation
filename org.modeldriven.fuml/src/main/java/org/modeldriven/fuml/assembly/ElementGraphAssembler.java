@@ -33,8 +33,8 @@ import org.modeldriven.fuml.xmi.validation.ErrorCode;
 import org.modeldriven.fuml.xmi.validation.ErrorSeverity;
 import org.modeldriven.fuml.xmi.validation.ValidationError;
 
-import fUML.Syntax.Classes.Kernel.Element;
-import fUML.Syntax.Classes.Kernel.PrimitiveType;
+import fuml.syntax.commonstructure.Element;
+import fuml.syntax.simpleclassifiers.PrimitiveType;
 
 public class ElementGraphAssembler extends AbstractXmiNodeVisitor 
     implements XmiNodeVisitor, AssemblerResults {

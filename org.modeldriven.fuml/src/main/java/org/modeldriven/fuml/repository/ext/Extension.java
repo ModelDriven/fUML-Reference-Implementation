@@ -1,12 +1,12 @@
 package org.modeldriven.fuml.repository.ext;
 
-import fUML.Syntax.Classes.Kernel.Class_;
-import fUML.Syntax.Classes.Kernel.Element;
-import fUML.Syntax.Classes.Kernel.ElementList;
+import fuml.syntax.commonstructure.Element;
+import fuml.syntax.commonstructure.ElementList;
+import fuml.syntax.structuredclassifiers.Class_;
 
 
 
-public class Extension extends fUML.Syntax.Classes.Kernel.Association {
+public class Extension extends fuml.syntax.structuredclassifiers.Association {
 
 	private ElementList relatedElement = new ElementList();
 	private Class_ metaclass;

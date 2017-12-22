@@ -6,9 +6,9 @@ import org.modeldriven.fuml.test.FUMLTest;
 import org.modeldriven.fuml.test.builtin.environment.TestEnvironment;
 import org.modeldriven.fuml.test.builtin.environment.TestSuite;
 
-import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
-import fUML.Syntax.Classes.Kernel.Classifier;
-import fUML.Syntax.Classes.Kernel.Element;
+import fuml.semantics.structuredclassifiers.ExtensionalValueList;
+import fuml.syntax.classification.Classifier;
+import fuml.syntax.commonstructure.Element;
 
 public abstract class BuiltInTest extends FUMLTest {
 

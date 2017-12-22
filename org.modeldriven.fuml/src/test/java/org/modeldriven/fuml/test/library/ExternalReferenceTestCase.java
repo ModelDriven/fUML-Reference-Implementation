@@ -15,8 +15,8 @@ import org.modeldriven.fuml.environment.InvalidExecutionTargetException;
 import org.modeldriven.fuml.test.FUMLTest;
 import org.modeldriven.fuml.test.FUMLTestSetup;
 
-import fUML.Syntax.Activities.IntermediateActivities.Activity;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
+import fuml.syntax.activities.Activity;
+import fuml.syntax.commonbehavior.Behavior;
 
 /**
  * 

@@ -4,8 +4,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.modeldriven.fuml.test.FUMLTestSetup;
 
-import fUML.Semantics.Classes.Kernel.BooleanValue;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+import fuml.semantics.commonbehavior.ParameterValueList;
+import fuml.semantics.simpleclassifiers.BooleanValue;
 import junit.framework.Test;
 
 /**

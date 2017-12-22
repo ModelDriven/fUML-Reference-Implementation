@@ -20,16 +20,16 @@ import java.util.List;
 
 import org.modeldriven.fuml.library.LibraryFunctions;
 
-import fUML.Debug;
-import fUML.Semantics.Classes.Kernel.BooleanValue;
+import fuml.Debug;
+import fuml.semantics.simpleclassifiers.BooleanValue;
 
 public abstract class BooleanFunctionBehaviorExecution extends
-		fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution {
+		fuml.semantics.commonbehavior.OpaqueBehaviorExecution {
 
 	@Override
 	public void doBody(
-			fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList inputParameters,
-			fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList outputParameters) {
+			fuml.semantics.commonbehavior.ParameterValueList inputParameters,
+			fuml.semantics.commonbehavior.ParameterValueList outputParameters) {
 
         List<Boolean> arguments = new ArrayList<Boolean>();
         

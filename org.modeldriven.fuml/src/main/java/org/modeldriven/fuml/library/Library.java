@@ -23,7 +23,7 @@ import org.modeldriven.fuml.io.ResourceArtifact;
 import org.modeldriven.fuml.repository.Element;
 import org.modeldriven.fuml.repository.Repository;
 
-import fUML.Syntax.Classes.Kernel.NamedElement;
+import fuml.syntax.commonstructure.NamedElement;
 
 public class Library {
 

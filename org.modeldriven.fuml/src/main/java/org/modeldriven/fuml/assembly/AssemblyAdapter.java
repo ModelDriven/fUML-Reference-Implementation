@@ -13,7 +13,7 @@ package org.modeldriven.fuml.assembly;
 import org.modeldriven.fuml.repository.Classifier;
 import org.modeldriven.fuml.xmi.stream.StreamNode;
 
-import fUML.Syntax.Classes.Kernel.Element;
+import fuml.syntax.commonstructure.Element;
 
 public interface AssemblyAdapter {
     public Classifier getClassifier(StreamNode node);

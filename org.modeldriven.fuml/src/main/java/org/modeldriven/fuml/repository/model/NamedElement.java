@@ -6,9 +6,9 @@ import org.modeldriven.fuml.repository.RepositoryArtifact;
 public class NamedElement extends Element 
     implements org.modeldriven.fuml.repository.NamedElement {
 
-	private fUML.Syntax.Classes.Kernel.NamedElement namedElement;
+	private fuml.syntax.commonstructure.NamedElement namedElement;
 	
-    public NamedElement(fUML.Syntax.Classes.Kernel.NamedElement namedElement,
+    public NamedElement(fuml.syntax.commonstructure.NamedElement namedElement,
     		RepositoryArtifact artifact) {
     	super(namedElement, artifact);
     	this.namedElement = namedElement;

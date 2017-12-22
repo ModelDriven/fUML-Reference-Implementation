@@ -10,8 +10,8 @@
  */
 package org.modeldriven.fuml.assembly;
 
-import fUML.Syntax.Classes.Kernel.Class_;
-import fUML.Syntax.Classes.Kernel.Classifier;
+import fuml.syntax.classification.Classifier;
+import fuml.syntax.structuredclassifiers.Class_;
 
 @Deprecated
 public class AssemblerResultsProfile {

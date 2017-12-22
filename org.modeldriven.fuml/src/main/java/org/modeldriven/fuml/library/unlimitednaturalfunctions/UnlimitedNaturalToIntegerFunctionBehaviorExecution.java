@@ -18,18 +18,17 @@ package org.modeldriven.fuml.library.unlimitednaturalfunctions;
 import org.modeldriven.fuml.library.LibraryFunctions;
 
 import UMLPrimitiveTypes.UnlimitedNatural;
-
-import fUML.Debug;
-import fUML.Semantics.Classes.Kernel.IntegerValue;
-import fUML.Semantics.Classes.Kernel.UnlimitedNaturalValue;
+import fuml.Debug;
+import fuml.semantics.simpleclassifiers.UnlimitedNaturalValue;
+import fuml.syntax.simpleclassifiers.IntegerValue;
 
 public class UnlimitedNaturalToIntegerFunctionBehaviorExecution extends
-		fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution {
+		fuml.semantics.commonbehavior.OpaqueBehaviorExecution {
 
 	@Override
 	public void doBody(
-			fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList inputParameters,
-			fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList outputParameters) {
+			fuml.semantics.commonbehavior.ParameterValueList inputParameters,
+			fuml.semantics.commonbehavior.ParameterValueList outputParameters) {
 
 		// Get first UnlimitedNatural input argument
 		UnlimitedNaturalValue unv1 = (UnlimitedNaturalValue) inputParameters.getValue(0).values.getValue(0);
@@ -52,7 +51,7 @@ public class UnlimitedNaturalToIntegerFunctionBehaviorExecution extends
 	}
 	
 	@Override
-    public fUML.Semantics.Classes.Kernel.Value new_() {
+    public fuml.semantics.classification.Value new_() {
         return new UnlimitedNaturalToIntegerFunctionBehaviorExecution();
     }	
 

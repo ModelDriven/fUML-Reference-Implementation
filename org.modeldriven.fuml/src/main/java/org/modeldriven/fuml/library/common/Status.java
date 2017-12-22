@@ -2,16 +2,16 @@ package org.modeldriven.fuml.library.common;
 
 import org.modeldriven.fuml.library.Library;
 
-import fUML.Semantics.Classes.Kernel.DataValue;
-import fUML.Semantics.Classes.Kernel.IntegerValue;
-import fUML.Semantics.Classes.Kernel.PrimitiveValue;
-import fUML.Semantics.Classes.Kernel.StringValue;
-import fUML.Semantics.Classes.Kernel.Value;
-import fUML.Semantics.Classes.Kernel.ValueList;
-import fUML.Semantics.Loci.LociL1.Locus;
-import fUML.Syntax.Classes.Kernel.DataType;
-import fUML.Syntax.Classes.Kernel.PrimitiveType;
-import fUML.Syntax.Classes.Kernel.Property;
+import fuml.semantics.classification.Value;
+import fuml.semantics.classification.ValueList;
+import fuml.semantics.loci.Locus;
+import fuml.semantics.simpleclassifiers.DataValue;
+import fuml.semantics.simpleclassifiers.PrimitiveValue;
+import fuml.semantics.simpleclassifiers.StringValue;
+import fuml.syntax.classification.Property;
+import fuml.syntax.simpleclassifiers.DataType;
+import fuml.syntax.simpleclassifiers.IntegerValue;
+import fuml.syntax.simpleclassifiers.PrimitiveType;
 
 public class Status {
 	

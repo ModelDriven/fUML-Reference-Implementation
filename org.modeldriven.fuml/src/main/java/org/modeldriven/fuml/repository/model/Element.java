@@ -10,7 +10,7 @@ import org.modeldriven.fuml.repository.RepositoryArtifact;
 
 public class Element implements org.modeldriven.fuml.repository.Element {
 
-	protected fUML.Syntax.Classes.Kernel.Element element;
+	protected fuml.syntax.commonstructure.Element element;
 	protected RepositoryArtifact artifact;
     protected List<org.modeldriven.fuml.repository.Extension> elementToExtensionList;
     protected List<org.modeldriven.fuml.repository.Stereotype> elementToStereotypeList;
@@ -19,7 +19,7 @@ public class Element implements org.modeldriven.fuml.repository.Element {
     @SuppressWarnings("unused")
 	private Element() {}
     
-    public Element(fUML.Syntax.Classes.Kernel.Element element, 
+    public Element(fuml.syntax.commonstructure.Element element, 
     		RepositoryArtifact artifact) {
     	this.element = element;
     	this.artifact = artifact;
@@ -29,7 +29,7 @@ public class Element implements org.modeldriven.fuml.repository.Element {
 		return this.artifact;
 	}
     
-    public fUML.Syntax.Classes.Kernel.Element getDelegate() {
+    public fuml.syntax.commonstructure.Element getDelegate() {
     	return this.element;
     }
 

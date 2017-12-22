@@ -4,11 +4,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.modeldriven.fuml.test.FUMLTestSetup;
 
-import fUML.Semantics.Classes.Kernel.ExtensionalValue;
-import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
-import fUML.Semantics.Classes.Kernel.FeatureValue;
-import fUML.Semantics.Classes.Kernel.Value;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+import fuml.semantics.classification.Value;
+import fuml.semantics.commonbehavior.ParameterValueList;
+import fuml.semantics.simpleclassifiers.FeatureValue;
+import fuml.semantics.structuredclassifiers.ExtensionalValue;
+import fuml.semantics.structuredclassifiers.ExtensionalValueList;
 import junit.framework.Test;
 
 /**

@@ -15,16 +15,16 @@ import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import fUML.Semantics.Classes.Kernel.BooleanValue;
-import fUML.Semantics.Classes.Kernel.IntegerValue;
-import fUML.Semantics.Classes.Kernel.RealValue;
-import fUML.Semantics.Classes.Kernel.StringValue;
-import fUML.Semantics.Classes.Kernel.UnlimitedNaturalValue;
-import fUML.Semantics.Classes.Kernel.Value;
-import fUML.Semantics.Classes.Kernel.ValueList;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import fUML.Syntax.Classes.Kernel.Parameter;
+import fuml.semantics.classification.Value;
+import fuml.semantics.classification.ValueList;
+import fuml.semantics.commonbehavior.ParameterValue;
+import fuml.semantics.commonbehavior.ParameterValueList;
+import fuml.semantics.simpleclassifiers.BooleanValue;
+import fuml.semantics.simpleclassifiers.RealValue;
+import fuml.semantics.simpleclassifiers.StringValue;
+import fuml.semantics.simpleclassifiers.UnlimitedNaturalValue;
+import fuml.syntax.classification.Parameter;
+import fuml.syntax.simpleclassifiers.IntegerValue;
 
 /**
   */

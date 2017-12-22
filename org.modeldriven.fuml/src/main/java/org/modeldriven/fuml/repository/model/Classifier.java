@@ -6,23 +6,23 @@ import java.util.List;
 import org.modeldriven.fuml.repository.Package;
 import org.modeldriven.fuml.repository.RepositoryArtifact;
 
-import fUML.Syntax.Classes.Kernel.DataType;
+import fuml.syntax.simpleclassifiers.DataType;
 
 
 
 public class Classifier extends NamedElement 
     implements org.modeldriven.fuml.repository.Classifier {
 
-	private fUML.Syntax.Classes.Kernel.Classifier _classifier;
+	private fuml.syntax.classification.Classifier _classifier;
 	private org.modeldriven.fuml.repository.Package _package;
 	    
-    public Classifier(fUML.Syntax.Classes.Kernel.Classifier _classifier,
+    public Classifier(fuml.syntax.classification.Classifier _classifier,
     		RepositoryArtifact artifact) {
     	super(_classifier, artifact);
     	this._classifier = _classifier;
     }
  
-	public fUML.Syntax.Classes.Kernel.Classifier getDelegate() {
+	public fuml.syntax.classification.Classifier getDelegate() {
 		return this._classifier;
 	}
 	
@@ -58,8 +58,8 @@ public class Classifier extends NamedElement
     
     public boolean isAbstract() {
     	// fUML generated code has an isAbstract member on both Classifier and Class_
-    	if (_classifier instanceof fUML.Syntax.Classes.Kernel.Class_)
-    		return ((fUML.Syntax.Classes.Kernel.Class_)_classifier).isAbstract;
+    	if (_classifier instanceof fuml.syntax.structuredclassifiers.Class_)
+    		return ((fuml.syntax.structuredclassifiers.Class_)_classifier).isAbstract;
     	else
     	    return this._classifier.isAbstract;
     }

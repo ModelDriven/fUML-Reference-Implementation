@@ -17,17 +17,17 @@ package org.modeldriven.fuml.library.stringfunctions;
 
 import org.modeldriven.fuml.library.LibraryFunctions;
 
-import fUML.Debug;
-import fUML.Semantics.Classes.Kernel.IntegerValue;
-import fUML.Semantics.Classes.Kernel.StringValue;
+import fuml.Debug;
+import fuml.semantics.simpleclassifiers.StringValue;
+import fuml.syntax.simpleclassifiers.IntegerValue;
 
 public class StringSubstringFunctionBehaviorExecution extends
-        fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution {
+        fuml.semantics.commonbehavior.OpaqueBehaviorExecution {
 
 	@Override
     public void doBody(
-            fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList inputParameters,
-            fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList outputParameters) {
+            fuml.semantics.commonbehavior.ParameterValueList inputParameters,
+            fuml.semantics.commonbehavior.ParameterValueList outputParameters) {
     	
     	StringValue sv1 = (StringValue) inputParameters.getValue(0).values.getValue(0);
     	String s1 = sv1.value;
@@ -86,7 +86,7 @@ public class StringSubstringFunctionBehaviorExecution extends
     }
     
     @Override
-    public fUML.Semantics.Classes.Kernel.Value new_() {
+    public fuml.semantics.classification.Value new_() {
         // Create a new instance of this kind of function behavior execution.
         return new StringSubstringFunctionBehaviorExecution();
     }   

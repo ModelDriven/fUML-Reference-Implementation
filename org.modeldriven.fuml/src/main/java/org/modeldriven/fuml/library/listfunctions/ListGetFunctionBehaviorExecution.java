@@ -16,17 +16,17 @@ package org.modeldriven.fuml.library.listfunctions;
 
 import org.modeldriven.fuml.library.LibraryFunctions;
 
-import fUML.Debug;
-import fUML.Semantics.Classes.Kernel.IntegerValue;
-import fUML.Semantics.Classes.Kernel.Value;
-import fUML.Semantics.Classes.Kernel.ValueList;
+import fuml.Debug;
+import fuml.semantics.classification.Value;
+import fuml.semantics.classification.ValueList;
+import fuml.syntax.simpleclassifiers.IntegerValue;
 
 public class ListGetFunctionBehaviorExecution extends
-        fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution {
+        fuml.semantics.commonbehavior.OpaqueBehaviorExecution {
 
     public void doBody(
-            fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList inputParameters,
-            fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList outputParameters) {
+            fuml.semantics.commonbehavior.ParameterValueList inputParameters,
+            fuml.semantics.commonbehavior.ParameterValueList outputParameters) {
     	
     	// Get the list for which to find the element from the first argument
     	ValueList vl = (ValueList) inputParameters.getValue(0).values;
@@ -62,7 +62,7 @@ public class ListGetFunctionBehaviorExecution extends
     	}    	
     }
     
-    public fUML.Semantics.Classes.Kernel.Value new_() {
+    public fuml.semantics.classification.Value new_() {
         // Create a new instance of this kind of function behavior execution.
         return new ListGetFunctionBehaviorExecution();
     }   

@@ -7,7 +7,7 @@ import org.modeldriven.fuml.repository.model.OpaqueBehavior;
 
 public interface Class_ extends Classifier {
 
-	public fUML.Syntax.Classes.Kernel.Class_ getDelegate(); 
+	public fuml.syntax.structuredclassifiers.Class_ getDelegate(); 
 	    
 	public Property getProperty(String name);
 	public Property findProperty(String name);

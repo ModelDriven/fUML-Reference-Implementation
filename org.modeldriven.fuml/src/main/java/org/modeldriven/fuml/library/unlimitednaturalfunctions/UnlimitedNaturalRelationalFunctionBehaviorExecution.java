@@ -18,16 +18,16 @@ package org.modeldriven.fuml.library.unlimitednaturalfunctions;
 import org.modeldriven.fuml.library.LibraryFunctions;
 
 import UMLPrimitiveTypes.intList;
-import fUML.Debug;
-import fUML.Semantics.Classes.Kernel.BooleanValue;
-import fUML.Semantics.Classes.Kernel.UnlimitedNaturalValue;
+import fuml.Debug;
+import fuml.semantics.simpleclassifiers.BooleanValue;
+import fuml.semantics.simpleclassifiers.UnlimitedNaturalValue;
 
 public abstract class UnlimitedNaturalRelationalFunctionBehaviorExecution extends
-        fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution {
+        fuml.semantics.commonbehavior.OpaqueBehaviorExecution {
 
     public void doBody(
-            fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList inputParameters,
-            fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList outputParameters) {
+            fuml.semantics.commonbehavior.ParameterValueList inputParameters,
+            fuml.semantics.commonbehavior.ParameterValueList outputParameters) {
         // Extract unlimited natural arguments and perform an integer function on them.
 
         intList integerArguments = new intList();

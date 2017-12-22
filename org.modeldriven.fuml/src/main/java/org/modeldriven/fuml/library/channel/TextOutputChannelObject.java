@@ -14,12 +14,12 @@ package org.modeldriven.fuml.library.channel;
 import org.modeldriven.fuml.library.common.Status;
 import org.modeldriven.fuml.library.libraryclass.OperationExecution;
 
-import fUML.Semantics.Classes.Kernel.BooleanValue;
-import fUML.Semantics.Classes.Kernel.IntegerValue;
-import fUML.Semantics.Classes.Kernel.RealValue;
-import fUML.Semantics.Classes.Kernel.StringValue;
-import fUML.Semantics.Classes.Kernel.UnlimitedNaturalValue;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
+import fuml.semantics.commonbehavior.ParameterValue;
+import fuml.semantics.simpleclassifiers.BooleanValue;
+import fuml.semantics.simpleclassifiers.RealValue;
+import fuml.semantics.simpleclassifiers.StringValue;
+import fuml.semantics.simpleclassifiers.UnlimitedNaturalValue;
+import fuml.syntax.simpleclassifiers.IntegerValue;
 
 public abstract class TextOutputChannelObject extends OutputChannelObject {
 

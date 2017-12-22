@@ -25,9 +25,9 @@ import org.modeldriven.fuml.xmi.ModelSupport;
 import org.modeldriven.fuml.xmi.XmiNode;
 import org.modeldriven.fuml.xmi.stream.StreamNode;
 
-import fUML.Syntax.Classes.Kernel.Comment;
-import fUML.Syntax.Classes.Kernel.Element;
-import fUML.Syntax.Classes.Kernel.NamedElement;
+import fuml.syntax.commonstructure.Comment;
+import fuml.syntax.commonstructure.Element;
+import fuml.syntax.commonstructure.NamedElement;
 
 public class ElementStubAssembler implements AssemblerResults
 {    

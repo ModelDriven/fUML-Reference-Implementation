@@ -15,19 +15,77 @@ import org.modeldriven.fuml.test.builtin.library.IntegerFunctions;
 import org.modeldriven.fuml.test.builtin.library.PrimitiveTypes;
 import org.modeldriven.fuml.test.builtin.library.StandardIOClasses;
 
-import fUML.Debug;
-import fUML.Syntax.Classes.Kernel.*;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.*;
-import fUML.Syntax.CommonBehaviors.Communications.*;
-import fUML.Syntax.Activities.IntermediateActivities.*;
-import fUML.Syntax.Activities.CompleteActivities.DataStoreNode;
-import fUML.Syntax.Activities.CompleteStructuredActivities.*;
-import fUML.Syntax.Activities.ExtraStructuredActivities.*;
-import fUML.Syntax.Actions.BasicActions.*;
-import fUML.Syntax.Actions.IntermediateActions.*;
-import fUML.Syntax.Actions.CompleteActions.*;
-
-import fUML.Semantics.Classes.Kernel.*;
+import fuml.Debug;
+import fuml.semantics.simpleclassifiers.StringValue;
+import fuml.syntax.actions.AcceptCallAction;
+import fuml.syntax.actions.AcceptEventAction;
+import fuml.syntax.actions.AddStructuralFeatureValueAction;
+import fuml.syntax.actions.CallBehaviorAction;
+import fuml.syntax.actions.CallOperationAction;
+import fuml.syntax.actions.Clause;
+import fuml.syntax.actions.ConditionalNode;
+import fuml.syntax.actions.CreateLinkAction;
+import fuml.syntax.actions.CreateObjectAction;
+import fuml.syntax.actions.DestroyLinkAction;
+import fuml.syntax.actions.DestroyObjectAction;
+import fuml.syntax.actions.ExpansionKind;
+import fuml.syntax.actions.ExpansionNode;
+import fuml.syntax.actions.ExpansionRegion;
+import fuml.syntax.actions.InputPin;
+import fuml.syntax.actions.LinkEndCreationData;
+import fuml.syntax.actions.LinkEndData;
+import fuml.syntax.actions.LinkEndDestructionData;
+import fuml.syntax.actions.LoopNode;
+import fuml.syntax.actions.OutputPin;
+import fuml.syntax.actions.ReadExtentAction;
+import fuml.syntax.actions.ReadIsClassifiedObjectAction;
+import fuml.syntax.actions.ReadLinkAction;
+import fuml.syntax.actions.ReadSelfAction;
+import fuml.syntax.actions.ReadStructuralFeatureAction;
+import fuml.syntax.actions.RemoveStructuralFeatureValueAction;
+import fuml.syntax.actions.ReplyAction;
+import fuml.syntax.actions.SendSignalAction;
+import fuml.syntax.actions.StartObjectBehaviorAction;
+import fuml.syntax.actions.StructuredActivityNode;
+import fuml.syntax.actions.TestIdentityAction;
+import fuml.syntax.actions.ValueSpecificationAction;
+import fuml.syntax.activities.Activity;
+import fuml.syntax.activities.ActivityEdge;
+import fuml.syntax.activities.ActivityFinalNode;
+import fuml.syntax.activities.ActivityNode;
+import fuml.syntax.activities.ActivityParameterNode;
+import fuml.syntax.activities.CentralBufferNode;
+import fuml.syntax.activities.ControlFlow;
+import fuml.syntax.activities.DataStoreNode;
+import fuml.syntax.activities.DecisionNode;
+import fuml.syntax.activities.FlowFinalNode;
+import fuml.syntax.activities.ForkNode;
+import fuml.syntax.activities.InitialNode;
+import fuml.syntax.activities.JoinNode;
+import fuml.syntax.activities.MergeNode;
+import fuml.syntax.activities.ObjectFlow;
+import fuml.syntax.classification.Classifier;
+import fuml.syntax.classification.Operation;
+import fuml.syntax.classification.Parameter;
+import fuml.syntax.classification.ParameterDirectionKind;
+import fuml.syntax.classification.ParameterList;
+import fuml.syntax.classification.Property;
+import fuml.syntax.classification.StructuralFeature;
+import fuml.syntax.commonbehavior.Behavior;
+import fuml.syntax.commonbehavior.CallEvent;
+import fuml.syntax.commonbehavior.SignalEvent;
+import fuml.syntax.commonbehavior.Trigger;
+import fuml.syntax.commonstructure.Element;
+import fuml.syntax.commonstructure.NamedElement;
+import fuml.syntax.simpleclassifiers.Reception;
+import fuml.syntax.simpleclassifiers.Signal;
+import fuml.syntax.structuredclassifiers.Association;
+import fuml.syntax.structuredclassifiers.Class_;
+import fuml.syntax.values.LiteralBoolean;
+import fuml.syntax.values.LiteralInteger;
+import fuml.syntax.values.LiteralString;
+import fuml.syntax.values.LiteralUnlimitedNatural;
+import fuml.syntax.values.ValueSpecification;
 
 public class ActivityFactory {
 
@@ -39,11 +97,11 @@ public class ActivityFactory {
 	} // ActivityFactory
 
 	protected void addEdge(
-			fUML.Syntax.Activities.IntermediateActivities.Activity activity,
-			fUML.Syntax.Activities.IntermediateActivities.ActivityEdge edge,
-			fUML.Syntax.Activities.IntermediateActivities.ActivityNode source,
-			fUML.Syntax.Activities.IntermediateActivities.ActivityNode target,
-			fUML.Syntax.Classes.Kernel.ValueSpecification guard) {
+			fuml.syntax.activities.Activity activity,
+			fuml.syntax.activities.ActivityEdge edge,
+			fuml.syntax.activities.ActivityNode source,
+			fuml.syntax.activities.ActivityNode target,
+			fuml.syntax.values.ValueSpecification guard) {
 		edge.setSource(source);
 		edge.setTarget(target);
 		edge.setGuard(guard);
@@ -53,17 +111,17 @@ public class ActivityFactory {
 	} // addEdge
 
 	protected void addNode(
-			fUML.Syntax.Activities.IntermediateActivities.Activity activity,
-			fUML.Syntax.Activities.IntermediateActivities.ActivityNode node) {
+			fuml.syntax.activities.Activity activity,
+			fuml.syntax.activities.ActivityNode node) {
 		activity.addNode(node);
 
 	} // addNode
 
-	protected fUML.Syntax.Classes.Kernel.Parameter addParameter(
-			fUML.Syntax.Activities.IntermediateActivities.Activity activity,
+	protected fuml.syntax.classification.Parameter addParameter(
+			fuml.syntax.activities.Activity activity,
 			String name,
-			fUML.Syntax.Classes.Kernel.ParameterDirectionKind direction,
-			fUML.Syntax.Classes.Kernel.Type type) {
+			fuml.syntax.classification.ParameterDirectionKind direction,
+			fuml.syntax.commonstructure.Type type) {
 		Parameter parameter = new Parameter();
 		parameter.setName(name);
 		parameter.setType(type);
@@ -76,9 +134,9 @@ public class ActivityFactory {
 		return parameter;
 	} // addParameter
 
-	protected fUML.Syntax.Classes.Kernel.Property addProperty(
-			fUML.Syntax.Activities.IntermediateActivities.Activity activity,
-			String name, fUML.Syntax.Classes.Kernel.Type type, int lower,
+	protected fuml.syntax.classification.Property addProperty(
+			fuml.syntax.activities.Activity activity,
+			String name, fuml.syntax.commonstructure.Type type, int lower,
 			int upper) {
 		Property property = new Property();
 		property.setName(name);
@@ -92,8 +150,8 @@ public class ActivityFactory {
 
 	} // addProperty
 
-	protected fUML.Syntax.Actions.BasicActions.InputPin addInputPin(
-			fUML.Syntax.Actions.BasicActions.Action action, String name,
+	protected fuml.syntax.actions.InputPin addInputPin(
+			fuml.syntax.actions.Action action, String name,
 			int lower, int upper) {
 		// Debug.println("[addInputPin] name = " + name);
 
@@ -103,8 +161,8 @@ public class ActivityFactory {
 		return inputPin;
 	} // addInputPin
 
-	protected fUML.Syntax.Actions.BasicActions.OutputPin addOutputPin(
-			fUML.Syntax.Actions.BasicActions.Action action, String name,
+	protected fuml.syntax.actions.OutputPin addOutputPin(
+			fuml.syntax.actions.Action action, String name,
 			int lower, int upper) {
 		// Debug.println("[addOutputPin] name = " + name);
 
@@ -114,7 +172,7 @@ public class ActivityFactory {
 		return outputPin;
 	} // addOutputPin
 
-	protected fUML.Syntax.Actions.BasicActions.InputPin makeInputPin(
+	protected fuml.syntax.actions.InputPin makeInputPin(
 			String name, int lower, int upper) {
 		// Debug.println("[makeInputPin] name = " + name);
 
@@ -124,7 +182,7 @@ public class ActivityFactory {
 		return inputPin;
 	} // makeInputPin
 
-	protected fUML.Syntax.Actions.BasicActions.OutputPin makeOutputPin(
+	protected fuml.syntax.actions.OutputPin makeOutputPin(
 			String name, int lower, int upper) {
 		// Debug.println("[makeOutputPin] name = " + name);
 
@@ -135,7 +193,7 @@ public class ActivityFactory {
 
 	} // makeOutputPin
 
-	protected void setPin(fUML.Syntax.Actions.BasicActions.Pin pin,
+	protected void setPin(fuml.syntax.actions.Pin pin,
 			String name, int lower, int upper) {
 		// Debug.println("[setPin] name = " + name);
 
@@ -147,14 +205,14 @@ public class ActivityFactory {
 	} // setPin
 
 	protected void setMultiplicity(
-			fUML.Syntax.Classes.Kernel.MultiplicityElement element, int lower,
+			fuml.syntax.commonstructure.MultiplicityElement element, int lower,
 			int upper) {
 		element.setLower(lower);
 		element.setUpper(upper);
 	} // setMultiplicity
 
-	protected fUML.Syntax.Classes.Kernel.Operation getOperation(
-			fUML.Syntax.Classes.Kernel.Class_ class_, String operationName) {
+	protected fuml.syntax.classification.Operation getOperation(
+			fuml.syntax.structuredclassifiers.Class_ class_, String operationName) {
 		for (int i = 0; i < class_.member.size(); i++) {
 			NamedElement member = class_.member.getValue(i);
 			if (member.name.equals(operationName)) {
@@ -168,8 +226,8 @@ public class ActivityFactory {
 		return null;
 	} // getOperation
 
-	protected fUML.Syntax.Classes.Kernel.Property getProperty(
-			fUML.Syntax.Classes.Kernel.Classifier classifier,
+	protected fuml.syntax.classification.Property getProperty(
+			fuml.syntax.classification.Classifier classifier,
 			String propertyName) {
 		for (int i = 0; i < classifier.member.size(); i++) {
 			NamedElement member = classifier.member.getValue(i);
@@ -184,7 +242,7 @@ public class ActivityFactory {
 		return null;
 	} // getProperty
 
-	protected fUML.Syntax.Classes.Kernel.LiteralInteger createLiteralInteger(
+	protected fuml.syntax.values.LiteralInteger createLiteralInteger(
 			String name, int value) {
 		LiteralInteger literal = (LiteralInteger) (this.environment
 				.makeValue((Classifier) (PrimitiveTypes.Integer))
@@ -196,7 +254,7 @@ public class ActivityFactory {
 
 	} // createLiteralInteger
 
-	protected fUML.Syntax.Classes.Kernel.LiteralString createLiteralString(
+	protected fuml.syntax.values.LiteralString createLiteralString(
 			String name, String value) {
 		LiteralString literal = (LiteralString) (this.environment
 				.makeValue((Classifier) (PrimitiveTypes.String))
@@ -208,7 +266,7 @@ public class ActivityFactory {
 
 	} // createLiteralString
 
-	protected fUML.Syntax.Classes.Kernel.LiteralBoolean createLiteralBoolean(
+	protected fuml.syntax.values.LiteralBoolean createLiteralBoolean(
 			String name, boolean value) {
 		LiteralBoolean literal = (LiteralBoolean) (this.environment
 				.makeValue((Classifier) (PrimitiveTypes.Boolean))
@@ -220,7 +278,7 @@ public class ActivityFactory {
 
 	} // createLiteralBoolean
 
-	protected fUML.Syntax.Classes.Kernel.LiteralUnlimitedNatural createLiteralUnlimitedNatural(
+	protected fuml.syntax.values.LiteralUnlimitedNatural createLiteralUnlimitedNatural(
 			String name, int value) {
 		LiteralUnlimitedNatural literal = (LiteralUnlimitedNatural) (this.environment
 				.makeValue((Classifier) (PrimitiveTypes.UnlimitedNatural))
@@ -231,10 +289,10 @@ public class ActivityFactory {
 		return literal;
 	} // createLiteralUnlimitedNatural
 
-	protected fUML.Syntax.Activities.IntermediateActivities.Activity createInstanceGetter(
-			fUML.Syntax.Classes.Kernel.Classifier classifier,
-			fUML.Syntax.Classes.Kernel.Operation operation,
-			fUML.Semantics.Classes.Kernel.Value value) {
+	protected fuml.syntax.activities.Activity createInstanceGetter(
+			fuml.syntax.classification.Classifier classifier,
+			fuml.syntax.classification.Operation operation,
+			fuml.semantics.classification.Value value) {
 		Activity testActivity = new Activity();
 		testActivity.setName("Test(" + operation.name + ")");
 
@@ -321,11 +379,11 @@ public class ActivityFactory {
 		return instanceGetterActivity;
 	} // createInstanceGetter
 
-	protected fUML.Syntax.Activities.IntermediateActivities.Activity getCopier() {
+	protected fuml.syntax.activities.Activity getCopier() {
 		return this.getActivity("Copier");
 	} // getCopier
 
-	public fUML.Syntax.Activities.IntermediateActivities.Activity getActivity(
+	public fuml.syntax.activities.Activity getActivity(
 			String name) {
 		NamedElement activity = this.environment.getElement(name);
 

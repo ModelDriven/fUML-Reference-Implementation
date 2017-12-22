@@ -16,7 +16,7 @@
 package org.modeldriven.fuml.library.unlimitednaturalfunctions;
 
 import UMLPrimitiveTypes.intList;
-import fUML.Debug;
+import fuml.Debug;
 
 public class UnlimitedNaturalGreaterThanEqualFunctionBehaviorExecution extends
         UnlimitedNaturalRelationalFunctionBehaviorExecution {
@@ -37,7 +37,7 @@ public class UnlimitedNaturalGreaterThanEqualFunctionBehaviorExecution extends
     }
 
 	@Override
-    public fUML.Semantics.Classes.Kernel.Value new_() {
+    public fuml.semantics.classification.Value new_() {
         return new UnlimitedNaturalGreaterThanEqualFunctionBehaviorExecution();
     }
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.modeldriven.fuml.FumlObject;
 
-import fUML.Syntax.Classes.Kernel.Element;
+import fuml.syntax.commonstructure.Element;
 
 public interface AssemblerResults {
 	public List<FumlObject> getResults();

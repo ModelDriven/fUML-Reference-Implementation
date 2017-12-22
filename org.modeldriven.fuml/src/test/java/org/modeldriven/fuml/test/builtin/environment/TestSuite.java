@@ -11,9 +11,9 @@
 
 package org.modeldriven.fuml.test.builtin.environment;
 
-import fUML.Debug;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import fUML.Syntax.Classes.Kernel.*;
+import fuml.Debug;
+import fuml.semantics.commonbehavior.ParameterValueList;
+import fuml.syntax.structuredclassifiers.Association;
 
 public class TestSuite {
 

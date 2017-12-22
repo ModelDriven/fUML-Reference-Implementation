@@ -4,9 +4,9 @@ package org.modeldriven.fuml.repository;
 
 public interface Package extends NamedElement {
 
-    public fUML.Syntax.Classes.Kernel.PackageableElementList getPackagedElement();
+    public fuml.syntax.commonstructure.PackageableElementList getPackagedElement();
     
-    public fUML.Syntax.Classes.Kernel.Package getDelegate();
+    public fuml.syntax.packages.Package getDelegate();
     public Package getNestingPackage();
     
 } // Package

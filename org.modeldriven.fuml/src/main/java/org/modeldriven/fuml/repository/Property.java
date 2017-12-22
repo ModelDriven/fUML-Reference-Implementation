@@ -1,7 +1,7 @@
 package org.modeldriven.fuml.repository;
 
-import fUML.Syntax.Classes.Kernel.Association;
-import fUML.Syntax.Classes.Kernel.ValueSpecification;
+import fuml.syntax.structuredclassifiers.Association;
+import fuml.syntax.values.ValueSpecification;
 
 
 public interface Property extends NamedElement {
@@ -15,7 +15,7 @@ public interface Property extends NamedElement {
 
 	public Property getOpposite();
 	
-	public fUML.Syntax.Classes.Kernel.Property getDelegate(); 
+	public fuml.syntax.classification.Property getDelegate(); 
 
     public Classifier getType();
 	

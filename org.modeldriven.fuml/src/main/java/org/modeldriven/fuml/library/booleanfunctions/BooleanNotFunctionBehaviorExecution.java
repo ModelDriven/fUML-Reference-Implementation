@@ -17,7 +17,7 @@ package org.modeldriven.fuml.library.booleanfunctions;
 
 import java.util.List;
 
-import fUML.Debug;
+import fuml.Debug;
 
 public class BooleanNotFunctionBehaviorExecution extends
 		BooleanFunctionBehaviorExecution {
@@ -30,7 +30,7 @@ public class BooleanNotFunctionBehaviorExecution extends
 	}
 
     @Override
-	public fUML.Semantics.Classes.Kernel.Value new_() {
+	public fuml.semantics.classification.Value new_() {
         return new BooleanNotFunctionBehaviorExecution();
     }	
 	

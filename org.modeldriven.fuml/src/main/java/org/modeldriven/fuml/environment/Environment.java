@@ -18,33 +18,32 @@ package org.modeldriven.fuml.environment;
 import org.modeldriven.fuml.repository.Repository;
 
 import UMLPrimitiveTypes.UnlimitedNatural;
-
-import fUML.Debug;
-import fUML.Semantics.Classes.Kernel.BooleanValue;
-import fUML.Semantics.Classes.Kernel.DataValue;
-import fUML.Semantics.Classes.Kernel.EnumerationValue;
-import fUML.Semantics.Classes.Kernel.FeatureValueList;
-import fUML.Semantics.Classes.Kernel.IntegerValue;
-import fUML.Semantics.Classes.Kernel.PrimitiveValue;
-import fUML.Semantics.Classes.Kernel.RealValue;
-import fUML.Semantics.Classes.Kernel.Reference;
-import fUML.Semantics.Classes.Kernel.StringValue;
-import fUML.Semantics.Classes.Kernel.StructuredValue;
-import fUML.Semantics.Classes.Kernel.UnlimitedNaturalValue;
-import fUML.Semantics.Classes.Kernel.Value;
-import fUML.Semantics.Classes.Kernel.ValueList;
-import fUML.Semantics.CommonBehaviors.Communications.SignalInstance;
-import fUML.Semantics.Loci.LociL1.Executor;
-import fUML.Semantics.Loci.LociL1.Locus;
-import fUML.Syntax.Classes.Kernel.Class_;
-import fUML.Syntax.Classes.Kernel.Classifier;
-import fUML.Syntax.Classes.Kernel.DataType;
-import fUML.Syntax.Classes.Kernel.Element;
-import fUML.Syntax.Classes.Kernel.Enumeration;
-import fUML.Syntax.Classes.Kernel.PrimitiveType;
-import fUML.Syntax.Classes.Kernel.StructuralFeature;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
-import fUML.Syntax.CommonBehaviors.Communications.Signal;
+import fuml.Debug;
+import fuml.semantics.classification.Value;
+import fuml.semantics.classification.ValueList;
+import fuml.semantics.loci.Executor;
+import fuml.semantics.loci.Locus;
+import fuml.semantics.simpleclassifiers.BooleanValue;
+import fuml.semantics.simpleclassifiers.DataValue;
+import fuml.semantics.simpleclassifiers.EnumerationValue;
+import fuml.semantics.simpleclassifiers.FeatureValueList;
+import fuml.semantics.simpleclassifiers.PrimitiveValue;
+import fuml.semantics.simpleclassifiers.RealValue;
+import fuml.semantics.simpleclassifiers.SignalInstance;
+import fuml.semantics.simpleclassifiers.StringValue;
+import fuml.semantics.simpleclassifiers.StructuredValue;
+import fuml.semantics.simpleclassifiers.UnlimitedNaturalValue;
+import fuml.semantics.structuredclassifiers.Reference;
+import fuml.syntax.classification.Classifier;
+import fuml.syntax.classification.StructuralFeature;
+import fuml.syntax.commonbehavior.Behavior;
+import fuml.syntax.commonstructure.Element;
+import fuml.syntax.simpleclassifiers.DataType;
+import fuml.syntax.simpleclassifiers.Enumeration;
+import fuml.syntax.simpleclassifiers.IntegerValue;
+import fuml.syntax.simpleclassifiers.PrimitiveType;
+import fuml.syntax.simpleclassifiers.Signal;
+import fuml.syntax.structuredclassifiers.Class_;
 
 public class Environment {
     private static Environment instance = null;
@@ -64,11 +63,11 @@ public class Environment {
 		this.locus.setExecutor(new Executor());
 
 		this.locus.factory
-				.setStrategy(new fUML.Semantics.Classes.Kernel.RedefinitionBasedDispatchStrategy());
+				.setStrategy(new fuml.semantics.structuredclassifiers.RedefinitionBasedDispatchStrategy());
 		this.locus.factory
-				.setStrategy(new fUML.Semantics.CommonBehaviors.Communications.FIFOGetNextEventStrategy());
+				.setStrategy(new fuml.semantics.commonbehavior.FIFOGetNextEventStrategy());
 		this.locus.factory
-				.setStrategy(new fUML.Semantics.Loci.LociL1.FirstChoiceStrategy());
+				.setStrategy(new fuml.semantics.loci.FirstChoiceStrategy());
 		
 		this.Boolean = this.addBuiltInType("Boolean");
 		this.String = this.addBuiltInType("String");
@@ -192,8 +191,8 @@ public class Environment {
 		return enumerationValue;
 	}
 
-	public fUML.Semantics.Classes.Kernel.StructuredValue makeStructuredValue(
-			fUML.Syntax.Classes.Kernel.Classifier classifier) {
+	public fuml.semantics.simpleclassifiers.StructuredValue makeStructuredValue(
+			fuml.syntax.classification.Classifier classifier) {
 		StructuredValue structuredValue = null;
 
 		if (classifier instanceof DataType) {

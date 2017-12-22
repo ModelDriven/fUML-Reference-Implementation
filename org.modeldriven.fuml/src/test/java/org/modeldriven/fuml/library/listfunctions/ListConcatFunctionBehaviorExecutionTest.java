@@ -13,10 +13,10 @@ package org.modeldriven.fuml.library.listfunctions;
 
 import org.modeldriven.fuml.library.LibraryTest;
 
-import fUML.Debug;
-import fUML.Semantics.Classes.Kernel.IntegerValue;
-import fUML.Semantics.Classes.Kernel.ValueList;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
+import fuml.Debug;
+import fuml.semantics.classification.ValueList;
+import fuml.semantics.commonbehavior.ParameterValue;
+import fuml.syntax.simpleclassifiers.IntegerValue;
 
 public class ListConcatFunctionBehaviorExecutionTest extends LibraryTest {
 	

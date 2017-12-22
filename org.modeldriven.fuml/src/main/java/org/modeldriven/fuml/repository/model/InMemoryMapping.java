@@ -22,26 +22,26 @@ import org.modeldriven.fuml.repository.ext.Stereotype;
 import org.modeldriven.fuml.repository.merge.PackageGraphNode;
 
 import UMLPrimitiveTypes.UnlimitedNatural;
-import fUML.Syntax.Classes.Kernel.Association;
-import fUML.Syntax.Classes.Kernel.Class_;
-import fUML.Syntax.Classes.Kernel.Classifier;
-import fUML.Syntax.Classes.Kernel.DataType;
-import fUML.Syntax.Classes.Kernel.Element;
-import fUML.Syntax.Classes.Kernel.Enumeration;
-import fUML.Syntax.Classes.Kernel.EnumerationLiteral;
-import fUML.Syntax.Classes.Kernel.Generalization;
-import fUML.Syntax.Classes.Kernel.InstanceValue;
-import fUML.Syntax.Classes.Kernel.LiteralBoolean;
-import fUML.Syntax.Classes.Kernel.LiteralInteger;
-import fUML.Syntax.Classes.Kernel.LiteralNull;
-import fUML.Syntax.Classes.Kernel.LiteralString;
-import fUML.Syntax.Classes.Kernel.LiteralUnlimitedNatural;
-import fUML.Syntax.Classes.Kernel.NamedElement;
-import fUML.Syntax.Classes.Kernel.Package;
-import fUML.Syntax.Classes.Kernel.PackageableElement;
-import fUML.Syntax.Classes.Kernel.PrimitiveType;
-import fUML.Syntax.Classes.Kernel.Property;
-import fUML.Syntax.Classes.Kernel.ValueSpecification;
+import fuml.syntax.classification.Classifier;
+import fuml.syntax.classification.Generalization;
+import fuml.syntax.classification.InstanceValue;
+import fuml.syntax.classification.Property;
+import fuml.syntax.commonstructure.Element;
+import fuml.syntax.commonstructure.NamedElement;
+import fuml.syntax.commonstructure.PackageableElement;
+import fuml.syntax.packages.Package;
+import fuml.syntax.simpleclassifiers.DataType;
+import fuml.syntax.simpleclassifiers.Enumeration;
+import fuml.syntax.simpleclassifiers.EnumerationLiteral;
+import fuml.syntax.simpleclassifiers.PrimitiveType;
+import fuml.syntax.structuredclassifiers.Association;
+import fuml.syntax.structuredclassifiers.Class_;
+import fuml.syntax.values.LiteralBoolean;
+import fuml.syntax.values.LiteralInteger;
+import fuml.syntax.values.LiteralNull;
+import fuml.syntax.values.LiteralString;
+import fuml.syntax.values.LiteralUnlimitedNatural;
+import fuml.syntax.values.ValueSpecification;
 
 
 public class InMemoryMapping implements RepositoryMapping 
@@ -393,7 +393,7 @@ public class InMemoryMapping implements RepositoryMapping
 	        org.modeldriven.fuml.repository.Class_ stereotypeClassifier = (org.modeldriven.fuml.repository.Class_)qualifiedClassifierNameToClassifierMap.get(xmiNamespaceQualifiedClassifierName);
 	        if (stereotypeClassifier != null && stereotypeClassifier instanceof org.modeldriven.fuml.repository.Stereotype) {
 	        	boolean foundExtension = false;
-	        	for (fUML.Syntax.Classes.Kernel.Property prop : stereotypeClassifier.getDelegate().ownedAttribute)
+	        	for (fuml.syntax.classification.Property prop : stereotypeClassifier.getDelegate().ownedAttribute)
 	        	{
 	        		if (prop.name == null || !prop.name.startsWith("base_"))
 	        			continue;	        		
@@ -405,7 +405,7 @@ public class InMemoryMapping implements RepositoryMapping
 	                			+ prop.association.getXmiId() + "' while mapping artifact, "
 	                			+ artifact.getURN());
 	        		
-	        		fUML.Syntax.Classes.Kernel.Element delegateElement = assocElement.getDelegate();
+	        		fuml.syntax.commonstructure.Element delegateElement = assocElement.getDelegate();
 	        		if (!(delegateElement instanceof Extension))
 	        			continue;
 	        		
@@ -746,7 +746,7 @@ public class InMemoryMapping implements RepositoryMapping
     @SuppressWarnings("unchecked")
 	private Property findProperty(Class_ c, String name)
     {    	
-	    Iterator<fUML.Syntax.Classes.Kernel.Property> iter = c.ownedAttribute.iterator();
+	    Iterator<fuml.syntax.classification.Property> iter = c.ownedAttribute.iterator();
 	    while (iter.hasNext()) {
 	        Property p = (Property)iter.next();
 	        if (p.name.equals(name))
@@ -769,7 +769,7 @@ public class InMemoryMapping implements RepositoryMapping
     public void mergeProperties(Class_ target, Class_ source) {
         
         // merge existing properties and add new properties 
-        Iterator<fUML.Syntax.Classes.Kernel.Property> sourceIter = source.ownedAttribute.iterator();
+        Iterator<fuml.syntax.classification.Property> sourceIter = source.ownedAttribute.iterator();
         while (sourceIter.hasNext()) {
             Property sourceProp = (Property)sourceIter.next();
             Property targetProp = findProperty(target, sourceProp.name);

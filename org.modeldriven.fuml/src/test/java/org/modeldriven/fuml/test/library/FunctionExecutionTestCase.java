@@ -14,8 +14,8 @@ import org.modeldriven.fuml.environment.ExecutionEnvironment;
 import org.modeldriven.fuml.test.FUMLTest;
 import org.modeldriven.fuml.test.FUMLTestSetup;
 
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
+import fuml.semantics.commonbehavior.ParameterValueList;
+import fuml.syntax.commonbehavior.Behavior;
 
 /**
  * 

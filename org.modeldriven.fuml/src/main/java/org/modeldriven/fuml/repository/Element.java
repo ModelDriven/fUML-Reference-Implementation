@@ -6,7 +6,7 @@ public interface Element {
 
 	public RepositoryArtifact getArtifact();
 	
-    public fUML.Syntax.Classes.Kernel.Element getDelegate();
+    public fuml.syntax.commonstructure.Element getDelegate();
 
     public String getXmiId();
     

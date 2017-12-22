@@ -17,17 +17,17 @@ package org.modeldriven.fuml.library.booleanfunctions;
 
 import org.modeldriven.fuml.library.LibraryFunctions;
 
-import fUML.Debug;
-import fUML.Semantics.Classes.Kernel.BooleanValue;
-import fUML.Semantics.Classes.Kernel.StringValue;
+import fuml.Debug;
+import fuml.semantics.simpleclassifiers.BooleanValue;
+import fuml.semantics.simpleclassifiers.StringValue;
 
 public class BooleanToBooleanFunctionBehaviorExecution extends
-		fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution {
+		fuml.semantics.commonbehavior.OpaqueBehaviorExecution {
 
 	@Override
 	public void doBody(
-			fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList inputParameters,
-			fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList outputParameters) {
+			fuml.semantics.commonbehavior.ParameterValueList inputParameters,
+			fuml.semantics.commonbehavior.ParameterValueList outputParameters) {
 
 		// Extract single String input argument
 		StringValue sv1 = (StringValue) inputParameters.getValue(0).values.getValue(0);
@@ -59,7 +59,7 @@ public class BooleanToBooleanFunctionBehaviorExecution extends
 	}
 
     @Override
-	public fUML.Semantics.Classes.Kernel.Value new_() {
+	public fuml.semantics.classification.Value new_() {
         return new BooleanToBooleanFunctionBehaviorExecution();
     }	
 	

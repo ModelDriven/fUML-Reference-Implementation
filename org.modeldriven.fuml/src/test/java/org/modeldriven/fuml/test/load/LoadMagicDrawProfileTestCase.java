@@ -110,7 +110,7 @@ public class LoadMagicDrawProfileTestCase extends FUMLTest {
 		assertTrue(hasStereotype(stringFieldProp, EnumerationConstraint.class));
 		EnumerationConstraint enumConstraint = (EnumerationConstraint)getStereotype(stringFieldProp, 
 				EnumerationConstraint.class).getDelegate();
-		fUML.Syntax.Classes.Kernel.Enumeration e = enumConstraint.getValue();		
+		fuml.syntax.simpleclassifiers.Enumeration e = enumConstraint.getValue();		
 		Enumeration repoEnum = (Enumeration)Repository.INSTANCE.findElementById(e.getXmiId());
 		assertTrue(repoEnum != null);
 		assertTrue("TestValues".equals(repoEnum.getName()));

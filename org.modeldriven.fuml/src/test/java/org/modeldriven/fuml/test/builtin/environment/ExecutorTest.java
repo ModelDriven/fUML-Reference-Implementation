@@ -11,12 +11,19 @@
 
 package org.modeldriven.fuml.test.builtin.environment;
 
-import fUML.Debug;
-import fUML.Syntax.Classes.Kernel.*;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.*;
-
-import fUML.Semantics.Classes.Kernel.*;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.*;
+import fuml.Debug;
+import fuml.semantics.classification.Value;
+import fuml.semantics.commonbehavior.Execution;
+import fuml.semantics.commonbehavior.ParameterValue;
+import fuml.semantics.commonbehavior.ParameterValueList;
+import fuml.semantics.structuredclassifiers.Object_;
+import fuml.syntax.classification.Classifier;
+import fuml.syntax.classification.ParameterDirectionKind;
+import fuml.syntax.classification.ParameterList;
+import fuml.syntax.commonbehavior.Behavior;
+import fuml.syntax.commonstructure.NamedElement;
+import fuml.syntax.structuredclassifiers.Class_;
+import fuml.syntax.values.ValueSpecification;
 
 public class ExecutorTest {
 
@@ -26,8 +33,8 @@ public class ExecutorTest {
 		this.environment = environment;
 	} // ExecutorTest
 
-	protected fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList createDefaultInputValues(
-			fUML.Syntax.Classes.Kernel.ParameterList parameters) {
+	protected fuml.semantics.commonbehavior.ParameterValueList createDefaultInputValues(
+			fuml.syntax.classification.ParameterList parameters) {
 		// Debug.println("[createDefaultParameterValues] " + parameters.size() +
 		// " parameter(s):");
 

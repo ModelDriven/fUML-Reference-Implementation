@@ -11,21 +11,21 @@ import org.modeldriven.fuml.repository.Property;
 import org.modeldriven.fuml.repository.RepositoryArtifact;
 import org.modeldriven.fuml.xmi.XmiException;
 
-import fUML.Syntax.Classes.Kernel.Operation;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
+import fuml.syntax.classification.Operation;
+import fuml.syntax.commonbehavior.Behavior;
 
 
 
 public class Class_ extends Classifier 
     implements org.modeldriven.fuml.repository.Class_ {
 
-	private fUML.Syntax.Classes.Kernel.Class_ class_;
+	private fuml.syntax.structuredclassifiers.Class_ class_;
 	private List<Property> attributes;
 	private Map<String, Property> namedAttributes;
 	private List<Property> declaredAttributes;
 	private List<Operation> operations;
 	    
-    public Class_(fUML.Syntax.Classes.Kernel.Class_ class_,
+    public Class_(fuml.syntax.structuredclassifiers.Class_ class_,
     		RepositoryArtifact artifact) {
     	super(class_, artifact);
     	this.class_ = class_;
@@ -58,15 +58,15 @@ public class Class_ extends Classifier
     	this.operations = operations;
     }
     
-    public fUML.Syntax.Classes.Kernel.PropertyList getOwnedAttribute() {
+    public fuml.syntax.classification.PropertyList getOwnedAttribute() {
     	return this.class_.ownedAttribute;
     }
     
-    public fUML.Syntax.Classes.Kernel.OperationList getOwnedOperation() {
+    public fuml.syntax.classification.OperationList getOwnedOperation() {
     	return this.class_.ownedOperation;
     }
     
-	public fUML.Syntax.Classes.Kernel.Class_ getDelegate() {
+	public fuml.syntax.structuredclassifiers.Class_ getDelegate() {
 		return this.class_;
 	}
  
@@ -110,7 +110,7 @@ public class Class_ extends Classifier
         if (declaredAttributes == null) {
         	declaredAttributes = new ArrayList<Property>(class_.ownedAttribute.size());
         	
-        	for (fUML.Syntax.Classes.Kernel.Property p : class_.ownedAttribute)
+        	for (fuml.syntax.classification.Property p : class_.ownedAttribute)
         	{
         		Property property = new org.modeldriven.fuml.repository.model.Property(p, 
         				this.getArtifact());
@@ -125,8 +125,8 @@ public class Class_ extends Classifier
     	List<OpaqueBehavior> result = new ArrayList<OpaqueBehavior>(
     			this.getDelegate().ownedBehavior.size());
     	for (Behavior behavior : this.getDelegate().ownedBehavior) {
-    		if (behavior instanceof fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior)
-    		result.add(new OpaqueBehavior((fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior)behavior, 
+    		if (behavior instanceof fuml.syntax.commonbehavior.OpaqueBehavior)
+    		result.add(new OpaqueBehavior((fuml.syntax.commonbehavior.OpaqueBehavior)behavior, 
     				this.artifact));
     	}
     	return result;

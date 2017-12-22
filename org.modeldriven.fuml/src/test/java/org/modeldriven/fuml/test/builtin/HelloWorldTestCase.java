@@ -3,11 +3,12 @@ package org.modeldriven.fuml.test.builtin;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.modeldriven.fuml.test.FUMLTestSetup;
-import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
-import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
-import fUML.Syntax.Activities.IntermediateActivities.Activity;
-import fUML.Syntax.Classes.Kernel.Element;
-import fUML.Syntax.Classes.Kernel.LiteralString;
+
+import fuml.semantics.structuredclassifiers.ExtensionalValueList;
+import fuml.syntax.actions.ValueSpecificationAction;
+import fuml.syntax.activities.Activity;
+import fuml.syntax.commonstructure.Element;
+import fuml.syntax.values.LiteralString;
 import junit.framework.Test;
 
 /**

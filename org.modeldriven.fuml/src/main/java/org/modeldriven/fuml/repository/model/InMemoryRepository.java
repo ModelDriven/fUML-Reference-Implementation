@@ -56,9 +56,9 @@ import org.modeldriven.fuml.xmi.InvalidReferenceException;
 import org.modeldriven.fuml.xmi.XmiException;
 import org.xml.sax.SAXException;
 
-import fUML.Syntax.Classes.Kernel.Generalization;
-import fUML.Syntax.Classes.Kernel.Operation;
-import fUML.Syntax.Classes.Kernel.PackageableElement;
+import fuml.syntax.classification.Generalization;
+import fuml.syntax.classification.Operation;
+import fuml.syntax.commonstructure.PackageableElement;
 
 public class InMemoryRepository extends InMemoryMapping 
     implements org.modeldriven.fuml.repository.Repository 
@@ -277,22 +277,22 @@ public class InMemoryRepository extends InMemoryMapping
 		Iterator<PackageableElement> elementIter = p.getPackagedElement().iterator();
 		while (elementIter.hasNext()) {
     		PackageableElement element = elementIter.next();
-    		if (element instanceof fUML.Syntax.Classes.Kernel.Class_)
+    		if (element instanceof fuml.syntax.structuredclassifiers.Class_)
     		{
-    			fUML.Syntax.Classes.Kernel.Class_ c = (fUML.Syntax.Classes.Kernel.Class_)element;
+    			fuml.syntax.structuredclassifiers.Class_ c = (fuml.syntax.structuredclassifiers.Class_)element;
     			Class_ clss = new org.modeldriven.fuml.repository.model.Class_(c, p.getArtifact());
     			classifierNameToClassifierMap.put(c.name, clss);
     			classifierNameToPackageNameMap.put(c.name, p.getQualifiedName());
     		}
-    		else if (element instanceof fUML.Syntax.Classes.Kernel.Classifier)
+    		else if (element instanceof fuml.syntax.classification.Classifier)
     		{
-    			fUML.Syntax.Classes.Kernel.Classifier c = (fUML.Syntax.Classes.Kernel.Classifier)element;
+    			fuml.syntax.classification.Classifier c = (fuml.syntax.classification.Classifier)element;
     			Classifier classifier = new org.modeldriven.fuml.repository.model.Classifier(c, p.getArtifact());
     			classifierNameToClassifierMap.put(c.name, classifier);
     			classifierNameToPackageNameMap.put(c.name, p.getQualifiedName());
     		}
-    		else if (element instanceof fUML.Syntax.Classes.Kernel.Package) {
-    			Package pkg = new org.modeldriven.fuml.repository.model.Package((fUML.Syntax.Classes.Kernel.Package)element, p.getArtifact());
+    		else if (element instanceof fuml.syntax.packages.Package) {
+    			Package pkg = new org.modeldriven.fuml.repository.model.Package((fuml.syntax.packages.Package)element, p.getArtifact());
     			registerPackage(pkg); 			
     		}
 		}
@@ -356,11 +356,11 @@ public class InMemoryRepository extends InMemoryMapping
 
     
     protected void collectAttributes(Class_ clss, List<Property> attributes) {
-        fUML.Syntax.Classes.Kernel.Property[] props = new fUML.Syntax.Classes.Kernel.Property[clss.getDelegate().ownedAttribute.size()];
+        fuml.syntax.classification.Property[] props = new fuml.syntax.classification.Property[clss.getDelegate().ownedAttribute.size()];
         clss.getDelegate().ownedAttribute.toArray(props);
         for (int i = 0; i < props.length; i++)
         {
-        	fUML.Syntax.Classes.Kernel.Property fumlProperty = props[i];        	
+        	fuml.syntax.classification.Property fumlProperty = props[i];        	
     		Property property = new org.modeldriven.fuml.repository.model.Property(fumlProperty, clss.getArtifact());
     		
             attributes.add(property);

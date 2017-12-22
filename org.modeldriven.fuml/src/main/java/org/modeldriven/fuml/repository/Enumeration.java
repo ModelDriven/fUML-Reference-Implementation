@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface Enumeration extends DataType {
 
-	public fUML.Syntax.Classes.Kernel.Enumeration getDelegate();  
+	public fuml.syntax.simpleclassifiers.Enumeration getDelegate();  
 	
 	public List<EnumerationLiteral> getOwnedLiteral();
     

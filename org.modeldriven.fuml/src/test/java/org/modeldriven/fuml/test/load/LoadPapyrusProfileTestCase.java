@@ -124,7 +124,7 @@ public class LoadPapyrusProfileTestCase extends FUMLTest {
 		assertTrue(hasStereotype(dunsProp, EnumerationConstraint.class));
 		EnumerationConstraint enumConstraint = (EnumerationConstraint)getStereotype(dunsProp, 
 				EnumerationConstraint.class).getDelegate();
-		fUML.Syntax.Classes.Kernel.Enumeration e = enumConstraint.getValue();		
+		fuml.syntax.simpleclassifiers.Enumeration e = enumConstraint.getValue();		
 		Enumeration repoEnum = (Enumeration)Repository.INSTANCE.findElementById(e.getXmiId());
 		assertTrue(repoEnum != null);
 		assertTrue("DUNSType".equals(repoEnum.getName()));

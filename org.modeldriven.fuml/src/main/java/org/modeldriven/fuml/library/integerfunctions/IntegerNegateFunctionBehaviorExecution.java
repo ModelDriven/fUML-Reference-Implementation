@@ -15,7 +15,7 @@
 
 package org.modeldriven.fuml.library.integerfunctions;
 
-import fUML.Debug;
+import fuml.Debug;
 
 public class IntegerNegateFunctionBehaviorExecution extends
         IntegerFunctionBehaviorExecution {
@@ -31,7 +31,7 @@ public class IntegerNegateFunctionBehaviorExecution extends
     	return i;
     }
 
-    public fUML.Semantics.Classes.Kernel.Value new_() {
+    public fuml.semantics.classification.Value new_() {
         // Create a new instance of this kind of function behavior execution.
         return new IntegerNegateFunctionBehaviorExecution();
     }

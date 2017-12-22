@@ -29,23 +29,23 @@ import org.modeldriven.fuml.repository.RepositoryMapping;
 import org.modeldriven.fuml.repository.RepositorylException;
 
 import UMLPrimitiveTypes.UnlimitedNatural;
-import fUML.Syntax.Classes.Kernel.Association;
-import fUML.Syntax.Classes.Kernel.Class_;
-import fUML.Syntax.Classes.Kernel.Classifier;
-import fUML.Syntax.Classes.Kernel.Enumeration;
-import fUML.Syntax.Classes.Kernel.EnumerationLiteral;
-import fUML.Syntax.Classes.Kernel.Generalization;
-import fUML.Syntax.Classes.Kernel.InstanceSpecification;
-import fUML.Syntax.Classes.Kernel.InstanceValue;
-import fUML.Syntax.Classes.Kernel.LiteralBoolean;
-import fUML.Syntax.Classes.Kernel.LiteralInteger;
-import fUML.Syntax.Classes.Kernel.LiteralSpecification;
-import fUML.Syntax.Classes.Kernel.LiteralString;
-import fUML.Syntax.Classes.Kernel.LiteralUnlimitedNatural;
-import fUML.Syntax.Classes.Kernel.Package;
-import fUML.Syntax.Classes.Kernel.PrimitiveType;
-import fUML.Syntax.Classes.Kernel.Property;
-import fUML.Syntax.Classes.Kernel.ValueSpecification;
+import fuml.syntax.classification.Classifier;
+import fuml.syntax.classification.Generalization;
+import fuml.syntax.classification.InstanceSpecification;
+import fuml.syntax.classification.InstanceValue;
+import fuml.syntax.classification.Property;
+import fuml.syntax.packages.Package;
+import fuml.syntax.simpleclassifiers.Enumeration;
+import fuml.syntax.simpleclassifiers.EnumerationLiteral;
+import fuml.syntax.simpleclassifiers.PrimitiveType;
+import fuml.syntax.structuredclassifiers.Association;
+import fuml.syntax.structuredclassifiers.Class_;
+import fuml.syntax.values.LiteralBoolean;
+import fuml.syntax.values.LiteralInteger;
+import fuml.syntax.values.LiteralSpecification;
+import fuml.syntax.values.LiteralString;
+import fuml.syntax.values.LiteralUnlimitedNatural;
+import fuml.syntax.values.ValueSpecification;
 
 public class ModelFactory 
 {

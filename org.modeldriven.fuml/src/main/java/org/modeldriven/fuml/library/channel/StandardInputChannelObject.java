@@ -15,8 +15,8 @@ import java.io.InputStreamReader;
 import org.modeldriven.fuml.library.common.Status;
 
 import UMLPrimitiveTypes.UnlimitedNatural;
-import fUML.Semantics.Classes.Kernel.StringValue;
-import fUML.Semantics.Classes.Kernel.Value;
+import fuml.semantics.classification.Value;
+import fuml.semantics.simpleclassifiers.StringValue;
 
 public class StandardInputChannelObject extends TextInputChannelObject {
 	

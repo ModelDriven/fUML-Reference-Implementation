@@ -17,8 +17,8 @@ import org.modeldriven.fuml.library.common.Status;
 import org.modeldriven.fuml.library.libraryclass.ImplementationObject;
 import org.modeldriven.fuml.library.libraryclass.OperationExecution;
 
-import fUML.Semantics.Classes.Kernel.BooleanValue;
-import fUML.Semantics.Classes.Kernel.StringValue;
+import fuml.semantics.simpleclassifiers.BooleanValue;
+import fuml.semantics.simpleclassifiers.StringValue;
 
 public abstract class ChannelObject extends ImplementationObject {
 	

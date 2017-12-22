@@ -6,15 +6,15 @@ import org.modeldriven.fuml.repository.RepositoryArtifact;
 public class Association extends Classifier 
     implements org.modeldriven.fuml.repository.Association {
 
-	private fUML.Syntax.Classes.Kernel.Association association;
+	private fuml.syntax.structuredclassifiers.Association association;
 	    
-    public Association(fUML.Syntax.Classes.Kernel.Association association,
+    public Association(fuml.syntax.structuredclassifiers.Association association,
     		RepositoryArtifact artifact) {
     	super(association, artifact);
     	this.association = association;
     }
     
-	public fUML.Syntax.Classes.Kernel.Association getDelegate() {
+	public fuml.syntax.structuredclassifiers.Association getDelegate() {
 		return this.association;
 	}    
     

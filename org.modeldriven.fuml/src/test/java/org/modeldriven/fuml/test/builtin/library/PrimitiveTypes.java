@@ -11,9 +11,9 @@
 
 package org.modeldriven.fuml.test.builtin.library;
 
-import fUML.Syntax.Classes.Kernel.PrimitiveType;
-
 import org.modeldriven.fuml.library.Library;
+
+import fuml.syntax.simpleclassifiers.PrimitiveType;
 
 public class PrimitiveTypes extends org.modeldriven.fuml.FumlObject {
 

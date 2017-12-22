@@ -4,10 +4,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.modeldriven.fuml.test.FUMLTestSetup;
 
-import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
-import fUML.Semantics.Classes.Kernel.Reference;
-import fUML.Semantics.Classes.Kernel.Value;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+import fuml.semantics.activities.ActivityExecution;
+import fuml.semantics.classification.Value;
+import fuml.semantics.commonbehavior.ParameterValueList;
+import fuml.semantics.structuredclassifiers.Reference;
 import junit.framework.Test;
 
 public class SelfReaderTestCase extends BuiltInTest {

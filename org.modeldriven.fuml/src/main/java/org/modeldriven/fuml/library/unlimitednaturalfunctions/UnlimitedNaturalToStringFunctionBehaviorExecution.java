@@ -17,16 +17,16 @@ package org.modeldriven.fuml.library.unlimitednaturalfunctions;
 
 import org.modeldriven.fuml.library.LibraryFunctions;
 
-import fUML.Debug;
-import fUML.Semantics.Classes.Kernel.StringValue;
-import fUML.Semantics.Classes.Kernel.UnlimitedNaturalValue;
+import fuml.Debug;
+import fuml.semantics.simpleclassifiers.StringValue;
+import fuml.semantics.simpleclassifiers.UnlimitedNaturalValue;
 
 public class UnlimitedNaturalToStringFunctionBehaviorExecution extends
-		fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution {
+		fuml.semantics.commonbehavior.OpaqueBehaviorExecution {
 
 	public void doBody(
-			fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList inputParameters,
-			fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList outputParameters) {
+			fuml.semantics.commonbehavior.ParameterValueList inputParameters,
+			fuml.semantics.commonbehavior.ParameterValueList outputParameters) {
 
 		UnlimitedNaturalValue unv1 = (UnlimitedNaturalValue) inputParameters.getValue(0).values.getValue(0);
 		Debug.println("[doBody] argument = " + unv1.value.naturalValue);
@@ -43,7 +43,7 @@ public class UnlimitedNaturalToStringFunctionBehaviorExecution extends
 	}
 	
     @Override
-    public fUML.Semantics.Classes.Kernel.Value new_() {
+    public fuml.semantics.classification.Value new_() {
         return new UnlimitedNaturalToStringFunctionBehaviorExecution();
     }	
 

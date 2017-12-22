@@ -11,10 +11,20 @@
 
 package org.modeldriven.fuml.test.builtin.environment;
 
-import fUML.Debug;
-import fUML.Syntax.Classes.Kernel.*;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.*;
-import fUML.Syntax.CommonBehaviors.Communications.*;
+import fuml.Debug;
+import fuml.syntax.classification.AggregationKind;
+import fuml.syntax.classification.Classifier;
+import fuml.syntax.classification.Generalization;
+import fuml.syntax.classification.Operation;
+import fuml.syntax.classification.Property;
+import fuml.syntax.commonbehavior.Behavior;
+import fuml.syntax.commonstructure.NamedElement;
+import fuml.syntax.simpleclassifiers.DataType;
+import fuml.syntax.simpleclassifiers.Enumeration;
+import fuml.syntax.simpleclassifiers.EnumerationLiteral;
+import fuml.syntax.simpleclassifiers.Signal;
+import fuml.syntax.structuredclassifiers.Association;
+import fuml.syntax.structuredclassifiers.Class_;
 
 public class ClassifierFactory {
 
@@ -253,8 +263,8 @@ public class ClassifierFactory {
 		subtype.addGeneralization(generalization);
 	} // addGeneralization
 
-	protected fUML.Syntax.Classes.Kernel.Operation getOperation(
-			fUML.Syntax.Classes.Kernel.Class_ class_, String operationName) {
+	protected fuml.syntax.classification.Operation getOperation(
+			fuml.syntax.structuredclassifiers.Class_ class_, String operationName) {
 		for (int i = 0; i < class_.member.size(); i++) {
 			NamedElement member = class_.member.getValue(i);
 			if (member.name.equals(operationName)) {

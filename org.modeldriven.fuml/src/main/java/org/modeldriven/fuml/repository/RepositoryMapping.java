@@ -2,17 +2,17 @@ package org.modeldriven.fuml.repository;
 
 import org.modeldriven.fuml.repository.ext.Stereotype;
 
-import fUML.Syntax.Classes.Kernel.Association;
-import fUML.Syntax.Classes.Kernel.Class_;
-import fUML.Syntax.Classes.Kernel.Classifier;
-import fUML.Syntax.Classes.Kernel.DataType;
-import fUML.Syntax.Classes.Kernel.Element;
-import fUML.Syntax.Classes.Kernel.Enumeration;
-import fUML.Syntax.Classes.Kernel.EnumerationLiteral;
-import fUML.Syntax.Classes.Kernel.NamedElement;
-import fUML.Syntax.Classes.Kernel.Package;
-import fUML.Syntax.Classes.Kernel.PrimitiveType;
-import fUML.Syntax.Classes.Kernel.Property;
+import fuml.syntax.classification.Classifier;
+import fuml.syntax.classification.Property;
+import fuml.syntax.commonstructure.Element;
+import fuml.syntax.commonstructure.NamedElement;
+import fuml.syntax.packages.Package;
+import fuml.syntax.simpleclassifiers.DataType;
+import fuml.syntax.simpleclassifiers.Enumeration;
+import fuml.syntax.simpleclassifiers.EnumerationLiteral;
+import fuml.syntax.simpleclassifiers.PrimitiveType;
+import fuml.syntax.structuredclassifiers.Association;
+import fuml.syntax.structuredclassifiers.Class_;
 
 public interface RepositoryMapping {
 

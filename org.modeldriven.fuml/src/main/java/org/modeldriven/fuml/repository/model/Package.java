@@ -8,20 +8,20 @@ public class Package extends NamedElement
     implements org.modeldriven.fuml.repository.Package 
 {
 
-	private fUML.Syntax.Classes.Kernel.Package package_;
+	private fuml.syntax.packages.Package package_;
     private Package nestingPackage;
 	    
-    public Package(fUML.Syntax.Classes.Kernel.Package package_,
+    public Package(fuml.syntax.packages.Package package_,
     		RepositoryArtifact artifact) {
     	super(package_, artifact);
     	this.package_ = package_;
     }
 
-    public fUML.Syntax.Classes.Kernel.PackageableElementList getPackagedElement() {
+    public fuml.syntax.commonstructure.PackageableElementList getPackagedElement() {
     	return this.package_.packagedElement;
     }
     
-    public fUML.Syntax.Classes.Kernel.Package getDelegate() {
+    public fuml.syntax.packages.Package getDelegate() {
     	return this.package_;
     }
 

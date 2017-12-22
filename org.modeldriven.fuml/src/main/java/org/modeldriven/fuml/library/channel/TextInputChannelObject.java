@@ -12,13 +12,12 @@ import org.modeldriven.fuml.library.common.Status;
 import org.modeldriven.fuml.library.libraryclass.OperationExecution;
 
 import UMLPrimitiveTypes.UnlimitedNatural;
-
-import fUML.Semantics.Classes.Kernel.BooleanValue;
-import fUML.Semantics.Classes.Kernel.IntegerValue;
-import fUML.Semantics.Classes.Kernel.PrimitiveValue;
-import fUML.Semantics.Classes.Kernel.RealValue;
-import fUML.Semantics.Classes.Kernel.StringValue;
-import fUML.Semantics.Classes.Kernel.UnlimitedNaturalValue;
+import fuml.semantics.simpleclassifiers.BooleanValue;
+import fuml.semantics.simpleclassifiers.PrimitiveValue;
+import fuml.semantics.simpleclassifiers.RealValue;
+import fuml.semantics.simpleclassifiers.StringValue;
+import fuml.semantics.simpleclassifiers.UnlimitedNaturalValue;
+import fuml.syntax.simpleclassifiers.IntegerValue;
 
 public abstract class TextInputChannelObject extends InputChannelObject {
 

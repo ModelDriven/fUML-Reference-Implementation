@@ -16,7 +16,7 @@
 package org.modeldriven.fuml.library.unlimitednaturalfunctions;
 
 import UMLPrimitiveTypes.intList;
-import fUML.Debug;
+import fuml.Debug;
 
 public class UnlimitedNaturalMaxFunctionBehaviorExecution extends
         UnlimitedNaturalFunctionBehaviorExecution {
@@ -37,7 +37,7 @@ public class UnlimitedNaturalMaxFunctionBehaviorExecution extends
     }
 
 	@Override
-    public fUML.Semantics.Classes.Kernel.Value new_() {
+    public fuml.semantics.classification.Value new_() {
         return new UnlimitedNaturalMaxFunctionBehaviorExecution();
     }
 

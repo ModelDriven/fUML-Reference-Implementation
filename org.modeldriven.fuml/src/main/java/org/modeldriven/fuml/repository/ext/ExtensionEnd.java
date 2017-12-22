@@ -2,7 +2,7 @@ package org.modeldriven.fuml.repository.ext;
 
 
 
-public class ExtensionEnd extends fUML.Syntax.Classes.Kernel.Property {
+public class ExtensionEnd extends fuml.syntax.classification.Property {
 
 
 } // ExtensionEnd

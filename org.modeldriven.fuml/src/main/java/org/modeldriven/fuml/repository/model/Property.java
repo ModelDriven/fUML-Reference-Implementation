@@ -16,24 +16,24 @@ import org.modeldriven.fuml.repository.RepositorylException;
 import org.modeldriven.fuml.xmi.InvalidReferenceException;
 
 import UMLPrimitiveTypes.UnlimitedNatural;
-import fUML.Syntax.Classes.Kernel.Association;
-import fUML.Syntax.Classes.Kernel.EnumerationLiteral;
-import fUML.Syntax.Classes.Kernel.InstanceValue;
-import fUML.Syntax.Classes.Kernel.LiteralBoolean;
-import fUML.Syntax.Classes.Kernel.LiteralInteger;
-import fUML.Syntax.Classes.Kernel.LiteralNull;
-import fUML.Syntax.Classes.Kernel.LiteralString;
-import fUML.Syntax.Classes.Kernel.LiteralUnlimitedNatural;
-import fUML.Syntax.Classes.Kernel.ValueSpecification;
+import fuml.syntax.classification.InstanceValue;
+import fuml.syntax.simpleclassifiers.EnumerationLiteral;
+import fuml.syntax.structuredclassifiers.Association;
+import fuml.syntax.values.LiteralBoolean;
+import fuml.syntax.values.LiteralInteger;
+import fuml.syntax.values.LiteralNull;
+import fuml.syntax.values.LiteralString;
+import fuml.syntax.values.LiteralUnlimitedNatural;
+import fuml.syntax.values.ValueSpecification;
 
 public class Property extends NamedElement 
     implements org.modeldriven.fuml.repository.Property{
 
 
     private static Log log = LogFactory.getLog(Property.class);
-	private fUML.Syntax.Classes.Kernel.Property property;
+	private fuml.syntax.classification.Property property;
 	    
-    public Property(fUML.Syntax.Classes.Kernel.Property property,
+    public Property(fuml.syntax.classification.Property property,
     		RepositoryArtifact artifact) {
     	super(property, artifact);
     	this.property = property;
@@ -59,7 +59,7 @@ public class Property extends NamedElement
 		}
 		
 		if (property.owningAssociation == null) {
-			fUML.Syntax.Classes.Kernel.Property otherEnd = getOtherEnd(this);
+			fuml.syntax.classification.Property otherEnd = getOtherEnd(this);
 
 			if (otherEnd != null && otherEnd.owningAssociation == null) {
 				this.property.opposite = otherEnd;
@@ -70,7 +70,7 @@ public class Property extends NamedElement
 		return null;
 	}
 	
-	public fUML.Syntax.Classes.Kernel.Property getDelegate() {
+	public fuml.syntax.classification.Property getDelegate() {
 		return this.property;
 	}
 
@@ -222,7 +222,7 @@ public class Property extends NamedElement
         }
     }
     
-	private static fUML.Syntax.Classes.Kernel.Property getOtherEnd(org.modeldriven.fuml.repository.Property property) {
+	private static fuml.syntax.classification.Property getOtherEnd(org.modeldriven.fuml.repository.Property property) {
 		Association association = property.getAssociation();
 
 		if (association != null) {
@@ -232,7 +232,7 @@ public class Property extends NamedElement
 				int index = memberEnds.indexOf(property.getDelegate());
 
 				if (index != -1) {
-					return (fUML.Syntax.Classes.Kernel.Property) memberEnds.get(Math.abs(index - 1));
+					return (fuml.syntax.classification.Property) memberEnds.get(Math.abs(index - 1));
 				}
 			}
 			else if (log.isDebugEnabled())

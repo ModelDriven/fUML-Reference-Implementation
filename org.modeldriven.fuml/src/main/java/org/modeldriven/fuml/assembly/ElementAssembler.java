@@ -60,14 +60,14 @@ import org.modeldriven.fuml.xmi.validation.ValidationError;
 import org.modeldriven.fuml.xmi.validation.ValidationException;
 
 import UMLPrimitiveTypes.UnlimitedNatural;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution;
-import fUML.Syntax.Classes.Kernel.Comment;
-import fUML.Syntax.Classes.Kernel.DataType;
-import fUML.Syntax.Classes.Kernel.Element;
-import fUML.Syntax.Classes.Kernel.Generalization;
-import fUML.Syntax.Classes.Kernel.Enumeration;
-import fUML.Syntax.Classes.Kernel.PrimitiveType;
-import fUML.Syntax.Classes.Kernel.Type;
+import fuml.semantics.commonbehavior.OpaqueBehaviorExecution;
+import fuml.syntax.classification.Generalization;
+import fuml.syntax.commonstructure.Comment;
+import fuml.syntax.commonstructure.Element;
+import fuml.syntax.commonstructure.Type;
+import fuml.syntax.simpleclassifiers.DataType;
+import fuml.syntax.simpleclassifiers.Enumeration;
+import fuml.syntax.simpleclassifiers.PrimitiveType;
 
 public class ElementAssembler extends AssemblerNode implements XmiIdentity, Assembler {
 
@@ -274,15 +274,15 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
             // assembly where we remove chunks of XMI from the parent (packagedElement), this
             // scheme breaks because it relies on a continuous graph. 
             String qualifiedPackageName = "";
-            fUML.Syntax.Classes.Kernel.Package parentPackage = null;
+            fuml.syntax.packages.Package parentPackage = null;
             if (assembler.getParentAssembler() != null && 
-                assembler.getParentAssembler().getTarget() instanceof fUML.Syntax.Classes.Kernel.Package) {
-            	parentPackage = (fUML.Syntax.Classes.Kernel.Package)assembler.getParentAssembler().getTarget();
+                assembler.getParentAssembler().getTarget() instanceof fuml.syntax.packages.Package) {
+            	parentPackage = (fuml.syntax.packages.Package)assembler.getParentAssembler().getTarget();
             }
 
             for (int i = 0; (assembler = assembler.getParentAssembler()) != null; i++) {
-                if (assembler.getTarget() instanceof fUML.Syntax.Classes.Kernel.Package) {
-                	fUML.Syntax.Classes.Kernel.Package pckg = (fUML.Syntax.Classes.Kernel.Package) assembler.getTarget();
+                if (assembler.getTarget() instanceof fuml.syntax.packages.Package) {
+                	fuml.syntax.packages.Package pckg = (fuml.syntax.packages.Package) assembler.getTarget();
                     String name = pckg.name;
                     if (i > 0)
                         qualifiedPackageName = name + "." + qualifiedPackageName;
@@ -304,9 +304,9 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
             if (parentPackage != null)
             	targetType.package_ = parentPackage;
             
-            if (!(targetType instanceof fUML.Syntax.Classes.Kernel.Class_))
+            if (!(targetType instanceof fuml.syntax.structuredclassifiers.Class_))
             	return;
-            fUML.Syntax.Classes.Kernel.Class_ targetClass = (fUML.Syntax.Classes.Kernel.Class_)targetType;
+            fuml.syntax.structuredclassifiers.Class_ targetClass = (fuml.syntax.structuredclassifiers.Class_)targetType;
 
             String implObjectClassName = FumlConfiguration.getInstance().findExecutionClassName(
                     libraryObjectClassName);
@@ -674,7 +674,7 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
                 assembleSingularPrimitiveFeature(property, value, javaType);
             else
                 assembleCollectionPrimitiveFeature(property, value, javaType);
-        } else if (type.getDelegate() instanceof fUML.Syntax.Classes.Kernel.Class_) {
+        } else if (type.getDelegate() instanceof fuml.syntax.structuredclassifiers.Class_) {
             if (UnlimitedNatural.class.getSimpleName().equals(type.getName())) {
                 UnlimitedNatural value = new UnlimitedNatural();
                 if ("*".equals(stringValue))

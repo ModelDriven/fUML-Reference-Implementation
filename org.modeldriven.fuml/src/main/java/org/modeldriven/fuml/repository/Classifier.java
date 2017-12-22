@@ -8,7 +8,7 @@ public interface Classifier extends NamedElement {
 
 
  
-	public fUML.Syntax.Classes.Kernel.Classifier getDelegate();
+	public fuml.syntax.classification.Classifier getDelegate();
     
     public List<Classifier> getGeneral();
     

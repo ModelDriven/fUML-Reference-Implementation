@@ -4,10 +4,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.modeldriven.fuml.test.FUMLTestSetup;
 
-import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
-import fUML.Semantics.Classes.Kernel.ExtensionalValue;
-import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
-import fUML.Semantics.Classes.Kernel.FeatureValueList;
+import fuml.semantics.activities.ActivityExecution;
+import fuml.semantics.simpleclassifiers.FeatureValueList;
+import fuml.semantics.structuredclassifiers.ExtensionalValue;
+import fuml.semantics.structuredclassifiers.ExtensionalValueList;
 import junit.framework.Test;
 
 public class CallSendTestCase extends BuiltInTest {

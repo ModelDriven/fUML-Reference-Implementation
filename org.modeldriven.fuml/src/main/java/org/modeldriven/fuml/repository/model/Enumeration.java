@@ -10,15 +10,15 @@ import org.modeldriven.fuml.repository.RepositoryArtifact;
 public class Enumeration extends DataType 
     implements org.modeldriven.fuml.repository.Enumeration {
 
-	private fUML.Syntax.Classes.Kernel.Enumeration enumeration;
+	private fuml.syntax.simpleclassifiers.Enumeration enumeration;
 	    
-    public Enumeration(fUML.Syntax.Classes.Kernel.Enumeration enumeration,
+    public Enumeration(fuml.syntax.simpleclassifiers.Enumeration enumeration,
     		RepositoryArtifact artifact) {
     	super(enumeration, artifact);
     	this.enumeration = enumeration;
     }
     
-	public fUML.Syntax.Classes.Kernel.Enumeration getDelegate() {
+	public fuml.syntax.simpleclassifiers.Enumeration getDelegate() {
 		return this.enumeration;
 	}
 
@@ -26,7 +26,7 @@ public class Enumeration extends DataType
 		
 		List<EnumerationLiteral> result = new ArrayList<EnumerationLiteral>();
 		
-		for (fUML.Syntax.Classes.Kernel.EnumerationLiteral literal : this.enumeration.ownedLiteral) {
+		for (fuml.syntax.simpleclassifiers.EnumerationLiteral literal : this.enumeration.ownedLiteral) {
 			result.add(new org.modeldriven.fuml.repository.model.EnumerationLiteral(literal, this.getArtifact()));
 		}
 		return result;

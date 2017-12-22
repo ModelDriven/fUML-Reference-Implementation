@@ -14,20 +14,19 @@ import org.modeldriven.fuml.repository.Repository;
 import org.modeldriven.fuml.test.FUMLTest;
 import org.modeldriven.fuml.test.FUMLTestSetup;
 
-
-import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
-import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
-import fUML.Syntax.Activities.IntermediateActivities.Activity;
-import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
-import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
-import fUML.Syntax.Activities.IntermediateActivities.ObjectNode;
-import fUML.Syntax.Classes.Kernel.DataType;
-import fUML.Syntax.Classes.Kernel.Feature;
-import fUML.Syntax.Classes.Kernel.LiteralInteger;
-import fUML.Syntax.Classes.Kernel.LiteralUnlimitedNatural;
-import fUML.Syntax.Classes.Kernel.NamedElement;
-import fUML.Syntax.Classes.Kernel.Parameter;
-import fUML.Syntax.Classes.Kernel.TypedElement;
+import fuml.syntax.actions.CallBehaviorAction;
+import fuml.syntax.actions.ExpansionRegion;
+import fuml.syntax.activities.Activity;
+import fuml.syntax.activities.ActivityEdge;
+import fuml.syntax.activities.ActivityParameterNode;
+import fuml.syntax.activities.ObjectNode;
+import fuml.syntax.classification.Feature;
+import fuml.syntax.classification.Parameter;
+import fuml.syntax.commonstructure.NamedElement;
+import fuml.syntax.commonstructure.TypedElement;
+import fuml.syntax.simpleclassifiers.DataType;
+import fuml.syntax.values.LiteralInteger;
+import fuml.syntax.values.LiteralUnlimitedNatural;
 
 
 

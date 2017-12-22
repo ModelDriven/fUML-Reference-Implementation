@@ -15,7 +15,7 @@
 
 package org.modeldriven.fuml.library.integerfunctions;
 
-import fUML.Debug;
+import fuml.Debug;
 
 public class IntegerLessThanFunctionBehaviorExecution extends
         IntegerRelationalFunctionBehaviorExecution {
@@ -31,7 +31,7 @@ public class IntegerLessThanFunctionBehaviorExecution extends
     	return b;
     }
 
-    public fUML.Semantics.Classes.Kernel.Value new_() {
+    public fuml.semantics.classification.Value new_() {
         // Create a new instance of this kind of function behavior execution.
         return new IntegerLessThanFunctionBehaviorExecution();
     }

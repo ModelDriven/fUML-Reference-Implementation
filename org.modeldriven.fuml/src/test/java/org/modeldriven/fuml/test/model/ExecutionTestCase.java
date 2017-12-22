@@ -12,16 +12,16 @@ import org.modeldriven.fuml.environment.ExecutionEnvironment;
 import org.modeldriven.fuml.test.FUMLTest;
 import org.modeldriven.fuml.test.FUMLTestSetup;
 
-import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
-import fUML.Semantics.Classes.Kernel.BooleanValue;
-import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
-import fUML.Semantics.Classes.Kernel.FeatureValueList;
-import fUML.Semantics.Classes.Kernel.Reference;
-import fUML.Semantics.Classes.Kernel.Value;
-import fUML.Semantics.Classes.Kernel.ValueList;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import fUML.Syntax.Classes.Kernel.Class_;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
+import fuml.semantics.activities.ActivityExecution;
+import fuml.semantics.classification.Value;
+import fuml.semantics.classification.ValueList;
+import fuml.semantics.commonbehavior.ParameterValueList;
+import fuml.semantics.simpleclassifiers.BooleanValue;
+import fuml.semantics.simpleclassifiers.FeatureValueList;
+import fuml.semantics.structuredclassifiers.ExtensionalValueList;
+import fuml.semantics.structuredclassifiers.Reference;
+import fuml.syntax.commonbehavior.Behavior;
+import fuml.syntax.structuredclassifiers.Class_;
 
 /**
  * 

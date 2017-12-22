@@ -21,7 +21,7 @@ import org.modeldriven.fuml.io.IncrementalArtifactLoader;
 import org.modeldriven.fuml.io.FileArtifact;
 import org.modeldriven.fuml.io.ResourceArtifact;
 
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
+import fuml.syntax.commonbehavior.Behavior;
 
 public class Fuml {
     private static Log log = LogFactory.getLog(Fuml.class);

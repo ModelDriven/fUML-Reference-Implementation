@@ -2,7 +2,7 @@ package org.modeldriven.fuml.repository.ext;
 
 
 
-public class Model extends fUML.Syntax.Classes.Kernel.Package {
+public class Model extends fuml.syntax.packages.Package {
 
 
 } // Model

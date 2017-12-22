@@ -17,7 +17,7 @@ package org.modeldriven.fuml.library.realfunctions;
 
 import java.util.List;
 
-import fUML.Debug;
+import fuml.Debug;
 
 public class RealTimesFunctionBehaviorExecution extends
         RealFunctionBehaviorExecution {
@@ -33,7 +33,7 @@ public class RealTimesFunctionBehaviorExecution extends
     	return x;
     }
 
-    public fUML.Semantics.Classes.Kernel.Value new_() {
+    public fuml.semantics.classification.Value new_() {
         // Create a new instance of this kind of function behavior execution.
         return new RealTimesFunctionBehaviorExecution();
     }

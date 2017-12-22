@@ -17,17 +17,17 @@ package org.modeldriven.fuml.library.listfunctions;
 
 import org.modeldriven.fuml.library.LibraryFunctions;
 
-import fUML.Debug;
-import fUML.Semantics.Classes.Kernel.IntegerValue;
-import fUML.Semantics.Classes.Kernel.ValueList;
+import fuml.Debug;
+import fuml.semantics.classification.ValueList;
+import fuml.syntax.simpleclassifiers.IntegerValue;
 
 public class ListSizeFunctionBehaviorExecution extends
-        fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution {
+        fuml.semantics.commonbehavior.OpaqueBehaviorExecution {
 
 	@Override
     public void doBody(
-            fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList inputParameters,
-            fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList outputParameters) {
+            fuml.semantics.commonbehavior.ParameterValueList inputParameters,
+            fuml.semantics.commonbehavior.ParameterValueList outputParameters) {
     	
     	// Get the list for which to determine the size
     	ValueList vl = (ValueList) inputParameters.getValue(0).values;
@@ -47,7 +47,7 @@ public class ListSizeFunctionBehaviorExecution extends
     }
     
 	@Override
-    public fUML.Semantics.Classes.Kernel.Value new_() {
+    public fuml.semantics.classification.Value new_() {
         // Create a new instance of this kind of function behavior execution.
         return new ListSizeFunctionBehaviorExecution();
     }   

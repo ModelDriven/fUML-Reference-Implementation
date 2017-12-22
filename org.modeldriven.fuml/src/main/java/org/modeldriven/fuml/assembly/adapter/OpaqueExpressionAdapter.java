@@ -21,11 +21,11 @@ import org.modeldriven.fuml.xmi.XmiNode;
 import org.modeldriven.fuml.xmi.stream.StreamNode;
 
 import UMLPrimitiveTypes.UnlimitedNatural;
-import fUML.Syntax.Classes.Kernel.Element;
-import fUML.Syntax.Classes.Kernel.LiteralBoolean;
-import fUML.Syntax.Classes.Kernel.LiteralInteger;
-import fUML.Syntax.Classes.Kernel.LiteralString;
-import fUML.Syntax.Classes.Kernel.LiteralUnlimitedNatural;
+import fuml.syntax.commonstructure.Element;
+import fuml.syntax.values.LiteralBoolean;
+import fuml.syntax.values.LiteralInteger;
+import fuml.syntax.values.LiteralString;
+import fuml.syntax.values.LiteralUnlimitedNatural;
 
 /**
  * OpaqueExpression is not supported in fUML and this class adapts 
