@@ -42,11 +42,9 @@ import org.modeldriven.fuml.repository.Package;
 import org.modeldriven.fuml.repository.Property;
 import org.modeldriven.fuml.repository.RepositoryConfigDataBinding;
 import org.modeldriven.fuml.repository.RepositoryMapping;
-import org.modeldriven.fuml.repository.RepositorylException;
+import org.modeldriven.fuml.repository.RepositoryException;
 import org.modeldriven.fuml.repository.Extension;
 import org.modeldriven.fuml.repository.Stereotype;
-import org.modeldriven.fuml.repository.merge.PackageGraphNode;
-import org.modeldriven.fuml.repository.merge.PackageGraphVisitor;
 import org.modeldriven.fuml.xmi.InvalidReferenceException;
 import org.modeldriven.fuml.xmi.XmiException;
 import org.xml.sax.SAXException;
@@ -85,9 +83,9 @@ public class InMemoryRepository extends InMemoryMapping
             config = unmarshalConfig(activeConfigFileName, configBinding);
             
         } catch (SAXException e) {
-            throw new RepositorylException(e);
+            throw new RepositoryException(e);
         } catch (JAXBException e) {
-            throw new RepositorylException(e);
+            throw new RepositoryException(e);
         }
 
         Iterator<IgnoredPackage> packages = config.getIgnoredPackage().iterator();
@@ -107,13 +105,13 @@ public class InMemoryRepository extends InMemoryMapping
 
     }
     
-    public static InMemoryRepository getInstance() throws RepositorylException {
+    public static InMemoryRepository getInstance() throws RepositoryException {
         if (instance == null)
             initializeInstance();
         return instance;
     }
 
-    private static synchronized void initializeInstance() throws RepositorylException {
+    private static synchronized void initializeInstance() throws RepositoryException {
         if (instance == null)
             instance = new InMemoryRepository();
     }
@@ -152,10 +150,8 @@ public class InMemoryRepository extends InMemoryMapping
         implClass.setAttributes(attributes);
         implClass.setOperations(operations);
         
-        // map final unqualifed class (post merge) to the default namespace, ...
+        // map final unqualified class to the default namespace, ...
         // FIXME: do we map by every "supported" namespace
-        // FIXME: do we map by the final package name post merge? This currently
-        // causes errors below. 
         String namespaceQualifiedName = this.config.getDefaultUMLNamespaceURI() + "#" + className;
         this.qualifiedClassifierNameToClassifierMap.put(namespaceQualifiedName, clss);
 
@@ -204,13 +200,10 @@ public class InMemoryRepository extends InMemoryMapping
             }
             catch (Throwable e) {
             	log.error(e.getMessage(), e);
-            	throw new RepositorylException(e);
+            	throw new RepositoryException(e);
             }
         }
     	
-        log.info("performing package merge...");
-        merge();
-        
         artifacts = config.getArtifact().iterator();
         while (artifacts.hasNext()) {
         	Artifact artifact = artifacts.next();
@@ -223,32 +216,6 @@ public class InMemoryRepository extends InMemoryMapping
         }    
     }
 
-    private void merge() {
-        List<PackageGraphNode> roots = findMergeRoots();
-
-        Iterator<PackageGraphNode> rootIter = roots.iterator();
-        while (rootIter.hasNext())
-        {
-        	PackageGraphNode root = rootIter.next();
-        	
-        	Package rootPackage = (Package)this.getElementById(root.getId());
-        	if (log.isDebugEnabled())
-        	    log.debug("merging package root:  " + rootPackage.getHref());
-        	PackageGraphVisitor visitor = new PackageGraphVisitor() {
-
-				public void visit(PackageGraphNode target, PackageGraphNode source) {
-					if (source != null) // it's not a root
-					{	
-				        if (log.isDebugEnabled())
-				            log.debug("visit: " + target.getPackage().getQualifiedName() + "<-" + source.getPackage().getQualifiedName());
-					    mergePackage(source.getPackage().getDelegate(), target.getPackage().getDelegate());
-					}
-				}       		
-        	};
-        	root.accept(visitor);
-        }    	
-    }
-    
     private Package getPackage(org.modeldriven.fuml.repository.RepositoryArtifact artifact, String qualifiedName) {
     	
         List<Package> artifactPackages = artifactURIToPackagesMap.get(artifact.getURN());
@@ -259,7 +226,7 @@ public class InMemoryRepository extends InMemoryMapping
     		if (qualifiedName.equals(p.getQualifiedName()))
     			return p;
     	}
-    	throw new RepositorylException("could not get package, "
+    	throw new RepositoryException("could not get package, "
     			+ qualifiedName);
     }
     
@@ -294,43 +261,6 @@ public class InMemoryRepository extends InMemoryMapping
 		}
     }    
     
-    private List<PackageGraphNode> findMergeRoots()
-    {
-    	Map<String, PackageGraphNode> sources = new HashMap<String, PackageGraphNode>();
-    	Iterator<String> merges = packageIdToPackageMergeMap.keySet().iterator();	
-    	while (merges.hasNext())
-    	{   			
-    		PackageGraphNode target = packageIdToPackageMergeMap.get(merges.next());
-    		Package targetPackage = (Package)this.getElementById(target.getId());
-    		target.setPackage(targetPackage); // HACKY but we must build the merge graph during mapping, and all package targets don't yet exist
-    		if (target.getNodes() == null)
-    			continue;
-    		Iterator<PackageGraphNode> iter = target.getNodes().iterator();
-    		while (iter.hasNext())
-    		{	
-    			PackageGraphNode source = iter.next();
-        		Package sourcePackage = (Package)this.getElementById(source.getId());
-        		source.setPackage(sourcePackage);
-    			sources.put(source.getId(), source);
-    		}    		
-    	}
-    	
-    	List<PackageGraphNode> roots = new ArrayList<PackageGraphNode>();
-    	merges = packageIdToPackageMergeMap.keySet().iterator();	
-    	while (merges.hasNext())
-    	{   			
-    		PackageGraphNode target = packageIdToPackageMergeMap.get(merges.next());
-    		if (sources.get(target.getId()) != null) // some source points to it, not a root
-    			continue;    		
-    		roots.add(target);
-    	} 
-    	
-	    if (log.isDebugEnabled())
-		    log.debug("found " + String.valueOf(roots.size()) + " merge-root and " 
-		    		+ String.valueOf(sources.size()) + " source packages");
-	    return roots;	
-    }   
-    
     @SuppressWarnings("rawtypes")
     private RepositoryConfig unmarshalConfig(String configFileName, RepositoryConfigDataBinding binding) {
         try {
@@ -338,15 +268,15 @@ public class InMemoryRepository extends InMemoryMapping
             if (stream == null)
             	stream = Element.class.getClassLoader().getResourceAsStream(configFileName);
             if (stream == null)
-                throw new RepositorylException("cannot find resource '" + configFileName + "'");
+                throw new RepositoryException("cannot find resource '" + configFileName + "'");
             JAXBElement root = (JAXBElement) binding.validate(stream);
 
             RepositoryConfig result = (RepositoryConfig) root.getValue();
             return result;
         } catch (UnmarshalException e) {
-            throw new RepositorylException(e);
+            throw new RepositoryException(e);
         } catch (JAXBException e) {
-            throw new RepositorylException(e);
+            throw new RepositoryException(e);
         }
     }
 
@@ -422,7 +352,7 @@ public class InMemoryRepository extends InMemoryMapping
             result = this.qualifiedClassifierNameToClassifierMap.get(name);
 
         if (result == null && !supressErrors)
-            throw new RepositorylException("no classifier found for name, '" + name + "'");
+            throw new RepositoryException("no classifier found for name, '" + name + "'");
         return result;
     }
     

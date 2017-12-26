@@ -19,7 +19,6 @@ public interface RepositoryMapping {
 	public void mapElementById(Element element, RepositoryArtifact artifact);
 	public void mapElementByName(NamedElement element, RepositoryArtifact artifact);
 	public void mapPackage(Package pkg, String currentPackageName, RepositoryArtifact artifact);
-	public void mapPackageMerge(Package pkg, String sourcePackageXmiId);
 	public void mapClassifier(Classifier classifier, String currentPackageName, RepositoryArtifact artifact);
 	public void mapClass(Class_ clss, String currentPackageName, RepositoryArtifact artifact);
 	public void mapStereotype(Stereotype stereotype, String currentPackageName, RepositoryArtifact artifact);

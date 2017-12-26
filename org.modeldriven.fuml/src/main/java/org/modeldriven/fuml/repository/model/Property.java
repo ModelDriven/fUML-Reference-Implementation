@@ -12,7 +12,7 @@ import org.modeldriven.fuml.repository.Class_;
 import org.modeldriven.fuml.repository.Classifier;
 import org.modeldriven.fuml.repository.Repository;
 import org.modeldriven.fuml.repository.RepositoryArtifact;
-import org.modeldriven.fuml.repository.RepositorylException;
+import org.modeldriven.fuml.repository.RepositoryException;
 import org.modeldriven.fuml.xmi.InvalidReferenceException;
 
 import UMLPrimitiveTypes.UnlimitedNatural;
@@ -106,7 +106,7 @@ public class Property extends NamedElement
 	        }
         }
         if (result == null && !supressErrors)
-            throw new RepositorylException("no type found for property, " 
+            throw new RepositoryException("no type found for property, " 
             		+ this.property.class_.name + "." + this.property.name);
         return result;
     }
@@ -194,7 +194,7 @@ public class Property extends NamedElement
         		return enumerationLiteral.name;
         	}
         	else
-                throw new RepositorylException("unknown instance type, " 
+                throw new RepositoryException("unknown instance type, " 
                 		+ instanceValue.instance.getClass().getName());
         } else {
             // return ((OpaqueExpression)valueSpec).getBody();

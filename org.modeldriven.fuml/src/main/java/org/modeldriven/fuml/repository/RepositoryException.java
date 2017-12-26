@@ -12,13 +12,13 @@ package org.modeldriven.fuml.repository;
 
 import org.modeldriven.fuml.FumlException;
 
-public class RepositorylException extends FumlException {
+public class RepositoryException extends FumlException {
 
-    public RepositorylException(Throwable t) {
+    public RepositoryException(Throwable t) {
         super(t);
     }
 
-    public RepositorylException(String msg) {
+    public RepositoryException(String msg) {
         super(msg);
     }
 

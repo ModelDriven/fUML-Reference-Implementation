@@ -11,7 +11,7 @@
 package org.modeldriven.fuml.repository;
 
 
-public class MissingRequiredPropertyException extends RepositorylException {
+public class MissingRequiredPropertyException extends RepositoryException {
 	
     private static final long serialVersionUID = 1L;
     

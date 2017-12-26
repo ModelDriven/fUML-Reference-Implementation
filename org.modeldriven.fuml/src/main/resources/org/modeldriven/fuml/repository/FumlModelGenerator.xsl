@@ -106,23 +106,7 @@ public class <xsl:value-of select="$cls" /> extends ModelAssembler
     	mapping.mapPackage(pkg, "<xsl:value-of select="$packageName" />", this); 
             </xsl:otherwise>                                                   
         </xsl:choose>
-<!--
-         <xsl:for-each select="packageMerge">
-        
-         <xsl:variable name="localMergedPackage" select="@mergedPackage"/>                 
-         <xsl:variable name="remoteMergedPackage" select="./mergedPackage/@href"/>                 
-        <xsl:choose>                                                           
-            <xsl:when test="$localMergedPackage != ''">            
-        mapping.mapPackageMerge(pkg, "<xsl:value-of select="$localMergedPackage" />");
-            </xsl:when>                                                        
-            <xsl:otherwise>                                                    
-        mapping.mapPackageMerge(pkg, "<xsl:value-of select="$remoteMergedPackage" />");
-            </xsl:otherwise>                                                   
-        </xsl:choose>
-       
-        </xsl:for-each>                                                          
- -->
-	    </xsl:for-each>
+	 </xsl:for-each>
      }   
 
     private void constructPrimitiveTypes()

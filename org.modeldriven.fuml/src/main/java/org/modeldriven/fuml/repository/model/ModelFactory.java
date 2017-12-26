@@ -26,7 +26,7 @@ import org.apache.commons.logging.LogFactory;
 import org.modeldriven.fuml.repository.Repository;
 import org.modeldriven.fuml.repository.RepositoryArtifact;
 import org.modeldriven.fuml.repository.RepositoryMapping;
-import org.modeldriven.fuml.repository.RepositorylException;
+import org.modeldriven.fuml.repository.RepositoryException;
 
 import UMLPrimitiveTypes.UnlimitedNatural;
 import fuml.syntax.classification.Classifier;
@@ -205,7 +205,7 @@ public class ModelFactory
 
         if ((typeName == null || typeName.length() == 0) 
                 && (redefinedProperty == null || redefinedProperty.length() == 0))
-            throw new RepositorylException("no type or redefinedProperty found for property '" 
+            throw new RepositoryException("no type or redefinedProperty found for property '" 
                     + name + "' (" + id
                     + ")");
         if (typeName != null && typeName.length() > 0)
@@ -226,7 +226,7 @@ public class ModelFactory
         {
         	org.modeldriven.fuml.repository.Property redefinedProp = (org.modeldriven.fuml.repository.Property)model.getElementById(redefinedProperty);
             if (redefinedProp == null)
-                throw new RepositorylException("could not find redefinedProperty '" + redefinedProperty + "' for property '" 
+                throw new RepositoryException("could not find redefinedProperty '" + redefinedProperty + "' for property '" 
                     + name + "' (" + id
                     + ")");
             
@@ -385,7 +385,7 @@ public class ModelFactory
         else if ("OpaqueExpression".equals(typeName))
         {
         	if (value == null)
-        		throw new RepositorylException("expected default value - cannot create OpaqueExpression default for property '"
+        		throw new RepositoryException("expected default value - cannot create OpaqueExpression default for property '"
         				+ prop.class_.name + "." + prop.name + "'");
         	if (value instanceof UnlimitedNatural)
         	{
@@ -394,25 +394,25 @@ public class ModelFactory
         		valueSpec = literalUnlimitedNatural;
         	}
         	else
-    		    throw new RepositorylException("expected UnlimitedNatural value from OpaqueExpression default for property '"
+    		    throw new RepositoryException("expected UnlimitedNatural value from OpaqueExpression default for property '"
     				+ prop.class_.name + "." + prop.name + "'");
         }
         else if (InstanceValue.class.getSimpleName().equals(typeName))
         {
             InstanceValue instanceValue = new InstanceValue();
             if (type == null)
-                throw new RepositorylException("can't derive type for InstanceValue");
+                throw new RepositoryException("can't derive type for InstanceValue");
             instanceValue.type = type;
             valueSpec = instanceValue;
             if (instance == null || instance.length() == 0)
-                throw new RepositorylException("required InstanceValue.instance ");
+                throw new RepositoryException("required InstanceValue.instance ");
             instanceValue.instance = (InstanceSpecification)model.getElementById(instance).getDelegate();
             if (instanceValue.instance == null)
                 log.warn("could not lookup reference for instance by id, '"
                         + instance + "'");
         }            
         else
-            throw new RepositorylException("unknown type, '" + typeName + "'");
+            throw new RepositoryException("unknown type, '" + typeName + "'");
         
         prop.defaultValue = valueSpec;
         return valueSpec;
