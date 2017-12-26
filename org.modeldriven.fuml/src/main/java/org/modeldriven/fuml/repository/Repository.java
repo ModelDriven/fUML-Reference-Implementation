@@ -21,7 +21,7 @@ public interface Repository {
 	public Classifier getClassifierByQualifiedName(String qualifiedName);
 	public Package getPackageByQualifiedName(String qualifiedName);
 	public String getJavaPackageNameForClass(Classifier classifier);
-	public String findJavaPackageNamePackageForClass(Classifier classifier);
+	public String findJavaPackageNameForClass(Classifier classifier);
 	public boolean isIgnoredClassifier(Classifier classifier);
 	public List<Classifier> getSpecializations(Classifier classifier);
     public List<Extension> getExtensions(Element element);

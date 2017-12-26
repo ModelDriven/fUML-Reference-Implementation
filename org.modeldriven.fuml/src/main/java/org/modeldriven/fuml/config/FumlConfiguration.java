@@ -117,8 +117,8 @@ public class FumlConfiguration {
         }
     }
     
-    @SuppressWarnings("unchecked")
-    private Configuration unmarshalConfig(String configFileName, FumlConfigDataBinding binding)
+    @SuppressWarnings("rawtypes")
+	private Configuration unmarshalConfig(String configFileName, FumlConfigDataBinding binding)
     {
     	try {
 	        InputStream stream = FumlConfiguration.class.getClassLoader().getResourceAsStream(configFileName);

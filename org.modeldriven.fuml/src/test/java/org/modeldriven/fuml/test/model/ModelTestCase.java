@@ -194,8 +194,6 @@ public class ModelTestCase extends FUMLTest {
         		isAbstract.isRequired());
         assertTrue("Expected default value for 'Class.isAbstract'", 
         		isAbstract.hasPropertyDefaultValue());
-        Property isLeaf = classifier.findProperty("isLeaf");
-        assertNull("Unexpected ownedAttribute 'isLeaf' found for class 'Class'", isLeaf);
         Property generalizationProp = classifier.findProperty("generalization");
         assertTrue("No ownedAttribute 'generalization' found for class 'Class'", generalizationProp != null);
     }

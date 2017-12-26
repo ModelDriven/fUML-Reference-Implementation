@@ -19,13 +19,10 @@ package org.modeldriven.fuml.test.load;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.List;
 
 import junit.framework.Test;
 
-import org.junit.After;
-import org.junit.Before;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.modeldriven.fuml.Fuml;
@@ -42,7 +39,6 @@ import org.modeldriven.fuml.test.FUMLTest;
 import org.modeldriven.fuml.test.FUMLTestSetup;
 import org.modeldriven.fuml.test.load.profile.Alias;
 import org.modeldriven.fuml.test.load.profile.EnumerationConstraint;
-import org.modeldriven.fuml.test.load.profile.ValueConstraint;
 
 /**
  * Loads an Eclipse Papyrus UML profile example on test setup, then loads a document annotated with the

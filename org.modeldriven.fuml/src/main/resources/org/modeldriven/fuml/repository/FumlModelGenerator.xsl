@@ -4,8 +4,8 @@
 <xsl:stylesheet version="2.0"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:lxslt="http://xml.apache.org/xslt"
-  xmlns:xmi="http://www.omg.org/spec/XMI/20110701"
-  xmlns:uml="http://www.omg.org/spec/UML/20110701"
+  xmlns:xmi="http://www.omg.org/spec/XMI/20131001"
+  xmlns:uml="http://www.omg.org/spec/XMI/20131001"
   xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore">
 
 <xsl:output method="text"
@@ -20,19 +20,20 @@ package <xsl:value-of select="$pkg" />;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import fUML.Syntax.Classes.Kernel.Association;
-import fUML.Syntax.Classes.Kernel.Class_;
-import fUML.Syntax.Classes.Kernel.Generalization;
-import fUML.Syntax.Classes.Kernel.Classifier;
-import fUML.Syntax.Classes.Kernel.LiteralInteger;
-import fUML.Syntax.Classes.Kernel.LiteralUnlimitedNatural;
-import fUML.Syntax.Classes.Kernel.PrimitiveType;
+import fuml.syntax.classification.Classifier;
+import fuml.syntax.classification.Generalization;
+import fuml.syntax.classification.Property;
+import fuml.syntax.packages.Package;
+import fuml.syntax.simpleclassifiers.Enumeration;
+import fuml.syntax.simpleclassifiers.EnumerationLiteral;
+import fuml.syntax.simpleclassifiers.PrimitiveType;
+import fuml.syntax.structuredclassifiers.Association;
+import fuml.syntax.structuredclassifiers.Class_;
+import fuml.syntax.values.LiteralInteger;
+import fuml.syntax.values.LiteralUnlimitedNatural;
+import fuml.syntax.values.ValueSpecification;
+
 import UMLPrimitiveTypes.UnlimitedNatural;
-import fUML.Syntax.Classes.Kernel.ValueSpecification;
-import fUML.Syntax.Classes.Kernel.Enumeration;
-import fUML.Syntax.Classes.Kernel.EnumerationLiteral;
-import fUML.Syntax.Classes.Kernel.Package;
-import fUML.Syntax.Classes.Kernel.Property;
 
 import org.modeldriven.fuml.repository.RepositoryArtifact;
 import org.modeldriven.fuml.repository.RepositoryMapping;
@@ -105,7 +106,8 @@ public class <xsl:value-of select="$cls" /> extends ModelAssembler
     	mapping.mapPackage(pkg, "<xsl:value-of select="$packageName" />", this); 
             </xsl:otherwise>                                                   
         </xsl:choose>
-        <xsl:for-each select="packageMerge">
+<!--
+         <xsl:for-each select="packageMerge">
         
          <xsl:variable name="localMergedPackage" select="@mergedPackage"/>                 
          <xsl:variable name="remoteMergedPackage" select="./mergedPackage/@href"/>                 
@@ -119,8 +121,9 @@ public class <xsl:value-of select="$cls" /> extends ModelAssembler
         </xsl:choose>
        
         </xsl:for-each>                                                          
-    </xsl:for-each>
-    }   
+ -->
+	    </xsl:for-each>
+     }   
 
     private void constructPrimitiveTypes()
     {

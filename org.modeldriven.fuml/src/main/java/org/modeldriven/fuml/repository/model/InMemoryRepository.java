@@ -3,16 +3,11 @@
  * as stated in the file entitled Licensing-Information.
  *
  * Modifications:
- * Copyright 2009 Data Access Technologies, Inc.
- * Copyright 2013 Ivar Jacobson International SA
+ * Copyright 2009-2017 Data Access Technologies, Inc.
  *
  * Licensed under the Academic Free License version 3.0
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated
  * in the file entitled Licensing-Information.
- *
- * Contributors:
- *   MDS - initial API and implementation
- *   IJI
  *
  */
 package org.modeldriven.fuml.repository.model;
@@ -56,13 +51,14 @@ import org.modeldriven.fuml.xmi.InvalidReferenceException;
 import org.modeldriven.fuml.xmi.XmiException;
 import org.xml.sax.SAXException;
 
-import fuml.syntax.classification.Generalization;
 import fuml.syntax.classification.Operation;
 import fuml.syntax.commonstructure.PackageableElement;
 
 public class InMemoryRepository extends InMemoryMapping 
     implements org.modeldriven.fuml.repository.Repository 
 {
+	public static final String ROOT_FUML_SYNTAX_PACKAGE = "fuml.syntax";
+	
     private static Log log = LogFactory.getLog(InMemoryRepository.class);
     private static InMemoryRepository instance = null;
     private static String defaultConfigFileName = "RepositoryConfig.xml";  
@@ -199,7 +195,7 @@ public class InMemoryRepository extends InMemoryMapping
         while (artifacts.hasNext()) {
         	Artifact artifact = artifacts.next();
             Object[] args = { artifact, this, this };
-            Class[] types = { Artifact.class, RepositoryMapping.class, org.modeldriven.fuml.repository.Repository.class };
+            Class<?>[] types = { Artifact.class, RepositoryMapping.class, org.modeldriven.fuml.repository.Repository.class };
             try {
             	ModelAssembler factory = (ModelAssembler)ReflectionUtils.instanceForName(
                 		artifact.getFactoryClassName(), 
@@ -335,7 +331,7 @@ public class InMemoryRepository extends InMemoryMapping
 	    return roots;	
     }   
     
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     private RepositoryConfig unmarshalConfig(String configFileName, RepositoryConfigDataBinding binding) {
         try {
             InputStream stream = Element.class.getResourceAsStream(configFileName);
@@ -476,7 +472,7 @@ public class InMemoryRepository extends InMemoryMapping
         return getJavaPackageNameForClass(classifier, false);
     }
 
-    public String findJavaPackageNamePackageForClass(Classifier classifier) {
+    public String findJavaPackageNameForClass(Classifier classifier) {
         return getJavaPackageNameForClass(classifier, true);
     }
 
@@ -503,10 +499,10 @@ public class InMemoryRepository extends InMemoryMapping
         }
         else
             result = this.qualifiedClassifierNameToPackageNameMap.get(classifierName);
-
+        
         if (result == null && !supressErrors)
             throw new XmiException("no package found for class '" + classifierName + "'");
-        return result;
+        return result.replace("UML", ROOT_FUML_SYNTAX_PACKAGE).toLowerCase();
     }
 
     public boolean isIgnoredClassifier(String classifierName) {

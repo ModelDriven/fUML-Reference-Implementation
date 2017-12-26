@@ -156,16 +156,16 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
         try {
         	
             String packageName = metadata.getJavaPackageNameForClass(this.prototype);
-            String instancecClassName = this.prototype.getDelegate().name;
+            String instanceClassName = this.prototype.getDelegate().name;
             // TODO: We have a keyword map, but unclear whether upper-case 'Class' should be mapped. Definately 'class' is.
-            if ("Class".equals(instancecClassName))
-                instancecClassName = instancecClassName + "_"; 
+            if ("Class".equals(instanceClassName))
+                instanceClassName = instanceClassName + "_"; 
             
-            String qualifiedName = packageName + "." + instancecClassName;
+            String qualifiedName = packageName + "." + instanceClassName;
 
             FumlObject object = null;
             ImportAdapter importAdapter = FumlConfiguration.getInstance().findImportAdapter(
-                    instancecClassName);
+                    instanceClassName);
             if (importAdapter == null
                     || importAdapter.getType().ordinal() != ImportAdapterType.ASSEMBLY.ordinal()) {
                 object = (FumlObject)ReflectionUtils.instanceForName(qualifiedName);
@@ -422,7 +422,7 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
                                 this.getSource().getLocalName());
                         field.set(other.getTargetObject(), this.getTargetObject());
                     } catch (NoSuchFieldException e2) {
-                        log.warn("no 'set' method or public field found for property, "
+                        log.debug("no 'set' method or public field found for property, "
                                         + other.getPrototype().getName() + "."
                                         + this.getSource().getLocalName());
                     }
@@ -661,7 +661,10 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
                 log.debug("assembling enum feature <" + type.getName() + "> " + this.getPrototype().getName()
                         + "." + property.getName() + " = " + stringValue);
             Object value = toEnumerationValue(stringValue, type);
-            assembleEnumerationFeature(property, value, type);
+            if (value == null)
+            	log.debug("no fUML enumeration for " + type.getName());
+            else
+            	assembleEnumerationFeature(property, value, type);
         } else if (type.getDelegate() instanceof DataType) {
         	Class javaType = toPrimitiveJavaClass((DataType) type.getDelegate());
             Object value = toPrimitiveJavaValue(stringValue, (DataType) type.getDelegate(), javaType);
@@ -894,7 +897,7 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
                         + ") setter method named '"+methodName+"' or public field found for primitive feature " + "<"
                         + javaType.getName() + "> " + this.getPrototype().getName() + "."
                         + property.getName();
-                log.warn(msg);
+                log.debug(msg);
             }
         }
     }
@@ -927,7 +930,7 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
                         + ") add method or public field found for primitive collection property "
                         + "<" + javaType.getName() + "> " + this.getPrototype().getName() + "."
                         + property.getName();
-                log.warn(msg);
+                log.debug(msg);
             }
         }
     }
@@ -949,7 +952,7 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
                 String msg = "no fUML (" + this.getTargetObject().getClass().getName()
                         + ") setter method or public field found for singular property " + "<"
                         + type.getName() + "> " + this.getPrototype().getName() + "." + property.getName();
-                log.warn(msg);
+                log.debug(msg);
             }
         }
     }
@@ -975,7 +978,7 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
                 String msg = "no fUML (" + this.getTargetObject().getClass().getName()
                         + ") add method or public field found for collection property " + "<"
                         + type.getName() + "> " + this.getPrototype().getName() + "." + property.getName();
-                log.warn(msg);
+                log.debug(msg);
             }
         }
     }
@@ -1085,21 +1088,26 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-	private Object toEnumerationValue(String value, Classifier type) throws ClassNotFoundException,
+	private Object toEnumerationValue(String value, Classifier type) throws 
             NoSuchMethodException, InvocationTargetException, IllegalAccessException,
             InstantiationException {
         String pkg = metadata.getJavaPackageNameForClass(type);
         String qualifiedName = pkg + "." + type.getName();
-        Class enumClass = Class.forName(qualifiedName);
-        if (!enumClass.isEnum())
-            throw new AssemblyException("expected class as enum, " + enumClass.getName());
-
-        Method valueOf = enumClass.getMethod("valueOf", new Class[] { String.class });
-
-        if (JavaKeyWords.getInstance().isKeyWord(value))
-            value = value + "_";
-        Object enumValue = valueOf.invoke(enumClass, value);
-        return enumValue;
+        
+        try{
+	        Class enumClass = Class.forName(qualifiedName);
+	        if (!enumClass.isEnum())
+	            throw new AssemblyException("expected class as enum, " + enumClass.getName());
+	
+	        Method valueOf = enumClass.getMethod("valueOf", new Class[] { String.class });
+	
+	        if (JavaKeyWords.getInstance().isKeyWord(value))
+	            value = value + "_";
+	        Object enumValue = valueOf.invoke(enumClass, value);
+	        return enumValue;
+        } catch (ClassNotFoundException e) {
+        	return null;
+        }
     }
     
     public String getXmiId() {

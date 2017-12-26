@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xmi:XMI xmlns:xmi="http://www.omg.org/spec/XMI/20110701"
 	xmlns:uml="http://www.omg.org/spec/UML/20110701">
-	<uml:Model xmi:type="uml:Model" xmi:id="_0" name="FoundationalModelLibrary">
+	<uml:Model xmi:type="uml:Model" xmi:id="FoundationModelLibrary" name="FoundationalModelLibrary">
 		<packagedElement xmi:type="uml:Package" xmi:id="PrimitiveBehaviors"
 			name="PrimitiveBehaviors">
 			<packageImport xmi:type="uml:PackageImport" xmi:id="PrimitiveBehaviors-_packageImport.0">

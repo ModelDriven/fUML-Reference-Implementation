@@ -1,6 +1,5 @@
 package org.modeldriven.fuml.repository.model;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -743,7 +742,6 @@ public class InMemoryMapping implements RepositoryMapping
     	return null;
     }
 
-    @SuppressWarnings("unchecked")
 	private Property findProperty(Class_ c, String name)
     {    	
 	    Iterator<fuml.syntax.classification.Property> iter = c.ownedAttribute.iterator();
@@ -839,25 +837,25 @@ public class InMemoryMapping implements RepositoryMapping
         }
     }
 
-    private void mergeGenerals(Class_ target, Class_ source) {
-        Iterator<Classifier> sourceIter = source.general.iterator();
-        while (sourceIter.hasNext()) {
-            Classifier sourceGeneral = sourceIter.next();
-
-            boolean found = false;
-            Iterator<Classifier> targetIter = target.general.iterator();
-            while (targetIter.hasNext()) {
-                Classifier targetGeneral = targetIter.next();
-                if (!targetGeneral.name.equals(sourceGeneral.name))
-                    continue;
-                found = true;
-                break;
-            }
-            if (!found)
-                target.general.add(sourceGeneral);
-        }
-    }
-    
+//    private void mergeGenerals(Class_ target, Class_ source) {
+//        Iterator<Classifier> sourceIter = source.general.iterator();
+//        while (sourceIter.hasNext()) {
+//            Classifier sourceGeneral = sourceIter.next();
+//
+//            boolean found = false;
+//            Iterator<Classifier> targetIter = target.general.iterator();
+//            while (targetIter.hasNext()) {
+//                Classifier targetGeneral = targetIter.next();
+//                if (!targetGeneral.name.equals(sourceGeneral.name))
+//                    continue;
+//                found = true;
+//                break;
+//            }
+//            if (!found)
+//                target.general.add(sourceGeneral);
+//        }
+//    }
+//    
     protected void mergeProperty(Property target, Property source) {
         
         // type
