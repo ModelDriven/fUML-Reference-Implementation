@@ -871,7 +871,7 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
                 String msg = "no fUML (" + this.getTargetObject().getClass().getName()
                         + ") setter method or public field found for enumeration feature " + "<"
                         + type.getName() + "> " + this.getPrototype().getName() + "." + property.getName();
-                log.warn(msg);
+                log.debug(msg);
             }
         }
     }
@@ -924,7 +924,7 @@ public class ElementAssembler extends AssemblerNode implements XmiIdentity, Asse
                         + ") add method or public field found for primitive collection property "
                         + "<" + javaType.getName() + "> " + this.getPrototype().getName() + "."
                         + property.getName();
-                log.warn(msg);
+                log.debug(msg);
             } catch (NoSuchFieldException e2) {
                 String msg = "no fUML (" + this.getTargetObject().getClass().getName()
                         + ") add method or public field found for primitive collection property "
