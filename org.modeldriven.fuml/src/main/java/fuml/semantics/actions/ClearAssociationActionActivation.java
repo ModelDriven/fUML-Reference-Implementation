@@ -12,9 +12,9 @@
 
 package fuml.semantics.actions;
 
-import fuml.semantics.classification.Value;
 import fuml.semantics.structuredclassifiers.ExtensionalValueList;
 import fuml.semantics.structuredclassifiers.Link;
+import fuml.semantics.values.Value;
 import fuml.syntax.actions.ClearAssociationAction;
 
 public class ClearAssociationActionActivation extends

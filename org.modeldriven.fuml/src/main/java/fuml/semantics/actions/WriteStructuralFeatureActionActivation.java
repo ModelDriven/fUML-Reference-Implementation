@@ -16,8 +16,8 @@ public abstract class WriteStructuralFeatureActionActivation
 		extends
 		fuml.semantics.actions.StructuralFeatureActionActivation {
 
-	public int position(fuml.semantics.classification.Value value,
-			fuml.semantics.classification.ValueList list, int startAt) {
+	public int position(fuml.semantics.values.Value value,
+			fuml.semantics.values.ValueList list, int startAt) {
 		// Return the position (counting from 1) of the first occurance of the
 		// given value in the given list at or after the starting index, or 0 if
 		// it is not found.

@@ -12,13 +12,13 @@
 
 package fuml.semantics.commonbehavior;
 
-import fuml.semantics.classification.Value;
-import fuml.semantics.classification.ValueList;
+import fuml.semantics.values.Value;
+import fuml.semantics.values.ValueList;
 
 public class ParameterValue extends org.modeldriven.fuml.FumlObject {
 
 	public fuml.syntax.classification.Parameter parameter = null;
-	public fuml.semantics.classification.ValueList values = new fuml.semantics.classification.ValueList();
+	public fuml.semantics.values.ValueList values = new fuml.semantics.values.ValueList();
 
 	public fuml.semantics.commonbehavior.ParameterValue copy() {
 		// Create a new parameter value for the same parameter as this parameter

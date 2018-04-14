@@ -13,14 +13,14 @@
 package fuml.semantics.actions;
 
 import fuml.Debug;
-import fuml.semantics.classification.Value;
-import fuml.semantics.classification.ValueList;
 import fuml.semantics.simpleclassifiers.FeatureValue;
 import fuml.semantics.simpleclassifiers.FeatureValueList;
 import fuml.semantics.structuredclassifiers.ExtensionalValue;
 import fuml.semantics.structuredclassifiers.ExtensionalValueList;
 import fuml.semantics.structuredclassifiers.Link;
 import fuml.semantics.structuredclassifiers.Reference;
+import fuml.semantics.values.Value;
+import fuml.semantics.values.ValueList;
 import fuml.syntax.actions.DestroyObjectAction;
 import fuml.syntax.classification.AggregationKind;
 import fuml.syntax.classification.Property;
@@ -46,7 +46,7 @@ public class DestroyObjectActionActivation extends
 
 	} // doAction
 
-	public void destroyObject(fuml.semantics.classification.Value value,
+	public void destroyObject(fuml.semantics.values.Value value,
 			boolean isDestroyLinks, boolean isDestroyOwnedObjects) {
 		// If the given value is a reference, then destroy the referenced
 		// object, per the given destroy action attribute values.

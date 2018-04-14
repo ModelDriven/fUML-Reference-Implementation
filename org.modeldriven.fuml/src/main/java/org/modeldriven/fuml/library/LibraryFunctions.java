@@ -10,10 +10,10 @@
  */
 package org.modeldriven.fuml.library;
 
-import fuml.semantics.classification.Value;
-import fuml.semantics.classification.ValueList;
 import fuml.semantics.commonbehavior.ParameterValue;
 import fuml.semantics.commonbehavior.ParameterValueList;
+import fuml.semantics.values.Value;
+import fuml.semantics.values.ValueList;
 
 public class LibraryFunctions {
 

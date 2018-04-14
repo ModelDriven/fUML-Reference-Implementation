@@ -50,7 +50,7 @@ public class Link extends fuml.semantics.structuredclassifiers.ExtensionalValue 
 		super.destroy();
 	} // destroy
 
-	public fuml.semantics.classification.Value copy() {
+	public fuml.semantics.values.Value copy() {
 		// Create a new link with the same type, locus and feature values as
 		// this link.
 
@@ -61,7 +61,7 @@ public class Link extends fuml.semantics.structuredclassifiers.ExtensionalValue 
 		return newValue;
 	} // copy
 
-	protected fuml.semantics.classification.Value new_() {
+	protected fuml.semantics.values.Value new_() {
 		// Create a new link with no type or properies.
 
 		return new Link();

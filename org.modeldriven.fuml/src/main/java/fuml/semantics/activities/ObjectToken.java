@@ -15,7 +15,7 @@ package fuml.semantics.activities;
 public class ObjectToken extends
 		fuml.semantics.activities.Token {
 
-	public fuml.semantics.classification.Value value = null;
+	public fuml.semantics.values.Value value = null;
 
 	public boolean equals(
 			fuml.semantics.activities.Token other) {
@@ -40,7 +40,7 @@ public class ObjectToken extends
 		return false;
 	} // isControl
 
-	public fuml.semantics.classification.Value getValue() {
+	public fuml.semantics.values.Value getValue() {
 		// Return the value of this object token.
 
 		return this.value;

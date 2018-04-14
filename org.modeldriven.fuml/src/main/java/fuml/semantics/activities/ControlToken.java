@@ -36,7 +36,7 @@ public class ControlToken extends
 		return true;
 	} // isControl
 
-	public fuml.semantics.classification.Value getValue() {
+	public fuml.semantics.values.Value getValue() {
 		// Control tokens do not have values.
 
 		return null;

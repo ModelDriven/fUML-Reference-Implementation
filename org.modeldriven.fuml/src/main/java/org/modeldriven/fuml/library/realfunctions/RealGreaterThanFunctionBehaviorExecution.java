@@ -34,7 +34,7 @@ public class RealGreaterThanFunctionBehaviorExecution extends
     	return b;
     }
 
-    public fuml.semantics.classification.Value new_() {
+    public fuml.semantics.values.Value new_() {
         // Create a new instance of this kind of function behavior execution.
         return new RealGreaterThanFunctionBehaviorExecution();
     }

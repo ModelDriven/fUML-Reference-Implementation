@@ -12,9 +12,9 @@ package org.modeldriven.fuml.environment;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import fuml.semantics.classification.Value;
 import fuml.semantics.commonbehavior.ParameterValue;
 import fuml.semantics.commonbehavior.ParameterValueList;
+import fuml.semantics.values.Value;
 import fuml.syntax.classification.Classifier;
 import fuml.syntax.classification.ParameterDirectionKind;
 import fuml.syntax.classification.ParameterList;

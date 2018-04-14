@@ -15,9 +15,9 @@ import org.modeldriven.fuml.library.LibraryTest;
 import org.modeldriven.fuml.library.integerfunctions.IntegerConversion;
 
 import fuml.Debug;
-import fuml.semantics.classification.ValueList;
 import fuml.semantics.commonbehavior.ParameterValue;
-import fuml.syntax.simpleclassifiers.IntegerValue;
+import fuml.semantics.simpleclassifiers.IntegerValue;
+import fuml.semantics.values.ValueList;
 
 public class ListSizeFunctionBehaviorExecutionTest extends LibraryTest {
 	

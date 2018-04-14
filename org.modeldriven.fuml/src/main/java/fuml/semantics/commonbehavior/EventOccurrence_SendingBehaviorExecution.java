@@ -8,7 +8,7 @@
 
 package fuml.semantics.commonbehavior;
 
-import fuml.semantics.classification.Value;
+import fuml.semantics.values.Value;
 
 public class EventOccurrence_SendingBehaviorExecution extends Execution {
 	

@@ -29,7 +29,7 @@ public class BooleanValue extends fuml.semantics.simpleclassifiers.PrimitiveValu
 		return literal;
 	} // specify
 
-	public boolean equals(fuml.semantics.classification.Value otherValue) {
+	public boolean equals(fuml.semantics.values.Value otherValue) {
 		// Test if this boolean value is equal to the otherValue.
 		// To be equal, the otherValue must have the same value as this boolean
 		// value.
@@ -42,7 +42,7 @@ public class BooleanValue extends fuml.semantics.simpleclassifiers.PrimitiveValu
 		return isEqual;
 	} // equals
 
-	public fuml.semantics.classification.Value copy() {
+	public fuml.semantics.values.Value copy() {
 		// Create a new boolean value with the same value as this boolean value.
 
 		BooleanValue newValue = (BooleanValue) (super.copy());
@@ -51,7 +51,7 @@ public class BooleanValue extends fuml.semantics.simpleclassifiers.PrimitiveValu
 		return newValue;
 	} // copy
 
-	protected fuml.semantics.classification.Value new_() {
+	protected fuml.semantics.values.Value new_() {
 		// Return a new boolean value with no value.
 
 		return new BooleanValue();

@@ -14,10 +14,10 @@
 
 package org.modeldriven.fuml.library.libraryclass;
 
-import fuml.semantics.classification.Value;
-import fuml.semantics.classification.ValueList;
 import fuml.semantics.commonbehavior.Execution;
 import fuml.semantics.commonbehavior.ParameterValue;
+import fuml.semantics.values.Value;
+import fuml.semantics.values.ValueList;
 import fuml.syntax.classification.Operation;
 import fuml.syntax.classification.Parameter;
 import fuml.syntax.classification.ParameterDirectionKind;
@@ -101,7 +101,7 @@ public class OperationExecution extends Execution {
         this.setParameterValue(this.getParameter(parameterName), values);
     }
 
-    public void setParameterValue(String parameterName, fuml.semantics.classification.Value value) {
+    public void setParameterValue(String parameterName, fuml.semantics.values.Value value) {
         ValueList valueList = new ValueList();
         valueList.addValue(value);
         this.setParameterValue(parameterName, valueList);

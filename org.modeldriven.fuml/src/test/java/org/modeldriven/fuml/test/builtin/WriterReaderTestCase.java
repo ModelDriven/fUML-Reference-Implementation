@@ -6,9 +6,9 @@ import org.modeldriven.fuml.test.FUMLTestSetup;
 
 import fuml.semantics.commonbehavior.ParameterValueList;
 import fuml.semantics.simpleclassifiers.FeatureValue;
+import fuml.semantics.simpleclassifiers.IntegerValue;
 import fuml.semantics.structuredclassifiers.ExtensionalValue;
 import fuml.semantics.structuredclassifiers.ExtensionalValueList;
-import fuml.syntax.simpleclassifiers.IntegerValue;
 import junit.framework.Test;
 
 public class WriterReaderTestCase extends BuiltInTest {

@@ -18,8 +18,8 @@ package org.modeldriven.fuml.library.listfunctions;
 import org.modeldriven.fuml.library.LibraryFunctions;
 
 import fuml.Debug;
-import fuml.semantics.classification.ValueList;
-import fuml.syntax.simpleclassifiers.IntegerValue;
+import fuml.semantics.simpleclassifiers.IntegerValue;
+import fuml.semantics.values.ValueList;
 
 public class ListSizeFunctionBehaviorExecution extends
         fuml.semantics.commonbehavior.OpaqueBehaviorExecution {
@@ -47,7 +47,7 @@ public class ListSizeFunctionBehaviorExecution extends
     }
     
 	@Override
-    public fuml.semantics.classification.Value new_() {
+    public fuml.semantics.values.Value new_() {
         // Create a new instance of this kind of function behavior execution.
         return new ListSizeFunctionBehaviorExecution();
     }   

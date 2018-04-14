@@ -23,10 +23,10 @@ import fuml.semantics.activities.ForkNodeActivation;
 import fuml.semantics.activities.ObjectToken;
 import fuml.semantics.activities.Token;
 import fuml.semantics.activities.TokenList;
-import fuml.semantics.classification.Value;
-import fuml.semantics.classification.ValueList;
 import fuml.semantics.simpleclassifiers.BooleanValue;
 import fuml.semantics.simpleclassifiers.FeatureValueList;
+import fuml.semantics.values.Value;
+import fuml.semantics.values.ValueList;
 import fuml.syntax.actions.Action;
 import fuml.syntax.actions.InputPin;
 import fuml.syntax.actions.InputPinList;
@@ -307,7 +307,7 @@ public abstract class ActionActivation extends
 	} // getPinActivation
 
 	public void putToken(fuml.syntax.actions.OutputPin pin,
-			fuml.semantics.classification.Value value) {
+			fuml.semantics.values.Value value) {
 		// Precondition: The action execution has fired and the given pin is
 		// owned by the action of the action execution.
 		// Place a token for the given value on the pin activation corresponding
@@ -323,7 +323,7 @@ public abstract class ActionActivation extends
 	} // putToken
 
 	public void putTokens(fuml.syntax.actions.OutputPin pin,
-			fuml.semantics.classification.ValueList values) {
+			fuml.semantics.values.ValueList values) {
 		// Precondition: The action execution has fired and the given pin is
 		// owned by the action of the action execution.
 		// Place tokens for the given values on the pin activation corresponding
@@ -338,7 +338,7 @@ public abstract class ActionActivation extends
 
 	} // putTokens
 
-	public fuml.semantics.classification.ValueList getTokens(
+	public fuml.semantics.values.ValueList getTokens(
 			fuml.syntax.actions.InputPin pin) {
 		// Precondition: The action execution has fired and the given pin is
 		// owned by the action of the action execution.
@@ -363,7 +363,7 @@ public abstract class ActionActivation extends
 		return values;
 	} // getTokens
 
-	public fuml.semantics.classification.ValueList takeTokens(
+	public fuml.semantics.values.ValueList takeTokens(
 			fuml.syntax.actions.InputPin pin) {
 		// Precondition: The action execution has fired and the given pin is
 		// owned by the action of the action execution.
@@ -402,7 +402,7 @@ public abstract class ActionActivation extends
 	} // isSourceFor
 
 	public boolean valueParticipatesInLink(
-			fuml.semantics.classification.Value value,
+			fuml.semantics.values.Value value,
 			fuml.semantics.structuredclassifiers.Link link) {
 		// Test if the given value participates in the given link.
 

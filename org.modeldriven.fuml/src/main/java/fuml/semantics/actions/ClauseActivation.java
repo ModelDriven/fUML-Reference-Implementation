@@ -15,8 +15,8 @@ package fuml.semantics.actions;
 import java.util.Iterator;
 
 import fuml.Debug;
-import fuml.semantics.classification.ValueList;
 import fuml.semantics.simpleclassifiers.BooleanValue;
+import fuml.semantics.values.ValueList;
 import fuml.syntax.actions.Clause;
 import fuml.syntax.actions.ClauseList;
 

@@ -8,9 +8,9 @@
 
 package fuml.semantics.actions;
 
-import fuml.semantics.classification.Value;
 import fuml.semantics.commonbehavior.CallEventOccurrence;
 import fuml.semantics.commonbehavior.ParameterValueList;
+import fuml.semantics.values.Value;
 import fuml.syntax.classification.ClassifierList;
 import fuml.syntax.classification.Operation;
 import fuml.syntax.values.ValueSpecification;

@@ -18,7 +18,7 @@ import fuml.syntax.values.LiteralString;
 public class LiteralStringEvaluation extends
 		fuml.semantics.values.LiteralEvaluation {
 
-	public fuml.semantics.classification.Value evaluate() {
+	public fuml.semantics.values.Value evaluate() {
 		// Evaluate a literal string, producing a string value.
 
 		LiteralString literal = (LiteralString) specification;

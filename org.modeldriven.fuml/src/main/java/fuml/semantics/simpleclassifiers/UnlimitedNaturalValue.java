@@ -13,8 +13,6 @@
 package fuml.semantics.simpleclassifiers;
 
 import UMLPrimitiveTypes.*;
-
-import fuml.syntax.simpleclassifiers.IntegerValue;
 import fuml.syntax.values.LiteralUnlimitedNatural;
 
 public class UnlimitedNaturalValue extends
@@ -34,7 +32,7 @@ public class UnlimitedNaturalValue extends
 		return literal;
 	} // specify
 
-	public boolean equals(fuml.semantics.classification.Value otherValue) {
+	public boolean equals(fuml.semantics.values.Value otherValue) {
 		// Test if this unlimited natural value is equal to the otherValue.
 		// To be equal, the otherValue must have the same value as this
 		// unlimited natural value.
@@ -47,7 +45,7 @@ public class UnlimitedNaturalValue extends
 		return isEqual;
 	} // equals
 
-	public fuml.semantics.classification.Value copy() {
+	public fuml.semantics.values.Value copy() {
 		// Create a new unlimited natural value with the same value as this
 		// value.
 
@@ -57,7 +55,7 @@ public class UnlimitedNaturalValue extends
 		return newValue;
 	} // copy
 
-	protected fuml.semantics.classification.Value new_() {
+	protected fuml.semantics.values.Value new_() {
 		// Create a new unlimited natural value with no value.
 
 		return new UnlimitedNaturalValue();

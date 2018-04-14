@@ -9,8 +9,8 @@
 package fuml.semantics.commonbehavior;
 
 import fuml.Debug;
-import fuml.semantics.classification.Value;
 import fuml.semantics.structuredclassifiers.Reference;
+import fuml.semantics.values.Value;
 import fuml.syntax.classification.Operation;
 import fuml.syntax.classification.Parameter;
 import fuml.syntax.classification.ParameterDirectionKind;

@@ -18,6 +18,6 @@ public abstract class Evaluation extends
 	public fuml.syntax.values.ValueSpecification specification = null;
 	public fuml.semantics.loci.Locus locus = null;
 
-	public abstract fuml.semantics.classification.Value evaluate();
+	public abstract fuml.semantics.values.Value evaluate();
 
 } // Evaluation

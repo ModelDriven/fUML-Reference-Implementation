@@ -12,9 +12,9 @@
 
 package fuml.semantics.actions;
 
-import fuml.semantics.classification.Value;
 import fuml.semantics.simpleclassifiers.FeatureValue;
 import fuml.semantics.simpleclassifiers.UnlimitedNaturalValue;
+import fuml.semantics.values.Value;
 import fuml.syntax.actions.LinkAction;
 import fuml.syntax.actions.LinkEndDestructionData;
 import fuml.syntax.classification.Property;

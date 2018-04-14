@@ -62,7 +62,7 @@ public class ForkedToken extends
 		return this == otherToken;
 	} // equals
 
-	public fuml.semantics.classification.Value getValue() {
+	public fuml.semantics.values.Value getValue() {
 		// Return the value of the base token.
 
 		return this.baseToken.getValue();

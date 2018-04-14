@@ -8,7 +8,7 @@
 
 package fuml.semantics.activities;
 
-import fuml.semantics.classification.Value;
+import fuml.semantics.values.Value;
 
 public class DataStoreNodeActivation extends CentralBufferNodeActivation {
 

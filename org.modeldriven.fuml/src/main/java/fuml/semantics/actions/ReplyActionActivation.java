@@ -1,9 +1,9 @@
 package fuml.semantics.actions;
 
 import fuml.Debug;
-import fuml.semantics.classification.ValueList;
 import fuml.semantics.commonbehavior.ParameterValue;
 import fuml.semantics.commonbehavior.ParameterValueList;
+import fuml.semantics.values.ValueList;
 import fuml.syntax.actions.InputPin;
 import fuml.syntax.actions.InputPinList;
 import fuml.syntax.actions.ReplyAction;

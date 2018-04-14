@@ -12,7 +12,6 @@
 
 package fuml.semantics.simpleclassifiers;
 
-import fuml.syntax.simpleclassifiers.IntegerValue;
 import fuml.syntax.values.LiteralReal;
 
 public class RealValue extends fuml.semantics.simpleclassifiers.PrimitiveValue {
@@ -30,7 +29,7 @@ public class RealValue extends fuml.semantics.simpleclassifiers.PrimitiveValue {
 		return literal;
 	} // specify
 
-	public boolean equals(fuml.semantics.classification.Value otherValue) {
+	public boolean equals(fuml.semantics.values.Value otherValue) {
 		// Test if this real value is equal to the otherValue.
 		// To be equal, the otherValue must have the same value as this real
 		// value.
@@ -43,7 +42,7 @@ public class RealValue extends fuml.semantics.simpleclassifiers.PrimitiveValue {
 		return isEqual;
 	} // equals
 
-	public fuml.semantics.classification.Value copy() {
+	public fuml.semantics.values.Value copy() {
 		// Create a new real value with the same value as this real value.
 
 		RealValue newValue = (RealValue) (super.copy());
@@ -52,7 +51,7 @@ public class RealValue extends fuml.semantics.simpleclassifiers.PrimitiveValue {
 		return newValue;
 	} // copy
 
-	protected fuml.semantics.classification.Value new_() {
+	protected fuml.semantics.values.Value new_() {
 		return new RealValue();
 	} // new_
 

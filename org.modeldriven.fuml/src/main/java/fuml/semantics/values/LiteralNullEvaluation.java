@@ -15,7 +15,7 @@ package fuml.semantics.values;
 public class LiteralNullEvaluation extends
 		fuml.semantics.values.LiteralEvaluation {
 
-	public fuml.semantics.classification.Value evaluate() {
+	public fuml.semantics.values.Value evaluate() {
 		// Evaluate a literal null, returning nothing (since a null represents
 		// an "absence of any value").
 

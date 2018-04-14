@@ -27,7 +27,7 @@ public class DataValue extends fuml.semantics.simpleclassifiers.CompoundValue {
 		return types;
 	} // getTypes
 
-	public fuml.semantics.classification.Value copy() {
+	public fuml.semantics.values.Value copy() {
 		// Create a new data value with the same type and feature values as this
 		// data value.
 
@@ -38,7 +38,7 @@ public class DataValue extends fuml.semantics.simpleclassifiers.CompoundValue {
 		return newValue;
 	} // copy
 
-	protected fuml.semantics.classification.Value new_() {
+	protected fuml.semantics.values.Value new_() {
 		// Create a new data value with no type or feature values.
 
 		return new DataValue();

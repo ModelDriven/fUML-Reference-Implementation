@@ -18,7 +18,7 @@ import fuml.syntax.values.LiteralBoolean;
 public class LiteralBooleanEvaluation extends
 		fuml.semantics.values.LiteralEvaluation {
 
-	public fuml.semantics.classification.Value evaluate() {
+	public fuml.semantics.values.Value evaluate() {
 		// Evaluate a literal boolean, producing a boolean value.
 
 		LiteralBoolean literal = (LiteralBoolean) specification;

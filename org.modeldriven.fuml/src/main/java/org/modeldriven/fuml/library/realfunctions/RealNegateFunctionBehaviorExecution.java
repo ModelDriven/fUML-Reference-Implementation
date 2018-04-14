@@ -32,7 +32,7 @@ public class RealNegateFunctionBehaviorExecution extends
     	return x;
     }
 
-    public fuml.semantics.classification.Value new_() {
+    public fuml.semantics.values.Value new_() {
         // Create a new instance of this kind of function behavior execution.
         return new RealNegateFunctionBehaviorExecution();
     }

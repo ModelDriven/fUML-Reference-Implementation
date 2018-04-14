@@ -28,13 +28,13 @@ public class SignalInstance extends fuml.semantics.simpleclassifiers.CompoundVal
 		return types;
 	} // getTypes
 
-	public fuml.semantics.classification.Value new_() {
+	public fuml.semantics.values.Value new_() {
 		// Create a new signal instance with no type or feature values.
 
 		return new SignalInstance();
 	} // new_
 
-	public fuml.semantics.classification.Value copy() {
+	public fuml.semantics.values.Value copy() {
 		// Create a new signal instance with the same type and feature values as
 		// this signal instance.
 

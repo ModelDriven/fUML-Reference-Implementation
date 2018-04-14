@@ -16,7 +16,7 @@ import fuml.syntax.classification.ClassifierList;
 import fuml.syntax.classification.InstanceSpecification;
 import fuml.syntax.classification.InstanceValue;
 
-public class EnumerationValue extends fuml.semantics.classification.Value {
+public class EnumerationValue extends fuml.semantics.values.Value {
 
 	public fuml.syntax.simpleclassifiers.EnumerationLiteral literal = null;
 	public fuml.syntax.simpleclassifiers.Enumeration type = null;
@@ -33,7 +33,7 @@ public class EnumerationValue extends fuml.semantics.classification.Value {
 		return instanceValue;
 	} // specify
 
-	public boolean equals(fuml.semantics.classification.Value otherValue) {
+	public boolean equals(fuml.semantics.values.Value otherValue) {
 		// Test if this enumeration value is equal to the otherValue.
 		// To be equal, the otherValue must also be an enumeration value with
 		// the same literal as this enumeration value.
@@ -46,7 +46,7 @@ public class EnumerationValue extends fuml.semantics.classification.Value {
 		return isEqual;
 	} // equals
 
-	public fuml.semantics.classification.Value copy() {
+	public fuml.semantics.values.Value copy() {
 		// Create a new enumeration value with the same literal as this
 		// enumeration value.
 
@@ -58,7 +58,7 @@ public class EnumerationValue extends fuml.semantics.classification.Value {
 		return newValue;
 	} // copy
 
-	protected fuml.semantics.classification.Value new_() {
+	protected fuml.semantics.values.Value new_() {
 		// Create a new enumeration value with no literal.
 
 		return new EnumerationValue();

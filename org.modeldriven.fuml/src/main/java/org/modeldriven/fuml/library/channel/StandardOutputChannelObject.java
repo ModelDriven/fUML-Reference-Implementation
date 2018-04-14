@@ -15,7 +15,7 @@ package org.modeldriven.fuml.library.channel;
 
 import org.modeldriven.fuml.library.common.Status;
 
-import fuml.semantics.classification.Value;
+import fuml.semantics.values.Value;
 
 public class StandardOutputChannelObject extends TextOutputChannelObject {
 

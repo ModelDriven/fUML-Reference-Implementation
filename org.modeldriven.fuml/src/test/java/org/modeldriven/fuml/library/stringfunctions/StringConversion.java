@@ -12,10 +12,10 @@
 
 package org.modeldriven.fuml.library.stringfunctions;
 
-import fuml.semantics.classification.ValueList;
 import fuml.semantics.commonbehavior.ParameterValue;
 import fuml.semantics.commonbehavior.ParameterValueList;
 import fuml.semantics.simpleclassifiers.StringValue;
+import fuml.semantics.values.ValueList;
 
 /**
  * Provides helper methods for the Boolean Function JUnit tests.

@@ -12,11 +12,11 @@
 
 package fuml.semantics.actions;
 
-import fuml.semantics.classification.Value;
-import fuml.semantics.classification.ValueList;
 import fuml.semantics.simpleclassifiers.StructuredValue;
 import fuml.semantics.structuredclassifiers.Link;
 import fuml.semantics.structuredclassifiers.LinkList;
+import fuml.semantics.values.Value;
+import fuml.semantics.values.ValueList;
 import fuml.syntax.actions.ReadStructuralFeatureAction;
 import fuml.syntax.classification.StructuralFeature;
 import fuml.syntax.structuredclassifiers.Association;

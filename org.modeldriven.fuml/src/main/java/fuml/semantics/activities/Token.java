@@ -57,6 +57,6 @@ public abstract class Token extends org.modeldriven.fuml.FumlObject {
 
 	public abstract boolean isControl();
 
-	public abstract fuml.semantics.classification.Value getValue();
+	public abstract fuml.semantics.values.Value getValue();
 
 } // Token

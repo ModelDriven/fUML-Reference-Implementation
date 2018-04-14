@@ -13,10 +13,10 @@
 package fuml.semantics.activities;
 
 import fuml.Debug;
-import fuml.semantics.classification.Value;
-import fuml.semantics.classification.ValueList;
 import fuml.semantics.commonbehavior.ParameterValue;
 import fuml.semantics.commonbehavior.ParameterValueList;
+import fuml.semantics.values.Value;
+import fuml.semantics.values.ValueList;
 import fuml.syntax.activities.ActivityEdge;
 import fuml.syntax.activities.DecisionNode;
 import fuml.syntax.activities.ObjectFlow;
@@ -67,7 +67,7 @@ public class DecisionNodeActivation extends
 		}
 	} // fire
 
-	public fuml.semantics.classification.ValueList getDecisionValues(
+	public fuml.semantics.values.ValueList getDecisionValues(
 			fuml.semantics.activities.TokenList incomingTokens) {
 		// If there is neither a decision input flow nor a decision input
 		// behavior, then return the set of values from the incoming tokens.
@@ -104,9 +104,9 @@ public class DecisionNodeActivation extends
 		return decisionValues;
 	} // getDecisionValues
 
-	public fuml.semantics.classification.Value executeDecisionInputBehavior(
-			fuml.semantics.classification.Value inputValue,
-			fuml.semantics.classification.Value decisionInputValue) {
+	public fuml.semantics.values.Value executeDecisionInputBehavior(
+			fuml.semantics.values.Value inputValue,
+			fuml.semantics.values.Value decisionInputValue) {
 		// Create the decision input execution from the decision input behavior.
 		// If the behavior has input parameter(s), set the input parameter(s) of
 		// the execution to the given value(s).
@@ -223,7 +223,7 @@ public class DecisionNodeActivation extends
 		return allTokens;
 	} // takeOfferedTokens
 
-	public fuml.semantics.classification.Value getDecisionInputFlowValue() {
+	public fuml.semantics.values.Value getDecisionInputFlowValue() {
 		// Take the next token available on the decision input flow, if any, and
 		// return its value.
 
@@ -263,7 +263,7 @@ public class DecisionNodeActivation extends
 	} // getDecisionInputFlowInstance
 
 	public boolean test(fuml.syntax.values.ValueSpecification guard,
-			fuml.semantics.classification.Value value) {
+			fuml.semantics.values.Value value) {
 		// Test if the given value matches the guard. If there is no guard,
 		// return true.
 

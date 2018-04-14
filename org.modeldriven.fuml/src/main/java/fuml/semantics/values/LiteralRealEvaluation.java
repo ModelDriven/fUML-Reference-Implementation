@@ -18,7 +18,7 @@ import fuml.syntax.values.LiteralReal;
 public class LiteralRealEvaluation extends
 		fuml.semantics.values.LiteralEvaluation {
 
-	public fuml.semantics.classification.Value evaluate() {
+	public fuml.semantics.values.Value evaluate() {
 		// Evaluate a real integer, producing a real value.
 
 		LiteralReal literal = (LiteralReal) specification;

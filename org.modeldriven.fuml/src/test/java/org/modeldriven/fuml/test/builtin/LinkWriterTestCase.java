@@ -4,11 +4,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.modeldriven.fuml.test.FUMLTestSetup;
 
-import fuml.semantics.classification.Value;
 import fuml.semantics.commonbehavior.ParameterValueList;
 import fuml.semantics.simpleclassifiers.FeatureValue;
 import fuml.semantics.structuredclassifiers.ExtensionalValue;
 import fuml.semantics.structuredclassifiers.ExtensionalValueList;
+import fuml.semantics.values.Value;
 import junit.framework.Test;
 
 public class LinkWriterTestCase extends BuiltInTest {

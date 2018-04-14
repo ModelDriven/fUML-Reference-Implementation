@@ -11,7 +11,7 @@
 
 package fuml.semantics.commonbehavior;
 
-import fuml.semantics.classification.Value;
+import fuml.semantics.values.Value;
 
 public class ObjectActivation_EventDispatchLoopExecution extends Execution {
 

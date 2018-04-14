@@ -27,7 +27,7 @@ public abstract class ExtensionalValue extends
 		}
 	} // destroy
 
-	public fuml.semantics.classification.Value copy() {
+	public fuml.semantics.values.Value copy() {
 		// Create a new extensional value with the same feature values at the
 		// same locus as this one.
 

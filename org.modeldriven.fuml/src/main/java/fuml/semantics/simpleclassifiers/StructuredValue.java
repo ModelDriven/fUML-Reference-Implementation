@@ -12,8 +12,8 @@
 
 package fuml.semantics.simpleclassifiers;
 
-import fuml.semantics.classification.Value;
-import fuml.semantics.classification.ValueList;
+import fuml.semantics.values.Value;
+import fuml.semantics.values.ValueList;
 import fuml.syntax.classification.Classifier;
 import fuml.syntax.classification.ClassifierList;
 import fuml.syntax.classification.InstanceSpecification;
@@ -24,7 +24,7 @@ import fuml.syntax.commonstructure.NamedElement;
 import fuml.syntax.commonstructure.NamedElementList;
 
 public abstract class StructuredValue extends
-		fuml.semantics.classification.Value {
+		fuml.semantics.values.Value {
 
 	public fuml.syntax.values.ValueSpecification specify() {
 		// Return an instance value that specifies this structured value.
@@ -69,7 +69,7 @@ public abstract class StructuredValue extends
 
 	public abstract void setFeatureValue(
 			fuml.syntax.classification.StructuralFeature feature,
-			fuml.semantics.classification.ValueList values, int position);
+			fuml.semantics.values.ValueList values, int position);
 
 	public abstract fuml.semantics.simpleclassifiers.FeatureValueList getFeatureValues();
 	

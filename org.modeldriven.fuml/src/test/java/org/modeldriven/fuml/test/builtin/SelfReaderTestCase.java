@@ -5,9 +5,9 @@ import org.apache.commons.logging.LogFactory;
 import org.modeldriven.fuml.test.FUMLTestSetup;
 
 import fuml.semantics.activities.ActivityExecution;
-import fuml.semantics.classification.Value;
 import fuml.semantics.commonbehavior.ParameterValueList;
 import fuml.semantics.structuredclassifiers.Reference;
+import fuml.semantics.values.Value;
 import junit.framework.Test;
 
 public class SelfReaderTestCase extends BuiltInTest {

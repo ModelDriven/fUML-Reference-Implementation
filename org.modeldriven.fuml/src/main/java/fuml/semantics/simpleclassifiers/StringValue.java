@@ -29,7 +29,7 @@ public class StringValue extends fuml.semantics.simpleclassifiers.PrimitiveValue
 		return literal;
 	} // specify
 
-	public boolean equals(fuml.semantics.classification.Value otherValue) {
+	public boolean equals(fuml.semantics.values.Value otherValue) {
 		// Test if this string value is equal to the otherValue.
 		// To be equal, the otherValue must have the same value as this string
 		// value.
@@ -42,7 +42,7 @@ public class StringValue extends fuml.semantics.simpleclassifiers.PrimitiveValue
 		return isEqual;
 	} // equals
 
-	public fuml.semantics.classification.Value copy() {
+	public fuml.semantics.values.Value copy() {
 		// Create a new string value with the same value as this string value.
 
 		StringValue newValue = (StringValue) (super.copy());
@@ -51,7 +51,7 @@ public class StringValue extends fuml.semantics.simpleclassifiers.PrimitiveValue
 		return newValue;
 	} // copy
 
-	protected fuml.semantics.classification.Value new_() {
+	protected fuml.semantics.values.Value new_() {
 		// Create a new string value with no value.
 
 		return new StringValue();

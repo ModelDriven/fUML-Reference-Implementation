@@ -12,9 +12,9 @@
 
 package fuml.semantics.simpleclassifiers;
 
-import fuml.semantics.classification.Value;
 import fuml.semantics.structuredclassifiers.Object_;
 import fuml.semantics.structuredclassifiers.Reference;
+import fuml.semantics.values.Value;
 import fuml.syntax.classification.ClassifierList;
 
 public abstract class CompoundValue extends
@@ -22,7 +22,7 @@ public abstract class CompoundValue extends
 
 	public fuml.semantics.simpleclassifiers.FeatureValueList featureValues = new fuml.semantics.simpleclassifiers.FeatureValueList();
 
-	public boolean equals(fuml.semantics.classification.Value otherValue) {
+	public boolean equals(fuml.semantics.values.Value otherValue) {
 		// Test if this data value is equal to the otherValue.
 		// To be equal, the otherValue must also be a compund value with the
 		// same types and equal values for each feature.
@@ -67,7 +67,7 @@ public abstract class CompoundValue extends
 		return isEqual;
 	} // equals
 
-	public fuml.semantics.classification.Value copy() {
+	public fuml.semantics.values.Value copy() {
 		// Create a new data value with the same featureValues as this data
 		// value.
 
@@ -101,7 +101,7 @@ public abstract class CompoundValue extends
 
 	public void setFeatureValue(
 			fuml.syntax.classification.StructuralFeature feature,
-			fuml.semantics.classification.ValueList values, int position) {
+			fuml.semantics.values.ValueList values, int position) {
 		// Set the value(s) of the member of featureValues for the given
 		// feature.
 

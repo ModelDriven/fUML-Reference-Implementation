@@ -15,11 +15,11 @@ package fuml.semantics.simpleclassifiers;
 import fuml.syntax.classification.ClassifierList;
 
 public abstract class PrimitiveValue extends
-		fuml.semantics.classification.Value {
+		fuml.semantics.values.Value {
 
 	public fuml.syntax.simpleclassifiers.PrimitiveType type = null;
 
-	public fuml.semantics.classification.Value copy() {
+	public fuml.semantics.values.Value copy() {
 		// Create a new value that is equal to this primitive value.
 
 		PrimitiveValue newValue = (PrimitiveValue) (super.copy());

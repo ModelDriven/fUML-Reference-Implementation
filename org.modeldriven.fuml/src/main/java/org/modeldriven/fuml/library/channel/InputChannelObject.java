@@ -16,8 +16,8 @@ package org.modeldriven.fuml.library.channel;
 import org.modeldriven.fuml.library.common.Status;
 import org.modeldriven.fuml.library.libraryclass.OperationExecution;
 
-import fuml.semantics.classification.Value;
 import fuml.semantics.simpleclassifiers.BooleanValue;
+import fuml.semantics.values.Value;
 
 public abstract class InputChannelObject extends ChannelObject {
 

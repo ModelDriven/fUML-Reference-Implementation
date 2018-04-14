@@ -12,8 +12,8 @@
 package fuml.semantics.activities;
 
 import fuml.Debug;
-import fuml.semantics.classification.Value;
 import fuml.semantics.commonbehavior.ParameterValue;
+import fuml.semantics.values.Value;
 import fuml.syntax.activities.Activity;
 import fuml.syntax.activities.ActivityParameterNode;
 
@@ -72,7 +72,7 @@ public class ActivityExecution extends
 		Debug.println("[execute] Activity " + activity.name + " completed.");
 	} // execute
 
-	public fuml.semantics.classification.Value copy() {
+	public fuml.semantics.values.Value copy() {
 		// Create a new activity execution that is a copy of this execution.
 		// [Note: This currently just returns a non-executing execution for the
 		// same activity as this execution.]
@@ -80,7 +80,7 @@ public class ActivityExecution extends
 		return super.copy();
 	} // copy
 
-	public fuml.semantics.classification.Value new_() {
+	public fuml.semantics.values.Value new_() {
 		// Create a new activity execution with empty properties.
 
 		return new ActivityExecution();

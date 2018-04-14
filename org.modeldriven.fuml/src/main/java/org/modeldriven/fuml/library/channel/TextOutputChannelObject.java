@@ -16,10 +16,10 @@ import org.modeldriven.fuml.library.libraryclass.OperationExecution;
 
 import fuml.semantics.commonbehavior.ParameterValue;
 import fuml.semantics.simpleclassifiers.BooleanValue;
+import fuml.semantics.simpleclassifiers.IntegerValue;
 import fuml.semantics.simpleclassifiers.RealValue;
 import fuml.semantics.simpleclassifiers.StringValue;
 import fuml.semantics.simpleclassifiers.UnlimitedNaturalValue;
-import fuml.syntax.simpleclassifiers.IntegerValue;
 
 public abstract class TextOutputChannelObject extends OutputChannelObject {
 

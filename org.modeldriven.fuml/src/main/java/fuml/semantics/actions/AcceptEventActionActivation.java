@@ -14,11 +14,11 @@ package fuml.semantics.actions;
 
 import fuml.Debug;
 import fuml.semantics.activities.ActivityNodeActivationGroup;
-import fuml.semantics.classification.ValueList;
 import fuml.semantics.commonbehavior.ParameterValue;
 import fuml.semantics.commonbehavior.ParameterValueList;
 import fuml.semantics.commonbehavior.SignalEventOccurrence;
 import fuml.semantics.simpleclassifiers.SignalInstance;
+import fuml.semantics.values.ValueList;
 import fuml.syntax.actions.AcceptEventAction;
 import fuml.syntax.actions.OutputPin;
 import fuml.syntax.actions.OutputPinList;

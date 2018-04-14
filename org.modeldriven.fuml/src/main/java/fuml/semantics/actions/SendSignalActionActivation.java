@@ -11,11 +11,11 @@
 
 package fuml.semantics.actions;
 
-import fuml.semantics.classification.Value;
-import fuml.semantics.classification.ValueList;
 import fuml.semantics.commonbehavior.SignalEventOccurrence;
 import fuml.semantics.simpleclassifiers.SignalInstance;
 import fuml.semantics.structuredclassifiers.Reference;
+import fuml.semantics.values.Value;
+import fuml.semantics.values.ValueList;
 import fuml.syntax.actions.InputPin;
 import fuml.syntax.actions.InputPinList;
 import fuml.syntax.actions.SendSignalAction;

@@ -12,9 +12,9 @@
 
 package fuml.semantics.actions;
 
-import fuml.semantics.classification.Value;
 import fuml.semantics.commonbehavior.ParameterValueList;
 import fuml.semantics.structuredclassifiers.Reference;
+import fuml.semantics.values.Value;
 import fuml.syntax.actions.StartClassifierBehaviorAction;
 import fuml.syntax.structuredclassifiers.Class_;
 

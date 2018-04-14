@@ -30,7 +30,7 @@ public class BooleanOrFunctionBehaviorExecution extends
     }
     
     @Override
-	public fuml.semantics.classification.Value new_() {
+	public fuml.semantics.values.Value new_() {
         return new BooleanOrFunctionBehaviorExecution();
     }	    
 

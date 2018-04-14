@@ -15,7 +15,7 @@ package org.modeldriven.fuml.library.pipe;
 import org.modeldriven.fuml.library.channel.OutputChannelObject;
 import org.modeldriven.fuml.library.common.Status;
 
-import fuml.semantics.classification.Value;
+import fuml.semantics.values.Value;
 
 
 public class PipeOutputChannelObject extends OutputChannelObject {

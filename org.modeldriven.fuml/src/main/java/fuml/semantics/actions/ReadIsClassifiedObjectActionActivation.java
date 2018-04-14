@@ -12,8 +12,8 @@
 
 package fuml.semantics.actions;
 
-import fuml.semantics.classification.Value;
-import fuml.semantics.classification.ValueList;
+import fuml.semantics.values.Value;
+import fuml.semantics.values.ValueList;
 import fuml.syntax.actions.ReadIsClassifiedObjectAction;
 
 public class ReadIsClassifiedObjectActionActivation extends

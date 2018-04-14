@@ -10,7 +10,7 @@
  * in the file entitled Licensing-Information. 
  */
 
-package fuml.syntax.simpleclassifiers;
+package fuml.semantics.simpleclassifiers;
 
 import fuml.syntax.values.LiteralInteger;
 
@@ -29,7 +29,7 @@ public class IntegerValue extends fuml.semantics.simpleclassifiers.PrimitiveValu
 		return literal;
 	} // specify
 
-	public boolean equals(fuml.semantics.classification.Value otherValue) {
+	public boolean equals(fuml.semantics.values.Value otherValue) {
 		// Test if this integer value is equal to the otherValue.
 		// To be equal, the otherValue must have the same value as this integer
 		// value.
@@ -42,7 +42,7 @@ public class IntegerValue extends fuml.semantics.simpleclassifiers.PrimitiveValu
 		return isEqual;
 	} // equals
 
-	public fuml.semantics.classification.Value copy() {
+	public fuml.semantics.values.Value copy() {
 		// Create a new integer value with the same value as this integer value.
 
 		IntegerValue newValue = (IntegerValue) (super.copy());
@@ -51,7 +51,7 @@ public class IntegerValue extends fuml.semantics.simpleclassifiers.PrimitiveValu
 		return newValue;
 	} // copy
 
-	protected fuml.semantics.classification.Value new_() {
+	protected fuml.semantics.values.Value new_() {
 		// Create a new integer value with no value.
 
 		return new IntegerValue();

@@ -2,15 +2,15 @@ package org.modeldriven.fuml.library.common;
 
 import org.modeldriven.fuml.library.Library;
 
-import fuml.semantics.classification.Value;
-import fuml.semantics.classification.ValueList;
 import fuml.semantics.loci.Locus;
 import fuml.semantics.simpleclassifiers.DataValue;
+import fuml.semantics.simpleclassifiers.IntegerValue;
 import fuml.semantics.simpleclassifiers.PrimitiveValue;
 import fuml.semantics.simpleclassifiers.StringValue;
+import fuml.semantics.values.Value;
+import fuml.semantics.values.ValueList;
 import fuml.syntax.classification.Property;
 import fuml.syntax.simpleclassifiers.DataType;
-import fuml.syntax.simpleclassifiers.IntegerValue;
 import fuml.syntax.simpleclassifiers.PrimitiveType;
 
 public class Status {

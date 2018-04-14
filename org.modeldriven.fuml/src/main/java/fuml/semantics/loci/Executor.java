@@ -48,7 +48,7 @@ public class Executor extends org.modeldriven.fuml.FumlObject {
 		return outputValues;
 	} // execute
 
-	public fuml.semantics.classification.Value evaluate(
+	public fuml.semantics.values.Value evaluate(
 			fuml.syntax.values.ValueSpecification specification) {
 		// Evaluate the given value specification, returning the specified
 		// value.

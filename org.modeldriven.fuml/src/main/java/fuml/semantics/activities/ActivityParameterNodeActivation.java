@@ -13,9 +13,9 @@
 package fuml.semantics.activities;
 
 import fuml.Debug;
-import fuml.semantics.classification.Value;
-import fuml.semantics.classification.ValueList;
 import fuml.semantics.commonbehavior.ParameterValue;
+import fuml.semantics.values.Value;
+import fuml.semantics.values.ValueList;
 import fuml.syntax.activities.ActivityParameterNode;
 import fuml.syntax.classification.Parameter;
 

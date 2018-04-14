@@ -14,12 +14,12 @@ package org.modeldriven.fuml.library.pipe;
 
 import org.modeldriven.fuml.library.common.Status;
 
-import fuml.semantics.classification.Value;
-import fuml.semantics.classification.ValueList;
+import fuml.semantics.values.Value;
+import fuml.semantics.values.ValueList;
 
 public class PipeInputChannelObject extends org.modeldriven.fuml.library.channel.InputChannelObject {
 
-    private ValueList values = new fuml.semantics.classification.ValueList();
+    private ValueList values = new fuml.semantics.values.ValueList();
     private boolean opened = false;
     private String name = new String();
 

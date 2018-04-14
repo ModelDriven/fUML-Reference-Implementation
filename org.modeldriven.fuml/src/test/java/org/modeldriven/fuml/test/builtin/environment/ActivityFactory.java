@@ -292,7 +292,7 @@ public class ActivityFactory {
 	protected fuml.syntax.activities.Activity createInstanceGetter(
 			fuml.syntax.classification.Classifier classifier,
 			fuml.syntax.classification.Operation operation,
-			fuml.semantics.classification.Value value) {
+			fuml.semantics.values.Value value) {
 		Activity testActivity = new Activity();
 		testActivity.setName("Test(" + operation.name + ")");
 

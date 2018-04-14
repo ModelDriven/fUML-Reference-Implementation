@@ -14,6 +14,6 @@ package fuml.semantics.actions;
 
 public class Values extends org.modeldriven.fuml.FumlObject {
 
-	public fuml.semantics.classification.ValueList values = new fuml.semantics.classification.ValueList();
+	public fuml.semantics.values.ValueList values = new fuml.semantics.values.ValueList();
 
 } // Values

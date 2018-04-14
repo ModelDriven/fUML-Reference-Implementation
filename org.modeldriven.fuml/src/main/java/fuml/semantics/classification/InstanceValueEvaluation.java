@@ -10,16 +10,17 @@
  * in the file entitled Licensing-Information. 
  */
 
-package fuml.semantics.values;
+package fuml.semantics.classification;
 
 import fuml.Debug;
-import fuml.semantics.classification.Value;
-import fuml.semantics.classification.ValueList;
 import fuml.semantics.simpleclassifiers.DataValue;
 import fuml.semantics.simpleclassifiers.EnumerationValue;
 import fuml.semantics.simpleclassifiers.StructuredValue;
 import fuml.semantics.structuredclassifiers.Object_;
 import fuml.semantics.structuredclassifiers.Reference;
+import fuml.semantics.values.Evaluation;
+import fuml.semantics.values.Value;
+import fuml.semantics.values.ValueList;
 import fuml.syntax.classification.Classifier;
 import fuml.syntax.classification.ClassifierList;
 import fuml.syntax.classification.InstanceSpecification;
@@ -37,7 +38,7 @@ import fuml.syntax.values.ValueSpecificationList;
 public class InstanceValueEvaluation extends
 		fuml.semantics.values.Evaluation {
 
-	public fuml.semantics.classification.Value evaluate() {
+	public fuml.semantics.values.Value evaluate() {
 		// If the instance specification is for an enumeration, then return the
 		// identified enumeration literal.
 		// If the instance specification is for a data type (but not a primitive

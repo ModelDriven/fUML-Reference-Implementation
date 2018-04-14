@@ -18,8 +18,8 @@ package org.modeldriven.fuml.library.integerfunctions;
 import org.modeldriven.fuml.library.LibraryFunctions;
 
 import fuml.Debug;
+import fuml.semantics.simpleclassifiers.IntegerValue;
 import fuml.semantics.simpleclassifiers.StringValue;
-import fuml.syntax.simpleclassifiers.IntegerValue;
 
 public class IntegerToStringFunctionBehaviorExecution extends
         fuml.semantics.commonbehavior.OpaqueBehaviorExecution {
@@ -44,7 +44,7 @@ public class IntegerToStringFunctionBehaviorExecution extends
 		LibraryFunctions.addValueToOutputList(result, outputParameters);
     }
     
-    public fuml.semantics.classification.Value new_() {
+    public fuml.semantics.values.Value new_() {
         // Create a new instance of this kind of function behavior execution.
         return new IntegerToStringFunctionBehaviorExecution();
     }   

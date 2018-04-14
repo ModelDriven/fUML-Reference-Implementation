@@ -29,7 +29,7 @@ public abstract class Execution extends fuml.semantics.structuredclassifiers.Obj
 		return;
 	} // terminate
 
-	public fuml.semantics.classification.Value copy() {
+	public fuml.semantics.values.Value copy() {
 		// Create a new execution that has the same behavior and parameterValues
 		// as this execution.
 
@@ -50,7 +50,7 @@ public abstract class Execution extends fuml.semantics.structuredclassifiers.Obj
 		return newValue;
 	} // copy
 
-	public abstract fuml.semantics.classification.Value new_();
+	public abstract fuml.semantics.values.Value new_();
 
 	public void setParameterValue(
 			fuml.semantics.commonbehavior.ParameterValue parameterValue) {

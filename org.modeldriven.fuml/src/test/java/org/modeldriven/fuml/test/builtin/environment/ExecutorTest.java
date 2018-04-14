@@ -12,11 +12,11 @@
 package org.modeldriven.fuml.test.builtin.environment;
 
 import fuml.Debug;
-import fuml.semantics.classification.Value;
 import fuml.semantics.commonbehavior.Execution;
 import fuml.semantics.commonbehavior.ParameterValue;
 import fuml.semantics.commonbehavior.ParameterValueList;
 import fuml.semantics.structuredclassifiers.Object_;
+import fuml.semantics.values.Value;
 import fuml.syntax.classification.Classifier;
 import fuml.syntax.classification.ParameterDirectionKind;
 import fuml.syntax.classification.ParameterList;

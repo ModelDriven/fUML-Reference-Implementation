@@ -19,7 +19,7 @@ import org.modeldriven.fuml.library.LibraryFunctions;
 
 import UMLPrimitiveTypes.intList;
 import fuml.Debug;
-import fuml.syntax.simpleclassifiers.IntegerValue;
+import fuml.semantics.simpleclassifiers.IntegerValue;
 
 public abstract class IntegerFunctionBehaviorExecution extends
         fuml.semantics.commonbehavior.OpaqueBehaviorExecution {

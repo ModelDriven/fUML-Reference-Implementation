@@ -19,8 +19,8 @@ import org.modeldriven.fuml.library.LibraryFunctions;
 
 import UMLPrimitiveTypes.UnlimitedNatural;
 import fuml.Debug;
+import fuml.semantics.simpleclassifiers.IntegerValue;
 import fuml.semantics.simpleclassifiers.UnlimitedNaturalValue;
-import fuml.syntax.simpleclassifiers.IntegerValue;
 
 public class UnlimitedNaturalToIntegerFunctionBehaviorExecution extends
 		fuml.semantics.commonbehavior.OpaqueBehaviorExecution {
@@ -51,7 +51,7 @@ public class UnlimitedNaturalToIntegerFunctionBehaviorExecution extends
 	}
 	
 	@Override
-    public fuml.semantics.classification.Value new_() {
+    public fuml.semantics.values.Value new_() {
         return new UnlimitedNaturalToIntegerFunctionBehaviorExecution();
     }	
 

@@ -12,13 +12,13 @@
 
 package fuml.semantics.values;
 
-import fuml.syntax.simpleclassifiers.IntegerValue;
+import fuml.semantics.simpleclassifiers.IntegerValue;
 import fuml.syntax.values.LiteralInteger;
 
 public class LiteralIntegerEvaluation extends
 		fuml.semantics.values.LiteralEvaluation {
 
-	public fuml.semantics.classification.Value evaluate() {
+	public fuml.semantics.values.Value evaluate() {
 		// Evaluate a literal integer, producing an integer value.
 
 		LiteralInteger literal = (LiteralInteger) specification;

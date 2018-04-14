@@ -12,13 +12,13 @@
 
 package fuml.semantics.simpleclassifiers;
 
-import fuml.semantics.classification.Value;
-import fuml.semantics.classification.ValueList;
+import fuml.semantics.values.Value;
+import fuml.semantics.values.ValueList;
 
 public class FeatureValue extends org.modeldriven.fuml.FumlObject {
 
 	public fuml.syntax.classification.StructuralFeature feature = null;
-	public fuml.semantics.classification.ValueList values = new fuml.semantics.classification.ValueList();
+	public fuml.semantics.values.ValueList values = new fuml.semantics.values.ValueList();
 	public int position = 0;
 
 	public boolean hasEqualValues(

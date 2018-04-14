@@ -13,13 +13,13 @@ import org.modeldriven.fuml.test.FUMLTest;
 import org.modeldriven.fuml.test.FUMLTestSetup;
 
 import fuml.semantics.activities.ActivityExecution;
-import fuml.semantics.classification.Value;
-import fuml.semantics.classification.ValueList;
 import fuml.semantics.commonbehavior.ParameterValueList;
 import fuml.semantics.simpleclassifiers.BooleanValue;
 import fuml.semantics.simpleclassifiers.FeatureValueList;
 import fuml.semantics.structuredclassifiers.ExtensionalValueList;
 import fuml.semantics.structuredclassifiers.Reference;
+import fuml.semantics.values.Value;
+import fuml.semantics.values.ValueList;
 import fuml.syntax.commonbehavior.Behavior;
 import fuml.syntax.structuredclassifiers.Class_;
 

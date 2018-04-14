@@ -40,7 +40,7 @@ public class RealToStringFunctionBehaviorExecution extends
 		LibraryFunctions.addValueToOutputList(result, outputParameters);
     }
     
-    public fuml.semantics.classification.Value new_() {
+    public fuml.semantics.values.Value new_() {
         // Create a new instance of this kind of function behavior execution.
         return new RealToStringFunctionBehaviorExecution();
     }   

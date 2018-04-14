@@ -10,7 +10,7 @@
  * in the file entitled Licensing-Information. 
  */
 
-package fuml.semantics.classification;
+package fuml.semantics.values;
 
 import fuml.syntax.classification.Classifier;
 import fuml.syntax.classification.ClassifierList;
@@ -19,7 +19,7 @@ public abstract class Value extends fuml.semantics.loci.SemanticVisitor {
 
 	public abstract fuml.syntax.values.ValueSpecification specify();
 
-	public boolean equals(fuml.semantics.classification.Value otherValue) {
+	public boolean equals(fuml.semantics.values.Value otherValue) {
 		// Test if this value is equal to otherValue. To be equal, this value
 		// must have the same type as otherValue.
 		// This operation must be overridden in Value subclasses to check for
@@ -63,7 +63,7 @@ public abstract class Value extends fuml.semantics.loci.SemanticVisitor {
 		return isEqual;
 	} // equals
 
-	public fuml.semantics.classification.Value copy() {
+	public fuml.semantics.values.Value copy() {
 		// Create a new value that is equal to this value.
 		// By default, this operation simply creates a new value with empty
 		// properties.
@@ -73,7 +73,7 @@ public abstract class Value extends fuml.semantics.loci.SemanticVisitor {
 		return this.new_();
 	} // copy
 
-	protected abstract fuml.semantics.classification.Value new_();
+	protected abstract fuml.semantics.values.Value new_();
 
 	public abstract fuml.syntax.classification.ClassifierList getTypes();
 

@@ -10,11 +10,11 @@
  * in the file entitled Licensing-Information. 
  */
 
-package fuml.semantics.classification;
+package fuml.semantics.values;
 
 import java.util.ArrayList;
 
-public class ValueList extends ArrayList<fuml.semantics.classification.Value> {
+public class ValueList extends ArrayList<fuml.semantics.values.Value> {
 	public ValueList() {
 		super();
 	}

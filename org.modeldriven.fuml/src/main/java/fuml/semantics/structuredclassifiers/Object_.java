@@ -13,8 +13,8 @@
 package fuml.semantics.structuredclassifiers;
 
 import fuml.Debug;
-import fuml.semantics.classification.Value;
 import fuml.semantics.commonbehavior.ObjectActivation;
+import fuml.semantics.values.Value;
 import fuml.syntax.classification.ClassifierList;
 import fuml.syntax.structuredclassifiers.Class_;
 import fuml.syntax.structuredclassifiers.Class_List;
@@ -98,7 +98,7 @@ public class Object_ extends fuml.semantics.structuredclassifiers.ExtensionalVal
 		}
 	} // unregister
 
-	public fuml.semantics.classification.Value copy() {
+	public fuml.semantics.values.Value copy() {
 		// Create a new object that is a copy of this object at the same locus
 		// as this object.
 		// However, the new object will NOT have any object activation (i.e, its
@@ -123,7 +123,7 @@ public class Object_ extends fuml.semantics.structuredclassifiers.ExtensionalVal
 		return this == otherValue;
 	} // equals
 
-	protected fuml.semantics.classification.Value new_() {
+	protected fuml.semantics.values.Value new_() {
 		// Create a new object with no type, feature values or locus.
 
 		return new Object_();

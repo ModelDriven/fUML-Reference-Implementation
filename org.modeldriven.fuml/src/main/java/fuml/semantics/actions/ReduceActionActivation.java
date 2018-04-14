@@ -12,8 +12,8 @@
 
 package fuml.semantics.actions;
 
-import fuml.semantics.classification.ValueList;
 import fuml.semantics.commonbehavior.ParameterValue;
+import fuml.semantics.values.ValueList;
 import fuml.syntax.actions.ReduceAction;
 import fuml.syntax.classification.Parameter;
 import fuml.syntax.classification.ParameterDirectionKind;

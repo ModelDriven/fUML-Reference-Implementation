@@ -45,7 +45,7 @@ public class Reference extends fuml.semantics.simpleclassifiers.StructuredValue 
 		this.referent.destroy();
 	} // destroy
 
-	public boolean equals(fuml.semantics.classification.Value otherValue) {
+	public boolean equals(fuml.semantics.values.Value otherValue) {
 		// Test if this reference is equal to the otherValue.
 		// To be equal, the otherValue must also be a reference, with the same
 		// referent as this reference.
@@ -63,7 +63,7 @@ public class Reference extends fuml.semantics.simpleclassifiers.StructuredValue 
 
 	} // equals
 
-	public fuml.semantics.classification.Value copy() {
+	public fuml.semantics.values.Value copy() {
 		// Create a new reference with the same referent as this reference.
 
 		Reference newValue = (Reference) (super.copy());
@@ -73,7 +73,7 @@ public class Reference extends fuml.semantics.simpleclassifiers.StructuredValue 
 		return newValue;
 	} // copy
 
-	protected fuml.semantics.classification.Value new_() {
+	protected fuml.semantics.values.Value new_() {
 		// Create a new reference with no referent.
 
 		return new Reference();
@@ -95,7 +95,7 @@ public class Reference extends fuml.semantics.simpleclassifiers.StructuredValue 
 
 	public void setFeatureValue(
 			fuml.syntax.classification.StructuralFeature feature,
-			fuml.semantics.classification.ValueList values, int position) {
+			fuml.semantics.values.ValueList values, int position) {
 		// Set the values associated with the given feature in the referent
 		// object.
 

@@ -12,7 +12,7 @@
 
 package fuml.semantics.actions;
 
-import fuml.semantics.classification.Value;
+import fuml.semantics.values.Value;
 import fuml.syntax.actions.ValueSpecificationAction;
 
 public class ValueSpecificationActionActivation extends

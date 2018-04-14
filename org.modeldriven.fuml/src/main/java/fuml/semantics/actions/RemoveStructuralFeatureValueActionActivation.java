@@ -13,8 +13,6 @@
 package fuml.semantics.actions;
 
 import UMLPrimitiveTypes.*;
-
-import fuml.semantics.classification.Value;
 import fuml.semantics.loci.ChoiceStrategy;
 import fuml.semantics.simpleclassifiers.FeatureValue;
 import fuml.semantics.simpleclassifiers.StructuredValue;
@@ -22,6 +20,7 @@ import fuml.semantics.simpleclassifiers.UnlimitedNaturalValue;
 import fuml.semantics.structuredclassifiers.Link;
 import fuml.semantics.structuredclassifiers.LinkList;
 import fuml.semantics.structuredclassifiers.Reference;
+import fuml.semantics.values.Value;
 import fuml.syntax.actions.RemoveStructuralFeatureValueAction;
 import fuml.syntax.classification.StructuralFeature;
 import fuml.syntax.structuredclassifiers.Association;

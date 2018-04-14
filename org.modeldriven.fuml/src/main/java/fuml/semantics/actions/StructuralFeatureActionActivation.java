@@ -39,7 +39,7 @@ public abstract class StructuralFeatureActionActivation extends
 	public fuml.semantics.structuredclassifiers.LinkList getMatchingLinks(
 			fuml.syntax.structuredclassifiers.Association association,
 			fuml.syntax.classification.StructuralFeature end,
-			fuml.semantics.classification.Value oppositeValue) {
+			fuml.semantics.values.Value oppositeValue) {
 		// Get the links of the given binary association whose end opposite
 		// to the given end has the given value
 		
@@ -50,8 +50,8 @@ public abstract class StructuralFeatureActionActivation extends
 	public fuml.semantics.structuredclassifiers.LinkList getMatchingLinksForEndValue(
 			fuml.syntax.structuredclassifiers.Association association,
 			fuml.syntax.classification.StructuralFeature end,
-			fuml.semantics.classification.Value oppositeValue,
-			fuml.semantics.classification.Value endValue) {
+			fuml.semantics.values.Value oppositeValue,
+			fuml.semantics.values.Value endValue) {
 		// Get the links of the given binary association whose end opposite
 		// to the given end has the given opposite value and, optionally, that
 		// has a given end value for the given end.

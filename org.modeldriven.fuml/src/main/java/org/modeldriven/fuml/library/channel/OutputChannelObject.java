@@ -20,7 +20,7 @@ import fuml.semantics.simpleclassifiers.BooleanValue;
 
 public abstract class OutputChannelObject extends ChannelObject {
 
-    public abstract void write(fuml.semantics.classification.Value value, Status errorStatus);
+    public abstract void write(fuml.semantics.values.Value value, Status errorStatus);
     public abstract boolean isFull();
 
     public void execute(OperationExecution execution) {

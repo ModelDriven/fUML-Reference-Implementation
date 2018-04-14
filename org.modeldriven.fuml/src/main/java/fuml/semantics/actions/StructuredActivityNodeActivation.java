@@ -19,8 +19,8 @@ import fuml.semantics.activities.ActivityNodeActivationGroup;
 import fuml.semantics.activities.ObjectToken;
 import fuml.semantics.activities.Token;
 import fuml.semantics.activities.TokenList;
-import fuml.semantics.classification.Value;
-import fuml.semantics.classification.ValueList;
+import fuml.semantics.values.Value;
+import fuml.semantics.values.ValueList;
 import fuml.syntax.actions.Action;
 import fuml.syntax.actions.InputPin;
 import fuml.syntax.actions.InputPinList;
@@ -129,7 +129,7 @@ public class StructuredActivityNodeActivation extends
 		return activityNodes;
 	} // makeActivityNodeList
 
-	public fuml.semantics.classification.ValueList getPinValues(
+	public fuml.semantics.values.ValueList getPinValues(
 			fuml.syntax.actions.OutputPin pin) {
 		// Return the values of the tokens on the pin activation corresponding
 		// to the given pin in the internal activation group for this node
@@ -152,7 +152,7 @@ public class StructuredActivityNodeActivation extends
 	} // getPinValues
 
 	public void putPinValues(fuml.syntax.actions.OutputPin pin,
-			fuml.semantics.classification.ValueList values) {
+			fuml.semantics.values.ValueList values) {
 		// Place tokens for the given values on the pin activation corresponding
 		// to the given output pin on the internal activation group for this
 		// node activation.
