@@ -223,7 +223,8 @@ else if (element instanceof ActivityParameterNode) {
 	visitor = new ActivityParameterNodeActivation();
 }
 
-else if (element instanceof CentralBufferNode) {
+else if (element instanceof CentralBufferNode &
+		!(element instanceof DataStoreNode)) {
 	visitor = new CentralBufferNodeActivation();
 }
 
