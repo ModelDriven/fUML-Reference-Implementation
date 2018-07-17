@@ -16,7 +16,7 @@ corresponding UML packages, they are now rendered entirely in lower case, per us
 
 ### fUML Execution Engine
 
-The current base release of the fUML Execution Engine is v1.3.0 (see the [v1.3.0 Release Notes](./fUML-1.3.0.md)), 
+The current base release of the fUML Execution Engine is v1.3.0 (see the [v1.3.0 Release Notes](./fuml-1.3.0.md)), 
 conforming to v1.3.0 of the [fUML Specification](http://www.omg.org/spec/FUML/1.3.0).
 The v1.3.1 tracking release includes implementation of resolutions to the following OMG issues, which have
 been approved by the fUML Revision Task Force for fUML 1.4 but have not yet been
