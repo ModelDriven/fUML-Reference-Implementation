@@ -38,7 +38,7 @@ to be updated in the specification for CentralBufferNode and DataStoreNode
 In order to implement the migration to UML 2.5.1, as required by the resolution to OMG Issue FUML 14-9, 
 this tracking release also updates the XMI Loader/Infrastructure for the new structure of the UML 2.5.1 metamodel.
 
-#### Bugs
+#### Bug Fixes
 
 None
 
