@@ -52,7 +52,7 @@ be displayed. Generated and compiled code can be found under the 'target'
 directory.
 
 To build using Eclipse:
-    The implementation build requires Eclipse Mars or above with the M2E plugin and dependencies:
+    The implementation build requires Eclipse Neon or above with the M2E plugin and dependencies:
 
 1. Start Eclipse
 
