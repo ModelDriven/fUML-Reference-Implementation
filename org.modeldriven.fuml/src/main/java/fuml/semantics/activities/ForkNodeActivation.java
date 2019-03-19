@@ -44,10 +44,10 @@ public class ForkNodeActivation extends
 	} // fire
 
 	public void terminate() {
-		// Remove any offered tokens and terminate.
+		// Terminate and remove any offered tokens.
 
-		this.clearTokens();
 		super.terminate();
+		this.clearTokens();
 	} // terminate
 
 } // ForkNodeActivation
