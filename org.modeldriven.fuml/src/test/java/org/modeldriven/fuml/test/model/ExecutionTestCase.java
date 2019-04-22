@@ -154,6 +154,29 @@ public class ExecutionTestCase extends FUMLTest {
         Value value = output.get(0).values.get(0);
         assertTrue("value.getTypes().isEmpty()", value.getTypes().isEmpty());
     }
+    
+    public void testTestCompositeObjectDestroyer() throws Exception {
+        ParameterValueList output = execute("TestCompositeObjectDestroyer");
+        log.info("done");
+        
+        assertEquals("output.size()", 4, output.size());
+        
+        ValueList compositeOut = output.get(0).values;
+        assertEquals("compositeOut.size()", 1, compositeOut.size());
+        assertTrue("compositeOut.getTypes().isEmpty()", compositeOut.get(0).getTypes().isEmpty());
+        
+        ValueList object1Out = output.get(1).values;
+        assertEquals("object1Out.size()", 1, object1Out.size());
+        assertTrue("object1Out.getTypes().isEmpty()", object1Out.get(0).getTypes().isEmpty());
+        
+        ValueList object2Out = output.get(2).values;
+        assertEquals("object2Out.size()", 1, object2Out.size());
+        assertTrue("object2Out.getTypes().isEmpty()", object2Out.get(0).getTypes().isEmpty());
+        
+        ValueList assocOut = output.get(3).values;
+        assertEquals("assocOut.size()", 0, assocOut.size());
+    }
+    
     public void testTestClassWriterReader() throws Exception {
         ParameterValueList output = execute("TestClassWriterReader");
         log.info("done");
