@@ -16,6 +16,7 @@ import fuml.semantics.activities.ActivityExecution;
 import fuml.semantics.commonbehavior.ParameterValueList;
 import fuml.semantics.simpleclassifiers.BooleanValue;
 import fuml.semantics.simpleclassifiers.FeatureValueList;
+import fuml.semantics.simpleclassifiers.StructuredValue;
 import fuml.semantics.structuredclassifiers.ExtensionalValueList;
 import fuml.semantics.structuredclassifiers.Reference;
 import fuml.semantics.values.Value;
@@ -152,7 +153,9 @@ public class ExecutionTestCase extends FUMLTest {
         
         assertTrue("One output value", output.size() == 1 && output.get(0).values.size() == 1);
         Value value = output.get(0).values.get(0);
+        assertTrue("value instanceof StructureValue", value instanceof StructuredValue);
         assertTrue("value.getTypes().isEmpty()", value.getTypes().isEmpty());
+        assertTrue("value.getFeatureValues().isEmpty()", ((StructuredValue)value).getFeatureValues().isEmpty());
     }
     
     public void testTestCompositeObjectDestroyer() throws Exception {
@@ -163,15 +166,24 @@ public class ExecutionTestCase extends FUMLTest {
         
         ValueList compositeOut = output.get(0).values;
         assertEquals("compositeOut.size()", 1, compositeOut.size());
-        assertTrue("compositeOut.getTypes().isEmpty()", compositeOut.get(0).getTypes().isEmpty());
-        
+        Value value = compositeOut.get(0);
+        assertTrue("compositeOut instanceof StructuredValue", value instanceof StructuredValue);
+        assertTrue("compositeOut.getTypes().isEmpty()", value.getTypes().isEmpty());
+        assertTrue("compositeOut.getFeatureValues().isEmpty()", ((StructuredValue)value).getFeatureValues().isEmpty());
+      
         ValueList object1Out = output.get(1).values;
         assertEquals("object1Out.size()", 1, object1Out.size());
-        assertTrue("object1Out.getTypes().isEmpty()", object1Out.get(0).getTypes().isEmpty());
+        value = object1Out.get(0);
+        assertTrue("object1Out instanceof StructuredValue", value instanceof StructuredValue);
+        assertTrue("object1Out.getTypes().isEmpty()", value.getTypes().isEmpty());
+        assertTrue("object1Out.getFeatureValues().isEmpty()", ((StructuredValue)value).getFeatureValues().isEmpty());
         
         ValueList object2Out = output.get(2).values;
         assertEquals("object2Out.size()", 1, object2Out.size());
-        assertTrue("object2Out.getTypes().isEmpty()", object2Out.get(0).getTypes().isEmpty());
+        value = object2Out.get(0);
+        assertTrue("object2Out instanceof StructuredValue", value instanceof StructuredValue);
+        assertTrue("object2Out.getTypes().isEmpty()", value.getTypes().isEmpty());
+        assertTrue("object2Out.getFeatureValues().isEmpty()", ((StructuredValue)value).getFeatureValues().isEmpty());
         
         ValueList assocOut = output.get(3).values;
         assertEquals("assocOut.size()", 0, assocOut.size());

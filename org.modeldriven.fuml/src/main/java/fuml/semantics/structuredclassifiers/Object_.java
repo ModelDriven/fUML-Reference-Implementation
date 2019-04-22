@@ -64,8 +64,8 @@ public class Object_ extends fuml.semantics.structuredclassifiers.ExtensionalVal
 	} // send
 
 	public void destroy() {
-		// Stop the object activation (if any), clear all types and destroy the
-		// object as an extensional value.
+		// Stop the object activation (if any), clear all types and feature values,
+		// and destroy the object as an extensional value.
 
 		Debug.println("[destroy] object = " + this.identifier);
 
@@ -75,6 +75,7 @@ public class Object_ extends fuml.semantics.structuredclassifiers.ExtensionalVal
 		}
 
 		this.types.clear();
+		this.featureValues.clear();
 		super.destroy();
 	} // destroy
 

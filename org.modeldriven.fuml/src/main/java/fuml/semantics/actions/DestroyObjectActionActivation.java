@@ -30,7 +30,7 @@ public class DestroyObjectActionActivation extends
 
 	public void doAction() {
 		// Get the value on the target input pin.
-		// If the value is not a reference, the action has no effect.
+		// If the value is not a reference, then the action has no effect.
 		// Otherwise, do the following.
 		// If isDestroyLinks is true, destroy all links in which the referent
 		// participates.
@@ -115,8 +115,8 @@ public class DestroyObjectActionActivation extends
 		while (compositeValue == null & i <= linkFeatureValues.size()) {
 			FeatureValue featureValue = linkFeatureValues.getValue(i - 1);
 			Value value = featureValue.values.getValue(0);
-			if (!value.equals(reference)
-					& ((Property) featureValue.feature).aggregation == AggregationKind.composite) {
+			if (!value.equals(reference) &
+				((Property) featureValue.feature).aggregation == AggregationKind.composite) {
 				compositeValue = value;
 			}
 			i = i + 1;
