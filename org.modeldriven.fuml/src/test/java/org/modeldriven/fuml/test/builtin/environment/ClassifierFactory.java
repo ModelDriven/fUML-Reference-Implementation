@@ -72,15 +72,26 @@ public class ClassifierFactory {
 		association.setName(name);
 		environment.addElement(association);
 	} // createAssociation
-
-	public void addAttribute(String classifierName, String attributeName,
+	
+	public Property addAttribute(String classifierName, String attributeName,
+			String attributeTypeName, boolean isComposite, boolean isUnique, int lower, int upper) {
+		Property attribute = addAttribute(classifierName, attributeName, attributeTypeName, isComposite);
+		if (attribute != null) {
+			attribute.setIsUnique(isUnique);
+			attribute.setLower(lower);
+			attribute.setUpper(upper);
+		}
+		return attribute;
+	}
+	
+	public Property addAttribute(String classifierName, String attributeName,
 			String attributeTypeName, boolean isComposite) {
 		Classifier type = environment.getType(classifierName);
 
 		if (type == null) {
 			Debug.println("[addAttribute] " + classifierName
 					+ " not found or not a classifier.");
-			return;
+			return null;
 		}
 
 		Classifier attributeType = environment.getType(attributeTypeName);
@@ -88,7 +99,7 @@ public class ClassifierFactory {
 		if (attributeType == null) {
 			Debug.println("[addAttribute] " + attributeTypeName
 					+ " not found or not a classifier.");
-			return;
+			return null;
 		}
 
 		Property attribute = new Property();
@@ -115,6 +126,8 @@ public class ClassifierFactory {
 		} else if (type instanceof Signal) {
 			((Signal) type).addOwnedAttribute(attribute);
 		}
+		
+		return attribute;
 	} // addAttribute
 
 	public void addEnd(String associationName, String endName,

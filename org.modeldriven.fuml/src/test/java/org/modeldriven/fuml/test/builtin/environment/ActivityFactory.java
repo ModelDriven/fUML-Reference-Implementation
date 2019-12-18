@@ -48,6 +48,7 @@ import fuml.syntax.actions.SendSignalAction;
 import fuml.syntax.actions.StartObjectBehaviorAction;
 import fuml.syntax.actions.StructuredActivityNode;
 import fuml.syntax.actions.TestIdentityAction;
+import fuml.syntax.actions.UnmarshallAction;
 import fuml.syntax.actions.ValueSpecificationAction;
 import fuml.syntax.activities.Activity;
 import fuml.syntax.activities.ActivityEdge;
@@ -3472,6 +3473,81 @@ public class ActivityFactory {
 		this.addEdge(activity, new ObjectFlow(), dataStoreNode, callAction2.argument.get(0), null);
 		this.addEdge(activity, new ObjectFlow(), callAction2.result.get(0), outputNode, null);
 
+		this.environment.addElement(activity);
+	}
+	
+	public void createUnmarshaller(String classifierName) {
+		Activity activity = new Activity();
+		activity.setName(classifierName + "_Unmarshaller");
+		
+		NamedElement element = this.environment.getElement(classifierName);
+
+		if (element == null || !(element instanceof Classifier)) {
+			Debug.println("[createWriterReader] " + classifierName
+					+ " does not exist or is not a classifier.");
+			return;
+		}
+
+		Classifier classifier = (Classifier) element;
+		
+		UnmarshallAction unmarshallAction = new UnmarshallAction();
+		unmarshallAction.setName("Unmarshall(" + classifierName + ")");
+		unmarshallAction.setUnmarshallType(classifier);
+		unmarshallAction.setObject(this.makeInputPin(unmarshallAction.name + ".object", 1, 1));
+		this.addNode(activity, unmarshallAction);
+
+		CreateObjectAction createAction = new CreateObjectAction();
+		createAction.setName("Create(" + classifierName + ")");
+		createAction.setClassifier(classifier);
+		createAction.setResult(this.makeOutputPin(createAction.name + ".result", 1, 1));
+		this.addNode(activity, createAction);
+		
+		OutputPin object = createAction.result;
+		
+		for (Property attribute: classifier.attribute) {
+			int upper = attribute.multiplicityElement.upper.naturalValue;
+			if (upper < 0) {
+				upper = 1;
+			}
+			for (int i = 0; i < upper; i++) {
+				ValueSpecification valueSpecification = environment.makeValue(
+						(Classifier) (attribute.typedElement.type)).specify();
+				ValueSpecificationAction valueAction = new ValueSpecificationAction();
+				valueAction.setName(attribute.name + "[" + (i+1) + "]." + attribute.typedElement.type.name + "Value");
+				valueAction.setValue(valueSpecification);
+				valueAction.setResult(this.makeOutputPin(valueAction.name + ".result", 1, 1));
+				this.addNode(activity, valueAction);
+				
+				AddStructuralFeatureValueAction writeAction = new AddStructuralFeatureValueAction();
+				writeAction.setName("Write(" + attribute.name + "[" + (i+1) + "])");
+				writeAction.setStructuralFeature(attribute);
+				writeAction.setObject(this.makeInputPin(writeAction.name + ".object", 1, 1));
+				writeAction.setValue(this.makeInputPin(writeAction.name + ".value", 1, 1));
+				writeAction.setResult(this.makeOutputPin(writeAction.name + ".result", 1, 1));
+				this.addNode(activity, writeAction);
+				
+				this.addEdge(activity, new ObjectFlow(), object, writeAction.object, null);
+				this.addEdge(activity, new ObjectFlow(), valueAction.result, writeAction.value, null);
+				object = writeAction.result;
+			}
+			
+			ActivityParameterNode outputNode = new ActivityParameterNode();
+			outputNode.setName("Parameter(" + attribute.name + ")");
+			Parameter parameter = this.addParameter(activity, attribute.name, ParameterDirectionKind.out, null);
+			parameter.setLower(0);
+			parameter.setUpper(-1);
+			outputNode.setParameter(parameter);
+			this.addNode(activity, outputNode);
+			
+			OutputPin result = this.makeOutputPin(unmarshallAction.name + ".result(" + attribute.name + ")", 0, -1);
+			unmarshallAction.addResult(result);
+			
+			this.addEdge(activity, new ObjectFlow(), result, outputNode, null);
+			
+		}
+		
+		this.addEdge(activity, new ObjectFlow(), object, unmarshallAction.object, null);
+		
 		this.environment.addElement(activity);
 	}
 

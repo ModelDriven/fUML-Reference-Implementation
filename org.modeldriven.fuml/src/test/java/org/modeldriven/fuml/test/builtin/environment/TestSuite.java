@@ -511,4 +511,24 @@ public class TestSuite {
 		return output;
 	}
 
+	public ParameterValueList testUnmarshaller() {
+		Debug.println("[testUnmarshaller] Setting up...");
+
+		this.environment.removeElement("TestClass");
+		classifierFactory.createClass("TestClass");
+		classifierFactory.addAttribute("TestClass", "x", "Integer", false);
+		classifierFactory.addAttribute("TestClass", "y", "Boolean", false, false, 0, 2);
+		classifierFactory.addAttribute("TestClass", "z", "String", false, true, 0, 0);
+
+		activityFactory.createUnmarshaller("TestClass");
+
+		Debug.println("[testUnmarshaller] Testing...");
+
+		ParameterValueList output = executorTest.testExecute("TestClass_Unmarshaller");
+
+		Debug.println("[testUnmarshaller] Done!");
+		
+		return output;
+	} // testWriterReader
+
 } // TestSuite
