@@ -348,6 +348,16 @@ public class ExecutionTestCase extends FUMLTest {
     	assertEqualValues("output", output.get(0), 1, 2);
     }
 
+    public void testTestClassUnmarshaller() throws Exception {
+    	ParameterValueList output = execute("TestClassUnmarshaller");
+    	log.info("done");
+    	
+    	assertNotNull(output);
+    	assertEquals("output.size()", 2, output.size());
+    	assertEqualValues("x", output.get(0), 0);
+    	assertEqualValues("y", output.get(1), 1, 2);
+    }
+
     private ParameterValueList execute(String activityName)
     {
         Behavior behavior = environment.findBehavior(activityName);

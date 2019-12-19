@@ -73,33 +73,29 @@ public abstract class StructuredValue extends
 
 	public abstract fuml.semantics.simpleclassifiers.FeatureValueList getFeatureValues();
 	
-	public fuml.semantics.simpleclassifiers.FeatureValueList getMemberValues() {
+	public fuml.semantics.simpleclassifiers.FeatureValueList getMemberValues(Classifier type) {
 		// Return the feature values for this structured value that are for structural
-		// features that are members of one of the types of the structured value.
-		// (That is, they are owned are inherited, excluding private features of
-		// supertypes that are not inherited.)
+		// features that are members of the given type. (That is, they are owned or 
+		// inherited by the given type, excluding private features of supertypes that 
+		// are not inherited.)
 		
 		FeatureValueList featureValues = this.getFeatureValues();
 		FeatureValueList memberValues = new FeatureValueList();
 		
-		ClassifierList types = this.getTypes();
-		for (int i = 0; i < featureValues.size(); i++) {
-			FeatureValue featureValue = featureValues.getValue(i);
-			Boolean isMember = false;
-			int j = 1;
-			while (j <= types.size() & !isMember) {
-				Classifier type = types.getValue(j-1);
-				NamedElementList members = type.member;
+		if (type != null) {
+			NamedElementList members = type.member;
+			for (int i = 0; i < featureValues.size(); i++) {
+				FeatureValue featureValue = featureValues.getValue(i);
+				Boolean isMember = false;
 				int k = 1;
 				while (k <= members.size() & !isMember) {
 					NamedElement member = members.getValue(k-1);
 					isMember = featureValue.feature == member;
 					k = k + 1;
 				}
-				j = j + 1;
-			}
-			if (isMember) {
-				memberValues.addValue(featureValue);
+				if (isMember) {
+					memberValues.addValue(featureValue);
+				}
 			}
 		}
 		

@@ -14,6 +14,8 @@ package fuml.semantics.actions;
 
 import fuml.Debug;
 import fuml.semantics.activities.ActivityNodeActivationGroup;
+import fuml.semantics.activities.TokenList;
+import fuml.semantics.commonbehavior.EventOccurrence;
 import fuml.semantics.commonbehavior.ParameterValue;
 import fuml.semantics.commonbehavior.ParameterValueList;
 import fuml.semantics.commonbehavior.SignalEventOccurrence;
@@ -25,10 +27,9 @@ import fuml.syntax.actions.OutputPinList;
 import fuml.syntax.activities.ActivityNode;
 import fuml.syntax.commonbehavior.TriggerList;
 
-public class AcceptEventActionActivation extends
-		fuml.semantics.actions.ActionActivation {
+public class AcceptEventActionActivation extends ActionActivation {
 
-	public fuml.semantics.actions.AcceptEventActionEventAccepter eventAccepter = null;
+	public AcceptEventActionEventAccepter eventAccepter = null;
 	public Boolean waiting = false;
 	
 	public void initialize(ActivityNode node, ActivityNodeActivationGroup group) {
@@ -49,8 +50,7 @@ public class AcceptEventActionActivation extends
 		this.waiting = false;
 	} // run
 
-	public void fire(
-			fuml.semantics.activities.TokenList incomingTokens) {
+	public void fire(TokenList incomingTokens) {
 		// Register the event accepter for this accept event action activation
 		// with the context object of the enclosing activity execution
 		// and wait for an event to be accepted.
@@ -84,8 +84,7 @@ public class AcceptEventActionActivation extends
 		return;
 	} // doAction
 
-	public void accept(
-			fuml.semantics.commonbehavior.EventOccurrence eventOccurrence) {
+	public void accept(EventOccurrence eventOccurrence) {
 		// Accept the given event occurrence.
 		// If the action does not unmarshall, then, if the event occurrence is
 		// a signal event occurrence, place the signal instance of the signal
@@ -115,7 +114,8 @@ public class AcceptEventActionActivation extends
 					}
 				}
 			} else {
-				ParameterValueList parameterValues = eventOccurrence.getParameterValues();
+				ParameterValueList parameterValues = 
+						eventOccurrence.getParameterValues(action.trigger.get(0).event);
 				for (int i = 0; i < parameterValues.size(); i++) {
 					ParameterValue parameterValue = parameterValues.getValue(i);
 					OutputPin resultPin = resultPins.getValue(i);
@@ -135,8 +135,7 @@ public class AcceptEventActionActivation extends
 
 	} // accept
 
-	public boolean match(
-			fuml.semantics.commonbehavior.EventOccurrence eventOccurrence) {
+	public boolean match(EventOccurrence eventOccurrence) {
 		// Return true if the given event occurrence matches a trigger of the
 		// accept event action of this activation.
 

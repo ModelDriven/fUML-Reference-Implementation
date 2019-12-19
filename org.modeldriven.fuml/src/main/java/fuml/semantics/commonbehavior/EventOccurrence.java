@@ -11,6 +11,7 @@ package fuml.semantics.commonbehavior;
 import org.modeldriven.fuml.FumlObject;
 
 import fuml.semantics.structuredclassifiers.Reference;
+import fuml.syntax.commonbehavior.Event;
 
 public abstract class EventOccurrence extends FumlObject {
 	
@@ -48,7 +49,7 @@ public abstract class EventOccurrence extends FumlObject {
 		
 	}
 	
-	public abstract fuml.semantics.commonbehavior.ParameterValueList getParameterValues();
+	public abstract fuml.semantics.commonbehavior.ParameterValueList getParameterValues(Event event);
 	
 	private EventOccurrence_SendingBehaviorExecution behavior = new EventOccurrence_SendingBehaviorExecution(this);
 

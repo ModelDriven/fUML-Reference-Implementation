@@ -8,6 +8,7 @@
 
 package fuml.semantics.commonbehavior;
 
+import fuml.syntax.commonbehavior.Event;
 import fuml.syntax.commonbehavior.Trigger;
 
 public class InvocationEventOccurrence extends EventOccurrence {
@@ -22,7 +23,7 @@ public class InvocationEventOccurrence extends EventOccurrence {
 	}
 
 	@Override
-	public ParameterValueList getParameterValues() {
+	public ParameterValueList getParameterValues(Event event) {
 		// An invocation event occurrence does not have any associated data.
 		
 		return new ParameterValueList();

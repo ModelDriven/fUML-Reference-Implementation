@@ -11,6 +11,7 @@ package fuml.semantics.commonbehavior;
 
 import fuml.syntax.classification.Operation;
 import fuml.syntax.commonbehavior.CallEvent;
+import fuml.syntax.commonbehavior.Event;
 import fuml.syntax.commonbehavior.Trigger;
 
 public class CallEventOccurrence extends EventOccurrence {
@@ -37,7 +38,7 @@ public class CallEventOccurrence extends EventOccurrence {
 	}
 
 	@Override
-	public ParameterValueList getParameterValues() {
+	public ParameterValueList getParameterValues(Event event) {
 		// Return the input parameter values from the call event execution for
 		// this call event occurrence, which correspond to the values of the
 		// operation input parameters for the call.

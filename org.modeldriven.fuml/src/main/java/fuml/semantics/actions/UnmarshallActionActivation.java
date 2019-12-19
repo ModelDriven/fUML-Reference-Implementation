@@ -15,18 +15,20 @@ import fuml.semantics.values.Value;
 import fuml.syntax.actions.OutputPin;
 import fuml.syntax.actions.OutputPinList;
 import fuml.syntax.actions.UnmarshallAction;
+import fuml.syntax.classification.Classifier;
 
 public class UnmarshallActionActivation extends ActionActivation {
 
 	@Override
 	public void doAction() {
 		UnmarshallAction action = (UnmarshallAction) this.node;
+		Classifier unmarshallType = action.unmarshallType;
 		OutputPinList resultPins = action.result;
 		
 		Value value = this.takeTokens(action.object).getValue(0);
 		
 		if (value instanceof StructuredValue) {
-			FeatureValueList featureValues = ((StructuredValue)value).getFeatureValues();
+			FeatureValueList featureValues = ((StructuredValue)value).getMemberValues(unmarshallType);
 			for (int i=0; i < featureValues.size(); i++) {
 				FeatureValue featureValue = featureValues.getValue(i);
 				OutputPin resultPin = resultPins.getValue(i);
