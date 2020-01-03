@@ -22,12 +22,12 @@ public class SimpleActivitiesTestCase extends BuiltInTest {
 
     public void testSimpleActivities() throws Exception {
         log.info("testSimpleActivities");        
-        ParameterValueList output = this.testSuite.testSimpleActivites();        
+        ParameterValueList output = this.testSuite.testSimpleActivities();        
         log.info("done");
         
         assertNotNull(output);
         assertEquals("output.size()", 9, output.size());        
-        assertEqualValues("Coper.output", output.get(0), 0);
+        assertEqualValues("Copier.output", output.get(0), 0);
         assertEqualValues("CoperCaller.output", output.get(1), 0);
         assertEqualValues("SimpleDecision0.output_0", output.get(2), 0);
         assertEqualValues("SimpleDecision0.output_1", output.get(3));

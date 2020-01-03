@@ -6,6 +6,8 @@ import junit.framework.Test;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.modeldriven.fuml.Fuml;
 import org.modeldriven.fuml.environment.Environment;
 import org.modeldriven.fuml.environment.ExecutionEnvironment;
@@ -358,6 +360,16 @@ public class ExecutionTestCase extends FUMLTest {
     	assertEqualValues("y", output.get(1), 1, 2);
     }
 
+    public void testStreamingCopierCaller() throws Exception {
+    	Logger.getRootLogger().setLevel(Level.DEBUG);
+    	ParameterValueList output = execute("StreamingCopierCaller");
+        log.info("done");
+        
+        assertEquals("output.size()", 2, output.size());
+        assertEqualValues("output", output.get(0), 1, 2, 3);
+        assertEqualValues("count", output.get(1), 1);
+     }
+  
     private ParameterValueList execute(String activityName)
     {
         Behavior behavior = environment.findBehavior(activityName);

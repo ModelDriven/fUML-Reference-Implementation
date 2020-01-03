@@ -30,7 +30,7 @@ public class TestSuite {
 		this.executorTest = environment.executorTest;
 	} // TestSuite
 
-	public ParameterValueList testSimpleActivites() {
+	public ParameterValueList testSimpleActivities() {
 		Debug.println("");
 		Debug.println("[testSimpleActivites] Setting up...");
 
@@ -529,6 +529,23 @@ public class TestSuite {
 		Debug.println("[testUnmarshaller] Done!");
 		
 		return output;
-	} // testWriterReader
+	}
+	
+	public ParameterValueList testStreamingCopierCaller() {
+		Debug.println("");
+		Debug.println("[testStreamingCaller] Setting up...");
+
+		this.activityFactory.createStreamingCopier();
+		this.activityFactory.createCaller("StreamingCopier", false, 2);
+
+		Debug.println("[testStreamingCaller] Testing...");
+
+		ParameterValueList output = this.executorTest.testExecute("StreamingCopierCaller");		
+
+		Debug.println("[testStreamingCaller] Done!");
+		
+		return output;
+		
+	}
 
 } // TestSuite

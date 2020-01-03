@@ -3,7 +3,9 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * Modifications: 
+ * Copyright 2009-2012 Data Access Technologies, Inc.
+ * Copyright 2019 Model Driven Solutions, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -17,6 +19,7 @@ public class Parameter extends fuml.syntax.commonstructure.TypedElement {
 	public fuml.syntax.commonstructure.MultiplicityElement multiplicityElement = new fuml.syntax.commonstructure.MultiplicityElement();
 	public fuml.syntax.classification.ParameterDirectionKind direction = fuml.syntax.classification.ParameterDirectionKind.in;
 	public fuml.syntax.classification.Operation operation = null;
+	public boolean isStream = false;
 
 	public void setDirection(
 			fuml.syntax.classification.ParameterDirectionKind direction) {
@@ -55,6 +58,10 @@ public class Parameter extends fuml.syntax.commonstructure.TypedElement {
 		this.multiplicityElement.setLower(lower);
 
 	} // setLower
+	
+	public void setIsStream(boolean isStream) {
+		this.isStream = isStream;
+	}
 
 	public void _setOperation(fuml.syntax.classification.Operation operation) {
 		this.operation = operation;
