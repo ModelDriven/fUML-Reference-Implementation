@@ -13,7 +13,6 @@
 package fuml.semantics.actions;
 
 import fuml.semantics.activities.ActivityNodeActivationGroup;
-import fuml.semantics.activities.NodeActivationStreamingParameterListener;
 import fuml.semantics.activities.TokenList;
 import fuml.semantics.commonbehavior.Execution;
 import fuml.semantics.commonbehavior.ParameterValue;
@@ -92,7 +91,6 @@ public abstract class CallActionActivation extends
 				if (parameter.direction == ParameterDirectionKind.out
 						| parameter.direction == ParameterDirectionKind.inout) {
 					if (parameter.isStream) {
-						this.isStreaming = true;
 						ParameterValue parameterValue = new StreamingParameterValue();
 						parameterValue.parameter = parameter;
 						PinStreamingParameterListener listener = 

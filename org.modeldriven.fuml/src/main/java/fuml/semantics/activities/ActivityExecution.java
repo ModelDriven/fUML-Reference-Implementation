@@ -17,6 +17,7 @@ import fuml.semantics.values.Value;
 import fuml.syntax.activities.Activity;
 import fuml.syntax.activities.ActivityParameterNode;
 import fuml.syntax.classification.Parameter;
+import fuml.syntax.classification.ParameterDirectionKind;
 import fuml.syntax.classification.ParameterList;
 
 public class ActivityExecution extends fuml.semantics.commonbehavior.Execution {
@@ -27,8 +28,8 @@ public class ActivityExecution extends fuml.semantics.commonbehavior.Execution {
 	public void execute() {
 		// Execute the activity for this execution by creating an activity node
 		// activation group and activating all the activity nodes in the
-		// activity. If the activity has no stream parameters, then, when the
-		// execution is complete, copy the values on the tokens offered by
+		// activity. If the activity has no streaming input parameters, then, when
+		// the execution is complete, copy the values on the tokens offered by
 		// output parameter nodes to the corresponding output parameters.
 		
 		Activity activity = (Activity) (this.getTypes().getValue(0));
@@ -42,7 +43,10 @@ public class ActivityExecution extends fuml.semantics.commonbehavior.Execution {
 		ParameterList parameters = activity.ownedParameter;
 		while (i <= parameters.size() & !this.isStreaming) {
 			Parameter parameter = parameters.getValue(i - 1);
-			this.isStreaming = parameter.isStream;
+			this.isStreaming = 
+					(parameter.direction == ParameterDirectionKind.in | 
+					 parameter.direction == ParameterDirectionKind.inout) & 
+					parameter.isStream;
 			i = i + 1;
 		}
 		
