@@ -10,13 +10,13 @@
  * in the file entitled Licensing-Information. 
  */
 
-package fuml.syntax.actions;
+package fuml.syntax.activities;
 
 import java.util.ArrayList;
 
 public class ExecutableNodeList
 		extends
-		ArrayList<fuml.syntax.actions.ExecutableNode> {
+		ArrayList<fuml.syntax.activities.ExecutableNode> {
 	public ExecutableNodeList() {
 		super();
 	}

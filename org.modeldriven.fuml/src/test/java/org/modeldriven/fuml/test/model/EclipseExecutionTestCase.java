@@ -27,21 +27,21 @@ import fuml.syntax.structuredclassifiers.Class_;
 /**
  * 
  */
-public class ExecutionTestCase extends FUMLTest {
-    private static Log log = LogFactory.getLog(ExecutionTestCase.class);
+public class EclipseExecutionTestCase extends FUMLTest {
+    private static Log log = LogFactory.getLog(EclipseExecutionTestCase.class);
     
     private static Environment environment; // JUnit creates a new test class for every test! 
     private static String namespaceURI = "http://org.modeldriven.fuml/test/uml/magicdraw/fUML-Tests";
     
     public static Test suite() {
-        return FUMLTestSetup.newTestSetup(ExecutionTestCase.class);
+        return FUMLTestSetup.newTestSetup(EclipseExecutionTestCase.class);
     }
     
     public void setUp() throws Exception {
-        if (ExecutionTestCase.environment == null)
+        if (EclipseExecutionTestCase.environment == null)
         {    
-            ExecutionTestCase.environment = Environment.getInstance();
-            String filename = "./target/test-classes/mdxml/fUML-Tests.mdxml";
+            EclipseExecutionTestCase.environment = Environment.getInstance();
+            String filename = "./target/test-classes/uml/fUML-Tests.uml";
             File file = new File(filename);
             assertTrue("file '" + filename + "' does not exist", file.exists());
             Fuml.load(file, namespaceURI);

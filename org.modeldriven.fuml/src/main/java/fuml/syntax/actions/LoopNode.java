@@ -18,25 +18,25 @@ public class LoopNode
 
 	public boolean isTestedFirst = false;
 	public fuml.syntax.actions.OutputPin decider = null;
-	public fuml.syntax.actions.ExecutableNodeList test = new fuml.syntax.actions.ExecutableNodeList();
+	public fuml.syntax.activities.ExecutableNodeList test = new fuml.syntax.activities.ExecutableNodeList();
 	public fuml.syntax.actions.OutputPinList bodyOutput = new fuml.syntax.actions.OutputPinList();
 	public fuml.syntax.actions.InputPinList loopVariableInput = new fuml.syntax.actions.InputPinList();
-	public fuml.syntax.actions.ExecutableNodeList bodyPart = new fuml.syntax.actions.ExecutableNodeList();
+	public fuml.syntax.activities.ExecutableNodeList bodyPart = new fuml.syntax.activities.ExecutableNodeList();
 	public fuml.syntax.actions.OutputPinList result = new fuml.syntax.actions.OutputPinList();
 	public fuml.syntax.actions.OutputPinList loopVariable = new fuml.syntax.actions.OutputPinList();
-	public fuml.syntax.actions.ExecutableNodeList setupPart = new fuml.syntax.actions.ExecutableNodeList();
+	public fuml.syntax.activities.ExecutableNodeList setupPart = new fuml.syntax.activities.ExecutableNodeList();
 
 	public void setIsTestedFirst(boolean isTestedFirst) {
 		this.isTestedFirst = isTestedFirst;
 	} // setIsTestedFirst
 
 	public void addTest(
-			fuml.syntax.actions.ExecutableNode test) {
+			fuml.syntax.activities.ExecutableNode test) {
 		this.test.addValue(test);
 	} // addTest
 
 	public void addBodyPart(
-			fuml.syntax.actions.ExecutableNode bodyPart) {
+			fuml.syntax.activities.ExecutableNode bodyPart) {
 		this.bodyPart.addValue(bodyPart);
 	} // addBodyPart
 

@@ -21,6 +21,7 @@ public class Activity extends
 	public fuml.syntax.activities.ActivityNodeList node = new fuml.syntax.activities.ActivityNodeList();
 	public boolean isReadOnly = false;
 	public fuml.syntax.activities.ActivityEdgeList edge = new fuml.syntax.activities.ActivityEdgeList();
+	public fuml.syntax.activities.ActivityGroupList group = new fuml.syntax.activities.ActivityGroupList();
 
 	public void setIsReadOnly(boolean isReadOnly) {
 		this.isReadOnly = isReadOnly;
@@ -28,16 +29,27 @@ public class Activity extends
 
 	public void addNode(
 			fuml.syntax.activities.ActivityNode node) {
-		super.addOwnedElement(node);
-
-		this.node.add(node);
-		node._setActivity(this);
-
-		if (node instanceof StructuredActivityNode) {
+		if (!this.node.contains(node)) {
+			super.addOwnedElement(node);
+	
+			this.node.add(node);
+			node._setActivity(this);
+		}
+		
+		if (node instanceof StructuredActivityNode &&
+				!this.structuredNode.contains(node)) {
 			this.structuredNode.add((StructuredActivityNode) node);
 		}
 
 	} // addNode
+	
+	public void addStructuredNode(fuml.syntax.actions.StructuredActivityNode node) {
+		this.addNode(node);
+	}
+	
+	public void addGroup(fuml.syntax.activities.ActivityGroup group) {
+		this.group.add(group);
+	}
 
 	public void addEdge(
 			fuml.syntax.activities.ActivityEdge edge) {

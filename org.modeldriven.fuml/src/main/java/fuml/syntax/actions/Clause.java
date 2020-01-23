@@ -14,8 +14,8 @@ package fuml.syntax.actions;
 
 public class Clause extends fuml.syntax.commonstructure.Element {
 
-	public fuml.syntax.actions.ExecutableNodeList test = new fuml.syntax.actions.ExecutableNodeList();
-	public fuml.syntax.actions.ExecutableNodeList body = new fuml.syntax.actions.ExecutableNodeList();
+	public fuml.syntax.activities.ExecutableNodeList test = new fuml.syntax.activities.ExecutableNodeList();
+	public fuml.syntax.activities.ExecutableNodeList body = new fuml.syntax.activities.ExecutableNodeList();
 	public fuml.syntax.actions.ClauseList predecessorClause = new fuml.syntax.actions.ClauseList();
 	public fuml.syntax.actions.ClauseList successorClause = new fuml.syntax.actions.ClauseList();
 	public fuml.syntax.actions.OutputPin decider = null;
@@ -28,12 +28,12 @@ public class Clause extends fuml.syntax.commonstructure.Element {
 	} // addPredecessorClause
 
 	public void addTest(
-			fuml.syntax.actions.ExecutableNode test) {
+			fuml.syntax.activities.ExecutableNode test) {
 		this.test.addValue(test);
 	} // addTest
 
 	public void addBody(
-			fuml.syntax.actions.ExecutableNode body) {
+			fuml.syntax.activities.ExecutableNode body) {
 		this.body.addValue(body);
 	} // addBody
 
