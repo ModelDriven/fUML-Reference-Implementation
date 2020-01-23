@@ -21,11 +21,11 @@ import fuml.semantics.loci.ChoiceStrategy;
 import fuml.syntax.actions.Clause;
 import fuml.syntax.actions.ClauseList;
 import fuml.syntax.actions.ConditionalNode;
-import fuml.syntax.actions.ExecutableNode;
-import fuml.syntax.actions.ExecutableNodeList;
 import fuml.syntax.actions.OutputPin;
 import fuml.syntax.actions.OutputPinList;
 import fuml.syntax.actions.Pin;
+import fuml.syntax.activities.ExecutableNode;
+import fuml.syntax.activities.ExecutableNodeList;
 
 public class ConditionalNodeActivation
 		extends

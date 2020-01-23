@@ -13,7 +13,7 @@
 package fuml.syntax.actions;
 
 public abstract class Action extends
-		fuml.syntax.actions.ExecutableNode {
+		fuml.syntax.activities.ExecutableNode {
 
 	public fuml.syntax.actions.OutputPinList output = new fuml.syntax.actions.OutputPinList();
 	public fuml.syntax.classification.Classifier context = null;

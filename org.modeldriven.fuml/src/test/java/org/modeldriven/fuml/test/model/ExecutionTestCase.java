@@ -33,7 +33,7 @@ public class ExecutionTestCase extends FUMLTest {
     private static Log log = LogFactory.getLog(ExecutionTestCase.class);
     
     private static Environment environment; // JUnit creates a new test class for every test! 
-    private static String namespaceURI = "http://org.modeldriven.fuml/test/uml/magicdraw/fUML-Tests.uml";
+    private static String namespaceURI = "http://org.modeldriven.fuml/test/uml/magicdraw/fUML-Tests";
     
     public static Test suite() {
         return FUMLTestSetup.newTestSetup(ExecutionTestCase.class);

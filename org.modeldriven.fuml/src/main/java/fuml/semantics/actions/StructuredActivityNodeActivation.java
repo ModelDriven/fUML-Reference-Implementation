@@ -98,7 +98,7 @@ public class StructuredActivityNodeActivation extends
 	} // getNodeActivation
 
 	public fuml.syntax.activities.ActivityNodeList makeActivityNodeList(
-			fuml.syntax.actions.ExecutableNodeList nodes) {
+			fuml.syntax.activities.ExecutableNodeList nodes) {
 		// Return an activity node list containing the given list of executable
 		// nodes
 		// and any pins that they own.

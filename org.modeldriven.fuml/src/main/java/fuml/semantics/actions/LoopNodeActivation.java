@@ -17,7 +17,6 @@ import fuml.semantics.activities.ActivityNodeActivation;
 import fuml.semantics.activities.ActivityNodeActivationList;
 import fuml.semantics.simpleclassifiers.BooleanValue;
 import fuml.semantics.values.ValueList;
-import fuml.syntax.actions.ExecutableNode;
 import fuml.syntax.actions.InputPin;
 import fuml.syntax.actions.InputPinList;
 import fuml.syntax.actions.LoopNode;
@@ -25,6 +24,7 @@ import fuml.syntax.actions.OutputPin;
 import fuml.syntax.actions.OutputPinList;
 import fuml.syntax.actions.Pin;
 import fuml.syntax.activities.ActivityNodeList;
+import fuml.syntax.activities.ExecutableNode;
 
 public class LoopNodeActivation
 		extends
