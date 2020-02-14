@@ -32,6 +32,7 @@ import fuml.semantics.actions.ExpansionRegionActivation;
 import fuml.semantics.actions.InputPinActivation;
 import fuml.semantics.actions.LoopNodeActivation;
 import fuml.semantics.actions.OutputPinActivation;
+import fuml.semantics.actions.RaiseExceptionActionActivation;
 import fuml.semantics.actions.ReadExtentActionActivation;
 import fuml.semantics.actions.ReadIsClassifiedObjectActionActivation;
 import fuml.semantics.actions.ReadLinkActionActivation;
@@ -88,6 +89,7 @@ import fuml.syntax.actions.ExpansionRegion;
 import fuml.syntax.actions.InputPin;
 import fuml.syntax.actions.LoopNode;
 import fuml.syntax.actions.OutputPin;
+import fuml.syntax.actions.RaiseExceptionAction;
 import fuml.syntax.actions.ReadExtentAction;
 import fuml.syntax.actions.ReadIsClassifiedObjectAction;
 import fuml.syntax.actions.ReadLinkAction;
@@ -398,6 +400,10 @@ public class ExecutionFactory extends org.modeldriven.fuml.FumlObject {
 		
 		else if (element instanceof ReduceAction) {
 			visitor = new ReduceActionActivation();
+		}
+		
+		else if(element instanceof RaiseExceptionAction) {
+			visitor = new RaiseExceptionActionActivation();
 		}
 		
 		else if (element instanceof UnmarshallAction) {

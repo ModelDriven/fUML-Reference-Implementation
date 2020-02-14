@@ -3,7 +3,9 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * Modifications: 
+ * Copyright 2009-2012 Data Access Technologies, Inc.
+ * Copyright 2020 CEA LIST.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -12,6 +14,7 @@
 
 package fuml.semantics.commonbehavior;
 
+import fuml.semantics.values.Value;
 import fuml.syntax.classification.Parameter;
 import fuml.syntax.classification.ParameterDirectionKind;
 import fuml.syntax.commonbehavior.Behavior;
@@ -19,7 +22,10 @@ import fuml.syntax.commonbehavior.Behavior;
 public abstract class Execution extends fuml.semantics.structuredclassifiers.Object_ {
 
 	public fuml.semantics.structuredclassifiers.Object_ context = null;
+	
 	public fuml.semantics.commonbehavior.ParameterValueList parameterValues = new fuml.semantics.commonbehavior.ParameterValueList();
+	
+	public Value exception;
 
 	public abstract void execute();
 
@@ -116,4 +122,9 @@ public abstract class Execution extends fuml.semantics.structuredclassifiers.Obj
 		return (Behavior) (this.getTypes().getValue(0));
 	} // getBehavior
 
+	public void propagateException(Value exception) {
+		this.exception = exception;
+		this.terminate();
+	}
+	
 } // Execution

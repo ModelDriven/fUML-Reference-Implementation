@@ -19,10 +19,13 @@ import fuml.semantics.activities.ActivityEdgeInstanceList;
 import fuml.semantics.activities.ActivityNodeActivation;
 import fuml.semantics.activities.ActivityNodeActivationGroup;
 import fuml.semantics.activities.ControlToken;
+import fuml.semantics.activities.ExceptionHandlerActivation;
+import fuml.semantics.activities.ExceptionHandlerActivationList;
 import fuml.semantics.activities.ForkNodeActivation;
 import fuml.semantics.activities.ObjectToken;
 import fuml.semantics.activities.Token;
 import fuml.semantics.activities.TokenList;
+import fuml.semantics.loci.ChoiceStrategy;
 import fuml.semantics.simpleclassifiers.BooleanValue;
 import fuml.semantics.simpleclassifiers.FeatureValueList;
 import fuml.semantics.values.Value;
@@ -34,17 +37,19 @@ import fuml.syntax.actions.OutputPin;
 import fuml.syntax.actions.OutputPinList;
 import fuml.syntax.activities.ActivityNode;
 import fuml.syntax.activities.ActivityNodeList;
+import fuml.syntax.activities.ExceptionHandlerList;
 import fuml.syntax.values.LiteralBoolean;
 
-public abstract class ActionActivation extends
-		fuml.semantics.activities.ActivityNodeActivation {
+public abstract class ActionActivation extends fuml.semantics.activities.ActivityNodeActivation {
 
 	public fuml.semantics.actions.PinActivationList pinActivations = new fuml.semantics.actions.PinActivationList();
 	public boolean firing = false;
-	
+
+	public ExceptionHandlerActivationList exceptionHandlerActivations = new ExceptionHandlerActivationList();
+
 	public void initialize(ActivityNode node, ActivityNodeActivationGroup group) {
 		// Initialize this action activation to be not firing.
-		
+
 		super.initialize(node, group);
 		this.firing = false;
 	}
@@ -102,8 +107,7 @@ public abstract class ActionActivation extends
 		return offeredTokens;
 	} // takeOfferedTokens
 
-	public void fire(
-			fuml.semantics.activities.TokenList incomingTokens) {
+	public void fire(fuml.semantics.activities.TokenList incomingTokens) {
 		// Do the main action behavior then concurrently fire all output pin
 		// activations
 		// and offer a single control token. Then activate the action again,
@@ -114,9 +118,8 @@ public abstract class ActionActivation extends
 		do {
 
 			Debug.println("[fire] Action " + this.node.name + "...");
-			Debug.println("[event] Fire activity="
-					+ this.getActivityExecution().getBehavior().name
-					+ " action=" + this.node.name);
+			Debug.println("[event] Fire activity=" + this.getActivityExecution().getBehavior().name + " action="
+					+ this.node.name);
 
 			this.doAction();
 			incomingTokens = this.completeAction();
@@ -165,8 +168,7 @@ public abstract class ActionActivation extends
 		// [This assumes that all edges directly incoming to the action are
 		// control flows.]
 
-		boolean ready = super.isReady()
-				& (((Action) this.node).isLocallyReentrant | !this.isFiring());
+		boolean ready = super.isReady() & (((Action) this.node).isLocallyReentrant | !this.isFiring());
 
 		int i = 1;
 		while (ready & i <= this.incomingEdges.size()) {
@@ -233,8 +235,7 @@ public abstract class ActionActivation extends
 
 		for (int i = 0; i < inputPinNodes.size(); i++) {
 			ActivityNode node = inputPinNodes.getValue(i);
-			this.addPinActivation((PinActivation) (this.group
-					.getNodeActivation(node)));
+			this.addPinActivation((PinActivation) (this.group.getNodeActivation(node)));
 		}
 
 		ActivityNodeList outputPinNodes = new ActivityNodeList();
@@ -248,13 +249,19 @@ public abstract class ActionActivation extends
 
 		for (int i = 0; i < outputPinNodes.size(); i++) {
 			ActivityNode node = outputPinNodes.getValue(i);
-			this.addPinActivation((PinActivation) (this.group
-					.getNodeActivation(node)));
+			this.addPinActivation((PinActivation) (this.group.getNodeActivation(node)));
+		}
+
+		ExceptionHandlerList exceptionHandlers = ((Action) node).handler;
+		for (int i = 0; i < exceptionHandlers.size(); i++) {
+			ExceptionHandlerActivation activation = new ExceptionHandlerActivation();
+			activation.setExceptionhandler(exceptionHandlers.getValue(i));
+			activation.setDeclaringActionActivation(this);
+			exceptionHandlerActivations.add(activation);
 		}
 	} // createNodeActivations
 
-	public void addOutgoingEdge(
-			fuml.semantics.activities.ActivityEdgeInstance edge) {
+	public void addOutgoingEdge(fuml.semantics.activities.ActivityEdgeInstance edge) {
 		// If there are no outgoing activity edge instances, create a single
 		// activity edge instance with a fork node execution at the other end.
 		// Add the give edge to the fork node execution that is the target of
@@ -277,16 +284,14 @@ public abstract class ActionActivation extends
 		forkNodeActivation.addOutgoingEdge(edge);
 	} // addOutgoingEdge
 
-	public void addPinActivation(
-			fuml.semantics.actions.PinActivation pinActivation) {
+	public void addPinActivation(fuml.semantics.actions.PinActivation pinActivation) {
 		// Add a pin activation to this action activation.
 
 		this.pinActivations.addValue(pinActivation);
 		pinActivation.actionActivation = this;
 	} // addPinActivation
 
-	public fuml.semantics.actions.PinActivation getPinActivation(
-			fuml.syntax.actions.Pin pin) {
+	public fuml.semantics.actions.PinActivation getPinActivation(fuml.syntax.actions.Pin pin) {
 		// Precondition: The given pin is owned by the action of the action
 		// activation.
 		// Return the pin activation corresponding to the given pin.
@@ -294,8 +299,7 @@ public abstract class ActionActivation extends
 		PinActivation pinActivation = null;
 		int i = 1;
 		while (pinActivation == null & i <= this.pinActivations.size()) {
-			PinActivation thisPinActivation = this.pinActivations
-					.getValue(i - 1);
+			PinActivation thisPinActivation = this.pinActivations.getValue(i - 1);
 			if (thisPinActivation.node == pin) {
 				pinActivation = thisPinActivation;
 			}
@@ -306,8 +310,7 @@ public abstract class ActionActivation extends
 
 	} // getPinActivation
 
-	public void putToken(fuml.syntax.actions.OutputPin pin,
-			fuml.semantics.values.Value value) {
+	public void putToken(fuml.syntax.actions.OutputPin pin, fuml.semantics.values.Value value) {
 		// Precondition: The action execution has fired and the given pin is
 		// owned by the action of the action execution.
 		// Place a token for the given value on the pin activation corresponding
@@ -322,8 +325,7 @@ public abstract class ActionActivation extends
 		pinActivation.addToken(token);
 	} // putToken
 
-	public void putTokens(fuml.syntax.actions.OutputPin pin,
-			fuml.semantics.values.ValueList values) {
+	public void putTokens(fuml.syntax.actions.OutputPin pin, fuml.semantics.values.ValueList values) {
 		// Precondition: The action execution has fired and the given pin is
 		// owned by the action of the action execution.
 		// Place tokens for the given values on the pin activation corresponding
@@ -338,8 +340,7 @@ public abstract class ActionActivation extends
 
 	} // putTokens
 
-	public fuml.semantics.values.ValueList getTokens(
-			fuml.syntax.actions.InputPin pin) {
+	public fuml.semantics.values.ValueList getTokens(fuml.syntax.actions.InputPin pin) {
 		// Precondition: The action execution has fired and the given pin is
 		// owned by the action of the action execution.
 		// Get any tokens held by the pin activation corresponding to the given
@@ -363,8 +364,7 @@ public abstract class ActionActivation extends
 		return values;
 	} // getTokens
 
-	public fuml.semantics.values.ValueList takeTokens(
-			fuml.syntax.actions.InputPin pin) {
+	public fuml.semantics.values.ValueList takeTokens(fuml.syntax.actions.InputPin pin) {
 		// Precondition: The action execution has fired and the given pin is
 		// owned by the action of the action execution.
 		// Take any tokens held by the pin activation corresponding to the given
@@ -387,22 +387,19 @@ public abstract class ActionActivation extends
 		return values;
 	} // takeTokens
 
-	public boolean isSourceFor(
-			fuml.semantics.activities.ActivityEdgeInstance edgeInstance) {
+	public boolean isSourceFor(fuml.semantics.activities.ActivityEdgeInstance edgeInstance) {
 		// If this action has an outgoing fork node, check that the fork node is
 		// the source of the given edge instance.
 
 		boolean isSource = false;
 		if (this.outgoingEdges.size() > 0) {
-			isSource = this.outgoingEdges.getValue(0).target
-					.isSourceFor(edgeInstance);
+			isSource = this.outgoingEdges.getValue(0).target.isSourceFor(edgeInstance);
 		}
 
 		return isSource;
 	} // isSourceFor
 
-	public boolean valueParticipatesInLink(
-			fuml.semantics.values.Value value,
+	public boolean valueParticipatesInLink(fuml.semantics.values.Value value,
 			fuml.semantics.structuredclassifiers.Link link) {
 		// Test if the given value participates in the given link.
 
@@ -411,24 +408,52 @@ public abstract class ActionActivation extends
 		boolean participates = false;
 		int i = 1;
 		while (!participates & i <= linkFeatureValues.size()) {
-			participates = linkFeatureValues.getValue(i - 1).values.getValue(0)
-					.equals(value);
+			participates = linkFeatureValues.getValue(i - 1).values.getValue(0).equals(value);
 			i = i + 1;
 		}
 
 		return participates;
 	} // valueParticipatesInLink
 
-	public fuml.semantics.simpleclassifiers.BooleanValue makeBooleanValue(
-			boolean value) {
+	public fuml.semantics.simpleclassifiers.BooleanValue makeBooleanValue(boolean value) {
 		// Make a Boolean value using the built-in Boolean primitive type.
 		// [This ensures that Boolean values created internally are the same as
 		// the default used for evaluating Boolean literals.]
 
 		LiteralBoolean booleanLiteral = new LiteralBoolean();
 		booleanLiteral.value = value;
-		return (BooleanValue) (this.getExecutionLocus().executor
-				.evaluate(booleanLiteral));
+		return (BooleanValue) (this.getExecutionLocus().executor.evaluate(booleanLiteral));
 	} // makeBooleanValue
+
+	public void propagateException(Value exception) {
+		ExceptionHandlerActivationList matchingExceptionHandler = this.getMatchingExceptionHandler(exception);
+		if (matchingExceptionHandler.isEmpty()) {
+			terminate();
+			if (this.group.containingNodeActivation != null) {
+				this.group.containingNodeActivation.propagateException(exception);
+			} else {
+				this.group.activityExecution.propagateException(exception);
+			}
+		} else {
+			ChoiceStrategy strategy = (ChoiceStrategy) getExecutionLocus().factory.getStrategy("choice");
+			catchException(exception,
+					matchingExceptionHandler.getValue(strategy.choose(matchingExceptionHandler.size()) - 1));
+		}
+	}
+
+	public void catchException(Value exception, ExceptionHandlerActivation exceptionHandlerActivation) {
+		exceptionHandlerActivation.handle(exception);
+	}
+
+	public ExceptionHandlerActivationList getMatchingExceptionHandler(Value exception) {
+		ExceptionHandlerActivationList matchingExceptionHandler = new ExceptionHandlerActivationList();
+		for (int i = 0; i < this.exceptionHandlerActivations.size(); i++) {
+			ExceptionHandlerActivation activation = this.exceptionHandlerActivations.getValue(i);
+			if (activation.match(exception)) {
+				matchingExceptionHandler.addValue(activation);
+			}
+		}
+		return matchingExceptionHandler;
+	}
 
 } // ActionActivation
