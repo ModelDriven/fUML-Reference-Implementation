@@ -130,6 +130,10 @@
 								<mkdir dir="${xjc.output.dir}" />
 								<exec executable="xjc">
 									<arg
+										line="-no-header"/>
+									<arg
+										line="-encoding ${project.build.sourceEncoding}"/>
+									<arg
 										line="-d ${xjc.output.dir}
                             -extension
                             -b ${basedir}/src/main/resources/org/modeldriven/fuml/config/jaxb-bindings.xml
@@ -148,6 +152,10 @@
 							<target>
 								<mkdir dir="${xjc.output.dir}" />
 								<exec executable="xjc">
+									<arg
+										line="-no-header"/>
+									<arg
+										line="-encoding ${project.build.sourceEncoding}"/>
 									<arg
 										line="-d ${xjc.output.dir}
                             -extension
@@ -218,7 +226,7 @@
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
-					<encoding>UTF-8</encoding>
+					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
 			<plugin>
