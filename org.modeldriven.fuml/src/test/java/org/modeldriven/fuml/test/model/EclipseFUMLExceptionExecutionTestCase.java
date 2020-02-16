@@ -11,40 +11,26 @@
 *****************************************************************************/
 package org.modeldriven.fuml.test.model;
 
-import java.io.File;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.modeldriven.fuml.Fuml;
-import org.modeldriven.fuml.environment.Environment;
-import org.modeldriven.fuml.environment.ExecutionEnvironment;
-import org.modeldriven.fuml.test.FUMLTest;
+import org.modeldriven.fuml.test.FUMLTestSetup;
 
 import fuml.semantics.commonbehavior.ParameterValueList;
 import fuml.semantics.simpleclassifiers.StringValue;
-import fuml.syntax.commonbehavior.Behavior;
+import junit.framework.Test;
 
-public class ExceptionExecutionTestCase extends FUMLTest {
+public class EclipseFUMLExceptionExecutionTestCase extends AbstractExecutionTestCase {
 
-	private static Log log = LogFactory.getLog(EclipseExecutionTestCase.class);
-
-	private static Environment environment;
-
-	private static String namespaceURI = "http://org.modeldriven.fuml/test/uml/papyrus/fUML-Exception-Tests";
-
+	public static Test suite() {
+		return FUMLTestSetup.newTestSetup(EclipseFUMLExceptionExecutionTestCase.class);
+	}
+	
 	@Override
-	protected void setUp() throws Exception {
-		if (ExceptionExecutionTestCase.environment == null) {
-			ExceptionExecutionTestCase.environment = Environment.getInstance();
-			String filename = "./target/test-classes/uml/fUML-Exception-Tests.uml";
-			File file = new File(filename);
-			assertTrue("file '" + filename + "' does not exist", file.exists());
-			Fuml.load(file, namespaceURI);
-		}
+	public String getFileName() {
+		return "./target/test-classes/uml/fUML-Exception-Tests.uml";
 	}
 
-	public void tearDown() throws Exception {
-		environment.locus.extensionalValues.clear();
+	@Override
+	public String getNamespaceURI() {
+		return "http://org.modeldriven.fuml/test/uml/papyrus/fUML-Exception-Tests";
 	}
 
 	public void testException001() throws Exception {
@@ -114,15 +100,6 @@ public class ExceptionExecutionTestCase extends FUMLTest {
 		assertEquals("output.size()", 2, output.size());
 		assertEqualValues("output_0", output.get(0), true);
 		assertEqualValues("output_1", output.get(1), "Exception");
-	}
-	
-	private ParameterValueList execute(String activityName) {
-		Behavior behavior = environment.findBehavior(activityName);
-		if (behavior == null)
-			throw new RuntimeException("invalid behavior, " + activityName);
-		log.info("executing behavior: " + behavior.name);
-		ExecutionEnvironment execution = new ExecutionEnvironment(environment);
-		return execution.execute(behavior);
 	}
 
 }
