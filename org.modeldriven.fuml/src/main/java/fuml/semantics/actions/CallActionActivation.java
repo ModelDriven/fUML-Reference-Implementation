@@ -3,7 +3,9 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * Modifications:
+ * Copyright 2009-2012 Data Access Technologies, Inc.
+ * Copyright 2020 Model Driven Solutions, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -40,7 +42,65 @@ public abstract class CallActionActivation extends
 		super.initialize(node, group);
 		this.isStreaming = false;
 	}
+	
+	public boolean isReady() {
+		// Check that this call action activation is ready to fire, accounting for
+		// the possibility of pins corresponding to streaming parameters. In order
+		// to be ready, only argument pin activations for non-streaming parameters must
+		// be ready, except if all the argument pin activations are for streaming
+		// parameters with multiplicity lower bound greater than 0, in which case
+		// at least one of those pins must have an offered value. 
+		
+		boolean ready = this.isControlReady();
+		
+		CallAction callAction = (CallAction) (this.node);
+		InputPinList argumentPins = callAction.argument;
+		
+		if (ready & argumentPins.size() > 0) {
+			ParameterList parameters = this.getParameters();
+			ParameterList inputParameters = new ParameterList();
+			for (int i = 0; i < parameters.size(); i++) {
+				Parameter parameter = parameters.getValue(i);
+				if (parameter.direction == ParameterDirectionKind.in
+						| parameter.direction == ParameterDirectionKind.inout) {
+					inputParameters.addValue(parameter);
+				}				
+			}
+			
+			boolean streamingReady = false;
+			int j = 1;
+			while (ready & j <= argumentPins.size()) {
+				InputPin argumentPin = argumentPins.getValue(j - 1);
+				InputPinActivation pinActivation = 
+						(InputPinActivation)this.getPinActivation(argumentPin);
+				if (j > inputParameters.size()) {
+					ready = pinActivation.isReady();
+				}
+				boolean isStream = false;
+				if (j <= inputParameters.size()) {
+					isStream = inputParameters.getValue(j - 1).isStream;
+				}
+				if (!isStream) {
+					// If there are any non-streaming argument pins, then streaming
+					// is considered to be ready.
+					streamingReady = true;
 
+					// All non-streaming argument pins must be ready.
+					ready = pinActivation.isReady();
+				} else if (pinActivation.isReadyForStreaming()) {
+					// If there are only streaming argument pins, then streaming
+					// is ready if any of them are ready for streaming.
+					streamingReady = true;
+				}
+				j = j + 1;
+			}
+			
+			ready = ready & streamingReady;
+		}
+		
+		return ready;
+	}
+	
 	public void doAction() {
 		// Get the call execution object, set its input parameters from the
 		// argument pins and execute it.
@@ -60,12 +120,14 @@ public abstract class CallActionActivation extends
 			InputPinList argumentPins = callAction.argument;
 			OutputPinList resultPins = callAction.result;
 
+			// Must get parameters from call execution behavior, to ensure the correct
+			// parameters are used for an operation method.
 			ParameterList parameters = callExecution.getBehavior().ownedParameter;
 
 			int pinNumber = 1;
 			int outputPinNumber = 1;
 			int i = 1;
-			this.isStreaming = false;
+			InputPinActivation streamingPinActivation = null;
 			while (i <= parameters.size()) {
 				Parameter parameter = parameters.getValue(i - 1);
 				if (parameter.direction == ParameterDirectionKind.in
@@ -73,12 +135,11 @@ public abstract class CallActionActivation extends
 					InputPin argumentPin = argumentPins.getValue(pinNumber - 1);
 					ParameterValue parameterValue;
 					if (parameter.isStream) {
-						this.isStreaming = true;
 						parameterValue = new StreamingParameterValue();
 						parameterValue.values = this.getTokens(argumentPin);
-						InputPinActivation argumentPinActivation = 
+						streamingPinActivation = 
 							(InputPinActivation) this.getPinActivation(argumentPin);
-						argumentPinActivation.streamingParameterValue = 
+						streamingPinActivation.streamingParameterValue = 
 							(StreamingParameterValue)parameterValue;
 					} else {
 						parameterValue = new ParameterValue();
@@ -89,7 +150,8 @@ public abstract class CallActionActivation extends
 					pinNumber = pinNumber + 1;
 				} 
 				if (parameter.direction == ParameterDirectionKind.out
-						| parameter.direction == ParameterDirectionKind.inout) {
+						| parameter.direction == ParameterDirectionKind.inout
+						| parameter.direction == ParameterDirectionKind.return_) {
 					if (parameter.isStream) {
 						ParameterValue parameterValue = new StreamingParameterValue();
 						parameterValue.parameter = parameter;
@@ -110,8 +172,14 @@ public abstract class CallActionActivation extends
 			}
 
 			callExecution.execute();
+			
+			if (streamingPinActivation == null) {
+				this.isStreaming = false;
+			} else {
+				this.isStreaming = !streamingPinActivation.streamingIsTerminated();
+			}
 
-			if (!isStreaming) {
+			if (!this.isStreaming) {
 				this.completeCall(callExecution);
 			}
 		}
@@ -169,26 +237,38 @@ public abstract class CallActionActivation extends
 		callExecution.destroy();
 		this.removeCallExecution(callExecution);
 	}
-
-	public abstract fuml.semantics.commonbehavior.Execution getCallExecution();
-
-	public void terminate() {
-	// Terminate all call executions (if any). If this call action
-	// activation is streaming, complete the call before terminating the call  
-	// execution. Finally, terminate the call action activation itself.
 	
-	for (int i = 0; i < this.callExecutions.size(); i++) {
-		Execution execution = this.callExecutions.getValue(i);
-		execution.terminate();
-		if (this.isStreaming) {
+	public void completeStreamingCall() {
+		if (this.callExecutions.size() > 0) {
 			// Note: If the call is streaming, then isLocallyReentrant = false and
 			// there should be at most one call execution.
-			this.completeCall(execution);
+			this.completeCall(this.callExecutions.getValue(0));
 			super.completeAction();
 		}
+		
 	}
+	
+	public abstract ParameterList getParameters();
 
-	super.terminate();
+	public abstract Execution getCallExecution();
+
+	public void terminate() {
+		// Terminate all call executions (if any). If this call action
+		// activation is streaming, complete the call before terminating the call  
+		// execution. Finally, terminate the call action activation itself.
+		
+		for (int i = 0; i < this.callExecutions.size(); i++) {
+			Execution execution = this.callExecutions.getValue(i);
+			execution.terminate();
+			if (this.isStreaming) {
+				// Note: If the call is streaming, then isLocallyReentrant = false and
+				// there should be at most one call execution.
+				this.completeCall(execution);
+				super.completeAction();
+			}
+		}
+	
+		super.terminate();
 	} // terminate
 
 	public void removeCallExecution(fuml.semantics.commonbehavior.Execution execution) {

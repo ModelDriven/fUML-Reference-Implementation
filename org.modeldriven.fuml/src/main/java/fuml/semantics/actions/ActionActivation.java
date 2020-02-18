@@ -157,22 +157,10 @@ public abstract class ActionActivation extends
 	} // completeAction
 
 	public boolean isReady() {
-		// In addition to the default condition, check that, if the action has
-		// isLocallyReentrant=false, then the activation is not currently
-		// firing,
-		// and that the sources of all incoming edges (control flows) have
-		// offers and all input pin activations are ready.
-		// [This assumes that all edges directly incoming to the action are
-		// control flows.]
+		// Check that the action is ready to fire, including
+		// that all input pin activations are ready.
 
-		boolean ready = super.isReady()
-				& (((Action) this.node).isLocallyReentrant | !this.isFiring());
-
-		int i = 1;
-		while (ready & i <= this.incomingEdges.size()) {
-			ready = this.incomingEdges.getValue(i - 1).hasOffer();
-			i = i + 1;
-		}
+		boolean ready = isControlReady();
 
 		InputPinList inputPins = ((Action) (this.node)).input;
 		int j = 1;
@@ -183,6 +171,25 @@ public abstract class ActionActivation extends
 
 		return ready;
 	} // isReady
+	
+	public boolean isControlReady() {
+		// In addition to the default condition for being ready, check that, 
+		// if the action hasisLocallyReentrant=false, then the activation is 
+		// not currently firing, and that the sources of all incoming edges
+		// have offers. (This assumes that all edges directly incoming to the
+		// action are control flows.)
+		
+		boolean ready = super.isReady()
+				& (((Action) this.node).isLocallyReentrant | !this.isFiring());
+
+		int i = 1;
+		while (ready & i <= this.incomingEdges.size()) {
+			ready = this.incomingEdges.getValue(i - 1).hasOffer();
+			i = i + 1;
+		}
+
+		return ready;
+	}
 
 	public boolean isFiring() {
 		// Indicate whether this action activation is currently firing or not.
