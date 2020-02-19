@@ -9,7 +9,7 @@ models, accepting an XMI file from a conformant UML model as its input and
 providing an execution trace of the selected activity model(s) as its output.
 
 The reference implementation was developed as part of a Lockheed Martin
-Corporation funded project with Model Driven Solutions (a division of Data
+Corporation funded project with Model Driven Solutions (at that time a division of Data
 Access Technologies) in 2008. The objectives for making this reference
 implementation open source are to:
 
