@@ -24,6 +24,10 @@ public class CallOperationActionActivation extends
 		fuml.semantics.actions.CallActionActivation {
 	
 	public boolean isReady() {
+		// Check that this call operation action activation is ready to fire as a
+		// call action activation and, in addition, that the input pin activation
+		// for its target pin is ready to fire.
+		
 		boolean ready = super.isReady();
 		if (ready) {
 			CallOperationAction action = (CallOperationAction) (this.node);

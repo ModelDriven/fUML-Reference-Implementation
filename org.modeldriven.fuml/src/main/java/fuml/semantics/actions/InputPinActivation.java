@@ -100,13 +100,6 @@ public class InputPinActivation extends fuml.semantics.actions.PinActivation {
 				 getTotalValueCount() >= 1);
 	}
 	
-	public int getTotalValueCount() {
-		// Return the total number of values already being offered by the
-		// pin plus those being offered by the sources of incoming edges.
-		
-		return this.countUnofferedTokens() + this.countOfferedValues();
-	}
-	
 	public boolean isStreaming() {
 		// Return true if this pin activation is for a pin that corresponds
 		// to a streaming input parameter.
@@ -123,6 +116,13 @@ public class InputPinActivation extends fuml.semantics.actions.PinActivation {
 		_endIsolation();
 		
 		return isTerminated;
+	}
+	
+	public int getTotalValueCount() {
+		// Return the total number of values already being offered by the
+		// pin plus those being offered by the sources of incoming edges.
+		
+		return this.countUnofferedTokens() + this.countOfferedValues();
 	}
 	
 } // InputPinActivation

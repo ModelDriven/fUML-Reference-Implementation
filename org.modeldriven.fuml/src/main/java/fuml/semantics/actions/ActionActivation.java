@@ -174,7 +174,7 @@ public abstract class ActionActivation extends
 	
 	public boolean isControlReady() {
 		// In addition to the default condition for being ready, check that, 
-		// if the action hasisLocallyReentrant=false, then the activation is 
+		// if the action has isLocallyReentrant=false, then the activation is 
 		// not currently firing, and that the sources of all incoming edges
 		// have offers. (This assumes that all edges directly incoming to the
 		// action are control flows.)

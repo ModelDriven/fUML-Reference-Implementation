@@ -239,13 +239,14 @@ public abstract class CallActionActivation extends
 	}
 	
 	public void completeStreamingCall() {
+		// Complete a streaming call execution and then complete this call action activation.
+
 		if (this.callExecutions.size() > 0) {
 			// Note: If the call is streaming, then isLocallyReentrant = false and
 			// there should be at most one call execution.
 			this.completeCall(this.callExecutions.getValue(0));
 			super.completeAction();
-		}
-		
+		}		
 	}
 	
 	public abstract ParameterList getParameters();
@@ -257,17 +258,15 @@ public abstract class CallActionActivation extends
 		// activation is streaming, complete the call before terminating the call  
 		// execution. Finally, terminate the call action activation itself.
 		
-		for (int i = 0; i < this.callExecutions.size(); i++) {
-			Execution execution = this.callExecutions.getValue(i);
-			execution.terminate();
-			if (this.isStreaming) {
-				// Note: If the call is streaming, then isLocallyReentrant = false and
-				// there should be at most one call execution.
-				this.completeCall(execution);
-				super.completeAction();
+		if (this.isStreaming) {
+			this.completeStreamingCall();
+		} else {
+			for (int i = 0; i < this.callExecutions.size(); i++) {
+				Execution execution = this.callExecutions.getValue(i);
+				execution.terminate();
 			}
 		}
-	
+
 		super.terminate();
 	} // terminate
 
