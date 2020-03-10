@@ -4,9 +4,10 @@
  * as stated in the file entitled Licensing-Information. 
  * 
  * Modifications 
- * copyright 2009-2018 Data Access Technologies, Inc.
- * copyright 2019 Model Driven Solutions, Inc.
- *
+ * Copyright 2009-2018 Data Access Technologies, Inc.
+ * Copyright 2019 Model Driven Solutions, Inc.
+ * Copyright 2020 CEA LIST.
+*
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
  * in the file entitled Licensing-Information. 
@@ -402,7 +403,7 @@ public class ExecutionFactory extends org.modeldriven.fuml.FumlObject {
 			visitor = new ReduceActionActivation();
 		}
 		
-		else if(element instanceof RaiseExceptionAction) {
+		else if (element instanceof RaiseExceptionAction) {
 			visitor = new RaiseExceptionActionActivation();
 		}
 		

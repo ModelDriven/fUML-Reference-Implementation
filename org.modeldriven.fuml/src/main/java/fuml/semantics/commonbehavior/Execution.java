@@ -5,6 +5,7 @@
  * 
  * Modifications: 
  * Copyright 2009-2012 Data Access Technologies, Inc.
+ * Copyright 2020 Model Driven Solutions, Inc.
  * Copyright 2020 CEA LIST.
  *
  * Licensed under the Academic Free License version 3.0 
@@ -14,7 +15,6 @@
 
 package fuml.semantics.commonbehavior;
 
-import fuml.semantics.values.Value;
 import fuml.syntax.classification.Parameter;
 import fuml.syntax.classification.ParameterDirectionKind;
 import fuml.syntax.commonbehavior.Behavior;
@@ -22,10 +22,8 @@ import fuml.syntax.commonbehavior.Behavior;
 public abstract class Execution extends fuml.semantics.structuredclassifiers.Object_ {
 
 	public fuml.semantics.structuredclassifiers.Object_ context = null;
-	
 	public fuml.semantics.commonbehavior.ParameterValueList parameterValues = new fuml.semantics.commonbehavior.ParameterValueList();
-	
-	public Value exception;
+	public fuml.semantics.values.Value exception;
 
 	public abstract void execute();
 
@@ -122,7 +120,10 @@ public abstract class Execution extends fuml.semantics.structuredclassifiers.Obj
 		return (Behavior) (this.getTypes().getValue(0));
 	} // getBehavior
 
-	public void propagateException(Value exception) {
+	public void propagateException(fuml.semantics.values.Value exception) {
+		// Set the propagated exception for this execution to the given exception,
+		// then terminate the execution.
+		
 		this.exception = exception;
 		this.terminate();
 	}

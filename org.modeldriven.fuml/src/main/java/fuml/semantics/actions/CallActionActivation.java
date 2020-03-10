@@ -5,6 +5,7 @@
  * 
  * Modifications:
  * Copyright 2009-2012 Data Access Technologies, Inc.
+ * Copyright 2020 Model Driven Solutions, Inc.
  * Copyright 2020 CEA LIST.
  *
  * Licensed under the Academic Free License version 3.0 
@@ -33,9 +34,11 @@ public abstract class CallActionActivation extends
 	public void doAction() {
 		// Get the call execution object, set its input parameters from the
 		// argument pins and execute it.
-		// Once execution completes, copy the values of the output parameters of
-		// the call execution to the result pins of the call action execution,
-		// then destroy the execution.
+		// Once execution completes, if the execution raised an exception, then
+		// propagate the exception.
+		// Otherwise, copy the values of the output parameters of the call execution 
+		// to the result pins of the call action execution.
+		// In either case, destroy the execution.
 
 		Execution callExecution = this.getCallExecution();
 
@@ -66,7 +69,9 @@ public abstract class CallActionActivation extends
 
 			callExecution.execute();
 			
-			if(callExecution.exception == null) {
+			if(callExecution.exception != null) {
+				this.propagateException(callExecution.exception);
+			} else {
 				ParameterValueList outputParameterValues = callExecution
 						.getOutputParameterValues();
 	
@@ -91,8 +96,6 @@ public abstract class CallActionActivation extends
 					}
 					i = i + 1;
 				}
-			} else {
-				this.propagateException(callExecution.exception);
 			}
 
 			callExecution.destroy();

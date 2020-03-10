@@ -2,7 +2,10 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2017 Data Access Technologies, Inc.
+ * Modifications:
+ * Copyright 2009-2017 Data Access Technologies, Inc.
+ * Copyright 2020 Model Driven Solutions, Inc.
+ * Copyright 2020 CEA LIST.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -37,15 +40,15 @@ import fuml.syntax.actions.OutputPin;
 import fuml.syntax.actions.OutputPinList;
 import fuml.syntax.activities.ActivityNode;
 import fuml.syntax.activities.ActivityNodeList;
+import fuml.syntax.activities.ExceptionHandler;
 import fuml.syntax.activities.ExceptionHandlerList;
 import fuml.syntax.values.LiteralBoolean;
 
 public abstract class ActionActivation extends fuml.semantics.activities.ActivityNodeActivation {
 
-	public fuml.semantics.actions.PinActivationList pinActivations = new fuml.semantics.actions.PinActivationList();
 	public boolean firing = false;
-
-	public ExceptionHandlerActivationList exceptionHandlerActivations = new ExceptionHandlerActivationList();
+	public fuml.semantics.actions.PinActivationList pinActivations = new fuml.semantics.actions.PinActivationList();
+	public fuml.semantics.activities.ExceptionHandlerActivationList exceptionHandlerActivations = new ExceptionHandlerActivationList();
 
 	public void initialize(ActivityNode node, ActivityNodeActivationGroup group) {
 		// Initialize this action activation to be not firing.
@@ -55,7 +58,7 @@ public abstract class ActionActivation extends fuml.semantics.activities.Activit
 	}
 
 	public void run() {
-		// Run this action activation and any outoging fork node attached to it.
+		// Run this action activation and any outgoing fork node attached to it.
 
 		super.run();
 
@@ -118,8 +121,9 @@ public abstract class ActionActivation extends fuml.semantics.activities.Activit
 		do {
 
 			Debug.println("[fire] Action " + this.node.name + "...");
-			Debug.println("[event] Fire activity=" + this.getActivityExecution().getBehavior().name + " action="
-					+ this.node.name);
+			Debug.println("[event] Fire activity="
+					+ this.getActivityExecution().getBehavior().name
+					+ " action=" + this.node.name);
 
 			this.doAction();
 			incomingTokens = this.completeAction();
@@ -168,7 +172,8 @@ public abstract class ActionActivation extends fuml.semantics.activities.Activit
 		// [This assumes that all edges directly incoming to the action are
 		// control flows.]
 
-		boolean ready = super.isReady() & (((Action) this.node).isLocallyReentrant | !this.isFiring());
+		boolean ready = super.isReady()
+				& (((Action) this.node).isLocallyReentrant | !this.isFiring());
 
 		int i = 1;
 		while (ready & i <= this.incomingEdges.size()) {
@@ -235,7 +240,8 @@ public abstract class ActionActivation extends fuml.semantics.activities.Activit
 
 		for (int i = 0; i < inputPinNodes.size(); i++) {
 			ActivityNode node = inputPinNodes.getValue(i);
-			this.addPinActivation((PinActivation) (this.group.getNodeActivation(node)));
+			this.addPinActivation((PinActivation) (this.group
+					.getNodeActivation(node)));
 		}
 
 		ActivityNodeList outputPinNodes = new ActivityNodeList();
@@ -249,15 +255,19 @@ public abstract class ActionActivation extends fuml.semantics.activities.Activit
 
 		for (int i = 0; i < outputPinNodes.size(); i++) {
 			ActivityNode node = outputPinNodes.getValue(i);
-			this.addPinActivation((PinActivation) (this.group.getNodeActivation(node)));
+			this.addPinActivation((PinActivation) (this.group
+					.getNodeActivation(node)));
 		}
 
-		ExceptionHandlerList exceptionHandlers = ((Action) node).handler;
+		ExceptionHandlerList exceptionHandlers = ((Action) this.node).handler;
 		for (int i = 0; i < exceptionHandlers.size(); i++) {
+			ExceptionHandler exceptionHandler = exceptionHandlers.getValue(i);
+			
 			ExceptionHandlerActivation activation = new ExceptionHandlerActivation();
-			activation.setExceptionhandler(exceptionHandlers.getValue(i));
+			activation.setExceptionhandler(exceptionHandler);
 			activation.setDeclaringActionActivation(this);
-			exceptionHandlerActivations.add(activation);
+			
+			this.exceptionHandlerActivations.add(activation);
 		}
 	} // createNodeActivations
 
@@ -299,7 +309,8 @@ public abstract class ActionActivation extends fuml.semantics.activities.Activit
 		PinActivation pinActivation = null;
 		int i = 1;
 		while (pinActivation == null & i <= this.pinActivations.size()) {
-			PinActivation thisPinActivation = this.pinActivations.getValue(i - 1);
+			PinActivation thisPinActivation = this.pinActivations
+					.getValue(i - 1);
 			if (thisPinActivation.node == pin) {
 				pinActivation = thisPinActivation;
 			}
@@ -393,7 +404,8 @@ public abstract class ActionActivation extends fuml.semantics.activities.Activit
 
 		boolean isSource = false;
 		if (this.outgoingEdges.size() > 0) {
-			isSource = this.outgoingEdges.getValue(0).target.isSourceFor(edgeInstance);
+			isSource = this.outgoingEdges.getValue(0).target
+					.isSourceFor(edgeInstance);
 		}
 
 		return isSource;
@@ -408,7 +420,8 @@ public abstract class ActionActivation extends fuml.semantics.activities.Activit
 		boolean participates = false;
 		int i = 1;
 		while (!participates & i <= linkFeatureValues.size()) {
-			participates = linkFeatureValues.getValue(i - 1).values.getValue(0).equals(value);
+			participates = linkFeatureValues.getValue(i - 1).values.getValue(0)
+					.equals(value);
 			i = i + 1;
 		}
 
@@ -422,37 +435,56 @@ public abstract class ActionActivation extends fuml.semantics.activities.Activit
 
 		LiteralBoolean booleanLiteral = new LiteralBoolean();
 		booleanLiteral.value = value;
-		return (BooleanValue) (this.getExecutionLocus().executor.evaluate(booleanLiteral));
+		return (BooleanValue) (this.getExecutionLocus().executor
+				.evaluate(booleanLiteral));
 	} // makeBooleanValue
 
-	public void propagateException(Value exception) {
-		ExceptionHandlerActivationList matchingExceptionHandler = this.getMatchingExceptionHandler(exception);
-		if (matchingExceptionHandler.isEmpty()) {
-			terminate();
+	public void propagateException(fuml.semantics.values.Value exception) {
+		// If there is no matching exception handler for the given exception, then propagate
+		// the exception to either the containing node activation or the activity execution, as
+		// appropriate.
+		// If there is a matching exception handler, then use it to catch the exception. 
+		// (If there is more than one matching handler, then choose one non-deterministically.)
+		
+		ExceptionHandlerActivationList matchingExceptionHandler = 
+				this.getMatchingExceptionHandler(exception);
+		
+		if (matchingExceptionHandler.size() == 0) {
+			this.terminate();
 			if (this.group.containingNodeActivation != null) {
 				this.group.containingNodeActivation.propagateException(exception);
 			} else {
 				this.group.activityExecution.propagateException(exception);
-			}
+			}			
 		} else {
-			ChoiceStrategy strategy = (ChoiceStrategy) getExecutionLocus().factory.getStrategy("choice");
-			catchException(exception,
-					matchingExceptionHandler.getValue(strategy.choose(matchingExceptionHandler.size()) - 1));
+			ChoiceStrategy strategy = (ChoiceStrategy) this.getExecutionLocus().
+					factory.getStrategy("choice");
+			this.catchException(exception, matchingExceptionHandler.getValue(
+							strategy.choose(matchingExceptionHandler.size()) - 1));
 		}
 	}
 
-	public void catchException(Value exception, ExceptionHandlerActivation exceptionHandlerActivation) {
+	public void catchException(fuml.semantics.values.Value exception, 
+			fuml.semantics.activities.ExceptionHandlerActivation exceptionHandlerActivation) {
+		// Handle the given exception using the given exception handler activation.
+		
 		exceptionHandlerActivation.handle(exception);
 	}
 
-	public ExceptionHandlerActivationList getMatchingExceptionHandler(Value exception) {
-		ExceptionHandlerActivationList matchingExceptionHandler = new ExceptionHandlerActivationList();
+	public ExceptionHandlerActivationList getMatchingExceptionHandler(fuml.semantics.values.Value exception) {
+		// Return all exception handler activations for this action activation that match the
+		// given exception.
+		
+		ExceptionHandlerActivationList matchingExceptionHandler = 
+				new ExceptionHandlerActivationList();
+		
 		for (int i = 0; i < this.exceptionHandlerActivations.size(); i++) {
 			ExceptionHandlerActivation activation = this.exceptionHandlerActivations.getValue(i);
 			if (activation.match(exception)) {
 				matchingExceptionHandler.addValue(activation);
 			}
 		}
+		
 		return matchingExceptionHandler;
 	}
 
