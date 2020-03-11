@@ -22,13 +22,10 @@ import fuml.semantics.activities.ActivityEdgeInstanceList;
 import fuml.semantics.activities.ActivityNodeActivation;
 import fuml.semantics.activities.ActivityNodeActivationGroup;
 import fuml.semantics.activities.ControlToken;
-import fuml.semantics.activities.ExceptionHandlerActivation;
-import fuml.semantics.activities.ExceptionHandlerActivationList;
 import fuml.semantics.activities.ForkNodeActivation;
 import fuml.semantics.activities.ObjectToken;
 import fuml.semantics.activities.Token;
 import fuml.semantics.activities.TokenList;
-import fuml.semantics.loci.ChoiceStrategy;
 import fuml.semantics.simpleclassifiers.BooleanValue;
 import fuml.semantics.simpleclassifiers.FeatureValueList;
 import fuml.semantics.values.Value;
@@ -40,15 +37,12 @@ import fuml.syntax.actions.OutputPin;
 import fuml.syntax.actions.OutputPinList;
 import fuml.syntax.activities.ActivityNode;
 import fuml.syntax.activities.ActivityNodeList;
-import fuml.syntax.activities.ExceptionHandler;
-import fuml.syntax.activities.ExceptionHandlerList;
 import fuml.syntax.values.LiteralBoolean;
 
-public abstract class ActionActivation extends fuml.semantics.activities.ActivityNodeActivation {
+public abstract class ActionActivation extends fuml.semantics.activities.ExecutableNodeActivation {
 
 	public boolean firing = false;
 	public fuml.semantics.actions.PinActivationList pinActivations = new fuml.semantics.actions.PinActivationList();
-	public fuml.semantics.activities.ExceptionHandlerActivationList exceptionHandlerActivations = new ExceptionHandlerActivationList();
 
 	public void initialize(ActivityNode node, ActivityNodeActivationGroup group) {
 		// Initialize this action activation to be not firing.
@@ -258,17 +252,6 @@ public abstract class ActionActivation extends fuml.semantics.activities.Activit
 			this.addPinActivation((PinActivation) (this.group
 					.getNodeActivation(node)));
 		}
-
-		ExceptionHandlerList exceptionHandlers = ((Action) this.node).handler;
-		for (int i = 0; i < exceptionHandlers.size(); i++) {
-			ExceptionHandler exceptionHandler = exceptionHandlers.getValue(i);
-			
-			ExceptionHandlerActivation activation = new ExceptionHandlerActivation();
-			activation.setExceptionhandler(exceptionHandler);
-			activation.setDeclaringActionActivation(this);
-			
-			this.exceptionHandlerActivations.add(activation);
-		}
 	} // createNodeActivations
 
 	public void addOutgoingEdge(fuml.semantics.activities.ActivityEdgeInstance edge) {
@@ -439,53 +422,38 @@ public abstract class ActionActivation extends fuml.semantics.activities.Activit
 				.evaluate(booleanLiteral));
 	} // makeBooleanValue
 
-	public void propagateException(fuml.semantics.values.Value exception) {
-		// If there is no matching exception handler for the given exception, then propagate
-		// the exception to either the containing node activation or the activity execution, as
-		// appropriate.
-		// If there is a matching exception handler, then use it to catch the exception. 
-		// (If there is more than one matching handler, then choose one non-deterministically.)
+	public void handle(fuml.semantics.values.Value exception, fuml.syntax.activities.ExceptionHandler handler) {
+		// Handle the given exception by firing the body of the given
+		// exception handler. After the body fires, transfer its outputs
+		// to the output pins of this action activation.
 		
-		ExceptionHandlerActivationList matchingExceptionHandler = 
-				this.getMatchingExceptionHandler(exception);
-		
-		if (matchingExceptionHandler.size() == 0) {
-			this.terminate();
-			if (this.group.containingNodeActivation != null) {
-				this.group.containingNodeActivation.propagateException(exception);
-			} else {
-				this.group.activityExecution.propagateException(exception);
-			}			
-		} else {
-			ChoiceStrategy strategy = (ChoiceStrategy) this.getExecutionLocus().
-					factory.getStrategy("choice");
-			this.catchException(exception, matchingExceptionHandler.getValue(
-							strategy.choose(matchingExceptionHandler.size()) - 1));
-		}
+		super.handle(exception, handler);
+		this.transferOutputs((Action)handler.handlerBody);
 	}
 
-	public void catchException(fuml.semantics.values.Value exception, 
-			fuml.semantics.activities.ExceptionHandlerActivation exceptionHandlerActivation) {
-		// Handle the given exception using the given exception handler activation.
+	public void transferOutputs(fuml.syntax.actions.Action handlerBody) {
+		// Transfer the output values from activation of the given exception
+		// handler body to the output pins of this action activation.
 		
-		exceptionHandlerActivation.handle(exception);
-	}
-
-	public ExceptionHandlerActivationList getMatchingExceptionHandler(fuml.semantics.values.Value exception) {
-		// Return all exception handler activations for this action activation that match the
-		// given exception.
+		ActionActivation handlerBodyActivation = 
+				(ActionActivation)this.group.getNodeActivation(handlerBody);
+		OutputPinList sourceOutputs = handlerBody.output;
+		OutputPinList targetOutputs = ((Action) this.node).output;
 		
-		ExceptionHandlerActivationList matchingExceptionHandler = 
-				new ExceptionHandlerActivationList();
-		
-		for (int i = 0; i < this.exceptionHandlerActivations.size(); i++) {
-			ExceptionHandlerActivation activation = this.exceptionHandlerActivations.getValue(i);
-			if (activation.match(exception)) {
-				matchingExceptionHandler.addValue(activation);
+		for (int i = 0; i < sourceOutputs.size(); i++) {
+			OutputPin sourcePin = sourceOutputs.getValue(i);
+			OutputPin targetPin = targetOutputs.getValue(i);
+			
+			PinActivation sourcePinActivation = handlerBodyActivation.getPinActivation(sourcePin);
+			TokenList tokens = sourcePinActivation.takeTokens();
+			ValueList values = new ValueList();
+			for (int j = 0; j < tokens.size(); j++) {
+				Token token = tokens.getValue(j);
+				values.addValue(token.getValue());
 			}
+			
+			this.putTokens(targetPin, values);
 		}
-		
-		return matchingExceptionHandler;
 	}
 
 } // ActionActivation
