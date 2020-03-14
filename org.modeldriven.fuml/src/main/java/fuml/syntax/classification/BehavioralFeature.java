@@ -3,7 +3,9 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * Modifications:
+ * Copyright 2009-2012 Data Access Technologies, Inc.
+ * Copyright 2020 Model Driven Solutions, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -19,6 +21,7 @@ public abstract class BehavioralFeature extends
 	public boolean isAbstract = false;
 	public fuml.syntax.commonbehavior.BehaviorList method = new fuml.syntax.commonbehavior.BehaviorList();
 	public fuml.syntax.commonbehavior.CallConcurrencyKind concurrency = fuml.syntax.commonbehavior.CallConcurrencyKind.sequential;
+	public fuml.syntax.commonstructure.TypeList raisedException = new fuml.syntax.commonstructure.TypeList();
 
 	public void setIsAbstract(boolean isAbstract) {
 		this.isAbstract = isAbstract;
@@ -37,5 +40,9 @@ public abstract class BehavioralFeature extends
 		method._setSpecification(this);
 		this.method.addValue(method);
 	} // addMethod
+
+	public void addRaisedException(fuml.syntax.commonstructure.Type raisedException) {
+		this.raisedException.addValue(raisedException);
+	} // addRaisedException
 
 } // BehavioralFeature
