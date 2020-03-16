@@ -1,5 +1,4 @@
 /*
- * Copyright 2009-2017 Data Access Technologies, Inc.
  * Copyright 2020 Model Driven Solutions, Inc.
  * Copyright 2020 CEA LIST.
  *
