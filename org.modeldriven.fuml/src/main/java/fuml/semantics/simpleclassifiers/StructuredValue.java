@@ -18,6 +18,7 @@ import fuml.syntax.classification.Classifier;
 import fuml.syntax.classification.ClassifierList;
 import fuml.syntax.classification.InstanceSpecification;
 import fuml.syntax.classification.InstanceValue;
+import fuml.syntax.classification.Property;
 import fuml.syntax.classification.Slot;
 import fuml.syntax.classification.StructuralFeature;
 import fuml.syntax.commonstructure.NamedElement;
@@ -103,20 +104,20 @@ public abstract class StructuredValue extends
 	};
 
 	public void createFeatureValues() {
-		// Create empty feature values for all structural features of the types 
-		// of this structured value and all its supertypes (including private
-		// features that are not inherited).
+		// Create empty feature values for all non-association-end structural 
+		// features of the types of this structured value and all its supertypes 
+		// (including private features that are not inherited).
 
 		this.addFeatureValues(new FeatureValueList());
 	}
 	
 	public void addFeatureValues(FeatureValueList oldFeatureValues) {
-		// Add feature values for all structural features of the types 
-		// of this structured value and all its supertypes (including private
-		// features that are not inherited). If a feature has an old feature 
-		// value in the given list, then use that to initialize the values of 
-		// the corresponding new feature value. Otherwise leave the values of 
-		// the new feature value empty.
+		// Add feature values for all non-association-end structural features 
+		// of the types of this structured value and all its supertypes 
+		// (including private features that are not inherited). If a feature 
+		// has an old feature value in the given list, then use that to initialize 
+		// the values of the corresponding new feature value. Otherwise leave the 
+		// values of the new feature value empty.
 
 		ClassifierList types = this.getTypes();
 
@@ -127,20 +128,22 @@ public abstract class StructuredValue extends
 	}
 	
 	public void addFeatureValuesForType(Classifier type, FeatureValueList oldFeatureValues) {
-		// Add feature values for all structural features of the given type and
-		// all of its supertypes (including private features that are not
-		// inherited). If a feature has an old feature value in the given list,
-		// then use that to initialize the values of the corresponding new
-		// feature value. Otherwise leave the values of the new feature value
+		// Add feature values for all non-association-end structural features 
+		// of the given type and all of its supertypes (including private features 
+		// that are not inherited). If a feature has an old feature value in the 
+		// given list, then use that to initialize the values of the corresponding 
+		// new feature value. Otherwise leave the values of the new feature value
 		// empty.
 
-		// Set feature values for the owned structural features of the given
-		// type. (Any common structural values that have already been added
-		// previously will simply have their values set again.)
+		// Set feature values for the non-association end owned structural features 
+		// of the given type. (Any common structural values that have already been 
+		// added previously will simply have their values set again.)
 		NamedElementList ownedMembers = type.ownedMember;
 		for (int j = 0; j < ownedMembers.size(); j++) {
 			NamedElement ownedMember = ownedMembers.getValue(j);
-			if (ownedMember instanceof StructuralFeature) {
+			if (ownedMember instanceof StructuralFeature && 
+					!(ownedMember instanceof Property && 
+					  ((Property)ownedMember).association != null)) {
 				this.setFeatureValue((StructuralFeature) ownedMember, 
 					this.getValues(ownedMember, oldFeatureValues), 0);
 			}

@@ -13,6 +13,7 @@ package org.modeldriven.fuml.test.builtin.environment;
 
 import fuml.Debug;
 import fuml.semantics.commonbehavior.ParameterValueList;
+import fuml.syntax.classification.Property;
 import fuml.syntax.structuredclassifiers.Association;
 
 public class TestSuite {
@@ -342,7 +343,7 @@ public class TestSuite {
 		return output;
 	} // testLinkDestroyer
 
-	public ParameterValueList testLinkReader() {
+	public ParameterValueList testLinkReader(int numOwnedEnds) {
 		Debug.println("[testLinkReader] Setting up...");
 
 		classifierFactory.createClass("A");
@@ -350,11 +351,23 @@ public class TestSuite {
 
 		this.environment.removeElement("AB");
 
-		classifierFactory.createAssociation("AB");
-		classifierFactory.addEnd("AB", "a", "A", false);
-		classifierFactory.addEnd("AB", "b", "B", false);
-		((Association) this.environment.getElement("AB")).memberEnd.getValue(1).multiplicityElement
-				.setIsOrdered(true);
+		Association association = classifierFactory.createAssociation("AB");
+		
+		if (numOwnedEnds >= 1) {
+			classifierFactory.addEnd("AB", "a", "A", false);
+		} else {
+			Property end1 = classifierFactory.addAttribute("B", "a", "A", false);
+			association.addMemberEnd(end1);
+		}
+		
+		Property end2;
+		if (numOwnedEnds >= 2) {
+			end2 = classifierFactory.addEnd("AB", "b", "B", false);
+		} else {
+			end2 = classifierFactory.addAttribute("A", "b", "B", false);
+			association.addMemberEnd(end2);
+		}
+		end2.multiplicityElement.setIsOrdered(true);
 
 		activityFactory.createLinkReader("AB");
 

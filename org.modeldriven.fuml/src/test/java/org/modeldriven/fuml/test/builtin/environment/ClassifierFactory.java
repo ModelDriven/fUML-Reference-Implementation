@@ -2,7 +2,9 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * Modifications:
+ * Copyright 2009-2012 Data Access Technologies, Inc.
+ * Copyright 2020 Model Driven Solutions, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -34,7 +36,7 @@ public class ClassifierFactory {
 		this.environment = environment;
 	} // ClassifierFactory
 
-	public void createEnumerationType(String typeName, int numberOfLiterals) {
+	public Enumeration createEnumerationType(String typeName, int numberOfLiterals) {
 		Enumeration type = new Enumeration();
 
 		type.setName(typeName);
@@ -47,30 +49,36 @@ public class ClassifierFactory {
 		}
 
 		environment.addElement(type);
+		
+		return type;
 	} // createEnumerationType
 
-	public void createDataType(String name) {
+	public DataType createDataType(String name) {
 		DataType dataType = new DataType();
 		dataType.setName(name);
 		environment.addElement(dataType);
+		return dataType;
 	} // createDataType
 
-	public void createClass(String name) {
+	public Class_ createClass(String name) {
 		Class_ class_ = new Class_();
 		class_.setName(name);
 		environment.addElement(class_);
+		return class_;
 	} // createClass
 
-	public void createSignal(String name) {
+	public Signal createSignal(String name) {
 		Signal signal = new Signal();
 		signal.setName(name);
 		this.environment.addElement(signal);
+		return signal;
 	} // createSignal
 
-	public void createAssociation(String name) {
+	public Association createAssociation(String name) {
 		Association association = new Association();
 		association.setName(name);
 		environment.addElement(association);
+		return association;
 	} // createAssociation
 	
 	public Property addAttribute(String classifierName, String attributeName,
@@ -130,14 +138,14 @@ public class ClassifierFactory {
 		return attribute;
 	} // addAttribute
 
-	public void addEnd(String associationName, String endName,
+	public Property addEnd(String associationName, String endName,
 			String endTypeName, boolean isComposite) {
 		Classifier type = environment.getType(associationName);
 
 		if (type == null || !(type instanceof Association)) {
 			Debug.println("[addEnd] " + associationName
 					+ " not found or not an association.");
-			return;
+			return null;
 		}
 
 		Association association = (Association) type;
@@ -147,7 +155,7 @@ public class ClassifierFactory {
 		if (endType == null) {
 			Debug.println("[addEnd] " + endTypeName
 					+ " not found or not a classifier.");
-			return;
+			return null;
 		}
 
 		Property end = new Property();
@@ -165,16 +173,18 @@ public class ClassifierFactory {
 		}
 
 		association.addOwnedEnd(end);
-
+		association.addNavigableOwnedEnd(end);
+		
+		return end;
 	} // addEnd
 
-	public void addClassifierBehavior(String className, String behaviorName) {
+	public Class_ addClassifierBehavior(String className, String behaviorName) {
 		NamedElement element = this.environment.getElement(className);
 
 		if (element == null || !(element instanceof Class_)) {
 			Debug.println("[addClassifierBehavior] " + className
 					+ " not found or not a class.");
-			return;
+			return null;
 		}
 
 		Class_ classifier = (Class_) element;
@@ -184,7 +194,7 @@ public class ClassifierFactory {
 		if (element == null || !(element instanceof Behavior)) {
 			Debug.println("[addClassifierBehavior] " + behaviorName
 					+ " not found or not a behavior.");
-			return;
+			return null;
 		}
 
 		Behavior behavior = (Behavior) element;
@@ -192,17 +202,18 @@ public class ClassifierFactory {
 
 		classifier.addOwnedBehavior(behavior);
 		classifier.setClassifierBehavior(behavior);
-
+		
+		return classifier;
 	} // addClassifierBehavior
 
-	public void addOperation(String className, String baseClassName,
+	public Operation addOperation(String className, String baseClassName,
 			String operationName, String methodName) {
 		NamedElement element = this.environment.getElement(className);
 
 		if (element == null || !(element instanceof Class_)) {
 			Debug.println("[addOperation] " + className
 					+ " not found or not a class.");
-			return;
+			return null;
 		}
 
 		Class_ classifier = (Class_) element;
@@ -216,7 +227,7 @@ public class ClassifierFactory {
 			if (element == null || !(element instanceof Class_)) {
 				Debug.println("[addOperation] " + baseClassName
 						+ " not found or not a class.");
-				return;
+				return null;
 			}
 
 			Class_ baseClass = (Class_) element;
@@ -226,7 +237,7 @@ public class ClassifierFactory {
 			if (redefinedOperation == null) {
 				Debug.println("[addOperation] " + operationName
 						+ " is not an operation of " + baseClassName + ".");
-				return;
+				return null;
 			}
 
 			operation.addRedefinedOperation(redefinedOperation);
@@ -240,7 +251,7 @@ public class ClassifierFactory {
 			if (element == null || !(element instanceof Behavior)) {
 				Debug.println("[addOperation] " + methodName
 						+ " not found or not a behavior.");
-				return;
+				return null;
 			}
 
 			Behavior behavior = (Behavior) element;
@@ -251,16 +262,17 @@ public class ClassifierFactory {
 		}
 
 		classifier.addOwnedOperation(operation);
-
+		
+		return operation;
 	} // addOperation
 
-	public void addGeneralization(String subtypeName, String supertypeName) {
+	public Generalization addGeneralization(String subtypeName, String supertypeName) {
 		Classifier subtype = this.environment.getType(subtypeName);
 
 		if (subtype == null) {
 			Debug.println("[addGeneralization] " + subtypeName
 					+ " not found or not a classifier.");
-			return;
+			return null;
 		}
 
 		Classifier supertype = this.environment.getType(supertypeName);
@@ -268,16 +280,17 @@ public class ClassifierFactory {
 		if (supertype == null) {
 			Debug.println("[addGeneralization] " + supertypeName
 					+ " not found or not a classifier.");
-			return;
+			return null;
 		}
 
 		Generalization generalization = new Generalization();
 		generalization.setGeneral(supertype);
 		subtype.addGeneralization(generalization);
+		
+		return generalization;
 	} // addGeneralization
 
-	protected fuml.syntax.classification.Operation getOperation(
-			fuml.syntax.structuredclassifiers.Class_ class_, String operationName) {
+	protected Operation getOperation(Class_ class_, String operationName) {
 		for (int i = 0; i < class_.member.size(); i++) {
 			NamedElement member = class_.member.getValue(i);
 			if (member.name.equals(operationName)) {
