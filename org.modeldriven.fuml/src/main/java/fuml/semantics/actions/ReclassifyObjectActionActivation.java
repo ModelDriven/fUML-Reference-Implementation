@@ -3,7 +3,9 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2015 Data Access Technologies, Inc.
+ * Modifications:
+ * Copyright 2009-2015 Data Access Technologies, Inc.
+ * Copyright 2020 Model Driven Solutions, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -13,12 +15,17 @@
 package fuml.semantics.actions;
 
 import fuml.semantics.simpleclassifiers.FeatureValueList;
+import fuml.semantics.structuredclassifiers.Link;
+import fuml.semantics.structuredclassifiers.LinkList;
 import fuml.semantics.structuredclassifiers.Object_;
 import fuml.semantics.structuredclassifiers.Reference;
 import fuml.semantics.values.Value;
 import fuml.syntax.actions.ReclassifyObjectAction;
 import fuml.syntax.classification.Classifier;
 import fuml.syntax.classification.ClassifierList;
+import fuml.syntax.classification.StructuralFeature;
+import fuml.syntax.classification.StructuralFeatureList;
+import fuml.syntax.structuredclassifiers.Association;
 import fuml.syntax.structuredclassifiers.Class_;
 
 public class ReclassifyObjectActionActivation extends
@@ -47,6 +54,7 @@ public class ReclassifyObjectActionActivation extends
 		
 		if (input instanceof Reference) {
 			Object_ object = ((Reference) input).referent;
+			StructuralFeatureList oldFeatures = object.getStructuralFeatures();
 
 			int i = 1;
 			while (i <= object.types.size()) {
@@ -94,7 +102,37 @@ public class ReclassifyObjectActionActivation extends
 			FeatureValueList oldFeatureValues = object.getFeatureValues();
 			object.featureValues = new FeatureValueList();
 			object.addFeatureValues(oldFeatureValues);
+			
+			// Destroy links involving association ends that were previously features
+			// but no longer have feature values after the reclassification.
+			StructuralFeatureList newFeatures = object.getStructuralFeatures();
+			for (int j = 0; j < oldFeatures.size(); j++) {
+				StructuralFeature feature = oldFeatures.getValue(j);
+				Association association = this.getAssociation(feature);
+				if (association != null) {
+					if (this.checkForMissingFeature(newFeatures, feature)) {
+						LinkList links = this.getMatchingLinks(association, feature, input);
+						for (int k = 0; k < links.size(); k++) {
+							Link link = links.getValue(k);
+							link.destroy();
+						}
+					}
+				}
+			}
 		}
+		
 	} // doAction
-
+	
+	public boolean checkForMissingFeature(StructuralFeatureList features, StructuralFeature feature) {
+		boolean isMissing = true;
+		
+		int i = 1;
+		while (isMissing & i <= features.size()) {
+			StructuralFeature containedFeature = features.getValue(i-1);
+			isMissing = containedFeature != feature;
+			i = i + 1;
+		}
+		
+		return isMissing;
+	}
 } // ReclassifyObjectActionActivation

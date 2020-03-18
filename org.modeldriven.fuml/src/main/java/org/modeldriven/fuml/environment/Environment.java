@@ -4,6 +4,7 @@
  *
  * Modifications:
  * Copyright 2009-2013 Data Access Technologies, Inc.
+ * Copyright 2020 Model Driven Solutions, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated
@@ -36,6 +37,7 @@ import fuml.semantics.structuredclassifiers.Reference;
 import fuml.semantics.values.Value;
 import fuml.semantics.values.ValueList;
 import fuml.syntax.classification.Classifier;
+import fuml.syntax.classification.Property;
 import fuml.syntax.classification.StructuralFeature;
 import fuml.syntax.commonbehavior.Behavior;
 import fuml.syntax.commonstructure.Element;
@@ -213,10 +215,11 @@ public class Environment {
 
 		for (int i = 0; i < featureValues.size(); i++) {
 			StructuralFeature feature = featureValues.getValue(i).feature;
-			ValueList valueList = new ValueList();
-			valueList.addValue(this
-					.makeValue((Classifier) (feature.typedElement.type)));
-			structuredValue.setFeatureValue(feature, valueList, 0);
+			if (feature instanceof Property && ((Property)feature).association == null) {
+				ValueList valueList = new ValueList();
+				valueList.addValue(this.makeValue((Classifier) (feature.typedElement.type)));
+				structuredValue.setFeatureValue(feature, valueList, 0);
+			}
 		}
 
 		return structuredValue;

@@ -2,7 +2,9 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2017 Data Access Technologies, Inc.
+ * Modifications:
+ * Copyright 2009-2012 Data Access Technologies, Inc.
+ * Copyright 2020 Model Driven Solutions, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -25,6 +27,11 @@ import fuml.semantics.activities.Token;
 import fuml.semantics.activities.TokenList;
 import fuml.semantics.simpleclassifiers.BooleanValue;
 import fuml.semantics.simpleclassifiers.FeatureValueList;
+import fuml.semantics.simpleclassifiers.StructuredValue;
+import fuml.semantics.structuredclassifiers.ExtensionalValue;
+import fuml.semantics.structuredclassifiers.ExtensionalValueList;
+import fuml.semantics.structuredclassifiers.Link;
+import fuml.semantics.structuredclassifiers.LinkList;
 import fuml.semantics.values.Value;
 import fuml.semantics.values.ValueList;
 import fuml.syntax.actions.Action;
@@ -34,6 +41,8 @@ import fuml.syntax.actions.OutputPin;
 import fuml.syntax.actions.OutputPinList;
 import fuml.syntax.activities.ActivityNode;
 import fuml.syntax.activities.ActivityNodeList;
+import fuml.syntax.classification.Property;
+import fuml.syntax.structuredclassifiers.Association;
 import fuml.syntax.values.LiteralBoolean;
 
 public abstract class ActionActivation extends
@@ -418,6 +427,115 @@ public abstract class ActionActivation extends
 
 		return participates;
 	} // valueParticipatesInLink
+	
+	public fuml.syntax.structuredclassifiers.Association getAssociation(
+			fuml.syntax.classification.StructuralFeature feature) {
+		// If the given structural feature is an association end, then get 
+		// the associated association.
+
+		Association association = null;
+		if (feature instanceof Property) {
+			association = ((Property) feature).association;
+		}
+
+		return association;
+	} // getAssociation
+
+	public fuml.semantics.values.ValueList getValues(
+			fuml.semantics.values.Value sourceValue,
+			fuml.syntax.classification.StructuralFeature feature) {
+		// Get the values of the feature for the given source value.
+		// If the feature is an association end, then get the values of
+		// the feature end of the links with the source value as the
+		// opposite end.
+		// Otherwise, if the source value is a structured value, get 
+		// the values of the feature value for feature in the structured value.
+		
+		ValueList values = new ValueList();
+
+		Association association = this.getAssociation(feature);
+		if (association != null) {
+			LinkList links = this.getMatchingLinks(association, feature, sourceValue);
+			for (int j = 0; j < links.size(); j++) {
+				Link link = links.getValue(j);
+				values.addValue(link.getFeatureValue(feature).values.getValue(0));
+			}
+		} else {
+			values = ((StructuredValue)sourceValue).getFeatureValue(feature).values;
+		}
+		
+		return values;
+	}
+
+	public fuml.semantics.structuredclassifiers.LinkList getMatchingLinks(
+			fuml.syntax.structuredclassifiers.Association association,
+			fuml.syntax.classification.StructuralFeature end,
+			fuml.semantics.values.Value oppositeValue) {
+		// Get the links of the given binary association whose end opposite
+		// to the given end has the given value
+		
+		return this.getMatchingLinksForEndValue(association, end, oppositeValue, null);
+	}
+
+	
+	public fuml.semantics.structuredclassifiers.LinkList getMatchingLinksForEndValue(
+			fuml.syntax.structuredclassifiers.Association association,
+			fuml.syntax.classification.StructuralFeature end,
+			fuml.semantics.values.Value oppositeValue,
+			fuml.semantics.values.Value endValue) {
+		// Get the links of the given binary association whose end opposite
+		// to the given end has the given opposite value and, optionally, that
+		// has a given end value for the given end.
+
+		Property oppositeEnd = this.getOppositeEnd(association, end);
+
+		ExtensionalValueList extent = this.getExecutionLocus().getExtent(
+				association);
+
+		LinkList links = new LinkList();
+		for (int i = 0; i < extent.size(); i++) {
+			ExtensionalValue link = extent.getValue(i);
+			if (link.getFeatureValue(oppositeEnd).values.getValue(0).equals(oppositeValue)) {
+				boolean matches = true;
+				if (endValue != null) {
+					matches = link.getFeatureValue(end).values.getValue(0).equals(endValue);
+				}
+				if (matches) {
+					if (!end.multiplicityElement.isOrdered | links.size() == 0) {
+						links.addValue((Link) link);
+					} else {
+						int n = link.getFeatureValue(end).position;
+						boolean continueSearching = true;
+						int j = 0;
+						while (continueSearching & j < links.size()) {
+							j = j + 1;
+							continueSearching = links.getValue(j - 1).getFeatureValue(end).position < n;
+						}
+						if (continueSearching) {
+							links.addValue((Link) link);
+						} else {
+							links.addValue(j - 1, (Link) link);
+						}
+					}
+				}
+			}
+		}
+
+		return links;
+	} // getMatchingLinksForEndValue
+
+	public fuml.syntax.classification.Property getOppositeEnd(
+			fuml.syntax.structuredclassifiers.Association association,
+			fuml.syntax.classification.StructuralFeature end) {
+		// Get the end of a binary association opposite to the given end.
+
+		Property oppositeEnd = association.memberEnd.getValue(0);
+		if (oppositeEnd == end) {
+			oppositeEnd = association.memberEnd.getValue(1);
+		}
+
+		return oppositeEnd;
+	} // getOppositeEnd
 
 	public fuml.semantics.simpleclassifiers.BooleanValue makeBooleanValue(
 			boolean value) {
