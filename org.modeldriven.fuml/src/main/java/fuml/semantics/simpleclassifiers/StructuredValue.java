@@ -156,8 +156,8 @@ public abstract class StructuredValue extends
 
 	public void createFeatureValues() {
 		// Create empty feature values for all non-association-end structural 
-		// features of the types of this structured value and all its supertypes (including private
-		// features that are not inherited).
+		// features of the types of this structured value and all its supertypes 
+		// (including private features that are not inherited).
 
 		this.addFeatureValues(new FeatureValueList());
 	}

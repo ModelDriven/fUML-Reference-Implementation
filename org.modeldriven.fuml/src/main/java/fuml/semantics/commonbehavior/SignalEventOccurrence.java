@@ -1,5 +1,6 @@
 /*
  * Copyright 2015-2017 Data Access Technologies, Inc.
+ * Copyright 2020 ModelDriven Solutions, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
