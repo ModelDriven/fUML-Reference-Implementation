@@ -18,8 +18,10 @@ import fuml.syntax.classification.Classifier;
 import fuml.syntax.classification.ClassifierList;
 import fuml.syntax.classification.InstanceSpecification;
 import fuml.syntax.classification.InstanceValue;
+import fuml.syntax.classification.Property;
 import fuml.syntax.classification.Slot;
 import fuml.syntax.classification.StructuralFeature;
+import fuml.syntax.classification.StructuralFeatureList;
 import fuml.syntax.commonstructure.NamedElement;
 import fuml.syntax.commonstructure.NamedElementList;
 
@@ -73,87 +75,119 @@ public abstract class StructuredValue extends
 
 	public abstract fuml.semantics.simpleclassifiers.FeatureValueList getFeatureValues();
 	
-	public fuml.semantics.simpleclassifiers.FeatureValueList getMemberValues(Classifier type) {
-		// Return the feature values for this structured value that are for structural
-		// features that are members of the given type. (That is, they are owned or 
-		// inherited by the given type, excluding private features of supertypes that 
-		// are not inherited.)
+	public StructuralFeatureList getMemberFeatures(Classifier type) {
+		// Return the features for this structured value that are members of the 
+		// given type. (That is, they are owned or inherited by the given type, 
+		// excluding private features of supertypes that are not inherited.)
 		
-		FeatureValueList featureValues = this.getFeatureValues();
-		FeatureValueList memberValues = new FeatureValueList();
+		StructuralFeatureList features = this.getStructuralFeatures();
+		StructuralFeatureList memberFeatures = new StructuralFeatureList();
 		
 		if (type != null) {
 			NamedElementList members = type.member;
-			for (int i = 0; i < featureValues.size(); i++) {
-				FeatureValue featureValue = featureValues.getValue(i);
+			for (int i = 0; i < features.size(); i++) {
+				StructuralFeature feature = features.getValue(i);
 				Boolean isMember = false;
 				int k = 1;
 				while (k <= members.size() & !isMember) {
 					NamedElement member = members.getValue(k-1);
-					isMember = featureValue.feature == member;
+					isMember = feature == member;
 					k = k + 1;
 				}
 				if (isMember) {
-					memberValues.addValue(featureValue);
+					memberFeatures.addValue(feature);
 				}
 			}
 		}
 		
-		return memberValues;
+		return memberFeatures;
 	};
+	
+	public StructuralFeatureList getStructuralFeatures() {
+		// Get all structural features of the types of this structured 
+		// value and all of their supertypes (including private features 
+		// that are not inherited).
+		
+		StructuralFeatureList features = new StructuralFeatureList();
+		ClassifierList types = this.getTypes();
+
+		for (int i = 0; i < types.size(); i++) {
+			Classifier type = types.getValue(i);
+			StructuralFeatureList typeFeatures = this.getStructuralFeaturesForType(type);
+			for (int j = 0; j < typeFeatures.size(); j++) {
+				NamedElement supertypeFeature = typeFeatures.getValue(j);
+				features.addValue((StructuralFeature)supertypeFeature);
+			}
+		}
+		
+		return features;
+	}
+	
+	public StructuralFeatureList getStructuralFeaturesForType(Classifier type) {
+		// Get all structural features of the given type and all of its 
+		// supertypes (including private features that are not inherited).
+		
+		StructuralFeatureList features = new StructuralFeatureList();
+		
+		// Get feature values for the owned structural features of the given type.
+		NamedElementList ownedMembers = type.ownedMember;
+		for (int j = 0; j < ownedMembers.size(); j++) {
+			NamedElement ownedMember = ownedMembers.getValue(j);
+			if (ownedMember instanceof StructuralFeature) {
+				features.addValue((StructuralFeature)ownedMember);
+			}
+		}
+		
+		// Add features for the structural features of the supertypes
+		// of the given type. (Note that the features for supertypes
+		// always come after the owned features.)
+		ClassifierList supertypes = type.general;		
+		for (int i = 0; i < supertypes.size(); i++) {
+			Classifier supertype = supertypes.getValue(i);
+			StructuralFeatureList supertypeFeatures = this.getStructuralFeaturesForType(supertype);
+			for (int j = 0; j < supertypeFeatures.size(); j++) {
+				NamedElement supertypeFeature = supertypeFeatures.getValue(j);
+				features.addValue((StructuralFeature)supertypeFeature);
+			}
+		}
+		
+		return features;
+	}
 
 	public void createFeatureValues() {
-		// Create empty feature values for all structural features of the types 
-		// of this structured value and all its supertypes (including private
-		// features that are not inherited).
+		// Create empty feature values for all non-association-end structural 
+		// features of the types of this structured value and all its supertypes 
+		// (including private features that are not inherited).
 
 		this.addFeatureValues(new FeatureValueList());
 	}
 	
 	public void addFeatureValues(FeatureValueList oldFeatureValues) {
-		// Add feature values for all structural features of the types 
-		// of this structured value and all its supertypes (including private
-		// features that are not inherited). If a feature has an old feature 
-		// value in the given list, then use that to initialize the values of 
-		// the corresponding new feature value. Otherwise leave the values of 
-		// the new feature value empty.
+		// Add feature values for all non-association-end structural features 
+		// of the types of this structured value and all its supertypes 
+		// (including private features that are not inherited). If a feature 
+		// has an old feature value in the given list, then use that to 
+		// initialize the values of the corresponding new feature value. 
+		// Otherwise leave the values of the new feature value empty.
 
-		ClassifierList types = this.getTypes();
-
-		for (int i = 0; i < types.size(); i++) {
-			Classifier type = types.getValue(i);
-			this.addFeatureValuesForType(type, oldFeatureValues);
+		// Note: Any common features that appear twice in the list will simply
+		// have their values set multiple times to the same thing.
+		StructuralFeatureList features = this.getStructuralFeatures();
+		for (int i = 0; i < features.size(); i++) {
+			StructuralFeature feature = features.getValue(i);
+			if (!this.checkForAssociationEnd(feature)) {
+				this.setFeatureValue(feature, 
+						this.getValues(feature, oldFeatureValues), 0);
+			}
 		}
 	}
 	
-	public void addFeatureValuesForType(Classifier type, FeatureValueList oldFeatureValues) {
-		// Add feature values for all structural features of the given type and
-		// all of its supertypes (including private features that are not
-		// inherited). If a feature has an old feature value in the given list,
-		// then use that to initialize the values of the corresponding new
-		// feature value. Otherwise leave the values of the new feature value
-		// empty.
-
-		// Set feature values for the owned structural features of the given
-		// type. (Any common structural values that have already been added
-		// previously will simply have their values set again.)
-		NamedElementList ownedMembers = type.ownedMember;
-		for (int j = 0; j < ownedMembers.size(); j++) {
-			NamedElement ownedMember = ownedMembers.getValue(j);
-			if (ownedMember instanceof StructuralFeature) {
-				this.setFeatureValue((StructuralFeature) ownedMember, 
-					this.getValues(ownedMember, oldFeatureValues), 0);
-			}
+	public boolean checkForAssociationEnd(StructuralFeature feature) {
+		boolean isAssociationEnd = false;
+		if (feature instanceof Property) {
+			isAssociationEnd = ((Property)feature).association != null;
 		}
-		
-		// Add feature values for the structural features of the supertypes
-		// of the given type. (Note that the feature values for supertype
-		// features always come after the feature values for owned features.)
-		ClassifierList supertypes = type.general;		
-		for (int i = 0; i < supertypes.size(); i++) {
-			Classifier supertype = supertypes.getValue(i);
-			this.addFeatureValuesForType(supertype, oldFeatureValues);
-		}
+		return isAssociationEnd;
 	}
 	
 	public ValueList getValues(NamedElement feature, FeatureValueList featureValues) {

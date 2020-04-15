@@ -29,22 +29,7 @@ public class Association extends fuml.syntax.classification.Classifier {
 		this.ownedEnd.addValue(ownedEnd);
 		ownedEnd._setOwningAssociation(this);
 
-		this.memberEnd.addValue(ownedEnd);
-		ownedEnd._setAssociation(this);
-
-		if (ownedEnd.typedElement.type != null) {
-			this.endType.addValue(ownedEnd.typedElement.type);
-		}
-
-		if (this.memberEnd.size() == 2) {
-			Property opposite = this.memberEnd.get(0);
-			ownedEnd._setOpposite(opposite);
-			opposite._setOpposite(ownedEnd);
-		} else if (this.memberEnd.size() > 2) {
-			for (Property memberEnd : this.memberEnd) {
-				memberEnd._setOpposite(null);
-			}
-		}
+		this._addMemberEnd(ownedEnd);
 	} // addOwnedEnd
 
 	public void addNavigableOwnedEnd(
@@ -54,5 +39,33 @@ public class Association extends fuml.syntax.classification.Classifier {
 
 		this.navigableOwnedEnd.addValue(navigableOwnedEnd);
 	} // addNavigableOwnedEnd
+	
+	public void addMemberEnd(fuml.syntax.classification.Property memberEnd) {
+		// Note: This operation should not be used for owned ends. The
+		// operation addOwnedEnd should be used instead.
+
+		this.addMember(memberEnd);
+		this._addMemberEnd(memberEnd);
+	}
+	
+	protected void _addMemberEnd(fuml.syntax.classification.Property memberEnd) {
+		this.memberEnd.addValue(memberEnd);
+		memberEnd._setAssociation(this);
+
+		if (memberEnd.typedElement.type != null) {
+			this.endType.addValue(memberEnd.typedElement.type);
+		}
+
+		if (this.memberEnd.size() == 2) {
+			Property opposite = this.memberEnd.get(0);
+			memberEnd._setOpposite(opposite);
+			opposite._setOpposite(memberEnd);
+		} else if (this.memberEnd.size() > 2) {
+			for (Property end : this.memberEnd) {
+				end._setOpposite(null);
+			}
+		}
+		
+	}
 
 } // Association

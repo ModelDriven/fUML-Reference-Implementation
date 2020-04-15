@@ -1,5 +1,6 @@
 /*
  * Copyright 2015-2017 Data Access Technologies, Inc.
+ * Copyright 2020 ModelDriven Solutions, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -8,9 +9,9 @@
 
 package fuml.semantics.commonbehavior;
 
-import fuml.semantics.simpleclassifiers.FeatureValue;
-import fuml.semantics.simpleclassifiers.FeatureValueList;
 import fuml.semantics.simpleclassifiers.SignalInstance;
+import fuml.syntax.classification.StructuralFeature;
+import fuml.syntax.classification.StructuralFeatureList;
 import fuml.syntax.commonbehavior.Event;
 import fuml.syntax.commonbehavior.SignalEvent;
 
@@ -43,12 +44,12 @@ public class SignalEventOccurrence extends EventOccurrence {
 
 		ParameterValueList parameterValues = new ParameterValueList();		
 		if (event instanceof SignalEvent) {
-			FeatureValueList memberValues = 
-					this.signalInstance.getMemberValues(((SignalEvent)event).signal);
-			for(int i = 0; i < memberValues.size(); i++){
-				FeatureValue feature = memberValues.getValue(i);
+			StructuralFeatureList memberFeatures = 
+					this.signalInstance.getMemberFeatures(((SignalEvent)event).signal);
+			for(int i = 0; i < memberFeatures.size(); i++){
+				StructuralFeature feature = memberFeatures.getValue(i);
 				ParameterValue parameterValue = new ParameterValue();
-				parameterValue.values = feature.values;
+				parameterValue.values = this.signalInstance.getFeatureValue(feature).values;
 				parameterValues.add(parameterValue);
 			}
 		}

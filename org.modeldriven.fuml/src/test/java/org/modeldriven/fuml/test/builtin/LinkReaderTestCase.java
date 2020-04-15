@@ -23,11 +23,11 @@ public class LinkReaderTestCase extends BuiltInTest {
     
     public void setUp() throws Exception {
     	this.clearExtents();
-   }
+    }
 
-    public void testLinkReader() throws Exception {
-        log.info("testLinkReader");
-        ParameterValueList output = this.testSuite.testLinkReader();
+    public void runTest(int n) throws Exception {
+        log.info("testLinkReader with " + n + " association-owned end(s)");
+        ParameterValueList output = this.testSuite.testLinkReader(n);
         log.info("done");
         
         assertNotNull(output);
@@ -65,6 +65,18 @@ public class LinkReaderTestCase extends BuiltInTest {
         assertSame("value1b (feature)", featureOutput2, value1b);
         assertSame("value2b (end)", linkOutput1, value2b);
         assertSame("value2b (feature)", featureOutput1, value2b);
+    }
+    
+    public void testLinkReaderWithNoOwnedEnds() throws Exception {
+    	this.runTest(0);
+    }
+    
+    public void testLinkReaderWithOneOwnedEnd() throws Exception {
+    	this.runTest(1);
+    }
+    
+    public void testLinkReaderWithTwoOwnedEnds() throws Exception {
+    	this.runTest(2);
     }
     
 }
