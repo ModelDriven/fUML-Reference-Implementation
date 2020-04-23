@@ -5,7 +5,7 @@
  * 
  * Modifications:
  * Copyright 2009-2012 Data Access Technologies, Inc.
- * Copyright 2019 Model Driven Solutions, Inc.
+ * Copyright 2019-2020 Model Driven Solutions, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -51,8 +51,10 @@ public class ActivityParameterNodeActivation extends fuml.semantics.activities.O
 		// parameter node and offer those values as object tokens.
 		// If there are one or more incoming edges, this is an activation of an
 		// output activity parameter node.
-		// Take the tokens offered on incoming edges and add them to the set of
-		// tokens being offered.
+		// If the output parameter is not streaming, take the tokens offered on 
+		// incoming edges and add them to the set of tokens being offered.
+		// If the output parameter is streaming, post the values from the
+		// the tokens offered on incoming edges to the parameter value.
 		// (Note that an output activity parameter node may fire multiple times,
 		// accumulating tokens offered to it.)
 
@@ -78,7 +80,8 @@ public class ActivityParameterNodeActivation extends fuml.semantics.activities.O
 
 		else {
 			Debug.println("[fire] Output activity parameter node " + this.node.name + "...");
-			this.addTokens(incomingTokens);
+			
+			this.addTokens(incomingTokens);				
 			
 			if (parameterValue instanceof StreamingParameterValue) {
 				ValueList values = new ValueList();
@@ -93,6 +96,7 @@ public class ActivityParameterNodeActivation extends fuml.semantics.activities.O
 					}
 				}
 				((StreamingParameterValue)parameterValue).post(values);
+				this.clearTokens();
 			}
 		}
 

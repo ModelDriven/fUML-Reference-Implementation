@@ -360,8 +360,15 @@ public class ExecutionTestCase extends FUMLTest {
     	assertEqualValues("y", output.get(1), 1, 2);
     }
 
+    public void testStreaming() throws Exception {
+    	ParameterValueList output = execute("TestStreaming");
+        log.info("done");
+        
+        assertEquals("output.size()", 1, output.size());
+        assertEqualValues("output", output.get(0), "Ping", "Ping", "Ping");
+      }
+  
     public void testStreamingCopierCaller() throws Exception {
-//    	Logger.getRootLogger().setLevel(Level.DEBUG);
     	ParameterValueList output = execute("StreamingCopierCaller");
         log.info("done");
         
@@ -371,7 +378,6 @@ public class ExecutionTestCase extends FUMLTest {
      }
   
     public void testStreamingOutput() throws Exception {
-//    	Logger.getRootLogger().setLevel(Level.DEBUG);
     	ParameterValueList output = execute("TestStreamingOutput");
         log.info("done");
         
@@ -382,7 +388,6 @@ public class ExecutionTestCase extends FUMLTest {
      }
   
     public void testStreamingTermination() throws Exception {
-//    	Logger.getRootLogger().setLevel(Level.DEBUG);
     	ParameterValueList output = execute("TestStreamingTermination");
         log.info("done");
         

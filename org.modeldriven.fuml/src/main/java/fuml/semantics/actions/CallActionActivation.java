@@ -36,6 +36,9 @@ public abstract class CallActionActivation extends
 	public fuml.semantics.commonbehavior.ExecutionList callExecutions = new fuml.semantics.commonbehavior.ExecutionList();
 	public Boolean isStreaming;
 	
+	public OutputPinList nonStreamingOutputPins = new OutputPinList();
+	public ParameterList nonStreamingOutputParameters = new ParameterList();
+	
 	public void initialize(ActivityNode node, ActivityNodeActivationGroup group) {
 		// Initialize this call action activation to be not streaming.
 		
@@ -128,6 +131,8 @@ public abstract class CallActionActivation extends
 			int outputPinNumber = 1;
 			int i = 1;
 			InputPinActivation streamingPinActivation = null;
+			this.nonStreamingOutputPins.clear();
+			this.nonStreamingOutputParameters.clear();
 			while (i <= parameters.size()) {
 				Parameter parameter = parameters.getValue(i - 1);
 				if (parameter.direction == ParameterDirectionKind.in
@@ -152,13 +157,16 @@ public abstract class CallActionActivation extends
 				if (parameter.direction == ParameterDirectionKind.out
 						| parameter.direction == ParameterDirectionKind.inout
 						| parameter.direction == ParameterDirectionKind.return_) {
-					if (parameter.isStream) {
+					OutputPin resultPin = resultPins.getValue(outputPinNumber - 1);
+					if (!parameter.isStream) {
+						this.nonStreamingOutputPins.addValue(resultPin);
+						this.nonStreamingOutputParameters.addValue(parameter);
+					} else {
 						ParameterValue parameterValue = new StreamingParameterValue();
 						parameterValue.parameter = parameter;
 						PinStreamingParameterListener listener = 
 							new PinStreamingParameterListener();
-						listener.nodeActivation = this.getPinActivation(
-								resultPins.getValue(outputPinNumber - 1));
+						listener.nodeActivation = this.getPinActivation(resultPin);
 						((StreamingParameterValue)parameterValue).register(listener);
 						
 						// Note: Add a new parameter value, so that there will
@@ -200,38 +208,26 @@ public abstract class CallActionActivation extends
 	}
 	
 	public void completeCall(Execution callExecution) {
-		// Copy the values of the output parameters of the call execution to the result 
-		// pin activations of the call action activation and destroy the execution.
+		// Copy the values of the non-streaming output parameters of the call execution 
+		// to the corresponding result pin activations of the call action activation and 
+		// destroy the execution.
 
-		CallAction callAction = (CallAction) (this.node);
-		OutputPinList resultPins = callAction.result;
-		ParameterList parameters = callExecution.getBehavior().ownedParameter;
+		OutputPinList resultPins = this.nonStreamingOutputPins;
+		ParameterList parameters = this.nonStreamingOutputParameters;
 
 		ParameterValueList outputParameterValues = callExecution
 				.getOutputParameterValues();
-
-		int pinNumber = 1;
-		int i = 1;
-		while (i <= parameters.size()) {
-			Parameter parameter = parameters.getValue(i - 1);
-			if ((parameter.direction == ParameterDirectionKind.inout)
-					| (parameter.direction == ParameterDirectionKind.out)
-					| (parameter.direction == ParameterDirectionKind.return_)) {
-				if (!parameter.isStream) {
-					for (int j = 0; j < outputParameterValues.size(); j++) {
-						ParameterValue outputParameterValue = outputParameterValues
-								.getValue(j);
-						if (outputParameterValue.parameter == parameter) {
-							OutputPin resultPin = resultPins
-									.getValue(pinNumber - 1);
-							this.putTokens(resultPin,
-									outputParameterValue.values);
-						}
-					}
+		
+		for (int i = 0; i < resultPins.size(); i++) {
+			OutputPin resultPin = resultPins.getValue(i);
+			Parameter parameter = parameters.getValue(i);
+			for (int j = 0; j < outputParameterValues.size(); j++) {
+				ParameterValue outputParameterValue = outputParameterValues
+						.getValue(j);
+				if (outputParameterValue.parameter == parameter) {
+					this.putTokens(resultPin, outputParameterValue.values);
 				}
-				pinNumber = pinNumber + 1;
 			}
-			i = i + 1;
 		}
 
 		callExecution.destroy();
@@ -247,6 +243,12 @@ public abstract class CallActionActivation extends
 			this.completeCall(this.callExecutions.getValue(0));
 			super.completeAction();
 		}		
+	}
+	
+	public OutputPinList getOfferingOutputPins() {
+		// Only send offers from output pins that correspond to non-streaming parameters.
+		
+		return this.nonStreamingOutputPins;
 	}
 	
 	public abstract ParameterList getParameters();

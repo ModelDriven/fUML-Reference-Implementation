@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Model Driven Solutions, Inc. 
+ * Copyright 2019-2020 Model Driven Solutions, Inc. 
  * 
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -15,11 +15,12 @@ public class StreamingParameterValue extends ParameterValue {
 	public StreamingParameterListener listener;
 	
 	public void post(ValueList values) {
-		// Post the given values to the listener, if there is one.
+		// Post the given values to the listener, if there is at
+		// least one value.
 		
 		this.values = values;
 		
-		if (this.listener != null) {
+		if (this.listener != null && values.size() > 0) {
 			listener.post(values);
 		}
 	}

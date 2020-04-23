@@ -2,7 +2,9 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2017 Data Access Technologies, Inc.
+ * Modifications:
+ * Copyright 2009-2017 Data Access Technologies, Inc.
+ * Copyright 2020 Model Driven Solutions, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -205,7 +207,7 @@ public abstract class ActionActivation extends
 		Action action = (Action) (this.node);
 
 		// *** Send offers from all output pins concurrently. ***
-		OutputPinList outputPins = action.output;
+		OutputPinList outputPins = this.getOfferingOutputPins();
 		for (Iterator i = outputPins.iterator(); i.hasNext();) {
 			OutputPin outputPin = (OutputPin) i.next();
 			PinActivation pinActivation = this.getPinActivation(outputPin);
@@ -220,6 +222,15 @@ public abstract class ActionActivation extends
 			this.outgoingEdges.getValue(0).sendOffer(tokens);
 		}
 	} // sendOffers
+	
+	public OutputPinList getOfferingOutputPins() {
+		// Return the output pins of the action of this action activation from 
+		// which offers are to be sent when the action activation finishes firing.
+		// (This is normally all the output pins of the action, but it can be
+		// overridden in subclasses to only return a subset of the output pins.)
+		
+		return ((Action)this.node).output;
+	}
 
 	public void createNodeActivations() {
 		// Create node activations for the input and output pins of the action
