@@ -96,7 +96,7 @@ public class ActivityParameterNodeActivation extends fuml.semantics.activities.O
 					}
 				}
 				((StreamingParameterValue)parameterValue).post(values);
-				this.clearTokens();
+				super.clearTokens();
 			}
 		}
 
