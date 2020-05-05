@@ -20,7 +20,7 @@ public class StreamingParameterValue extends ParameterValue {
 		
 		this.values = values;
 		
-		if (this.listener != null && values.size() > 0) {
+		if (this.listener != null & values.size() > 0) {
 			listener.post(values);
 		}
 	}

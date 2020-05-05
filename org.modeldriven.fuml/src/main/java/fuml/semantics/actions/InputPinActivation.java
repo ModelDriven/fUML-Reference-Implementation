@@ -48,7 +48,7 @@ public class InputPinActivation extends fuml.semantics.actions.PinActivation {
 		
 		super.fire(incomingTokens);
 		
-		if (this.isStreaming() && incomingTokens.size() > 0) {
+		if (this.isStreaming() & incomingTokens.size() > 0) {
 			ValueList values = new ValueList();
 			for (int i = 0; i < incomingTokens.size(); i++) {
 				Token token = incomingTokens.getValue(i);
