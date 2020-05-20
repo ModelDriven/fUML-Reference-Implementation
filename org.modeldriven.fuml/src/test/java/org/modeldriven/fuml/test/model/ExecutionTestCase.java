@@ -14,10 +14,10 @@ import fuml.semantics.values.ValueList;
 import fuml.syntax.structuredclassifiers.Class_;
 import junit.framework.Test;
 
-public class MagicDrawFUMLExecutionTestCase extends AbstractExecutionTestCase {
+public class ExecutionTestCase extends AbstractExecutionTestCase {
 
 	public static Test suite() {
-		return FUMLTestSetup.newTestSetup(MagicDrawFUMLExecutionTestCase.class);
+		return FUMLTestSetup.newTestSetup(ExecutionTestCase.class);
 	}
 
 	@Override
