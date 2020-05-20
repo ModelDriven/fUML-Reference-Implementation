@@ -3,7 +3,10 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * Modifications:
+ * Copyright 2009-2012 Data Access Technologies, Inc.
+ * Copyright 2020 Model Driven Solutions, Inc.
+ * Copyright 2020 CEA LIST.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -31,9 +34,11 @@ public abstract class CallActionActivation extends
 	public void doAction() {
 		// Get the call execution object, set its input parameters from the
 		// argument pins and execute it.
-		// Once execution completes, copy the values of the output parameters of
-		// the call execution to the result pins of the call action execution,
-		// then destroy the execution.
+		// Once execution completes, if the execution raised an exception, then
+		// propagate the exception.
+		// Otherwise, copy the values of the output parameters of the call execution 
+		// to the result pins of the call action execution.
+		// In either case, destroy the execution.
 
 		Execution callExecution = this.getCallExecution();
 
@@ -63,30 +68,34 @@ public abstract class CallActionActivation extends
 			}
 
 			callExecution.execute();
-
-			ParameterValueList outputParameterValues = callExecution
-					.getOutputParameterValues();
-
-			pinNumber = 1;
-			i = 1;
-			while (i <= parameters.size()) {
-				Parameter parameter = parameters.getValue(i - 1);
-				if ((parameter.direction == ParameterDirectionKind.inout)
-						| (parameter.direction == ParameterDirectionKind.out)
-						| (parameter.direction == ParameterDirectionKind.return_)) {
-					for (int j = 0; j < outputParameterValues.size(); j++) {
-						ParameterValue outputParameterValue = outputParameterValues
-								.getValue(j);
-						if (outputParameterValue.parameter == parameter) {
-							OutputPin resultPin = resultPins
-									.getValue(pinNumber - 1);
-							this.putTokens(resultPin,
-									outputParameterValue.values);
+			
+			if(callExecution.exception != null) {
+				this.propagateException(callExecution.exception);
+			} else {
+				ParameterValueList outputParameterValues = callExecution
+						.getOutputParameterValues();
+	
+				pinNumber = 1;
+				i = 1;
+				while (i <= parameters.size()) {
+					Parameter parameter = parameters.getValue(i - 1);
+					if ((parameter.direction == ParameterDirectionKind.inout)
+							| (parameter.direction == ParameterDirectionKind.out)
+							| (parameter.direction == ParameterDirectionKind.return_)) {
+						for (int j = 0; j < outputParameterValues.size(); j++) {
+							ParameterValue outputParameterValue = outputParameterValues
+									.getValue(j);
+							if (outputParameterValue.parameter == parameter) {
+								OutputPin resultPin = resultPins
+										.getValue(pinNumber - 1);
+								this.putTokens(resultPin,
+										outputParameterValue.values);
+							}
 						}
+						pinNumber = pinNumber + 1;
 					}
-					pinNumber = pinNumber + 1;
+					i = i + 1;
 				}
-				i = i + 1;
 			}
 
 			callExecution.destroy();

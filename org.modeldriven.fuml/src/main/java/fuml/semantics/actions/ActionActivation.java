@@ -3,8 +3,9 @@
  * as stated in the file entitled Licensing-Information. 
  * 
  * Modifications:
- * Copyright 2009-2012 Data Access Technologies, Inc.
+ * Copyright 2009-2017 Data Access Technologies, Inc.
  * Copyright 2020 Model Driven Solutions, Inc.
+ * Copyright 2020 CEA LIST.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -45,21 +46,20 @@ import fuml.syntax.classification.Property;
 import fuml.syntax.structuredclassifiers.Association;
 import fuml.syntax.values.LiteralBoolean;
 
-public abstract class ActionActivation extends
-		fuml.semantics.activities.ActivityNodeActivation {
+public abstract class ActionActivation extends fuml.semantics.activities.ExecutableNodeActivation {
 
-	public fuml.semantics.actions.PinActivationList pinActivations = new fuml.semantics.actions.PinActivationList();
 	public boolean firing = false;
-	
+	public fuml.semantics.actions.PinActivationList pinActivations = new fuml.semantics.actions.PinActivationList();
+
 	public void initialize(ActivityNode node, ActivityNodeActivationGroup group) {
 		// Initialize this action activation to be not firing.
-		
+
 		super.initialize(node, group);
 		this.firing = false;
 	}
 
 	public void run() {
-		// Run this action activation and any outoging fork node attached to it.
+		// Run this action activation and any outgoing fork node attached to it.
 
 		super.run();
 
@@ -111,8 +111,7 @@ public abstract class ActionActivation extends
 		return offeredTokens;
 	} // takeOfferedTokens
 
-	public void fire(
-			fuml.semantics.activities.TokenList incomingTokens) {
+	public void fire(fuml.semantics.activities.TokenList incomingTokens) {
 		// Do the main action behavior then concurrently fire all output pin
 		// activations
 		// and offer a single control token. Then activate the action again,
@@ -262,8 +261,7 @@ public abstract class ActionActivation extends
 		}
 	} // createNodeActivations
 
-	public void addOutgoingEdge(
-			fuml.semantics.activities.ActivityEdgeInstance edge) {
+	public void addOutgoingEdge(fuml.semantics.activities.ActivityEdgeInstance edge) {
 		// If there are no outgoing activity edge instances, create a single
 		// activity edge instance with a fork node execution at the other end.
 		// Add the give edge to the fork node execution that is the target of
@@ -286,16 +284,14 @@ public abstract class ActionActivation extends
 		forkNodeActivation.addOutgoingEdge(edge);
 	} // addOutgoingEdge
 
-	public void addPinActivation(
-			fuml.semantics.actions.PinActivation pinActivation) {
+	public void addPinActivation(fuml.semantics.actions.PinActivation pinActivation) {
 		// Add a pin activation to this action activation.
 
 		this.pinActivations.addValue(pinActivation);
 		pinActivation.actionActivation = this;
 	} // addPinActivation
 
-	public fuml.semantics.actions.PinActivation getPinActivation(
-			fuml.syntax.actions.Pin pin) {
+	public fuml.semantics.actions.PinActivation getPinActivation(fuml.syntax.actions.Pin pin) {
 		// Precondition: The given pin is owned by the action of the action
 		// activation.
 		// Return the pin activation corresponding to the given pin.
@@ -315,8 +311,7 @@ public abstract class ActionActivation extends
 
 	} // getPinActivation
 
-	public void putToken(fuml.syntax.actions.OutputPin pin,
-			fuml.semantics.values.Value value) {
+	public void putToken(fuml.syntax.actions.OutputPin pin, fuml.semantics.values.Value value) {
 		// Precondition: The action execution has fired and the given pin is
 		// owned by the action of the action execution.
 		// Place a token for the given value on the pin activation corresponding
@@ -331,8 +326,7 @@ public abstract class ActionActivation extends
 		pinActivation.addToken(token);
 	} // putToken
 
-	public void putTokens(fuml.syntax.actions.OutputPin pin,
-			fuml.semantics.values.ValueList values) {
+	public void putTokens(fuml.syntax.actions.OutputPin pin, fuml.semantics.values.ValueList values) {
 		// Precondition: The action execution has fired and the given pin is
 		// owned by the action of the action execution.
 		// Place tokens for the given values on the pin activation corresponding
@@ -347,8 +341,7 @@ public abstract class ActionActivation extends
 
 	} // putTokens
 
-	public fuml.semantics.values.ValueList getTokens(
-			fuml.syntax.actions.InputPin pin) {
+	public fuml.semantics.values.ValueList getTokens(fuml.syntax.actions.InputPin pin) {
 		// Precondition: The action execution has fired and the given pin is
 		// owned by the action of the action execution.
 		// Get any tokens held by the pin activation corresponding to the given
@@ -372,8 +365,7 @@ public abstract class ActionActivation extends
 		return values;
 	} // getTokens
 
-	public fuml.semantics.values.ValueList takeTokens(
-			fuml.syntax.actions.InputPin pin) {
+	public fuml.semantics.values.ValueList takeTokens(fuml.syntax.actions.InputPin pin) {
 		// Precondition: The action execution has fired and the given pin is
 		// owned by the action of the action execution.
 		// Take any tokens held by the pin activation corresponding to the given
@@ -396,8 +388,7 @@ public abstract class ActionActivation extends
 		return values;
 	} // takeTokens
 
-	public boolean isSourceFor(
-			fuml.semantics.activities.ActivityEdgeInstance edgeInstance) {
+	public boolean isSourceFor(fuml.semantics.activities.ActivityEdgeInstance edgeInstance) {
 		// If this action has an outgoing fork node, check that the fork node is
 		// the source of the given edge instance.
 
@@ -410,8 +401,7 @@ public abstract class ActionActivation extends
 		return isSource;
 	} // isSourceFor
 
-	public boolean valueParticipatesInLink(
-			fuml.semantics.values.Value value,
+	public boolean valueParticipatesInLink(fuml.semantics.values.Value value,
 			fuml.semantics.structuredclassifiers.Link link) {
 		// Test if the given value participates in the given link.
 
@@ -537,8 +527,7 @@ public abstract class ActionActivation extends
 		return oppositeEnd;
 	} // getOppositeEnd
 
-	public fuml.semantics.simpleclassifiers.BooleanValue makeBooleanValue(
-			boolean value) {
+	public fuml.semantics.simpleclassifiers.BooleanValue makeBooleanValue(boolean value) {
 		// Make a Boolean value using the built-in Boolean primitive type.
 		// [This ensures that Boolean values created internally are the same as
 		// the default used for evaluating Boolean literals.]
@@ -548,5 +537,39 @@ public abstract class ActionActivation extends
 		return (BooleanValue) (this.getExecutionLocus().executor
 				.evaluate(booleanLiteral));
 	} // makeBooleanValue
+
+	public void handle(fuml.semantics.values.Value exception, fuml.syntax.activities.ExceptionHandler handler) {
+		// Handle the given exception by firing the body of the given
+		// exception handler. After the body fires, transfer its outputs
+		// to the output pins of this action activation.
+		
+		super.handle(exception, handler);
+		this.transferOutputs((Action)handler.handlerBody);
+	}
+
+	public void transferOutputs(fuml.syntax.actions.Action handlerBody) {
+		// Transfer the output values from activation of the given exception
+		// handler body to the output pins of this action activation.
+		
+		ActionActivation handlerBodyActivation = 
+				(ActionActivation)this.group.getNodeActivation(handlerBody);
+		OutputPinList sourceOutputs = handlerBody.output;
+		OutputPinList targetOutputs = ((Action) this.node).output;
+		
+		for (int i = 0; i < sourceOutputs.size(); i++) {
+			OutputPin sourcePin = sourceOutputs.getValue(i);
+			OutputPin targetPin = targetOutputs.getValue(i);
+			
+			PinActivation sourcePinActivation = handlerBodyActivation.getPinActivation(sourcePin);
+			TokenList tokens = sourcePinActivation.takeTokens();
+			ValueList values = new ValueList();
+			for (int j = 0; j < tokens.size(); j++) {
+				Token token = tokens.getValue(j);
+				values.addValue(token.getValue());
+			}
+			
+			this.putTokens(targetPin, values);
+		}
+	}
 
 } // ActionActivation

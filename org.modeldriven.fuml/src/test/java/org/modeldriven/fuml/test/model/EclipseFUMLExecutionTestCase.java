@@ -5,26 +5,24 @@ import org.modeldriven.fuml.test.FUMLTestSetup;
 import fuml.semantics.activities.ActivityExecution;
 import fuml.semantics.commonbehavior.ParameterValueList;
 import fuml.semantics.simpleclassifiers.BooleanValue;
-import fuml.semantics.simpleclassifiers.FeatureValue;
 import fuml.semantics.simpleclassifiers.FeatureValueList;
 import fuml.semantics.simpleclassifiers.StructuredValue;
 import fuml.semantics.structuredclassifiers.ExtensionalValueList;
 import fuml.semantics.structuredclassifiers.Reference;
 import fuml.semantics.values.Value;
 import fuml.semantics.values.ValueList;
-import fuml.syntax.classification.Property;
 import fuml.syntax.structuredclassifiers.Class_;
 import junit.framework.Test;
 
-public class ExecutionTestCase extends AbstractExecutionTestCase {
+public class EclipseFUMLExecutionTestCase extends AbstractExecutionTestCase {
 
 	public static Test suite() {
-		return FUMLTestSetup.newTestSetup(ExecutionTestCase.class);
+		return FUMLTestSetup.newTestSetup(EclipseFUMLExecutionTestCase.class);
 	}
 
 	@Override
 	public String getFileName() {
-		return "./target/test-classes/mdxml/fUML-Tests.mdxml";
+		return "./target/test-classes/uml/fUML-Tests.uml";
 	}
 
 	@Override
@@ -260,20 +258,7 @@ public class ExecutionTestCase extends AbstractExecutionTestCase {
 		assertEquals("b: values.size()", 0, featureValues.get(0).values.size());
 		assertEqualValues("x", featureValues.get(1).values, 1);
 		assertEqualValues("y", featureValues.get(2).values, 2);
-        
-        Property end = (Property)environment.findElementById("end1");
-        ExtensionalValueList extent = environment.locus.getExtent(end.association);
-        
-        assertEquals("extent.size()", 1, extent.size());
-        FeatureValue featureValue = extent.get(0).getFeatureValue(end);
-        assertNotNull("featureValue", featureValue);
-        assertEquals("end1: values.size()", 1, featureValue.values.size());
-
-        end = (Property)environment.findElementById("testEnd");
-        extent = environment.locus.getExtent(end.association);
-        
-        assertEquals("extent.size()", 0, extent.size());
-}
+	}
 
 	public void testTestSpecializedSignalSend() throws Exception {
 		execute("TestSpecializedSignalSend");
@@ -345,11 +330,9 @@ public class ExecutionTestCase extends AbstractExecutionTestCase {
 		log.info("done");
 
 		assertNotNull(output);
-		assertEquals("output.size()", 4, output.size());
+		assertEquals("output.size()", 2, output.size());
 		assertEqualValues("x", output.get(0), 0);
 		assertEqualValues("y", output.get(1), 1, 2);
-		assertEqualValues("end1", output.get(2));
-		assertEqualValues("testEnd", output.get(3));
 	}
 
 }
