@@ -119,6 +119,13 @@ public abstract class Execution extends fuml.semantics.structuredclassifiers.Obj
 
 		return (Behavior) (this.getTypes().getValue(0));
 	} // getBehavior
+	
+	public void destroy() {
+		// Terminate the execution before destroying it.
+		
+		this.terminate();
+		super.destroy();
+	}
 
 	public void propagateException(fuml.semantics.values.Value exception) {
 		// Set the propagated exception for this execution to the given exception,

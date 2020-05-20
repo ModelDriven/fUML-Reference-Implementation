@@ -392,8 +392,7 @@ public class ActivityFactory {
 
 		if ((activity == null) || !(activity instanceof Activity)) {
 			if (activity == null) {
-				Debug
-						.println("[getActivity] Creating a " + name
+				Debug.println("[getActivity] Creating a " + name
 								+ " activity.");
 			} else {
 				Debug.println("[getActivity] Replacing the existing " + name
@@ -415,17 +414,23 @@ public class ActivityFactory {
 
 		return (Activity) activity;
 	} // getActivity
-
-	public void createCopier() {
+	
+	public Activity createCopier(String name, boolean isStream) {
 		Activity activity = new Activity();
-		activity.setName("Copier");
-
+		activity.setName(name);
+		
 		Parameter inputParameter = this.addParameter(activity, "input",
 				ParameterDirectionKind.in,
 				PrimitiveTypes.Integer);
+		inputParameter.setIsStream(isStream);
+		inputParameter.setLower(isStream? 0: 1);
+		inputParameter.setUpper(isStream? -1: 1);
 		Parameter outputParameter = this.addParameter(activity, "output",
 				ParameterDirectionKind.out,
 				PrimitiveTypes.Integer);
+		outputParameter.setIsStream(isStream);
+		outputParameter.setLower(isStream? 0: 1);
+		outputParameter.setUpper(isStream? -1: 1);
 
 		// Debug.println("[createCopier] Creating input node...");
 
@@ -445,11 +450,22 @@ public class ActivityFactory {
 
 		this.addEdge(activity, new ObjectFlow(), inputNode, outputNode, null);
 
-		this.environment.addElement(activity);
+		return activity;
+	}
 
-	} // createCopier
+	public void createCopier() {
+		this.environment.addElement(this.createCopier("Copier", false));
+	}
 
+	public void createStreamingCopier() {
+		this.environment.addElement(this.createCopier("StreamingCopier", true));
+	}
+	
 	public void createCaller(String calledActivityName) {
+		createCaller(calledActivityName, true);
+	}
+
+	public void createCaller(String calledActivityName, boolean isLocallyReentrant, int... pinUpper) {
 		Element element = this.getActivity(calledActivityName);
 
 		Activity calledActivity = (Activity) element;
@@ -461,6 +477,7 @@ public class ActivityFactory {
 		CallBehaviorAction callAction = new CallBehaviorAction();
 		callAction.setName("Call(" + calledActivityName + ")");
 		callAction.setBehavior(calledActivity);
+		callAction.setIsLocallyReentrant(isLocallyReentrant);
 		this.addNode(callerActivity, callAction);
 
 		for (int i = 0; i < parameters.size(); i++) {
@@ -470,20 +487,37 @@ public class ActivityFactory {
 					|| parameter.direction.equals(ParameterDirectionKind.inout)) {
 				ValueSpecification valueSpecification = this.environment
 						.makeValue((Classifier) (parameter.type)).specify();
-				ValueSpecificationAction valueAction = new ValueSpecificationAction();
-				valueAction.setName("Value(" + parameter.name + ":"
-						+ parameter.type.name + ")");
-				valueAction.setValue(valueSpecification);
-				valueAction.setResult(this.makeOutputPin(valueAction.name
-						+ ".result", 1, 1));
-				this.addNode(callerActivity, valueAction);
-
+				int upper = parameter.multiplicityElement.upper.naturalValue;
 				InputPin inputPin = this.makeInputPin(callAction.name
-						+ ".argument[" + parameter.name + "]", 1, 1);
+						+ ".argument[" + parameter.name + "]", 
+						parameter.multiplicityElement.lower, 
+						i < pinUpper.length? pinUpper[i]: upper);
 				callAction.addArgument(inputPin);
 
-				this.addEdge(callerActivity, new ObjectFlow(),
-						valueAction.result, inputPin, null);
+				if (upper < 0) {
+					upper = 3;
+				}
+				
+				ValueSpecificationAction previousAction = null;
+				for (int j = 0; j < upper; j++) {
+					ValueSpecificationAction valueAction = new ValueSpecificationAction();
+					valueAction.setName("Value(" + parameter.name + ":"
+							+ parameter.type.name + "[" + (j + 1) + "])");
+					valueAction.setValue(valueSpecification);
+					valueAction.setResult(this.makeOutputPin(valueAction.name
+							+ ".result", 1, 1));
+					this.addNode(callerActivity, valueAction);
+
+					this.addEdge(callerActivity, new ObjectFlow(),
+							valueAction.result, inputPin, null);
+					
+					if (previousAction != null) {
+						this.addEdge(callerActivity, new ControlFlow(), 
+							previousAction, valueAction, null);
+					}
+					previousAction = valueAction;
+				}
+				
 			} else {
 				ActivityParameterNode parameterNode = new ActivityParameterNode();
 				parameterNode.setName("Parameter(" + parameter.name + ")");
@@ -493,7 +527,9 @@ public class ActivityFactory {
 				this.addNode(callerActivity, parameterNode);
 
 				OutputPin outputPin = this.makeOutputPin(callAction.name
-						+ ".result[" + parameter.name + "]", 1, 1);
+						+ ".result[" + parameter.name + "]",  
+						parameter.multiplicityElement.lower, 
+						parameter.multiplicityElement.upper.naturalValue);
 				callAction.addResult(outputPin);
 
 				this.addEdge(callerActivity, new ObjectFlow(), outputPin,
@@ -3552,5 +3588,5 @@ public class ActivityFactory {
 		
 		this.environment.addElement(activity);
 	}
-
+	
 } // ActivityFactory

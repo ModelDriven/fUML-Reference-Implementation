@@ -3,7 +3,9 @@
  * Initial version copyright 2008 Lockheed Martin Corporation, except  
  * as stated in the file entitled Licensing-Information. 
  * 
- * All modifications copyright 2009-2012 Data Access Technologies, Inc.
+ * Modifications:
+ * Copyright 2009-2012 Data Access Technologies, Inc.
+ * Copyright 2020 Model Driven Solutions, Inc.
  *
  * Licensed under the Academic Free License version 3.0 
  * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
@@ -14,6 +16,7 @@ package fuml.semantics.actions;
 
 import fuml.semantics.structuredclassifiers.Object_;
 import fuml.syntax.actions.CallBehaviorAction;
+import fuml.syntax.classification.ParameterList;
 import fuml.syntax.commonbehavior.Behavior;
 
 public class CallBehaviorActionActivation extends
@@ -45,5 +48,13 @@ public class CallBehaviorActionActivation extends
 				context);
 
 	} // getCallExecution
+
+	@Override
+	public ParameterList getParameters() {
+		// Get the owned parameters of the behavior of the call behavior
+		// action for this call behavior action activation.
+		
+		return ((CallBehaviorAction) (this.node)).behavior.ownedParameter;
+	}
 
 } // CallBehaviorActionActivation

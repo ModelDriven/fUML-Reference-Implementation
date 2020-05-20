@@ -16,10 +16,10 @@ import fuml.syntax.classification.Property;
 import fuml.syntax.structuredclassifiers.Class_;
 import junit.framework.Test;
 
-public class ExecutionTestCase extends AbstractExecutionTestCase {
+public class MagicDrawFUMLExecutionTestCase extends AbstractExecutionTestCase {
 
 	public static Test suite() {
-		return FUMLTestSetup.newTestSetup(ExecutionTestCase.class);
+		return FUMLTestSetup.newTestSetup(MagicDrawFUMLExecutionTestCase.class);
 	}
 
 	@Override
@@ -352,4 +352,39 @@ public class ExecutionTestCase extends AbstractExecutionTestCase {
 		assertEqualValues("testEnd", output.get(3));
 	}
 
+    public void testStreaming() throws Exception {
+    	ParameterValueList output = execute("TestStreaming");
+        log.info("done");
+        
+        assertEquals("output.size()", 1, output.size());
+        assertEqualValues("output", output.get(0), "Ping", "Ping", "Ping");
+      }
+  
+    public void testStreamingCopierCaller() throws Exception {
+    	ParameterValueList output = execute("StreamingCopierCaller");
+        log.info("done");
+        
+        assertEquals("output.size()", 2, output.size());
+        assertEqualValues("output", output.get(0), 1, 2, 3);
+        assertEqualValues("count", output.get(1), 1);
+     }
+  
+    public void testStreamingOutput() throws Exception {
+    	ParameterValueList output = execute("TestStreamingOutput");
+        log.info("done");
+        
+        assertEquals("output.size()", 3, output.size());
+        assertEqualValues("output1", output.get(0), "Executed");
+        assertEqualValues("output2", output.get(1));
+        assertEqualValues("output3", output.get(2), "Executed");
+     }
+  
+    public void testStreamingTermination() throws Exception {
+    	ParameterValueList output = execute("TestStreamingTermination");
+        log.info("done");
+        
+        assertEquals("output.size()", 1, output.size());
+        assertEqualValues("output", output.get(0), "Terminated");
+     }
+  
 }
