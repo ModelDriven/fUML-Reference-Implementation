@@ -111,7 +111,7 @@ public abstract class CallActionActivation extends
 		// If there are no streaming input parameters, then, once execution completes, 
 		// if the execution raised an exception, then propagate the exception.
 		// Otherwise, copy the values of the output parameters of the call execution to 
-		// the result pins of the call action execution. In either canse, destroy the 
+		// the result pins of the call action execution. In either case, destroy the 
 		// execution.
 		// If there are streaming input parameters, then leave the call execution object
 		// in place to process any additional inputs that may be posted to the streaming
