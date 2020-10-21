@@ -134,6 +134,7 @@
 							<target>
 								<mkdir dir="${xjc.output.dir}" />
 								<exec executable="xjc">
+									<env key="JAVA_HOME" path="${java.home}/.." />
 									<arg
 										line="-d ${xjc.output.dir}
                             -extension
@@ -153,6 +154,7 @@
 							<target>
 								<mkdir dir="${xjc.output.dir}" />
 								<exec executable="xjc">
+									<env key="JAVA_HOME" path="${java.home}/.." />
 									<arg
 										line="-d ${xjc.output.dir}
                             -extension

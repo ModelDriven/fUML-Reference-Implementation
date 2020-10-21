@@ -11,12 +11,12 @@ environment variable to the JDK root directory.
 
     See http://ant.apache.org/bindownload.cgi
 
-4.) Download an Eclise version or derivitive with Maven 2 (M2) 
+4.) Download an Eclise version or derivative with Maven 2 (M2) 
 support. Recommend Spring Tools Suite (STS). 
     
     See http://www.springsource.org/sts
 
-5.) Launch Eclipse (or derivitive) and import the
+5.) Launch Eclipse (or derivative) and import the
 fUML project.
 
     File->Import->Maven->Existing Maven Projects
