@@ -10,7 +10,7 @@
  */
 package org.modeldriven.fuml.bind;
 
-import javax.xml.bind.ValidationEventHandler;
+import jakarta.xml.bind.ValidationEventHandler;
 
 public interface BindingValidationEventHandler extends ValidationEventHandler {
 

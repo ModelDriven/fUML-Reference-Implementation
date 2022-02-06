@@ -13,11 +13,18 @@
          generateIsSetMethod="false"
          underscoreBinding="asCharInWord">
     </jxb:globalBindings>
- 
+
 	<jxb:bindings schemaLocation="FumlConfig.xsd" node="/xsd:schema">
 	    <jxb:schemaBindings>
 	        <jxb:package name="org.modeldriven.fuml.config">
 	            <jxb:javadoc><![CDATA[<body>Package level documentation for generated package org.modeldriven.fuml.config.</body>]]></jxb:javadoc>
+            </jxb:package>
+	    </jxb:schemaBindings>
+	</jxb:bindings>
+	<jxb:bindings schemaLocation="RepositoryConfig.xsd" node="/xsd:schema">
+	    <jxb:schemaBindings>
+	        <jxb:package name="org.modeldriven.fuml.repository.config">
+	            <jxb:javadoc><![CDATA[<body>Package level documentation for generated package org.modeldriven.fuml.repository.config.</body>]]></jxb:javadoc>
             </jxb:package>
 	    </jxb:schemaBindings>
 	</jxb:bindings>

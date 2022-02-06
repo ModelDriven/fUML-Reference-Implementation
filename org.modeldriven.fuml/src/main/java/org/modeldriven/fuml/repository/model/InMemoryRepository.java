@@ -19,9 +19,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.UnmarshalException;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.UnmarshalException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

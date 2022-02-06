@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.modeldriven</groupId>
@@ -38,7 +39,12 @@
 	</developers>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<xjc.output.dir>${project.build.directory}/generated-sources/java</xjc.output.dir>
+		<version.maven.jakartaee>9.0.0</version.maven.jakartaee>
+		<version.maven.jakarta.xml.bind-api>3.0.0</version.maven.jakarta.xml.bind-api>
+		<version.maven.jakarta.activation.api>2.0.0</version.maven.jakarta.activation.api>
+		<version.maven.jaxb.impl>3.0.0</version.maven.jaxb.impl>
+		<version.maven.jaxb.xjc>3.0.0</version.maven.jaxb.xjc>
+		<version.maven.servlet.api>5.0.0</version.maven.servlet.api>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -93,138 +99,158 @@
 			<artifactId>commons-logging</artifactId>
 			<version>1.1.1</version>
 		</dependency>
+		<dependency>
+			<groupId>jakarta.xml.bind</groupId>
+			<artifactId>jakarta.xml.bind-api</artifactId>
+			<version>${version.maven.jakarta.xml.bind-api}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>${version.maven.jaxb.impl}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
-			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>jaxb2-maven-plugin</artifactId> 
-				<executions> <execution> <id>fuml-config</id> <phase>generate-sources</phase> 
-				<goals> <goal>xjc</goal> </goals> <configuration> <schemaDirectory>${basedir}/src/main/resources/org/modeldriven/fuml/config</schemaDirectory> 
-				<schemaFiles>FumlConfig.xsd</schemaFiles> <bindingDirectory>${basedir}/src/main/resources/org/modeldriven/fuml/config</bindingDirectory> 
-				<bindingFiles>jaxb-bindings.xml</bindingFiles> <staleFile>${project.build.directory}/jaxb2/.xjcStaleFlag-fuml-config</staleFile> 
-				</configuration> </execution> <execution> <id>repo-config</id> <phase>generate-sources</phase> 
-				<goals> <goal>xjc</goal> </goals> <configuration> <schemaDirectory>${basedir}/src/main/resources/org/modeldriven/fuml/repository</schemaDirectory> 
-				<schemaFiles>RepositoryConfig.xsd</schemaFiles> <bindingDirectory>${basedir}/src/main/resources/org/modeldriven/fuml/repository</bindingDirectory> 
-				<bindingFiles>jaxb-bindings.xml</bindingFiles> <staleFile>${project.build.directory}/jaxb2/.xjcStaleFlag-repo-config</staleFile> 
-				</configuration> </execution> </executions> <configuration> <!- - HACK: where 
-				is 'generated-sources' defined ?? - -> <outputDirectory>${project.build.directory}/generated-sources/java</outputDirectory> 
-				<clearOutputDir>false</clearOutputDir> <extension>true</extension> <target>2.0</target> 
-				<encoding>Cp1252</encoding> </configuration> </plugin> -->
-				<!-- jaxb2-maven-plugin does not work with latest version of java http://www.journaldev.com/1312/how-to-generate-java-classes-from-xsd-using-xjc-maven-plugin 
-					http://mojo.codehaus.org/jaxb2-maven-plugin/ -->
 			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.7</version>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
+				<version>2.5.0</version>
 				<dependencies>
 					<dependency>
-						<groupId>sun.jdk</groupId>
-						<artifactId>tools</artifactId>
-						<version>1.5.0</version>
-						<scope>system</scope>
-						<systemPath>${java.home}/../lib/tools.jar</systemPath>
+						<groupId>org.glassfish.jaxb</groupId>
+						<artifactId>jaxb-xjc</artifactId>
+						<version>${version.maven.jaxb.xjc}</version>
+					</dependency>
+					<dependency>
+						<groupId>jakarta.activation</groupId>
+						<artifactId>jakarta.activation-api</artifactId>
+						<version>${version.maven.jakarta.activation.api}</version>
+					</dependency>
+					<dependency>
+						<groupId>jakarta.xml.bind</groupId>
+						<artifactId>jakarta.xml.bind-api</artifactId>
+						<version>${version.maven.jakarta.xml.bind-api}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.sun.xml.bind</groupId>
+						<artifactId>jaxb-impl</artifactId>
+						<version>${version.maven.jaxb.impl}</version>
 					</dependency>
 				</dependencies>
 				<executions>
 					<execution>
-						<id>fuml-config</id>
-						<phase>generate-sources</phase>
+						<id>xjc-config</id>
 						<goals>
-							<goal>run</goal>
+							<goal>xjc</goal>
 						</goals>
 						<configuration>
-							<target>
-								<mkdir dir="${xjc.output.dir}" />
-								<exec executable="xjc">
-									<env key="JAVA_HOME" path="${java.home}/.." />
-									<arg
-										line="-d ${xjc.output.dir}
-                            -extension
-                            -b ${basedir}/src/main/resources/org/modeldriven/fuml/config/jaxb-bindings.xml
-                            ${basedir}/src/main/resources/org/modeldriven/fuml/config/FumlConfig.xsd" />
-								</exec>
-							</target>
+							<xjbSources>
+								<xjbSource>${basedir}/src/main/resources/org/modeldriven/fuml/jaxb-bindings.xml</xjbSource>
+							</xjbSources>
+							<sources>
+								<source>${basedir}/src/main/resources/org/modeldriven/fuml/config/FumlConfig.xsd</source>
+								<source>${basedir}/src/main/resources/org/modeldriven/fuml/repository/RepositoryConfig.xsd</source>
+							</sources>
+							<outputDirectory>${basedir}/target/generated-sources/java</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.coderplus.maven.plugins</groupId>
+				<artifactId>copy-rename-maven-plugin</artifactId>
+				<version>1.0</version>
+				<executions>
+					<execution>
+						<id>copy-file1</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<sourceFile>${basedir}/src/main/resources/org/modeldriven/fuml/repository/PrimitiveTypes.xmi</sourceFile>
+							<destinationFile>${basedir}/target/xslt/staging/types/PrimitiveTypesAssembler.xmi</destinationFile>
 						</configuration>
 					</execution>
 					<execution>
-						<id>repo-config</id>
+						<id>copy-file2</id>
 						<phase>generate-sources</phase>
 						<goals>
-							<goal>run</goal>
+							<goal>copy</goal>
 						</goals>
 						<configuration>
-							<target>
-								<mkdir dir="${xjc.output.dir}" />
-								<exec executable="xjc">
-									<env key="JAVA_HOME" path="${java.home}/.." />
-									<arg
-										line="-d ${xjc.output.dir}
-                            -extension
-                            -b ${basedir}/src/main/resources/org/modeldriven/fuml/repository/jaxb-bindings.xml
-                            ${basedir}/src/main/resources/org/modeldriven/fuml/repository/RepositoryConfig.xsd" />
-								</exec>
-							</target>
+							<sourceFile>${basedir}/src/main/resources/org/modeldriven/fuml/repository/UML.xmi</sourceFile>
+							<destinationFile>${basedir}/target/xslt/staging/uml/UMLAssembler.xmi</destinationFile>
 						</configuration>
 					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>xml-maven-plugin</artifactId>
+				<version>1.0.2</version>
+				<executions>
 					<execution>
-						<id>generate-model-factories</id>
-						<!-- use process-classes phase rather than generate-sources as have 
-							a compile phase dependency on XSLTUtils -->
-						<phase>generate-sources</phase>
-						<configuration>
-							<target name="generate-model-factories">
-								<echo message="#### generate-model-factories ####" />
-								<property name="compile_classpath" refid="maven.compile.classpath" />
-								<property name="deps_classpath" refid="maven.dependency.classpath" />
-								<path id="cp">
-									<pathelement path="${compile_classpath}" />
-								</path>
-								<mkdir dir="${basedir}/target/classes" />
-								<javac destdir="${basedir}/target/classes" debug="on">
-									<classpath refid="cp" />
-									<src path="${basedir}/src/main/java/org/modeldriven/fuml/common/xsl" />
-								</javac>
-								<java failonerror="yes" fork="yes"
-									classname="org.modeldriven.fuml.common.xsl.XSLTUtils">
-									<jvmarg
-										value="-Djavax.xml.transform.TransformerFactory=com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl" />
-									<classpath refid="cp" />
-									<arg
-										value="${basedir}/target/generated-sources/java/org/modeldriven/fuml/repository/model/PrimitiveTypesAssembler.java" />
-									<arg
-										value="${basedir}/src/main/resources/org/modeldriven/fuml/repository/PrimitiveTypes.xmi" />
-									<arg
-										value="${basedir}/src/main/resources/org/modeldriven/fuml/repository/FumlModelGenerator.xsl" />
-									<arg
-										value="pkg=org.modeldriven.fuml.repository.model cls=PrimitiveTypesAssembler" />
-								</java>
-								<java failonerror="yes" fork="yes"
-									classname="org.modeldriven.fuml.common.xsl.XSLTUtils">
-									<jvmarg
-										value="-Djavax.xml.transform.TransformerFactory=com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl" />
-									<classpath refid="cp" />
-									<arg
-										value="${basedir}/target/generated-sources/java/org/modeldriven/fuml/repository/model/UMLAssembler.java" />
-									<arg
-										value="${basedir}/src/main/resources/org/modeldriven/fuml/repository/UML.xmi" />
-									<arg
-										value="${basedir}/src/main/resources/org/modeldriven/fuml/repository/FumlModelGenerator.xsl" />
-									<arg
-										value="pkg=org.modeldriven.fuml.repository.model cls=UMLAssembler" />
-								</java>
-							</target>
-						</configuration>
 						<goals>
-							<goal>run</goal>
+							<goal>transform</goal>
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<transformationSets>
+						<transformationSet>
+							<dir>${basedir}/target/xslt/staging/types</dir>
+							<stylesheet>${basedir}/src/main/resources/org/modeldriven/fuml/repository/FumlModelGenerator.xsl</stylesheet>
+							<outputDir>${basedir}/target/generated-sources/java/org/modeldriven/fuml/repository/model/</outputDir>
+							<parameters>
+								<parameter>
+									<name>pkg</name>
+									<value>org.modeldriven.fuml.repository.model</value>
+								</parameter>
+								<parameter>
+									<name>cls</name>
+									<value>PrimitiveTypesAssembler</value>
+								</parameter>
+							</parameters>
+							<fileMappers>
+								<fileMapper
+									implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+									<targetExtension>.java</targetExtension>
+								</fileMapper>
+							</fileMappers>
+						</transformationSet>
+						<transformationSet>
+							<dir>${basedir}/target/xslt/staging/uml</dir>
+							<stylesheet>${basedir}/src/main/resources/org/modeldriven/fuml/repository/FumlModelGenerator.xsl</stylesheet>
+							<outputDir>${basedir}/target/generated-sources/java/org/modeldriven/fuml/repository/model/</outputDir>
+							<parameters>
+								<parameter>
+									<name>pkg</name>
+									<value>org.modeldriven.fuml.repository.model</value>
+								</parameter>
+								<parameter>
+									<name>cls</name>
+									<value>UMLAssembler</value>
+								</parameter>
+							</parameters>
+							<fileMappers>
+								<fileMapper
+									implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+									<targetExtension>.java</targetExtension>
+								</fileMapper>
+							</fileMappers>
+						</transformationSet>
+					</transformationSets>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.8</source>
+					<target>1.8</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
@@ -247,7 +273,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
@@ -259,29 +284,16 @@
 							<goal>jar</goal>
 						</goals>
 						<configuration>
-                            <additionalparam>-Xdoclint:none</additionalparam>
-            			</configuration>
+							<additionalparam>-Xdoclint:none</additionalparam>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
 				<version>1.7</version>
 				<executions>
-					<execution>
-						<id>add-source-1</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>${xjc.output.dir}</source>
-							</sources>
-						</configuration>
-					</execution>
 					<execution>
 						<id>add-source-2</id>
 						<phase>generate-sources</phase>
@@ -334,7 +346,6 @@
 						<include>**/library/**</include>
 						<include>**/validation/**</include>
 					</includes>
-
 				</configuration>
 			</plugin>
 			<plugin>
@@ -363,22 +374,9 @@
 			</plugin>
 			<!-- Comment out the below GPG plugin if not set up with GPG and just 
 				want to install local locally. -->
-            <!--   
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.4</version>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-             -->   
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-gpg-plugin</artifactId> 
+				<version>1.4</version> <executions> <execution> <id>sign-artifacts</id> <phase>verify</phase> 
+				<goals> <goal>sign</goal> </goals> </execution> </executions> </plugin> -->
 			<!-- Release Plugin (Update version in POM before/after release, create 
 				tag, deploy) to try: mvn release:prepare -DdryRun=true && mvn release:clean 
 				to perform: mvn release:prepare release:perform Read http://nexus.sonatype.org/oss-repository-hosting.html#3 
@@ -426,21 +424,6 @@
 									<pluginExecutionFilter>
 										<groupId>org.codehaus.mojo</groupId>
 										<artifactId>
-											jaxb2-maven-plugin
-										</artifactId>
-										<versionRange>[1.4,)</versionRange>
-										<goals>
-											<goal>xjc</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.codehaus.mojo</groupId>
-										<artifactId>
 											build-helper-maven-plugin
 										</artifactId>
 										<versionRange>[1.7,)</versionRange>
@@ -452,6 +435,7 @@
 										<ignore></ignore>
 									</action>
 								</pluginExecution>
+
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
