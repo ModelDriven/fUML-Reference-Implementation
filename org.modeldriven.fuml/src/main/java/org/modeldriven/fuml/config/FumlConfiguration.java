@@ -1,11 +1,18 @@
 /*
  * Copyright 2008 Lockheed Martin Corporation, except as stated in the file 
- * entitled Licensing-Information. All modifications copyright 2009 Data Access Technologies, Inc. Licensed under the Academic Free License 
- * version 3.0 (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
+ * entitled Licensing-Information. 
+ * 
+ * Modifications:
+ * Copyright 2009 Data Access Technologies, Inc. (Model Driven Solutions)
+ * Copyright 2023 Model Driven Solutions, Inc.
+ * 
+ * Licensed under the Academic Free License version 3.0 
+ * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
  * in the file entitled Licensing-Information. 
  *
  * Contributors:
- *   MDS - initial API and implementation
+ *   DAT/MDS - initial API and implementation
+ *   MDS - changed from javax.xml to jakarta.xml
  *
  */
 package org.modeldriven.fuml.config;
@@ -17,9 +24,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.UnmarshalException;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.UnmarshalException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

@@ -35,12 +35,11 @@ Apache log4j, http://logging.apache.org/, AL v2.0
 Apache commons logging, http://commons.apache.org/logging/, AL v2.0
 Apache Xerces, http://xerces.apache.org/, AL v2.0
 
-The official baseline for the Software is maintained by ModelDriven.org, a
-division of Data Access Technologies, Inc. The copyright owner of all
-modifications to the Software in releases after the initial release is Data
-Access Technologies, Inc. Such subsequent releases are also licensed to you
-under the Academic Free License version 3.0, except for the software programs
-listed above.
+The official baseline for the Software is maintained by Model Driven Solutions,
+Inc., the successor to Data Access Technologies, Inc., and the copyright owner 
+of all modifications to the Software in releases after the initial release. Such 
+subsequent releases are also licensed to you under the Academic Free License 
+version 3.0, except for the software programs listed above.
 
 Note to anyone further modifying or adding software to a release of the
 Reference Implementation: do not include any software that is licensed under

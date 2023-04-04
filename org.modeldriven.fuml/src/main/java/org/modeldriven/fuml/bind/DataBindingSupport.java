@@ -1,11 +1,18 @@
 /*
  * Copyright 2008 Lockheed Martin Corporation, except as stated in the file 
- * entitled Licensing-Information. All modifications copyright 2009 Data Access Technologies, Inc. Licensed under the Academic Free License 
- * version 3.0 (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
+ * entitled Licensing-Information. 
+ * 
+ * Modifications:
+ * Copyright 2009 Data Access Technologies, Inc. (Model Driven Solutions)
+ * Copyright 2023 Model Driven Solutions, Inc.
+ * 
+ * Licensed under the Academic Free License version 3.0 
+ * (http://www.opensource.org/licenses/afl-3.0.php), except as stated 
  * in the file entitled Licensing-Information. 
  *
  * Contributors:
- *   MDS - initial API and implementation
+ *   DAT/MDS - initial API and implementation
+ *   MDS - changed from javax.xml.bind to jakarta.xml.bind
  *
  */
 package org.modeldriven.fuml.bind;
@@ -14,10 +21,10 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
 
 public class DataBindingSupport {
 
